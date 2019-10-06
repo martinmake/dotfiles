@@ -1,0 +1,8 @@
+!/bin/sh
+
+BRIGHTNESS=$(echo -n "100" | dmenu -p "SET BIRGHTNESS (0 - 100)")
+BRIGHTNESS=$(echo "scale=2; $BRIGHTNESS / 100" | bc)
+
+for SCREEN in $(xrandr -q | grep ' connected' | cut -d' ' -f1); do
+	xrandr --output "$SCREEN" --brightness "$BRIGHTNESS"
+done

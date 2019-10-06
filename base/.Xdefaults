@@ -1,0 +1,32 @@
+!! Transparency (0-1):
+st.alpha: 0.80
+
+!! Set a default font and font size as below:
+! st.font: Monospace:pixelsize=18:antialias=true:autohint=true;
+st.font: Monospace-15
+
+st.termname: st-256color
+st.borderpx: 2
+
+!! Set the background, foreground and cursor colors as below:
+*.background: black
+*.foreground: white
+*.cursorColor: white
+
+!! martinmake:
+*.color0:   #000000
+*.color1:   #cd0000
+*.color2:   #00cd00
+*.color3:   #cdcd00
+*.color4:   #3030ff
+*.color5:   #cd00cd
+*.color6:   #00cdcd
+*.color7:   #e5e5e5
+*.color8:   #4d4d4d
+*.color9:   #ff0000
+*.color10:  #00ff00
+*.color11:  #ffff00
+*.color12:  #4a4aff
+*.color13:  #ff00ff
+*.color14:  #00ffff
+*.color15:  #fafafa

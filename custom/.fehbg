@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-fill '/home/arch/Documents/walls/Unsorted/1492657237542.jpg' 

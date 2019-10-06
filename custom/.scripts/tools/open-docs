@@ -1,0 +1,8 @@
+#!/bin/bash
+
+DOCS=$(find -L ~/Documents/docs -type f)
+
+CHOSEN=$(echo "$DOCS" | dmenu -i -l 20)
+[ -z "$CHOSEN" ] && exit 1
+
+$READER "$CHOSEN"

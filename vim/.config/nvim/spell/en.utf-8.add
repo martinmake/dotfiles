@@ -1,0 +1,10 @@
+# Examples
+# /encoding=latin1 # encoding of the file
+# /regions=uscagb  # regions "us", "ca" and "gb"
+# example          # word for all regions
+# vim/!            # bad word
+# Campbell/?3      # rare word in region 3 "gb"
+
+martinmake
+Michalec
+groff

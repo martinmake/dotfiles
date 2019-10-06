@@ -1,0 +1,2 @@
+settings set target.x86-disassembly-flavor intel
+command script import /usr/lib/python3.7/site-packages/voltron/entry.py

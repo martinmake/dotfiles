@@ -1,0 +1,9 @@
+[user]
+	name = Martin Michalec
+	email = martin.michalec.2003@gmail.com
+[core]
+	editor = vim
+[credential]
+	helper = cache --timeout 1300
+[credential "https://github.com"]
+	username = martinmake
