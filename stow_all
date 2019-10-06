@@ -1,0 +1,8 @@
+#!/bin/sh
+
+which stow &> /dev/null
+[ "$?" = "1" ] && echo "INSTALL STOW" && exit 1
+
+PACKAGES=$(ls --hide='README.md' --hide='stow_all')
+
+stow -v -R -t $HOME $PACKAGES
