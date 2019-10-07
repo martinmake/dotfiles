@@ -1,4 +1,5 @@
-# HOW TO USE
+# HOW TO RUN IT
 ```console
-$ ./stow_all
+$ ./stow_all.sh
+$ ./install_packages.sh
 ```
