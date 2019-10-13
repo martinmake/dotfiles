@@ -41,7 +41,10 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && . "$HOME/.config/bash
 [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
 
 # Start syncthing
-# exec syncthing
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec syncthing
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
+
+# disable scroll lock
+stty -ixon

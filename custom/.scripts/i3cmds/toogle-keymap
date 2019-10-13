@@ -1,0 +1,11 @@
+#!/bin/sh
+
+US='us'
+SK='sk(qwerty)'
+
+case $(xkb-switch) in
+	"$US") setxkbmap -layout sk -variant qwerty ;;
+	"$SK") setxkbmap -layout us ;;
+esac
+
+pkill -SIGRTMIN+10 i3blocks

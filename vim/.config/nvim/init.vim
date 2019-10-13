@@ -64,6 +64,7 @@ let mapleader =" "
 	set wildignorecase
 	set bg=light
 	set mouse=a
+	set path+=**
 	set clipboard=unnamedplus
 	set exrc
 " Shortcutting split navigation, saving a keypress:
@@ -114,6 +115,7 @@ let mapleader =" "
 	map <leader>f    :YcmCompleter FixIt<CR>
 " generic highlight setup:
 	highlight Comment      ctermfg=darkGreen   ctermbg=none     cterm=italic
+	highlight SpellBad                         ctermbg=red      cterm=bold
 	highlight Constant     ctermfg=red         ctermbg=none     cterm=none
 	highlight Normal       ctermfg=white       ctermbg=none     cterm=none
 	highlight Visual                           ctermbg=darkGray cterm=bold
@@ -131,7 +133,29 @@ let mapleader =" "
 	highlight PmenuSbar    ctermfg=lightBlue   ctermbg=none     cterm=none
 	highlight PmenuThumb   ctermfg=lightBlue   ctermbg=none     cterm=reverse
 	highlight LineNr       ctermfg=lightBlue   ctermbg=none     cterm=none
-	highlight CursorLineNr ctermfg=Blue        ctermbg=none     cterm=bold
+	highlight CursorLineNr ctermfg=blue        ctermbg=none     cterm=bold
+	highlight WildMenu     ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
+	highlight TabLine      ctermfg=white       ctermbg=none     cterm=none
+	highlight TabLineSel   ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
+	highlight TabLineFill  ctermfg=none        ctermbg=none     cterm=none
+	highlight ColorColumn  ctermfg=red         ctermbg=black    cterm=bold
+	highlight OverLength   ctermfg=red         ctermbg=none     cterm=bold
+	match OverLength /\%81v.*/
+	set textwidth=80
+	set colorcolumn=+1
+	nmap <leader>lt :call ToggleLimitText()<CR>
+	let g:is_limit_text = 1
+	function! ToggleLimitText()
+		if g:is_limit_text
+			let g:is_limit_text = 0
+			highlight ColorColumn none
+			highlight OverLength  none
+		else
+			let g:is_limit_text = 1
+			highlight ColorColumn  ctermfg=red         ctermbg=black    cterm=bold
+			highlight OverLength   ctermfg=red         ctermbg=none     cterm=bold
+		endif
+	endfunction
 " commenting setup:
 	autocmd FileType c,cpp,cuda     setlocal commentstring=//\ %s
 	autocmd FileType python,sh,make setlocal commentstring=#\ %s
@@ -165,8 +189,8 @@ let mapleader =" "
 	" nmap ? <Plug>(searchhi-?)
 	vmap / <Plug>(searchhi-v-/)
 	" vmap ? <Plug>(searchhi-v-?)
-	nmap <silent> <C-b> <Plug>(searchhi-clear-all)
-	vmap <silent> <C-b> <Plug>(searchhi-v-clear-all)
+	nmap <silent> <C-s> <Plug>(searchhi-clear-all)
+	vmap <silent> <C-s> <Plug>(searchhi-v-clear-all)
 	let g:searchhi_user_autocmds_enabled = 1
 	let g:searchhi_redraw_before_on      = 1
 	augroup searchhi
@@ -187,12 +211,18 @@ let mapleader =" "
 	let g:multi_cursor_skip_key            = '<C-x>'
 	let g:multi_cursor_quit_key            = '<Esc>'
 
+"pandoc setup:
+	autocmd BufRead,BufNewFile ~/Documents/school*.md set filetype=markdown.pandoc
+	highlight FoldColumn ctermfg=magenta ctermbg=none cterm=none
+	highlight Conceal    ctermfg=red     ctermbg=none cterm=bold
+
 " Goyo plugin makes text more readable when writing prose:
 	map <leader>\ :Goyo \| set bg=light \| set linebreak<CR>
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	set spellfile=$HOME/.vim/spell/en.utf-8.add
-	map <leader>o :setlocal spell! spelllang=en_us<CR>
+	set spelllang=en_us
+	map <leader>o :setlocal spell!<CR>
 
 " Nerd tree setup:
 	map <leader>t :NERDTreeToggle<CR>
@@ -269,10 +299,9 @@ let mapleader =" "
 	map <leader>p :!opout <c-r>%<CR><CR>
 
 " Ensure files are read as what I want:
-	let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-	let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
+	autocmd BufRead,BufNewFile ~/vimwiki*.md set filetype=vimwiki
 	autocmd BufRead,BufNewFile *.scad set filetype=c
 
 " Enable Goyo by default for mutt writting

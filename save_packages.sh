@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sudo pacman -Qnqe > pkglist
+pacman -Qnqe | tee pkglist
