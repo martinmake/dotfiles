@@ -29,6 +29,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'bling/vim-airline'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+Plug 'mzlogin/vim-markdown-toc'
 
 " only R
 Plug 'jalvesaq/Nvim-R'

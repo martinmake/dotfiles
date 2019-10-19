@@ -73,7 +73,7 @@ interval=30
 
 [keymap]
 interval=once
-signal=10
+signal=13
 
 [internet]
 interval=10

@@ -30,6 +30,7 @@ alias upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks"
 alias lsp="pacman -Qett --color=always | less"
 alias ffmpeg="ffmpeg -hide_banner"
 alias tree="tree -C"
+alias demangle="c++filt"
 
 eval "$(thefuck --alias)"
 

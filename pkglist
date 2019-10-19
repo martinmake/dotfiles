@@ -244,6 +244,7 @@ sysfsutils
 systemd
 systemd-sysvcompat
 tar
+tcc
 texinfo
 texlive-fontsextra
 texlive-pictures
@@ -252,7 +253,6 @@ texlive-science
 thefuck
 tmux
 traceroute
-translate-shell
 tree
 ttf-font-awesome
 ttf-inconsolata
