@@ -30,6 +30,7 @@ Plug 'bling/vim-airline'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'mzlogin/vim-markdown-toc'
+Plug 'talek/obvious-resize'
 
 " only R
 Plug 'jalvesaq/Nvim-R'
@@ -68,7 +69,16 @@ let mapleader =" "
 	set path+=**
 	set clipboard=unnamedplus
 	set exrc
-" Shortcutting split navigation, saving a keypress:
+" Insert mode newbie hell:
+	imap <UP>    <NOP>
+	imap <DOWN>  <NOP>
+	imap <LEFT>  <NOP>
+	imap <RIGHT> <NOP>
+	nmap <UP>    <NOP>
+	nmap <DOWN>  <NOP>
+	nmap <LEFT>  <NOP>
+	nmap <RIGHT> <NOP>
+" Shortcutting split navigation:
 	map <C-h> <C-w>h
 	map <C-j> <C-w>j
 	map <C-k> <C-w>k
@@ -91,18 +101,19 @@ let mapleader =" "
 	" autocmd TermOpen * startinsert
 " Random setup:
 	let g:python3_host_prog='/usr/bin/python'
+	map <leader>lw :set wrap!<CR>
 " Autocompletion setup:
-	let g:ycm_autoclose_preview_window_after_completion = 1
-	let g:ycm_min_num_of_chars_for_completion = 1
-	let g:ycm_auto_trigger = 1
-	let g:ycm_max_diagnostics_to_display = 0
-	let g:ycm_collect_identifiers_from_comments_and_strings = 1
-	let g:ycm_add_preview_to_completeopt = 1
-	let g:ycm_seed_identifiers_with_syntax = 1
-	let g:ycm_use_ultisnips_completer = 1
-	let g:ycm_use_clangd = 1
-	let g:ycm_clangd_binary_path = '/usr/bin/clangd'
-	let g:ycm_clangd_args = ['-Wno-switch-bool']
+	let g:ycm_autoclose_preview_window_after_completion=1
+	let g:ycm_min_num_of_chars_for_completion=1
+	let g:ycm_auto_trigger=1
+	let g:ycm_max_diagnostics_to_display=0
+	let g:ycm_collect_identifiers_from_comments_and_strings=1
+	let g:ycm_add_preview_to_completeopt=1
+	let g:ycm_seed_identifiers_with_syntax=1
+	let g:ycm_use_ultisnips_completer=1
+	let g:ycm_use_clangd=1
+	let g:ycm_clangd_binary_path='/usr/bin/clangd'
+	let g:ycm_clangd_args=['-Wno-switch-bool']
 	hi YcmWarningSection ctermfg=yellow cterm=bold,reverse
 	hi YcmWarningSign    ctermfg=yellow cterm=bold,reverse
 	hi YcmErrorSection   ctermfg=red    cterm=bold,reverse
@@ -145,14 +156,14 @@ let mapleader =" "
 	set textwidth=80
 	set colorcolumn=+1
 	nmap <leader>lt :call ToggleLimitText()<CR>
-	let g:is_limit_text = 1
+	let g:is_limit_text=1
 	function! ToggleLimitText()
 		if g:is_limit_text
-			let g:is_limit_text = 0
+			let g:is_limit_text=0
 			highlight ColorColumn none
 			highlight OverLength  none
 		else
-			let g:is_limit_text = 1
+			let g:is_limit_text=1
 			highlight ColorColumn  ctermfg=red         ctermbg=black    cterm=bold
 			highlight OverLength   ctermfg=red         ctermbg=none     cterm=bold
 		endif
@@ -192,8 +203,8 @@ let mapleader =" "
 	" vmap ? <Plug>(searchhi-v-?)
 	nmap <silent> <C-s> <Plug>(searchhi-clear-all)
 	vmap <silent> <C-s> <Plug>(searchhi-v-clear-all)
-	let g:searchhi_user_autocmds_enabled = 1
-	let g:searchhi_redraw_before_on      = 1
+	let g:searchhi_user_autocmds_enabled=1
+	let g:searchhi_redraw_before_on     =1
 	augroup searchhi
 	    autocmd!
 	    autocmd User SearchHiOn AnzuUpdateSearchStatusOutput
@@ -202,15 +213,21 @@ let mapleader =" "
 	highlight Search        ctermbg=none cterm=reverse,bold
 	highlight CurrentSearch ctermbg=none cterm=bold,underline
 " multi-cursor setup:
-	let g:multi_cursor_use_default_mapping = 0
-	let g:multi_cursor_start_word_key      = '<C-n>'
-	let g:multi_cursor_select_all_word_key = '<A-n>'
-	let g:multi_cursor_start_key           = 'g<C-n>'
-	let g:multi_cursor_select_all_key      = 'g<A-n>'
-	let g:multi_cursor_next_key            = '<C-n>'
-	let g:multi_cursor_prev_key            = '<C-p>'
-	let g:multi_cursor_skip_key            = '<C-x>'
-	let g:multi_cursor_quit_key            = '<Esc>'
+	let g:multi_cursor_use_default_mapping=0
+	let g:multi_cursor_start_word_key     ='<C-n>'
+	let g:multi_cursor_select_all_word_key='<A-n>'
+	let g:multi_cursor_start_key          ='g<C-n>'
+	let g:multi_cursor_select_all_key     ='g<A-n>'
+	let g:multi_cursor_next_key           ='<C-n>'
+	let g:multi_cursor_prev_key           ='<C-p>'
+	let g:multi_cursor_skip_key           ='<C-x>'
+	let g:multi_cursor_quit_key           ='<Esc>'
+" resize setup:
+	map <C-y> :<C-U>ObviousResizeLeft<CR>
+	map <C-u> :<C-U>ObviousResizeDown<CR>
+	map <C-i> :<C-U>ObviousResizeUp<CR>
+	map <C-o> :<C-U>ObviousResizeRight<CR>
+	let g:obvious_resize_run_tmux = 1
 
 "pandoc setup:
 	autocmd BufRead,BufNewFile ~/Documents/school*.md set filetype=markdown.pandoc
@@ -272,12 +289,12 @@ let mapleader =" "
 	map <leader>gps :Gstatus<CR>
 
 " gdb setup:
-	let g:ConqueTerm_Color         = 2
-	let g:ConqueTerm_CloseOnEnd    = 1
-	let g:ConqueTerm_StartMessages = 0
+	let g:ConqueTerm_Color        =2
+	let g:ConqueTerm_CloseOnEnd   =1
+	let g:ConqueTerm_StartMessages=0
 
 " R setup:
-	command RStart let oldft=&ft | set ft=r | exe 'set ft='.oldft | let b:IsInRCode = function("DefaultIsInRCode") | normal <LocalLeader>rf
+	command RStart let oldft=&ft | set ft=r | exe 'set ft='.oldft | let b:IsInRCode=function("DefaultIsInRCode") | normal <LocalLeader>rf
 	let R_assign=0
 	let g:rout_follow_colorscheme=1
 	let g:rout_more_colors=1
@@ -294,14 +311,14 @@ let mapleader =" "
 	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 	autocmd Filetype r let g:ncm2#auto_popup=1
 	autocmd Filetype r let g:ncm2#matcher="substrfuzzy"
-	let g:ycm_filetype_blacklist = { 'r': 1 }
+	let g:ycm_filetype_blacklist={ 'r': 1 }
 
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
 
 " Ensure files are read as what I want:
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
-	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man set filetype=groff
+	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man,*.tmac set filetype=groff
 	autocmd BufRead,BufNewFile ~/vimwiki*.md set filetype=vimwiki
 	autocmd BufRead,BufNewFile *.scad set filetype=c
 
@@ -340,8 +357,8 @@ let mapleader =" "
 	autocmd Filetype rmd inoremap ,c ```<cr>```<cr><cr><esc>2kO
 
 " rainbow setup:
-let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
-let g:rainbow_conf = {
+let g:rainbow_active=1 "0 if you want to enable it later via :RainbowToggle
+let g:rainbow_conf={
 \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
 \   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
 \   'operators': '_,\|=\|+\|\*\|-\|\.\|;\||\|&\|?\|:\|::\|<\|>\|%\|/[^/]_',

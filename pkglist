@@ -45,6 +45,7 @@ dialog
 diffutils
 discord
 dmenu
+dos2unix
 dosfstools
 dunst
 e2fsprogs
