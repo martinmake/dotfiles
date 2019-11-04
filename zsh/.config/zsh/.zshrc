@@ -1,14 +1,42 @@
-# Luke's config for the Zoomer Shell
-
 # Enable colors and change prompt:
 autoload -U colors && colors
-if [[ "$(whoami)" == "root" ]]; then
-	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$fg[green]%}:%{$fg[magenta]%}%d%{$fg[red]%}]%{$fg[cyan]%}
-#%{$reset_color%}%b "
-else
-	PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$fg[green]%}:%{$fg[magenta]%}%d%{$fg[red]%}]%{$fg[cyan]%}
-$%{$reset_color%}%b "
-fi
+autoload -U promptinit && promptinit
+setopt prompt_subst
+
+system_location()
+{
+	echo "%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$fg[green]%}:%{$fg[magenta]%}%d%{$fg[red]%}"
+}
+git_location()
+{
+	REPO=$(git remote -v 2> /dev/null | head -n1 | awk '{print $2}' | sed -e 's/.*\///' -e 's/\.git//')
+	BRANCH=$(git branch 2> /dev/null | sed -n '/^\*/p' | cut -d' ' -f2)
+	echo "%{$fg[yellow]%}$BRANCH%{$fg[green]%}@%{$fg[blue]%}$REPO"
+}
+prompt()
+{
+	PROMPT_ERROR=$?
+
+	echo -n "%B%{$fg[red]%}[$(system_location)]"
+	if git status >& /dev/null; then
+		echo -n "%{$fg[red]%}($(git_location)%{$fg[red]%})"
+	fi
+
+	echo ""
+
+	if [ $PROMPT_ERROR != 0 ]; then
+		echo -n "%{$fg[red]%}-> $PROMPT_ERROR "
+	fi
+
+	echo -n "%{$fg[cyan]%}"
+	if [[ "$(whoami)" == "root" ]]; then
+		printf "#"
+	else
+		printf "$"
+	fi
+	echo "%{$reset_color%}%b "
+}
+PS1='$(prompt)'
 
 # History in cache directory:
 HISTFILE=~/.cache/zsh/history

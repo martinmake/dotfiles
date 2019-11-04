@@ -53,6 +53,12 @@ exec_always --no-startup-id mpdupdate
 # Podboat automatic queue and download
 exec_always --no-startup-id podentr
 
+# #---Starting Apps---# #
+# exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'"
+# exec st -e pulsemixer
+# exec st -e cava
+# exec st -e gotop
+
 bar {
 	font pango:mono 10
 	status_command i3blocks
@@ -367,4 +373,3 @@ bindsym XF86Documents		exec $term -e $FILE ~/Documents
 ##bindsym XF86Battery		exec
 ##bindsym XF86Bluetooth		exec
 bindsym XF86WLAN		exec $netrefresh
-exec_always --no-startup-id notify-send -i ~/.scripts/pix/larbs.png '<b>Welcome to LARBS:</b> Press Super+F1 for the manual.' -t 10000

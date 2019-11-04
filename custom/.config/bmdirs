@@ -13,6 +13,5 @@ t	/tmp
 o	/opt
 bt	/boot
 
-pr	~/Documents/proj
-li	~/Documents/libs
-wp	~/Documents/walls
+p	~/Documents/projects
+w	~/Documents/walls

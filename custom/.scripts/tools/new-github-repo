@@ -1,0 +1,6 @@
+#!/bin/sh
+
+hub init
+hub create
+
+sed .git/config -i -e 's/git@github.com:/https:\/\/github.com\//'

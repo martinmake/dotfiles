@@ -14,6 +14,7 @@ export PYTHONPATH="$PYTHONPATH:$HOME/Documents/libs/PC/int/python"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Documents/libs/PC/lib"
 export GROFF_TMAC_PATH="$GROFF_TMAC_PATH:$HOME/.config/groff/tmac"
 
+export QT_QPA_PLATFORMTHEME="qt5ct"
 export DOT="$HOME/dotfiles"
 export ZDOTDIR="$HOME/.config/zsh"
 export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"

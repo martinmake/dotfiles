@@ -8,8 +8,12 @@ Plug 'vim-scripts/DoxygenToolkit.vim'
 Plug 'ycm-core/YouCompleteMe'
 Plug 'luochen1990/rainbow'
 Plug 'bfrg/vim-cpp-modern'
+Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'sirver/UltiSnips'
 Plug 'honza/vim-snippets'
+Plug 'vhdirk/vim-cmake'
+Plug 'pboettch/vim-cmake-syntax'
+Plug 'sirtaj/vim-openscad'
 " Plug 'vim-scripts/Conque-GDB'
 
 " code unrelated
@@ -69,6 +73,12 @@ let mapleader =" "
 	set path+=**
 	set clipboard=unnamedplus
 	set exrc
+" Tabs setup:
+	set shiftwidth=4
+	set tabstop=4
+	set softtabstop=0
+	set noexpandtab
+	set smarttab
 " Insert mode newbie hell:
 	imap <UP>    <NOP>
 	imap <DOWN>  <NOP>
@@ -223,13 +233,16 @@ let mapleader =" "
 	let g:multi_cursor_skip_key           ='<C-x>'
 	let g:multi_cursor_quit_key           ='<Esc>'
 " resize setup:
-	map <C-y> :<C-U>ObviousResizeLeft<CR>
-	map <C-u> :<C-U>ObviousResizeDown<CR>
-	map <C-i> :<C-U>ObviousResizeUp<CR>
-	map <C-o> :<C-U>ObviousResizeRight<CR>
+	map <LEFT>  :<C-U>ObviousResizeLeft<CR>
+	map <DOWN>  :<C-U>ObviousResizeDown<CR>
+	map <UP>    :<C-U>ObviousResizeUp<CR>
+	map <RIGHT> :<C-U>ObviousResizeRight<CR>
 	let g:obvious_resize_run_tmux = 1
 
-"pandoc setup:
+" cmake fix:
+	autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt RainbowToggle
+
+" pandoc setup:
 	autocmd BufRead,BufNewFile ~/Documents/school*.md set filetype=markdown.pandoc
 	highlight FoldColumn ctermfg=magenta ctermbg=none cterm=none
 	highlight Conceal    ctermfg=red     ctermbg=none cterm=bold
@@ -261,19 +274,20 @@ let mapleader =" "
 	nmap <leader>x  :wa! \| !./%<CR>
 	nmap <leader>mx :wa! \| !chmod +x %<CR>
 	nmap <leader>rs :wa! \| read !
+	nmap <leader>mt :wa! \| !clear; ctags --exclude=.git --exclude='*.log' -R * <CR>
 
 " Check file in shellcheck:
 	map <leader>sc :wa! \| !shellcheck %<CR>
 
 " Makefile setup:
-	nmap <leader>ma  :wa! \| !clear; (time make NO_DEBUG=FALSE) \| grep "^$(printf '\t')*[<>\*]"<CR>
-	nmap <leader>mp  :wa! \| !clear; (time make NO_DEBUG=TRUE ) \| grep "^$(printf '\t')*[<>\*]"<CR>
-	nmap <leader>ml  :wa! \| !clear; (time make NO_DEBUG=FALSE)<CR>
-	nmap <leader>mc  :wa! \| !clear; (time make clean  NO_DEPENDENCIES=TRUE) \| grep "^$(printf '\t')\?[<>\*]"<CR>
-	nmap <leader>mf  :wa! \| !clear; (time make flash  NO_DEPENDENCIES=TRUE)<CR>
-	nmap <leader>ms  :wa! \| !clear; (     make serial NO_DEPENDENCIES=TRUE)<CR>
-	nmap <leader>mt  :wa! \| !clear; (     make tags   NO_DEPENDENCIES=TRUE)<CR>
-	nmap <leader>mb  :wa! \| !clear; (     make bear                       )<CR>:YcmRestartServer<CR>
+	nmap <leader>ma :wa! \| !clear; (time make NO_DEBUG=FALSE) \| grep "^$(printf '\t')*[<>\*]"<CR>
+	nmap <leader>mp :wa! \| !clear; (time make NO_DEBUG=TRUE ) \| grep "^$(printf '\t')*[<>\*]"<CR>
+	nmap <leader>ml :wa! \| !clear; (time make NO_DEBUG=FALSE)<CR>
+	nmap <leader>mc :wa! \| !clear; (time make clean  NO_DEPENDENCIES=TRUE) \| grep "^$(printf '\t')\?[<>\*]"<CR>
+	nmap <leader>mf :wa! \| !clear; (time make flash  NO_DEPENDENCIES=TRUE)<CR>
+	nmap <leader>ms :wa! \| !clear; (     make serial NO_DEPENDENCIES=TRUE)<CR>
+	nmap <leader>mv :wa! \| !clear; (     make vcp    NO_DEPENDENCIES=TRUE)<CR>
+	nmap <leader>mb :wa! \| !clear; (     make bear                       )<CR>:YcmRestartServer<CR>
 	" nmap <leader>ma  :wa! \| terminal (time make NO_DEBUG=FALSE) \| grep "^$(printf '\t')*[<>\*]"<CR>
 	" nmap <leader>mp  :wa! \| terminal (time make NO_DEBUG=TRUE ) \| grep "^$(printf '\t')*[<>\*]"<CR>
 	" nmap <leader>ml  :wa! \| terminal (time make NO_DEBUG=FALSE)<CR>
@@ -319,8 +333,7 @@ let mapleader =" "
 " Ensure files are read as what I want:
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man,*.tmac set filetype=groff
-	autocmd BufRead,BufNewFile ~/vimwiki*.md set filetype=vimwiki
-	autocmd BufRead,BufNewFile *.scad set filetype=c
+	autocmd BufRead,BufNewFile *.wiki set filetype=vimwiki
 
 " Enable Goyo by default for mutt writting
 	" Goyo's width will be the line limit in mutt.
