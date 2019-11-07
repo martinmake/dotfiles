@@ -91,87 +91,87 @@ bindsym $mod+Insert		exec --no-startup-id showclip
 ##bindsym $mod+Pause
 
 # #---Letter Key Bindings---# #
-bindsym $mod+q			[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-bindsym $mod+Shift+q		[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+q      	[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
+bindsym $mod+Shift+q	[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 
-bindsym $mod+w			exec $term -e nmtui
-bindsym $mod+Shift+w		exec --no-startup-id $BROWSER
+bindsym $mod+w      	exec $term -e nmtui
+bindsym $mod+Shift+w	exec --no-startup-id $BROWSER
 
-bindsym $mod+e			exec $term -e neomutt && pkill -RTMIN+12 i3blocks
-bindsym $mod+Shift+e		exec --no-startup-id tutorialvids
+bindsym $mod+e      	exec $term -e neomutt && pkill -RTMIN+12 i3blocks
+bindsym $mod+Shift+e	exec --no-startup-id tutorialvids
 
-bindsym $mod+r 			exec $term -e $FILE
-bindsym $mod+Shift+r		exec --no-startup-id winresize
+# bindsym $mod+r      	exec $term -e $FILE
+bindsym $mod+Shift+r	exec --no-startup-id winresize
 
-bindsym $mod+t			split toggle
-bindsym $mod+Shift+t		gaps inner current set 15; gaps outer current set 15
+bindsym $mod+t      	split toggle
+bindsym $mod+Shift+t	gaps inner current set 15; gaps outer current set 15
 
-bindsym $mod+y			exec $term -e calcurse -D ~/.config/calcurse
-bindsym $mod+Shift+y		exec --no-startup-id i3resize left
+bindsym $mod+y      	exec $term -e calcurse -D ~/.config/calcurse
+bindsym $mod+Shift+y	exec --no-startup-id i3resize left
 
-bindsym $mod+u			exec --no-startup-id ddspawn tmuxdd
-bindsym $mod+Shift+u		exec --no-startup-id i3resize down
+bindsym $mod+u      	exec --no-startup-id ddspawn tmuxdd
+bindsym $mod+Shift+u	exec --no-startup-id i3resize down
 
-bindsym $mod+i 			exec $term -e htop
-bindsym $mod+Shift+i		exec --no-startup-id i3resize up
+bindsym $mod+i      	exec $term -e htop
+bindsym $mod+Shift+i	exec --no-startup-id i3resize up
 
 bindsym $mod+o			sticky toggle
-bindsym $mod+Shift+o		exec --no-startup-id i3resize right
+bindsym $mod+Shift+o	exec --no-startup-id i3resize right
 
 bindsym $mod+p			exec --no-startup-id lmc pause
-# bindsym $mod+Shift+p		exec --no-startup-id
+# bindsym $mod+Shift+p	exec --no-startup-id
 
 bindsym $mod+a			exec --no-startup-id ddspawn dropdowncalc -f mono:pixelsize=24
-bindsym $mod+Shift+a		exec $term -e pulsemixer
+bindsym $mod+Shift+a	exec $term -e pulsemixer
 
 bindsym $mod+s			gaps inner current plus 5
-bindsym $mod+Shift+s		gaps inner current minus 5
+bindsym $mod+Shift+s	gaps inner current minus 5
 
 bindsym $mod+d			exec --no-startup-id dmenu_run
-bindsym $mod+Shift+d		gaps inner current set 0; gaps outer current set 0
+bindsym $mod+Shift+d	gaps inner current set 0; gaps outer current set 0
 
 set $freeze Distraction-free mode (super+shift+f to reactivate bindings)
 mode "$freeze" { bindsym $mod+Shift+f mode "default"
 }
 
 bindsym $mod+f			fullscreen toggle
-bindsym $mod+Shift+f		mode "$freeze" ;; exec --no-startup-id notify-send "<b>Distraction-free mode activated.</b> Press Super+Shift+f to return."
+bindsym $mod+Shift+f	mode "$freeze" ;; exec --no-startup-id notify-send "<b>Distraction-free mode activated.</b> Press Super+Shift+f to return."
 
 bindsym $mod+g			workspace prev
-bindsym $mod+Shift+g		exec --no-startup-id gimp; workspace $ws5
+bindsym $mod+Shift+g	exec --no-startup-id gimp; workspace $ws5
 
 bindsym $mod+h			focus left
-bindsym $mod+Shift+h		move left 30
+bindsym $mod+Shift+h	move left 30
 
 bindsym $mod+j			focus down
-bindsym $mod+Shift+j		move down 30
+bindsym $mod+Shift+j	move down 30
 
 bindsym $mod+k			focus up
-bindsym $mod+Shift+k		move up 30
+bindsym $mod+Shift+k	move up 30
 
 bindsym $mod+l			focus right
-bindsym $mod+Shift+l		move right 30
+bindsym $mod+Shift+l	move right 30
 
 bindsym $mod+z			gaps outer current plus 5
-bindsym $mod+Shift+z		gaps outer current minus 5
+bindsym $mod+Shift+z	gaps outer current minus 5
 
-bindsym $mod+x			exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id ~/.config/i3/lock
-bindsym $mod+Shift+x		exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
+bindsym $mod+x      	exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id ~/.config/i3/lock
+bindsym $mod+Shift+x	exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 
 bindsym $mod+c			exec --no-startup-id cabl
-bindsym $mod+Shift+c		exec --no-startup-id camtoggle
+bindsym $mod+Shift+c	exec --no-startup-id camtoggle
 
 bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
-bindsym $mod+Shift+v		exec --no-startup-id open-docs
+bindsym $mod+Shift+v	exec --no-startup-id open-docs
 
 bindsym $mod+b			exec --no-startup-id set-brightness
-bindsym $mod+Shift+b		floating toggle; sticky toggle; exec --no-startup-id bottomleft
+bindsym $mod+Shift+b	floating toggle; sticky toggle; exec --no-startup-id bottomleft
 
 bindsym $mod+n			exec $term -e newsboat && pkill -RTMIN+6 i3blocks
-bindsym $mod+Shift+n		floating toggle; sticky toggle; exec --no-startup-id bottomright
+bindsym $mod+Shift+n	floating toggle; sticky toggle; exec --no-startup-id bottomright
 
 bindsym $mod+m			exec --no-startup-id lmc mute
-bindsym $mod+Shift+m 		exec --no-startup-id togglekeymap
+bindsym $mod+Shift+m 	exec --no-startup-id togglekeymap
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home		workspace $ws1
@@ -205,16 +205,16 @@ set $ws9 "9"
 set $ws10 "10"
 
 # switch to workspace
-bindsym $mod+1		workspace $ws1
-bindsym $mod+2		workspace $ws2
-bindsym $mod+3		workspace $ws3
-bindsym $mod+4		workspace $ws4
-bindsym $mod+5		workspace $ws5
-bindsym $mod+6		workspace $ws6
-bindsym $mod+7		workspace $ws7
-bindsym $mod+8		workspace $ws8
-bindsym $mod+9		workspace $ws9
-bindsym $mod+0		workspace $ws10
+bindsym $mod+1	workspace $ws1
+bindsym $mod+2	workspace $ws2
+bindsym $mod+3	workspace $ws3
+bindsym $mod+4	workspace $ws4
+bindsym $mod+5	workspace $ws5
+bindsym $mod+6	workspace $ws6
+bindsym $mod+7	workspace $ws7
+bindsym $mod+8	workspace $ws8
+bindsym $mod+9	workspace $ws9
+bindsym $mod+0	workspace $ws10
 
 # move focused container to workspace
 bindsym $mod+Shift+1	move container to workspace $ws1

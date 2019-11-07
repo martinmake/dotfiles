@@ -2,25 +2,30 @@
 autoload -U colors && colors
 autoload -U promptinit && promptinit
 setopt prompt_subst
-
 system_location()
 {
-	echo "%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M%{$fg[green]%}:%{$fg[magenta]%}%d%{$fg[red]%}"
+	echo -n "%{$fg[yellow]%}""%n""%{$fg[green]%}""@""%{$fg[blue]%}""%M""%{$fg[green]%}"":""%{$fg[magenta]%}""%d""%{$fg[red]%}"
 }
 git_location()
 {
 	REPO=$(git remote -v 2> /dev/null | head -n1 | awk '{print $2}' | sed -e 's/.*\///' -e 's/\.git//')
 	BRANCH=$(git branch 2> /dev/null | sed -n '/^\*/p' | cut -d' ' -f2)
-	echo "%{$fg[yellow]%}$BRANCH%{$fg[green]%}@%{$fg[blue]%}$REPO"
+	echo -n "%{$fg[yellow]%}""$BRANCH""%{$fg[green]%}""@""%{$fg[blue]%}""$REPO"
 }
 prompt()
 {
 	PROMPT_ERROR=$?
 
-	echo -n "%B%{$fg[red]%}[$(system_location)]"
+	echo -n "%B%{$fg[red]%}""[$(system_location)]"
 	if git status >& /dev/null; then
-		echo -n "%{$fg[red]%}($(git_location)%{$fg[red]%})"
+		echo -n "%{$fg[red]%}""($(git_location)""%{$fg[red]%}"")"
 	fi
+
+	echo -n "\r""%{$fg[red]%}"
+	DATE=$(date '+%H:%M:%S')
+	MOVE=$(echo "$COLUMNS - ${#DATE}" | bc)
+	echo -n "\033[${MOVE}C"
+	echo -n $DATE
 
 	echo ""
 
@@ -30,11 +35,13 @@ prompt()
 
 	echo -n "%{$fg[cyan]%}"
 	if [[ "$(whoami)" == "root" ]]; then
-		printf "#"
+		echo -n "#"
 	else
-		printf "$"
+		echo -n "$"
 	fi
-	echo "%{$reset_color%}%b "
+	echo -n "%{$reset_color%}%b "
+
+	echo ""
 }
 PS1='$(prompt)'
 
@@ -126,3 +133,5 @@ bindkey '^e' edit-command-line
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2> /dev/null
+
+stty -ixon # Disable ctrl-s and ctrl-q.
