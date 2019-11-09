@@ -116,7 +116,7 @@ if PYTHON_MAJOR == 2:
     VERTICAL_LINE = "|"
     CROSS = "x"
     TICK = "v"
-    GEF_PROMPT = "👁  "
+    GEF_PROMPT = "👁 "
     GEF_PROMPT_ON = "\001\033[1;32m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
     GEF_PROMPT_OFF = "\001\033[1;31m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
 
@@ -7372,6 +7372,8 @@ class ContextCommand(GenericCommand):
         return
 
     def context_stack(self):
+        return
+
         self.context_title("stack")
 
         show_raw = self.get_setting("show_stack_raw")
@@ -7391,6 +7393,8 @@ class ContextCommand(GenericCommand):
         return
 
     def context_code(self):
+        return
+
         nb_insn = self.get_setting("nb_lines_code")
         nb_insn_prev = self.get_setting("nb_lines_code_prev")
         use_capstone = self.has_setting("use_capstone") and self.get_setting("use_capstone")
@@ -7455,6 +7459,8 @@ class ContextCommand(GenericCommand):
         return
 
     def context_args(self):
+        return
+
         insn = gef_current_instruction(current_arch.pc)
         if not current_arch.is_call(insn):
             return
@@ -9984,6 +9990,3 @@ if __name__  == "__main__":
 
         GefAliases()
         GefTmuxSetup()
-
-        # martinmake's custom configuration
-        # gdb.execute("source .breakpoints")

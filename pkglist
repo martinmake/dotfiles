@@ -37,6 +37,7 @@ cryptsetup
 cscope
 ctags
 cuda
+cups-pdf
 cura
 device-mapper
 dfu-util
@@ -60,6 +61,7 @@ findutils
 firefox
 flake8
 flex
+foomatic-db
 fortune-mod
 freetype2-demos
 freetype2-docs
@@ -87,6 +89,7 @@ gradle
 grep
 grub
 gtk-doc
+gutenprint
 gvim
 gzip
 harfbuzz
@@ -95,6 +98,7 @@ hasktags
 hexyl
 highlight
 hoogle
+hplip
 htop
 hub
 i3-gaps
@@ -174,6 +178,7 @@ pacman
 pandoc
 patch
 pciutils
+pdftricks
 perl
 pkgconf
 poppler
@@ -245,8 +250,10 @@ reiserfsprogs
 rkhunter
 rlwrap
 s-nail
+sane
 screen
 scrot
+sdl2_image
 sdl2_mixer
 sdl2_net
 sdl_mixer
@@ -266,6 +273,7 @@ swig
 sxiv
 syncthing
 sysfsutils
+system-config-printer
 systemd
 systemd-sysvcompat
 tar
@@ -366,7 +374,7 @@ xorg-xwininfo
 xorg-xwud
 xorgproto
 xpdf
-xterm
+xsane
 xwallpaper
 youtube-dl
 zathura

@@ -86,7 +86,7 @@ let mapleader =" "
 	set softtabstop=0
 	set noexpandtab
 	set smarttab
-" Insert mode newbie hell:
+" Newbie hell:
 	imap <UP>    <NOP>
 	imap <DOWN>  <NOP>
 	imap <LEFT>  <NOP>
@@ -95,6 +95,10 @@ let mapleader =" "
 	nmap <DOWN>  <NOP>
 	nmap <LEFT>  <NOP>
 	nmap <RIGHT> <NOP>
+	nmap <h> <NOP>
+	nmap <j> <NOP>
+	nmap <k> <NOP>
+	nmap <l> <NOP>
 " Shortcutting split navigation:
 	map <C-h> <C-w>h
 	map <C-j> <C-w>j
@@ -120,58 +124,46 @@ let mapleader =" "
 	let g:python3_host_prog='/usr/bin/python'
 	map <leader>lw :set wrap!<CR>
 " sneak setup:
-    " 2-character Sneak (default)
-    nmap s <Plug>Sneak_s
-    nmap S <Plug>Sneak_S
-    " visual-mode
-    xmap s <Plug>Sneak_s
-    xmap S <Plug>Sneak_S
-    " operator-pending-mode
-    omap s <Plug>Sneak_s
-    omap S <Plug>Sneak_S
-
-    " repeat motion
-    map ; <Plug>Sneak_;
-    map , <Plug>Sneak_,
-
-    " 1-character enhanced 'f'
-    nmap f <Plug>Sneak_f
-    nmap F <Plug>Sneak_F
-    " visual-mode
-    xmap f <Plug>Sneak_f
-    xmap F <Plug>Sneak_F
-    " operator-pending-mode
-    omap f <Plug>Sneak_f
-    omap F <Plug>Sneak_F
-
-    " 1-character enhanced 't'
-    nmap t <Plug>Sneak_t
-    nmap T <Plug>Sneak_T
-    " visual-mode
-    xmap t <Plug>Sneak_t
-    xmap T <Plug>Sneak_T
-    " operator-pending-mode
-    omap t <Plug>Sneak_t
-    omap T <Plug>Sneak_T
-
-    " label-mode
-    nmap s <Plug>SneakLabel_s
-    nmap S <Plug>SneakLabel_S
+	highlight Sneak      cterm=reverse
+	highlight SneakScope cterm=reverse
+	let g:sneak#s_next=1
+	map s s
+	" repeat motion
+	map ; <Plug>Sneak_;
+	map , <Plug>Sneak_,
+	" 1-character enhanced 'f'
+		nmap f <Plug>Sneak_f
+		nmap F <Plug>Sneak_F
+		" visual-mode
+		xmap f <Plug>Sneak_f
+		xmap F <Plug>Sneak_F
+		" operator-pending-mode
+		omap f <Plug>Sneak_f
+		omap F <Plug>Sneak_F
+	" 1-character enhanced 't'
+		nmap t <Plug>Sneak_t
+		nmap T <Plug>Sneak_T
+		" visual-mode
+		xmap t <Plug>Sneak_t
+		xmap T <Plug>Sneak_T
+		" operator-pending-mode
+		omap t <Plug>Sneak_t
+		omap T <Plug>Sneak_T
 " Identificator motion:
-    map <silent> w <Plug>CamelCaseMotion_w
-    map <silent> b <Plug>CamelCaseMotion_b
-    map <silent> e <Plug>CamelCaseMotion_e
-    map <silent> ge <Plug>CamelCaseMotion_ge
-    sunmap w
-    sunmap b
-    sunmap e
-    sunmap ge
-    omap <silent> iw <Plug>CamelCaseMotion_iw
-    xmap <silent> iw <Plug>CamelCaseMotion_iw
-    omap <silent> ib <Plug>CamelCaseMotion_ib
-    xmap <silent> ib <Plug>CamelCaseMotion_ib
-    omap <silent> ie <Plug>CamelCaseMotion_ie
-    xmap <silent> ie <Plug>CamelCaseMotion_ie
+	map <silent> w <Plug>CamelCaseMotion_w
+	map <silent> b <Plug>CamelCaseMotion_b
+	map <silent> e <Plug>CamelCaseMotion_e
+	map <silent> ge <Plug>CamelCaseMotion_ge
+	sunmap w
+	sunmap b
+	sunmap e
+	sunmap ge
+	omap <silent> iw <Plug>CamelCaseMotion_iw
+	xmap <silent> iw <Plug>CamelCaseMotion_iw
+	omap <silent> ib <Plug>CamelCaseMotion_ib
+	xmap <silent> ib <Plug>CamelCaseMotion_ib
+	omap <silent> ie <Plug>CamelCaseMotion_ie
+	xmap <silent> ie <Plug>CamelCaseMotion_ie
 " Autocompletion setup:
 	let g:ycm_autoclose_preview_window_after_completion=1
 	let g:ycm_min_num_of_chars_for_completion=1
@@ -276,16 +268,16 @@ let mapleader =" "
 	let g:searchhi_user_autocmds_enabled=1
 	let g:searchhi_redraw_before_on=1
 	augroup searchhi
-	    autocmd!
-	    autocmd User SearchHiOn AnzuUpdateSearchStatusOutput
-	    autocmd User SearchHiOff echo g:anzu_no_match_word
+		autocmd!
+		autocmd User SearchHiOn AnzuUpdateSearchStatusOutput
+		autocmd User SearchHiOff echo g:anzu_no_match_word
 	augroup END
 	highlight Search        ctermbg=none cterm=reverse,bold
 	highlight CurrentSearch ctermbg=none cterm=bold,underline
 " multi-cursor setup:
 	let g:multi_cursor_use_default_mapping=0
 	let g:multi_cursor_start_word_key     ='<C-n>'
-	let g:multi_cursor_select_all_word_key='<C-A>'
+	let g:multi_cursor_select_all_word_key='<C-m>'
 	let g:multi_cursor_next_key           ='<C-n>'
 	let g:multi_cursor_prev_key           ='<C-p>'
 	let g:multi_cursor_skip_key           ='<C-s>'
@@ -331,10 +323,10 @@ let mapleader =" "
 	nmap <C-b> :BreakpointToggle<CR>
 
 " Util setup:
-	" nmap <leader>w  :wa!<CR>
+	nmap <leader>rf :read !find -name ''<LEFT>
+	nmap <leader>rs :read !find -name '*.[hcp]*' \| sort<CR>
 	nmap <leader>x  :wa! \| !./%<CR>
 	nmap <leader>mx :wa! \| !chmod +x %<CR>
-	nmap <leader>rs :wa! \| read !
 	nmap <leader>mt :wa! \| !clear; ctags --exclude=.git --exclude='*.log' -R * <CR>
 
 " Check file in shellcheck:
