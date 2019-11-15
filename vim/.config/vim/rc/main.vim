@@ -1,56 +1,57 @@
-call plug#begin('~/.config/nvim/plugged')
-" code related
-Plug 'tpope/vim-commentary'
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'tikhomirov/vim-glsl'
-Plug 'vim-scripts/indentpython.vim'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-Plug 'ycm-core/YouCompleteMe'
-Plug 'luochen1990/rainbow'
-Plug 'bfrg/vim-cpp-modern'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'sirver/UltiSnips'
-Plug 'honza/vim-snippets'
-Plug 'vhdirk/vim-cmake'
-Plug 'pboettch/vim-cmake-syntax'
-Plug 'sirtaj/vim-openscad'
-Plug 'HugoNikanor/vim-breakpoint'
-Plug 'bkad/CamelCaseMotion'
-" Plug 'vim-scripts/Conque-GDB'
+call plug#begin('~/.config/vim/plugged')
+	" code related
+	Plug 'tpope/vim-commentary'
+	Plug 'PotatoesMaster/i3-vim-syntax'
+	Plug 'tikhomirov/vim-glsl'
+	Plug 'vim-scripts/indentpython.vim'
+	Plug 'vim-scripts/DoxygenToolkit.vim'
+	Plug 'luochen1990/rainbow'
+	Plug 'bfrg/vim-cpp-modern'
+	Plug 'octol/vim-cpp-enhanced-highlight'
+	Plug 'vhdirk/vim-cmake'
+	Plug 'pboettch/vim-cmake-syntax'
+	Plug 'sirtaj/vim-openscad'
+	Plug 'HugoNikanor/vim-breakpoint'
+	Plug 'bkad/CamelCaseMotion'
+	Plug 'ericcurtin/CurtineIncSw.vim'
 
-" code unrelated
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'junegunn/goyo.vim'
-Plug 'jreybert/vimagit'
-Plug 'vimwiki/vimwiki'
-Plug 'vifm/vifm.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'wincent/terminus'
-Plug 'chrisbra/csv.vim'
-Plug 'osyo-manga/vim-anzu'
-Plug 'qxxxb/vim-searchhi'
-Plug 'haya14busa/vim-asterisk'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'bling/vim-airline'
-Plug 'vim-pandoc/vim-pandoc'
-Plug 'vim-pandoc/vim-pandoc-syntax'
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'talek/obvious-resize'
-Plug 'thinca/vim-visualstar'
-Plug 'easymotion/vim-easymotion'
-Plug 'justinmk/vim-sneak'
+	" code unrelated
+	Plug 'tpope/vim-surround'
+	Plug 'scrooloose/nerdtree'
+	Plug 'jreybert/vimagit'
+	Plug 'vimwiki/vimwiki'
+	Plug 'vifm/vifm.vim'
+	Plug 'tpope/vim-fugitive'
+	Plug 'wincent/terminus'
+	Plug 'chrisbra/csv.vim'
+	Plug 'osyo-manga/vim-anzu'
+	Plug 'qxxxb/vim-searchhi'
+	Plug 'haya14busa/vim-asterisk'
+	Plug 'terryma/vim-multiple-cursors'
+	Plug 'bling/vim-airline'
+	Plug 'vim-pandoc/vim-pandoc'
+	Plug 'vim-pandoc/vim-pandoc-syntax'
+	Plug 'mzlogin/vim-markdown-toc'
+	Plug 'talek/obvious-resize'
+	Plug 'thinca/vim-visualstar'
+	Plug 'easymotion/vim-easymotion'
+	Plug 'justinmk/vim-sneak'
 
-" only R
-Plug 'jalvesaq/Nvim-R'
-Plug 'roxma/nvim-yarp'
-Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'gaalcaras/ncm-R'
-Plug 'ncm2/ncm2'
-Plug 'ncm2/ncm2-ultisnips'
-Plug 'ncm2/ncm2-bufword'
-Plug 'ncm2/ncm2-path'
-Plug 'w0rp/ale'
+	" autocomplete
+	Plug 'ycm-core/YouCompleteMe'
+	Plug 'honza/vim-snippets'
+	Plug 'sirver/UltiSnips'
+
+	" R
+	Plug 'jalvesaq/Nvim-R'
+	Plug 'roxma/nvim-yarp'
+	Plug 'roxma/vim-hug-neovim-rpc'
+	Plug 'gaalcaras/ncm-R'
+	Plug 'ncm2/ncm2'
+	Plug 'ncm2/ncm2-ultisnips'
+	Plug 'ncm2/ncm2-bufword'
+	Plug 'ncm2/ncm2-path'
+	Plug 'w0rp/ale'
 call plug#end()
 
 let mapleader =" "
@@ -62,10 +63,10 @@ let mapleader =" "
 	set encoding=utf-8
 	set number relativenumber
 	set splitbelow splitright
-	hi SignColumn ctermbg=none
-	hi SpellBad   ctermfg=none
-	hi Error      ctermfg=none
-	hi Visual     ctermfg=none
+	highlight SignColumn ctermbg=none
+	highlight SpellBad   ctermfg=none
+	highlight Error      ctermfg=none
+	highlight Visual     ctermfg=none
 	syntax on
 	set hlsearch
 	nnoremap S :%s//g<Left><Left>
@@ -80,6 +81,7 @@ let mapleader =" "
 	set exrc
 	set tags+=../tags,../../tags,
 	set tags+=../TAGS,../../TAGS,
+    tnoremap <leader><ESC> <C-\><C-n>
 " Tabs setup:
 	set shiftwidth=4
 	set tabstop=4
@@ -118,11 +120,15 @@ let mapleader =" "
 " Disables automatic commenting on newline:
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Terminal setup:
-	" tnoremap <Esc> <C-\><C-n>
-	" autocmd TermOpen * startinsert
+	if (has('nvim'))
+		tnoremap <Esc> <C-\><C-n>
+		autocmd TermOpen * startinsert
+	endif
 " Random setup:
 	let g:python3_host_prog='/usr/bin/python'
 	map <leader>lw :set wrap!<CR>
+" switch source to include and vice versa:
+	map <C-s> :call CurtineIncSw()<CR>
 " sneak setup:
 	highlight Sneak      cterm=reverse
 	highlight SneakScope cterm=reverse
@@ -164,30 +170,14 @@ let mapleader =" "
 	xmap <silent> ib <Plug>CamelCaseMotion_ib
 	omap <silent> ie <Plug>CamelCaseMotion_ie
 	xmap <silent> ie <Plug>CamelCaseMotion_ie
-" Autocompletion setup:
-	let g:ycm_autoclose_preview_window_after_completion=1
-	let g:ycm_min_num_of_chars_for_completion=1
-	let g:ycm_auto_trigger=1
-	let g:ycm_max_diagnostics_to_display=0
-	let g:ycm_collect_identifiers_from_comments_and_strings=1
-	let g:ycm_add_preview_to_completeopt=1
-	let g:ycm_seed_identifiers_with_syntax=1
-	let g:ycm_use_ultisnips_completer=1
-	let g:ycm_use_clangd=1
-	let g:ycm_clangd_binary_path='/usr/bin/clangd'
-	let g:ycm_clangd_args=['-Wno-switch-bool']
-	hi YcmWarningSection ctermfg=yellow cterm=bold,reverse
-	hi YcmWarningSign    ctermfg=yellow cterm=bold,reverse
-	hi YcmErrorSection   ctermfg=red    cterm=bold,reverse
-	hi YcmErrorSign      ctermfg=red    cterm=bold,reverse
-	map <leader>yr   :YcmRestartServer<CR>
-	map <leader>gdef :YcmCompleter GoToDefinition<CR>
-	map <leader>gdec :YcmCompleter GoToDeclaration<CR>
-	map <leader>gi   :YcmCompleter GoToInclude<CR>
-	map <leader>gdoc :YcmCompleter GetDoc<CR>
-	map <leader>gt   :YcmCompleter GetType<CR>
-	map <leader>f    :YcmCompleter FixIt<CR>
+" splitting line:
+	set fillchars+=vert:\┃
+	highligh VertSplit ctermfg=81 ctermbg=none cterm=bold
 " generic highlight setup:
+	highlight DiffAdd      ctermfg=green       ctermbg=none     cterm=bold
+	highlight DiffDelete   ctermfg=red         ctermbg=none     cterm=bold
+	highlight DiffChange   ctermfg=white       ctermbg=none     cterm=italic
+	highlight DiffText     ctermfg=red         ctermbg=none     cterm=bold
 	highlight Comment      ctermfg=darkGreen   ctermbg=none     cterm=italic
 	highlight SpellBad                         ctermbg=red      cterm=bold
 	highlight Constant     ctermfg=red         ctermbg=none     cterm=none
@@ -263,8 +253,8 @@ let mapleader =" "
 	vnoremap <Plug>N N
 	vmap * <Plug>(visualstar-*)<Plug>N
 	vmap # <Plug>(visualstar-#)<Plug>N
-	nmap <silent> <C-s> <Plug>(searchhi-clear-all)
-	vmap <silent> <C-s> <Plug>(searchhi-v-clear-all)
+	" nmap <silent> <C-s> <Plug>(searchhi-clear-all)
+	" vmap <silent> <C-s> <Plug>(searchhi-v-clear-all)
 	let g:searchhi_user_autocmds_enabled=1
 	let g:searchhi_redraw_before_on=1
 	augroup searchhi
@@ -283,11 +273,10 @@ let mapleader =" "
 	let g:multi_cursor_skip_key           ='<C-s>'
 	let g:multi_cursor_quit_key           ='<Esc>'
 " resize setup:
-	map <LEFT>  :<C-U>ObviousResizeLeft<CR>
-	map <DOWN>  :<C-U>ObviousResizeDown<CR>
-	map <UP>    :<C-U>ObviousResizeUp<CR>
-	map <RIGHT> :<C-U>ObviousResizeRight<CR>
-	let g:obvious_resize_run_tmux = 1
+    map <LEFT>  :<C-U>ObviousResizeLeft<CR>
+    map <DOWN>  :<C-U>ObviousResizeDown<CR>
+    map <UP>    :<C-U>ObviousResizeUp<CR>
+    map <RIGHT> :<C-U>ObviousResizeRight<CR>
 
 " cmake fix:
 	autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt RainbowToggle
@@ -296,9 +285,6 @@ let mapleader =" "
 	autocmd BufRead,BufNewFile ~/Documents/school*.md set filetype=markdown.pandoc
 	highlight FoldColumn ctermfg=magenta ctermbg=none cterm=none
 	highlight Conceal    ctermfg=red     ctermbg=none cterm=bold
-
-" Goyo plugin makes text more readable when writing prose:
-	map <leader>\ :Goyo \| set bg=light \| set linebreak<CR>
 
 " Spell-check set to <leader>o, 'o' for 'orthography':
 	set spellfile=$HOME/.vim/spell/en.utf-8.add
@@ -324,7 +310,8 @@ let mapleader =" "
 
 " Util setup:
 	nmap <leader>rf :read !find -name ''<LEFT>
-	nmap <leader>rs :read !find -name '*.[hcp]*' \| sort<CR>
+	nmap <leader>rsf :read !find -regextype sed -regex '.*\.\(h\\|hh\\|hpp\\|c\\|cc\\|cpp\\|cxx\\|s\\|S\)$' \| sort<CR>
+	nmap <leader>rsd :read !find -type d -name '*' \| sort<CR>
 	nmap <leader>x  :wa! \| !./%<CR>
 	nmap <leader>mx :wa! \| !chmod +x %<CR>
 	nmap <leader>mt :wa! \| !clear; ctags --exclude=.git --exclude='*.log' -R * <CR>
@@ -349,26 +336,6 @@ let mapleader =" "
 	let g:ConqueTerm_CloseOnEnd   =1
 	let g:ConqueTerm_StartMessages=0
 
-" R setup:
-	command RStart let oldft=&ft | set ft=r | exe 'set ft='.oldft | let b:IsInRCode=function("DefaultIsInRCode") | normal <LocalLeader>rf
-	let R_assign=0
-	let g:rout_follow_colorscheme=1
-	let g:rout_more_colors=1
-	                   let g:ale_enabled=0
-	autocmd Filetype r let g:ale_enabled=1
-	autocmd Filetype r RStart
-	autocmd Filetype r nmap , \l<CR>
-	autocmd Filetype r vmap , \ss<ESC><CR>
-	autocmd Filetype r call ncm2#enable_for_buffer()
-	au User Ncm2PopupOpen set completeopt=noinsert,menuone,noselect
-	au User Ncm2PopupClose set completeopt=menuone
-	set shortmess+=c
-	inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-	autocmd Filetype r let g:ncm2#auto_popup=1
-	autocmd Filetype r let g:ncm2#matcher="substrfuzzy"
-	let g:ycm_filetype_blacklist={ 'r': 1 }
-
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
 
@@ -376,11 +343,6 @@ let mapleader =" "
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man,*.tmac set filetype=groff
 	autocmd BufRead,BufNewFile *.wiki set filetype=vimwiki
-
-" Enable Goyo by default for mutt writting
-	" Goyo's width will be the line limit in mutt.
-	autocmd BufRead,BufNewFile /tmp/neomutt* let g:goyo_width=80
-	autocmd BufRead,BufNewFile /tmp/neomutt* :Goyo \| set bg=light
 
 " Automatically deletes all trailing whitespace on save.
 	autocmd BufWritePre * %s/\s\+$//e
@@ -435,3 +397,6 @@ let g:rainbow_conf={
 \       'css': 0,
 \   }
 \}
+
+execute 'source ~/.config/vim/rc/R.vim'
+execute 'source ~/.config/vim/rc/autocomplete.vim'

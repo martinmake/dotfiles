@@ -31,6 +31,7 @@ cmake
 cmatrix
 cool-retro-term
 coreutils
+cowfortune
 cowsay
 cronie
 cryptsetup
@@ -53,6 +54,7 @@ dunst
 e2fsprogs
 enigma
 exfat-utils
+extra-cmake-modules
 fakeroot
 feh
 file
@@ -116,7 +118,9 @@ jdk8-openjdk
 jfsutils
 joyutils
 jre-openjdk
+kdb
 krita
+leatherman
 less
 lib32-cairo
 lib32-fontconfig
@@ -181,6 +185,7 @@ pciutils
 pdftricks
 perl
 pkgconf
+ponysay
 poppler
 powerline
 procps-ng
@@ -203,6 +208,7 @@ python-flask-restful
 python-fonttools
 python-itsdangerous
 python-jinja
+python-keystone
 python-mako
 python-markdown
 python-markupsafe
@@ -211,6 +217,7 @@ python-pygments
 python-pynvim
 python-pytorch
 python-pytz
+python-ropper
 python-sqlalchemy
 python-werkzeug
 python-yaml
@@ -243,6 +250,7 @@ qt5-websockets
 qt5-webview
 qt5ct
 r
+radare2
 ragel
 ranger
 reaver
@@ -360,6 +368,7 @@ xorg-xkbutils
 xorg-xkill
 xorg-xlsatoms
 xorg-xlsclients
+xorg-xlsfonts
 xorg-xmodmap
 xorg-xpr
 xorg-xprop

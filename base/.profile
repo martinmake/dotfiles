@@ -2,7 +2,7 @@
 # Profile file. Runs on login.
 
 # Default programs
-export EDITOR="vim"
+export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
@@ -13,6 +13,8 @@ export PATH="$PATH:/opt/cuda/bin:$(du "$HOME/.scripts/" | cut -f2 | tr '\n' ':' 
 export PYTHONPATH="$PYTHONPATH:$HOME/Documents/libs/PC/int/python"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Documents/libs/PC/lib"
 export GROFF_TMAC_PATH="$GROFF_TMAC_PATH:$HOME/.config/groff/tmac"
+export ESPIDF=/opt/esp-idf
+export IDF_PATH=/opt/esp-idf
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export DOT="$HOME/dotfiles"

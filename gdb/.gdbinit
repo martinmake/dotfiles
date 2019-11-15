@@ -1,3 +1,4 @@
-set disassembly-flavor intel
-source /home/martinmake/.gdbinit-gef.py
-source /usr/lib/python3.7/site-packages/voltron/entry.py
+source ~/.gef.py
+# source /usr/lib/python3.8/site-packages/voltron/entry.py
+
+source ~/.config/gef/custom_commands/load_breakpoints.py

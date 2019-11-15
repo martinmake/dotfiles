@@ -38,3 +38,7 @@ QoL
 TTY
 fosl
 ili9341
+Makefile
+config
+tty
+TFT

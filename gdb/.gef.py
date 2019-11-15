@@ -116,7 +116,7 @@ if PYTHON_MAJOR == 2:
     VERTICAL_LINE = "|"
     CROSS = "x"
     TICK = "v"
-    GEF_PROMPT = "👁 "
+    GEF_PROMPT = "👁  "
     GEF_PROMPT_ON = "\001\033[1;32m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
     GEF_PROMPT_OFF = "\001\033[1;31m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
 
@@ -2846,9 +2846,6 @@ def new_objfile_handler(event):
     """GDB event handler for new object file cases."""
     reset_all_caches()
     set_arch()
-    for filename in os.popen("find -name '.breakpoints_*'").read().split('\n'):
-        if filename:
-            print(f'source {filename}')
     return
 
 
@@ -7372,7 +7369,8 @@ class ContextCommand(GenericCommand):
         return
 
     def context_stack(self):
-        return
+        if current_arch.arch == "ARM":
+            return
 
         self.context_title("stack")
 
@@ -7393,7 +7391,9 @@ class ContextCommand(GenericCommand):
         return
 
     def context_code(self):
-        return
+        if current_arch.arch == "ARM":
+            gdb.execute("disassemble")
+            return
 
         nb_insn = self.get_setting("nb_lines_code")
         nb_insn_prev = self.get_setting("nb_lines_code_prev")
@@ -7459,7 +7459,8 @@ class ContextCommand(GenericCommand):
         return
 
     def context_args(self):
-        return
+        if current_arch.arch == "ARM":
+            return
 
         insn = gef_current_instruction(current_arch.pc)
         if not current_arch.is_call(insn):

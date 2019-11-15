@@ -2,11 +2,12 @@
 st.alpha: 0.80
 
 !! Set a default font and font size as below:
-! st.font: Monospace:pixelsize=18:antialias=true:autohint=true;
-st.font: Monospace-15
+! st.font: Monospace-15
+! st.font: -*-terminus-*-*-*-*-*-150-*-*-*-*-*-*
+st.font: -xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1
 
 st.termname: st-256color
-st.borderpx: 2
+st.borderpx: 1
 
 !! Set the background, foreground and cursor colors as below:
 *.background: black
@@ -18,7 +19,7 @@ st.borderpx: 2
 *.color1:   #cd0000
 *.color2:   #00cd00
 *.color3:   #cdcd00
-*.color4:   #3030ff
+*.color4:   #2020ff
 *.color5:   #cd00cd
 *.color6:   #00cdcd
 *.color7:   #e5e5e5
@@ -26,7 +27,7 @@ st.borderpx: 2
 *.color9:   #ff0000
 *.color10:  #00ff00
 *.color11:  #ffff00
-*.color12:  #4a4aff
+*.color12:  #3030ff
 *.color13:  #ff00ff
 *.color14:  #00ffff
 *.color15:  #fafafa
