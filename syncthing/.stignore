@@ -15,9 +15,5 @@
 .mozilla
 !.mozilla/firefox/martinmake.default
 .local
-.config/spotify/Users
-.config/syncthing
-.config/pulse
-.config/mpd
-.config/vifm/vifminfo
-.config/wall.png
+.config
+.kodi

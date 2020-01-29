@@ -158,11 +158,12 @@ bindsym $mod+Shift+z	gaps outer current minus 5
 bindsym $mod+x      	exec --no-startup-id mpc pause; exec --no-startup-id pauseallmpv ; exec --no-startup-id ~/.config/i3/lock
 bindsym $mod+Shift+x	exec --no-startup-id prompt "Shutdown computer?" "$shutdown"
 
-bindsym $mod+c			exec --no-startup-id cabl
+# bindsym $mod+c			exec --no-startup-id cabl
+bindsym $mod+c			exec --no-startup-id finch-toggle
 bindsym $mod+Shift+c	exec --no-startup-id camtoggle
 
 bindsym $mod+v			exec --no-startup-id $term -e $EDITOR -c "VimwikiIndex"
-bindsym $mod+Shift+v	exec --no-startup-id open-docs
+bindsym $mod+Shift+v	exec --no-startup-id open-paper
 
 bindsym $mod+b			exec --no-startup-id set-brightness
 bindsym $mod+Shift+b	floating toggle; sticky toggle; exec --no-startup-id bottomleft
@@ -170,8 +171,8 @@ bindsym $mod+Shift+b	floating toggle; sticky toggle; exec --no-startup-id bottom
 bindsym $mod+n			exec $term -e newsboat && pkill -RTMIN+6 i3blocks
 bindsym $mod+Shift+n	floating toggle; sticky toggle; exec --no-startup-id bottomright
 
-bindsym $mod+m			exec --no-startup-id lmc mute
-bindsym $mod+Shift+m 	exec --no-startup-id togglekeymap
+bindsym $mod+m			exec --no-startup-id togglekeymap
+bindsym $mod+Shift+m	exec --no-startup-id lmc mute
 
 # #---Workspace Bindings---# #
 bindsym $mod+Home		workspace $ws1

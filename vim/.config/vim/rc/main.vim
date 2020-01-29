@@ -54,9 +54,10 @@ call plug#begin('~/.config/vim/plugged')
 	Plug 'w0rp/ale'
 call plug#end()
 
-let mapleader =" "
+let mapleader=" "
 
 " Some basics:
+    map <ESC> :nohlsearch<CR>
 	set nocompatible
 	filetype off
 	filetype plugin on
@@ -79,8 +80,6 @@ let mapleader =" "
 	set path+=**
 	set clipboard=unnamedplus
 	set exrc
-	set tags+=../tags,../../tags,
-	set tags+=../TAGS,../../TAGS,
     tnoremap <leader><ESC> <C-\><C-n>
 " Tabs setup:
 	set shiftwidth=4
@@ -199,6 +198,7 @@ let mapleader =" "
 	highlight LineNr       ctermfg=lightBlue   ctermbg=none     cterm=none
 	highlight CursorLineNr ctermfg=blue        ctermbg=none     cterm=bold
 	highlight WildMenu     ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
+	highlight StatusLine   ctermfg=lightBlue   ctermbg=none     cterm=none
 	highlight TabLine      ctermfg=white       ctermbg=none     cterm=none
 	highlight TabLineSel   ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
 	highlight TabLineFill  ctermfg=none        ctermbg=none     cterm=none
@@ -356,47 +356,26 @@ let mapleader =" "
 " Forcing syntax
 	autocmd BufRead,BufNewFile *.vs,*.fs,*.shader :set ft=glsl
 
-" MARKDOWN
-	autocmd Filetype markdown,rmd map <leader>w yiWi[<esc>Ea](<esc>pa)
-	autocmd Filetype markdown,rmd inoremap ,n ---<Enter><Enter>
-	autocmd Filetype markdown,rmd inoremap ,b ****<++><Esc>F*hi
-	autocmd Filetype markdown,rmd inoremap ,s ~~~~<++><Esc>F~hi
-	autocmd Filetype markdown,rmd inoremap ,e **<++><Esc>F*i
-	autocmd Filetype markdown,rmd inoremap ,h ====<Space><++><Esc>F=hi
-	autocmd Filetype markdown,rmd inoremap ,i ![](<++>)<++><Esc>F[a
-	autocmd Filetype markdown,rmd inoremap ,a [](<++>)<++><Esc>F[a
-	autocmd Filetype markdown,rmd inoremap ,1 #<Space><Enter><++><Esc>kA
-	autocmd Filetype markdown,rmd inoremap ,2 ##<Space><Enter><++><Esc>kA
-	autocmd Filetype markdown,rmd inoremap ,3 ###<Space><Enter><++><Esc>kA
-	autocmd Filetype markdown,rmd inoremap ,l --------<Enter>
-	autocmd Filetype rmd inoremap ,r ```{r}<CR>```<CR><CR><esc>2kO
-	autocmd Filetype rmd inoremap ,p ```{python}<CR>```<CR><CR><esc>2kO
-	autocmd Filetype rmd inoremap ,c ```<cr>```<cr><cr><esc>2kO
+" .lst file settings
+	function! Reading_lstfile()
+		if g:is_limit_text
+			call ToggleLimitText()
+		endif
+		ALEDisable
+		set nowrap
+		set noswapfile
+		set nofoldenable
+		set bufhidden=unload
+		set foldmethod=manual
+		set complete=
+		set nobackup
+		set nowritebackup
+		set undolevels=-1
+	endfunction
+	autocmd BufReadPre *.lst call Reading_lstfile()
 
-" rainbow setup:
-let g:rainbow_active=1 "0 if you want to enable it later via :RainbowToggle
-let g:rainbow_conf={
-\   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-\   'operators': '_,\|=\|+\|\*\|-\|\.\|;\||\|&\|?\|:\|::\|<\|>\|%\|/[^/]_',
-\   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\   'separately': {
-\       '*': {},
-\       'tex': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-\       },
-\       'lisp': {
-\           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-\       },
-\       'vim': {
-\           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-\       },
-\       'html': {
-\           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-\       },
-\       'css': 0,
-\   }
-\}
+if !has('nvim') | echohl WarningMsg \
+  | echo "Neovim isn't available, running vim..." | echohl None | endif
 
-execute 'source ~/.config/vim/rc/R.vim'
-execute 'source ~/.config/vim/rc/autocomplete.vim'
+let modules = glob('~/.config/vim/rc/module-options/*.vim')
+for file in split(modules, '\n') | execute 'source ' . file | endfor

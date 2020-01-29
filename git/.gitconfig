@@ -16,3 +16,5 @@
 [mergetool "diffmerge"]
 	cmd = "diffmerge --mergre --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
 	trustExitCode = true
+[hub]
+	protocol = https

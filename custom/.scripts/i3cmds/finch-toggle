@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if pgrep -x "finch" > /dev/null; then
+	killall finch
+else
+	exec $TERMINAL -e finch
+fi

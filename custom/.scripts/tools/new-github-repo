@@ -1,9 +1,0 @@
-#!/bin/sh
-
-hub init
-hub create
-
-sed .git/config -i -e 's/git@github.com:/https:\/\/github.com\//'
-cp ~/.config/git/LICENSE .
-cp ~/.config/git/README.md .
-cp ~/.config/git/.gitignore .

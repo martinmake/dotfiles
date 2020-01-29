@@ -3,6 +3,7 @@ let g:UltiSnipsExpandTrigger='<Tab>'
 let g:UltiSnipsJumpForwardTrigger='<Tab>'
 let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 let g:UltiSnipsMappingsToIgnore=['autocomplete']
+let g:UltiSnipsSnippetDirectories=["~/.config/vim/rc/UltiSnips"]
 
 " YCM configuration
 let g:ycm_key_list_select_completion=['<C-n>']
@@ -15,10 +16,10 @@ let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_add_preview_to_completeopt=1
 let g:ycm_seed_identifiers_with_syntax=1
 let g:ycm_use_ultisnips_completer=1
+let g:ycm_complete_in_comments=1
 let g:ycm_use_clangd=1
 let g:ycm_clangd_uses_ycmd_caching=1
-let g:ycm_complete_in_comments=1
-" let g:ycm_clangd_binary_path='/usr/bin/clangd'
+let g:ycm_clangd_binary_path='/usr/bin/clangd'
 
 " Highlight
 highlight YcmWarningSection ctermfg=yellow cterm=bold,reverse
