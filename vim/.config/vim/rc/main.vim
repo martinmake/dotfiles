@@ -339,6 +339,19 @@ let mapleader=" "
 " Open corresponding .pdf/.html or preview
 	map <leader>p :!opout <c-r>%<CR><CR>
 
+" Swap bettween hex and plain text views
+	nmap <leader>h :call SwapBetweenHexAndPlainTextView()<CR>
+	let g:is_plain_text_view=1
+	function! SwapBetweenHexAndPlainTextView ()
+		if g:is_plain_text_view
+			let g:is_plain_text_view=0
+			%!xxd
+		else
+			let g:is_plain_text_view=1
+			%!xxd -r
+		endif
+	endfunction
+
 " Ensure files are read as what I want:
 	autocmd BufRead,BufNewFile /tmp/calcurse*,~/.calcurse/notes/* set filetype=markdown
 	autocmd BufRead,BufNewFile *.ms,*.me,*.mom,*.man,*.tmac set filetype=groff

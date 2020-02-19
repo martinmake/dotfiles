@@ -1,0 +1,4 @@
+#!/bin/sh
+
+$HOME/.config/i3/lock
+sudo -A systemctl suspend
