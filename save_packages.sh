@@ -1,3 +1,3 @@
 #!/bin/sh
 
-pacman -Qnqe | tee pkglist
+pacman -Qqe | tee pkglist
