@@ -1,11 +1,11 @@
 #!/bin/sh
+alias sudo="sudo " # USE ALIASES WHEN RUNNING COMMANDS THROUGH SUDO
 alias ka="killall"
 alias history="history 1"
 alias finch="export TERM=screen; finch"
-alias ghist="history | grep"
+alias ghist="history | cut -d' ' -f4- | grep"
 alias l="ls -Al"
 alias ll="ls -Al"
-alias cmake="cmake -Wno-dev -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE"
 # alias make="colormake"
 alias gdb="gdb -q"
 alias avr-gdb="avr-gdb -q"

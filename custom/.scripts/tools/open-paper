@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PAPERS=$(find -L ~/Documents/papers -type f)
+PAPERS=$(find -L ~/documents/papers -type f)
 
 CHOSEN=$(echo "$PAPERS" | dmenu -i -l 20)
 [ -z "$CHOSEN" ] && exit 1

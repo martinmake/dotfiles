@@ -69,6 +69,7 @@ extra-cmake-modules
 fakeroot
 fbida
 feh
+figlet
 file
 filesystem
 finch
@@ -217,7 +218,6 @@ openscad
 openssh
 openvpn
 p7zip
-pacman
 pandoc
 patch
 pciutils
@@ -229,6 +229,7 @@ pkgconf
 ponysay
 powerline
 procps-ng
+proxychains-ng
 psmisc
 psutils
 pulseaudio-alsa
@@ -254,7 +255,6 @@ python-markupsafe
 python-numexpr
 python-numpy
 python-pandas
-python-pip
 python-pyalsa
 python-pygments
 python-pynvim
@@ -266,7 +266,6 @@ python-sqlalchemy
 python-werkzeug
 python-yaml
 python2-numpy
-python2-pip
 qemu
 qt5-3d
 qt5-charts
@@ -295,7 +294,6 @@ qt5-websockets
 qt5-webview
 qt5ct
 r
-radare2
 ragel
 ranger
 rclone
@@ -313,6 +311,7 @@ scrot
 sdl2_image
 sdl2_mixer
 sdl2_net
+sdl_mixer
 sed
 shadow
 shellcheck
@@ -327,6 +326,7 @@ stlink
 stow
 strace
 sudo
+surf
 swig
 sxiv
 syncthing
@@ -334,6 +334,7 @@ sysfsutils
 system-config-printer
 systemd
 systemd-sysvcompat
+tabbed
 tar
 tcc
 tcl
@@ -344,7 +345,7 @@ texlive-publishers
 texlive-science
 thefuck
 tk
-tmux
+tmuxp
 traceroute
 translate-shell
 tree
@@ -390,6 +391,7 @@ xcompmgr
 xdot
 xdotool
 xf86-input-evdev
+xf86-input-synaptics
 xf86-input-vmmouse
 xf86-input-void
 xf86-video-amdgpu
@@ -455,6 +457,7 @@ xorg-xvinfo
 xorg-xwd
 xorg-xwininfo
 xorg-xwud
+xorgproto
 xpdf
 xsane
 xterm

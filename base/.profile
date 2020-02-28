@@ -15,6 +15,9 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Documents/libs/PC/lib"
 export GROFF_TMAC_PATH="$GROFF_TMAC_PATH:$HOME/.config/groff/tmac"
 export ESPIDF=/opt/esp-idf
 export IDF_PATH=/opt/esp-idf
+export R_HOME=~/.R
+export GOPATH=~/.go
+export NODE_PATH=~/.node_modules
 
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export DOT="$HOME/dotfiles"

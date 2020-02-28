@@ -1,7 +1,11 @@
 # You can add comments to these files with #
+
 h	~/
-d	~/Documents
-D	~/Downloads
+dc	~/documents
+dw	~/downloads
+.	~/dotfiles
+p	~/projects
+w	~/multimedia/wallpapers
 cf	~/.config
 sc	~/.scripts
 
@@ -12,6 +16,3 @@ v	/var
 t	/tmp
 o	/opt
 bt	/boot
-
-p	~/Documents/projects
-w	~/Documents/walls
