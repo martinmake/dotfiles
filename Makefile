@@ -4,7 +4,7 @@ include Makefile.conf
 all: $(PACKAGES)
 
 .PHONY: install
-install: $(PKGLIST)
+install:
 	@$(PACKAGE_MANAGER) $(PACKAGE_MANAGER_FLAGS_INSTALL) - < $(PKGLIST)
 
 .PHONY: $(PKGLIST)
