@@ -45,6 +45,7 @@ alias lsp="pacman -Qett --color=always | less"
 alias ffmpeg="ffmpeg -hide_banner"
 alias tree="tree -C"
 alias demangle="c++filt"
+alias dotfiles="/usr/bin/git --git-dir=$HOME/dotfiles-git --work-tree=/"
 
 eval "$(thefuck --alias)"
 
