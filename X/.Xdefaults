@@ -16,6 +16,11 @@ st.borderpx: 1
 *.foreground: white
 *.cursorColor: white
 
+dmenu.background : black
+dmenu.foreground : white
+dmenu.selbackground : blue
+dmenu.selforeground : white
+
 !! martinmake:
 *.color0:   #000000
 *.color1:   #cd0000
