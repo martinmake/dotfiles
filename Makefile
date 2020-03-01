@@ -7,6 +7,7 @@ all: $(PACKAGES)
 install: $(PKGLIST)
 	@$(PACKAGE_MANAGER) $(PACKAGE_MANAGER_FLAGS_INSTALL) - < $(PKGLIST)
 
+.PHONY: $(PKGLIST)
 $(PKGLIST):
 	@$(PACKAGE_MANAGER) $(PACKAGE_MANAGER_FLAGS_LIST_INSTALLED_PACKAGES) | tee $@
 
@@ -29,9 +30,15 @@ tmux:
 	@$(STOW) $(STOW_FLAGS) $@
 git:
 	@$(STOW) $(STOW_FLAGS) $@
+X:
+	@$(STOW) $(STOW_FLAGS) $@
 i3: X
 	@$(STOW) $(STOW_FLAGS) $@
-X:
+st: X
+	@$(STOW) $(STOW_FLAGS) $@
+dmenu: X
+	@$(STOW) $(STOW_FLAGS) $@
+surf: X
 	@$(STOW) $(STOW_FLAGS) $@
 groff:
 	@$(STOW) $(STOW_FLAGS) $@
@@ -44,8 +51,6 @@ weechat:
 zathura: X
 	@$(STOW) $(STOW_FLAGS) $@
 dunst: X
-	@$(STOW) $(STOW_FLAGS) $@
-fehbg: X
 	@$(STOW) $(STOW_FLAGS) $@
 gef: gdb
 	@$(STOW) $(STOW_FLAGS) $@

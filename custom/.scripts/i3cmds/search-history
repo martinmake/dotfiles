@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# This script opens history in centered dmenu and save selection into clipboard
+cut -c 16- .cache/zsh/history | dmenu -f -n -i -c -bw 4 -l 20 | tr '\n' ' ' | xclip -selection clipboard
