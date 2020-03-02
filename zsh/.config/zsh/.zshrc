@@ -1,3 +1,8 @@
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh 2> /dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2> /dev/null
+source /usr/share/zsh/plugins/zsh-you-should-use/zsh-you-should-use.zsh 2> /dev/null
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2> /dev/null
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 autoload -U promptinit && promptinit
@@ -47,8 +52,8 @@ PS1='$(prompt)'
 
 # History in cache directory:
 HISTFILE=~/.cache/zsh/history
-HISTSIZE=10000000
-SAVEHIST=10000000
+HISTSIZE=10000000000
+SAVEHIST=10000000000
 setopt BANG_HIST              # Treat the '!' character specially during expansion.
 setopt EXTENDED_HISTORY       # Write the history file in the ":start:elapsed;command" format.
 setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
@@ -131,7 +136,19 @@ bindkey '^e' edit-command-line
 [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
 [ -f "$HOME/.config/aliasrc"    ] && source "$HOME/.config/aliasrc"
 
-# Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2> /dev/null
+source "$HOME/.config/zsh/plugins/zsh-vim-mode.zsh" 2> /dev/null
+MODE_CURSOR_VICMD="white block"
+MODE_CURSOR_VIINS="white bar"
+MODE_CURSOR_SEARCH="white steady underline"
+MODE_INDICATOR_VIINS='%F{8}<INSERT>%f'
+MODE_INDICATOR_VICMD='%F{2}[NORMAL]%f'
+MODE_INDICATOR_REPLACE='%F{1}[REPLACE]%f'
+MODE_INDICATOR_SEARCH='%F{5}[SEARCH]%f'
+MODE_INDICATOR_VISUAL='%F{4}[VISUAL]%f'
+MODE_INDICATOR_VLINE='%F{4}[V-LINE]%f'
+RPS1='${MODE_INDICATOR_PROMPT}${vcs_info_msg_0_}'
 
 stty -ixon # Disable ctrl-s and ctrl-q.
+
+bindkey -r "h" # unbind run-help
+bindkey -r "H" # unbind run-help

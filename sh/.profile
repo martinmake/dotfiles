@@ -4,7 +4,7 @@
 # Default programs
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="surf"
 export READER="zathura"
 export FILE="ranger"
 
@@ -52,3 +52,5 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && . "$HOME/.config/bash
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
+
+[ "$TERM" = "linux" ] && { tmux attach || tmux new-session }

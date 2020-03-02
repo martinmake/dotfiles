@@ -1,4 +1,10 @@
 $include /etc/inputrc
+
+set show-all-if-ambiguous on
+set completion-ignore-case on
+
+set horizontal-scroll-mode on
+
 set editing-mode vi
 $if mode=vi
 
