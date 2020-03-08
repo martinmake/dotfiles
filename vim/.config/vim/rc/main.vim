@@ -266,17 +266,25 @@ let mapleader=" "
 	highlight CurrentSearch ctermbg=none cterm=bold,underline
 " multi-cursor setup:
 	let g:multi_cursor_use_default_mapping=0
-	let g:multi_cursor_start_word_key     ='<C-n>'
-	let g:multi_cursor_select_all_word_key='<C-m>'
-	let g:multi_cursor_next_key           ='<C-n>'
-	let g:multi_cursor_prev_key           ='<C-p>'
-	let g:multi_cursor_skip_key           ='<C-s>'
+	let g:multi_cursor_exit_from_visual_mode=1
+	" let g:multi_cursor_start_word_key     =''
+	" let g:multi_cursor_select_all_word_key=''
+	let g:multi_cursor_start_key          ='<C-N>'
+	let g:multi_cursor_select_all_key     ='<leader>r'
+	let g:multi_cursor_next_key           ='<C-N>'
+	let g:multi_cursor_prev_key           ='<C-P>'
+	let g:multi_cursor_skip_key           ='<C-S>'
 	let g:multi_cursor_quit_key           ='<Esc>'
+
+" jump movement setup:
+	noremap <C-F> <C-I>
+	noremap <C-B> <C-O>
+
 " resize setup:
-    map <LEFT>  :<C-U>ObviousResizeLeft<CR>
-    map <DOWN>  :<C-U>ObviousResizeDown<CR>
-    map <UP>    :<C-U>ObviousResizeUp<CR>
-    map <RIGHT> :<C-U>ObviousResizeRight<CR>
+    map <C-Y> :<C-U>ObviousResizeLeft<CR>
+    map <C-U> :<C-U>ObviousResizeDown<CR>
+    map <C-I> :<C-U>ObviousResizeUp<CR>
+    map <C-O> :<C-U>ObviousResizeRight<CR>
 
 " cmake fix:
 	autocmd BufRead,BufNewFile *.cmake,CMakeLists.txt RainbowToggle
@@ -306,7 +314,7 @@ let mapleader=" "
 	nmap <leader>fu :wa! \| FZF /usr<CR>
 
 " Debugging setup:
-	nmap <C-b> :BreakpointToggle<CR>
+	nmap <leader>b :BreakpointToggle<CR>
 
 " Util setup:
 	nmap <leader>rf :read !find -name ''<LEFT>

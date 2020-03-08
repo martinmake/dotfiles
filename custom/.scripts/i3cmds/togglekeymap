@@ -2,10 +2,12 @@
 
 US='us'
 SK='sk(qwerty)'
+RU='ru'
 
 case $(xkb-switch) in
 	"$US") setxkbmap -layout sk -variant qwerty ;;
-	"$SK") setxkbmap -layout us ;;
+	"$SK") setxkbmap -layout ru                 ;;
+	"$RU") setxkbmap -layout us                 ;;
 esac
 
 pkill -SIGRTMIN+13 i3blocks

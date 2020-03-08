@@ -1,16 +1,19 @@
-body {
+body
+{
     background-color: #000000 !important;
     color: #ffffff !important;
 }
 
-#header {
+#header
+{
 
     background-color: #000000 !important;
     clear: both !important;
     color: #ff0000 !important;
 
 }
-#menu {
+#menu
+{
     clear: both !important;
     color: #00ffff !important;
     overflow: hidden !important;
@@ -19,14 +22,17 @@ body {
     border: 0px !important;
 }
 
-a {
+a
+{
 	color: #ff00ff !important;
 }
 
-#header a {
+#header a
+{
 	color: #ffff00 !important;
 }
 
-#menu a {
+#menu a
+{
 	color: #00ffff !important;
 }

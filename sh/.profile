@@ -27,7 +27,7 @@ export NOTMUCH_CONFIG="$HOME/.config/notmuch-config"
 export GTK2_RC_FILES="$HOME/.config/gtk-2.0/gtkrc-2.0"
 
 export MAKEFLAGS="-j4 --no-print-directory"
-export FZF_DEFAULT_COMMAND="find -type f"
+export FZF_DEFAULT_COMMAND="find -type f 2>/dev/null"
 export TIMEFMT=$'\nreal\t%E\nuser\t%U\nsys\t%S'
 
 # less/man colors

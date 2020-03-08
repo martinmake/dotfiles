@@ -3,15 +3,11 @@
     background-color: #000000 !important;
                color: #ffffff;
 }
-#mw-panel .portal li a
+html > body[class] a
 {
     color: #ff00ff !important;
 }
-a
+html > body[class] a[class]
 {
     color: #00ffff !important;
-}
-.vectorTabs li a
-{
-    color: #ff0000 !important;
 }

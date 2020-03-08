@@ -3,7 +3,11 @@
     background-color: #000000 !important;
                color: #ffffff;
 }
-#mw-panel .portal li a
+#carbonads
+{
+	visibility: hidden !important;
+}
+.portal li a
 {
     color: #ff00ff !important;
 }
@@ -11,7 +15,7 @@ a
 {
     color: #00ffff !important;
 }
-.vectorTabs li a
+li a
 {
     color: #ff0000 !important;
 }

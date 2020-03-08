@@ -141,8 +141,11 @@ p, winid, NULL } }
 static SiteSpecific styles[] = {
 	/* regexp               file in $styledir */
 	{ ".*suckless.org.*",   "suckless.css" },
-	{ ".*phrack.org.*",   "phrack.css" },
+	{ ".*phrack.org.*",     "phrack.css" },
 	{ ".*wikipedia.org.*",  "wikipedia.css" },
+	{ ".*archlinux.org.*",  "archlinux.css" },
+	{ ".*duckduckgo.com.*", "duckduckgo.css" },
+	{ ".*cppreference.com.*", "cppreference.css" },
 	{ ".*",                 "default.css" },
 };
 

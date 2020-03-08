@@ -1,5 +1,6 @@
 aalib
 acl
+acpi
 adobe-source-code-pro-fonts
 adwaita-icon-theme
 aircrack-ng
@@ -657,6 +658,7 @@ libcdr
 libcerf
 libcint
 libcmis
+libconfig
 libcroco
 libcups
 libcurl-gnutls
@@ -828,6 +830,7 @@ libxcb
 libxcomposite
 libxcursor
 libxdamage
+libxdg-basedir
 libxdmcp
 libxext
 libxfixes
@@ -952,6 +955,7 @@ ntfs-3g
 nuitka
 numactl
 nvidia-utils
+oh-my-zsh-git
 oniguruma
 openal
 openblas
@@ -1030,6 +1034,7 @@ perl-xml-libxml
 perl-xml-namespacesupport
 perl-xml-sax
 perl-xml-sax-base
+picom
 pidgin
 pidgin-libnotify
 pinentry
@@ -1076,6 +1081,7 @@ python-asn1crypto
 python-atomicwrites
 python-attrs
 python-babel
+python-backcall
 python-beaker
 python-beautifulsoup4
 python-bleach
@@ -1124,6 +1130,7 @@ python-hyperframe
 python-idna
 python-imagesize
 python-importlib-metadata
+python-inflection
 python-iniconfig
 python-ipykernel
 python-ipywidgets
@@ -1469,7 +1476,7 @@ texlive-science
 thefuck
 thin-provisioning-tools
 tk
-tmux-git
+tmux
 tmuxp
 toilet
 toilet-fonts
@@ -1665,6 +1672,7 @@ zsh-completions
 zsh-doc
 zsh-history-substring-search
 zsh-syntax-highlighting
+zsh-you-should-use
 zshdb
 zstd
 zziplib

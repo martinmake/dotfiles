@@ -1,19 +1,23 @@
-pre {
+pre
+{
     background-color: #000000 !important;
     color: #ffffff !important;
 }
 
-.details {
+.details
+{
     background-color: #000000 !important;
     color: #ffffff !important;
 }
 
-.opt {
+.opt
+{
     background-color: #000000 !important;
     color: #ff0000 !important;
 }
 
-.opt-bottom {
+.opt-bottom
+{
     background-color: #000000 !important;
     color: #ffa500 !important;
 }
