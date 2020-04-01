@@ -1,0 +1,45 @@
+priority 1
+
+snippet #ifndef "#ifndef ... #define ... #endif"
+#ifndef _${1/([A-Za-z0-9_]+).*/$1/}_
+#define _$1_
+
+
+#endif
+endsnippet
+
+snippet class "class { ... }"
+class $1
+{
+	public: // CONSTRUCTORS
+		$1(void) = default;
+	public: // DESTRUCTOR
+		~$1(void) = default;
+
+	public: // VARIABLES
+
+	public: // GETTERS
+	public: // SETTERS
+
+	public: // METHODS
+	public: // OPERATORS
+};
+endsnippet
+
+snippet struct "struct { ... }"
+struct $1
+{
+	public: // CONSTRUCTORS
+		$1(void) = default;
+	public: // DESTRUCTOR
+		~$1(void) = default;
+
+	public: // VARIABLES
+
+	public: // GETTERS
+	public: // SETTERS
+
+	public: // METHODS
+	public: // OPERATORS
+};
+endsnippet

@@ -1,1 +1,1 @@
-../../.config/vim/rc/main.vim
+.config/vim/init.vim

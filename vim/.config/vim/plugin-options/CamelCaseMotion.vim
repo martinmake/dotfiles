@@ -1,0 +1,14 @@
+nmap w  <Plug>CamelCaseMotion_w
+nmap b  <Plug>CamelCaseMotion_b
+nmap e  <Plug>CamelCaseMotion_e
+nmap ge <Plug>CamelCaseMotion_ge
+" sunmap w
+" sunmap b
+" sunmap e
+" sunmap ge
+omap iw <Plug>CamelCaseMotion_iw
+xmap iw <Plug>CamelCaseMotion_iw
+omap ib <Plug>CamelCaseMotion_ib
+xmap ib <Plug>CamelCaseMotion_ib
+omap ie <Plug>CamelCaseMotion_ie
+xmap ie <Plug>CamelCaseMotion_ie
