@@ -1,0 +1,30 @@
+*
+{
+    background-color: #000000 !important;
+               color: #ffffff !important;
+
+    text-shadow: None !important;
+
+	background-image: None !important;
+}
+h1, h2, h3, h4, h5, h6
+{
+	color: #00ffff !important;
+}
+a
+{
+	color: #ff00ff !important;
+}
+input, ::placeholder
+{
+   color: #ff0000 !important;
+}
+
+span.stringliteral
+{
+   color: #ff0000 !important;
+}
+span.preprocessor
+{
+   color: #ff44ff !important;
+}

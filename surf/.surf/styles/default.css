@@ -1,5 +1,21 @@
 *
 {
     background-color: #000000 !important;
-               color: #ffffff;
+               color: #ffffff !important;
+}
+img
+{
+    background-color: #ffffff !important;
+}
+h1, h2, h3, h4, h5, h6
+{
+	color: #ff00ff !important;
+}
+a
+{
+	color: #00ffff !important;
+}
+input, ::placeholder
+{
+   color: #ff0000 !important;
 }

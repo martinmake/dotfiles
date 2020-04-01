@@ -117,6 +117,13 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
         } \
 }
 
+/* VIDEODOWNLOAD(URI) */
+#define VIDEODOWNLOAD(u) {\
+        .v = (const char *[]){ "/bin/sh", "-c", \
+             "youtube-dl \"$0\"", u, NULL \
+        } \
+}
+
 #define SETURI(p)       { .v = (char *[]){ "/bin/sh", "-c", \
 "prop=\"`surf_history_dmenu.sh`\" &&" \
 "xprop -id $1 -f $0 8s -set $0 \"$prop\"", \
@@ -143,8 +150,13 @@ static SiteSpecific styles[] = {
 	{ ".*suckless.org.*",   "suckless.css" },
 	{ ".*phrack.org.*",     "phrack.css" },
 	{ ".*wikipedia.org.*",  "wikipedia.css" },
+	{ ".*cmake.org.*",  "cmake.css" },
+	{ ".*youtube.com.*",  "youtube.css" },
 	{ ".*archlinux.org.*",  "archlinux.css" },
 	{ ".*duckduckgo.com.*", "duckduckgo.css" },
+	{ ".*git.lan.deftech.eu.*", "gitlab.css" },
+	{ ".*doxygen.*", "doxygen.css" },
+	{ ".*github.com.*", "github.css" },
 	{ ".*cppreference.com.*", "cppreference.css" },
 	{ ".*",                 "default.css" },
 };
@@ -159,6 +171,11 @@ static SiteSpecific certs[] = {
 };
 
 #define MODKEY GDK_CONTROL_MASK
+
+#define SETURI(p)       { .v = (char *[]){ "/bin/sh", "-c", \
+"prop=\"`~/.surf/dmenuhistory.sh`\" &&" \
+"xprop -id $1 -f $0 8s -set $0 \"$prop\"", \
+p, winid, NULL } }
 
 /* hotkeys */
 /*
@@ -176,7 +193,8 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_s,      spawn,      SEARCH() },
 	{ 0,                     GDK_KEY_m,      spawn,      BM_ADD("_SURF_URI") },
 
-	{ MODKEY,                GDK_KEY_w,      playexternal, { 0 } },
+	{ 0,                     GDK_KEY_w,      playexternal, { 0 } },
+	{ MODKEY,                GDK_KEY_w,      downloadvideo, { 0 } },
 
 	{ 0,                     GDK_KEY_Escape, stop,       { 0 } },
 	{ 0,                     GDK_KEY_c,      stop,       { 0 } },

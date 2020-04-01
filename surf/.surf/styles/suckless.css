@@ -36,3 +36,7 @@ a
 {
 	color: #00ffff !important;
 }
+input, ::placeholder
+{
+   color: #ff0000 !important;
+}

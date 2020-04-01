@@ -11,3 +11,7 @@ html > body[class] a[class]
 {
     color: #00ffff !important;
 }
+input, ::placeholder
+{
+   color: #ff0000 !important;
+}

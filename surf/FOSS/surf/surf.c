@@ -231,6 +231,7 @@ static void togglecookiepolicy(Client *c, const Arg *a);
 static void toggleinspector(Client *c, const Arg *a);
 static void find(Client *c, const Arg *a);
 static void playexternal(Client *c, const Arg *a);
+static void downloadvideo(Client *c, const Arg *a);
 static void search(Client *c, const Arg *a);
 static void insert(Client *c, const Arg *a);
 
@@ -2106,6 +2107,15 @@ playexternal(Client *c, const Arg *a)
 	Arg arg;
 
 	arg = (Arg)VIDEOPLAY(geturi(c));
+	spawn(c, &arg);
+}
+
+void
+downloadvideo(Client *c, const Arg *a)
+{
+	Arg arg;
+
+	arg = (Arg)VIDEODOWNLOAD(geturi(c));
 	spawn(c, &arg);
 }
 
