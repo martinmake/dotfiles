@@ -5,6 +5,7 @@ dc	~/documents
 dw	~/downloads
 .	~/dotfiles
 p	~/projects
+mm	~/multimedia
 w	~/multimedia/wallpapers
 cf	~/.config
 sc	~/.scripts

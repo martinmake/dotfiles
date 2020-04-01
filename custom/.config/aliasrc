@@ -1,11 +1,14 @@
 #!/bin/sh
 alias sudo="sudo " # USE ALIASES WHEN RUNNING COMMANDS THROUGH SUDO
 alias ka="killall"
+alias rm="trash-put"
+alias vmake="make VERBOSE=1"
 alias history="history 1"
 alias finch="export TERM=screen; finch"
 alias ghist="history | cut -d' ' -f4- | grep"
 alias l="ls -Al"
 alias ll="ls -Al"
+alias t="tree -a"
 # alias make="colormake"
 alias gdb="gdb -q"
 alias avr-gdb="avr-gdb -q"
@@ -46,6 +49,7 @@ alias lsp="pacman -Qett --color=always | less"
 alias ffmpeg="ffmpeg -hide_banner"
 alias tree="tree -C"
 alias demangle="c++filt"
+alias youtube-dl="youtube-dl -i"
 
 eval "$(thefuck --alias)"
 

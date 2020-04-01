@@ -116,7 +116,7 @@ if PYTHON_MAJOR == 2:
     VERTICAL_LINE = "|"
     CROSS = "x"
     TICK = "v"
-    GEF_PROMPT = "⚡"
+    GEF_PROMPT = "ГДБ "
     GEF_PROMPT_ON = "\001\033[1;32m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
     GEF_PROMPT_OFF = "\001\033[1;31m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
 
@@ -138,7 +138,7 @@ elif PYTHON_MAJOR == 3:
     VERTICAL_LINE = "\u2502"
     CROSS = "\u2718 "
     TICK = "\u2713 "
-    GEF_PROMPT = "⚡"
+    GEF_PROMPT = "ГДБ "
     GEF_PROMPT_ON = "\001\033[1;32m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
     GEF_PROMPT_OFF = "\001\033[1;31m\002{0:s}\001\033[0m\002".format(GEF_PROMPT)
 

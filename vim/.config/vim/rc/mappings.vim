@@ -161,8 +161,8 @@ nmap <leader>ga <plug>(EasyAlign)
 
 noremap <leader>va ggVG
 
-imap <silent> <leader>lt <esc>:call unicoder#start(1)<CR>
-vmap <silent> <leader>lt :<c-u>call unicoder#selection()<CR>
+" imap <silent> <leader>lt <esc>:call unicoder#start(1)<CR>
+" vmap <silent> <leader>lt :<c-u>call unicoder#selection()<CR>
 
 nmap <silent> <leader>ux mmHmt:%s/<c-V><CR>//ge<CR>:retab<CR>'tzt'm
 

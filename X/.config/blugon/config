@@ -1,0 +1,36 @@
+[main]
+readcurrent = False
+interval = 120
+backend = scg
+wait_for_x = False
+fade = True
+
+[current]
+min_temp =     1.0
+max_temp = 20000.0
+
+[wait_for_x]
+sleep_after_failed_startup =   0.1
+sleep_after_losing_x       = 120.0
+
+[fade]
+steps    = 100
+duration =   3.0
+
+[tty]
+color0  = 000000
+color1  = cd0000
+color2  = 00cd00
+color3  = cdcd00
+color4  = 2020ff
+color5  = cd00cd
+color6  = 00cdcd
+color7  = e5e5e5
+color8  = 4d4d4d
+color9  = ff0000
+color10 = 00ff00
+color11 = ffff00
+color12 = 3030ff
+color13 = ff00ff
+color14 = 00ffff
+color15 = fafafa

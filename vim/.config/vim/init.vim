@@ -13,9 +13,9 @@ if executable('curl') && !filereadable(g:vim_autoload_directory.'/plug.vim')
 		\.'/autoload/plug.vim --create-dirs '.s:vimplug_link
 endif
 
-let g:python3_host_prog='/usr/bin/python'
-
 let g:largefile_trigger_size=0.5
+
+let g:python3_host_prog='/usr/bin/python'
 
 if exists('t_8f')
 	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -83,8 +83,7 @@ call plug#begin(g:vim_plugin_directory)
 	Plug 'https://github.com/chriskempson/base16-vim'
 	Plug 'https://github.com/powerman/vim-plugin-AnsiEsc',
 		\{ 'on': 'AnsiEsc' }
-	Plug 'https://github.com/ap/vim-css-color',
-		\{ 'for': ['css', 'scss', 'less'] }
+	Plug 'https://github.com/ap/vim-css-color'
 	command! AddCSSColors call plug#load('vim-css-color')
 	Plug 'https://github.com/luochen1990/rainbow',
 		\ helpers#is_modern() ? {} : { 'on': [] }
@@ -130,7 +129,7 @@ call plug#begin(g:vim_plugin_directory)
 
 	Plug 'https://github.com/junegunn/fzf.vim'
 
-	Plug 'https://github.com/vim-scripts/a.vim'
+" 	Plug 'https://github.com/vim-scripts/a.vim' " has hardcoded imap...
 "	}}}
 
 "	Latex																	{{{
@@ -265,7 +264,7 @@ call plug#begin(g:vim_plugin_directory)
 		\{ 'for': ['cmake'] }
 
 " Python
-	Plug 'https://github.com/zchee/deoplete-jedi'
+	Plug 'https://github.com/zchee/deoplete-jedi',
 		\{ 'for': ['python'] }
 
 " OpenSCAD
@@ -321,4 +320,5 @@ for plugin_option_file in split(plugin_option_files, '\n')
 	execute 'source '.plugin_option_file
 endfor
 
+"=================================================================
 " vim:filetype=vim:foldmethod=marker:foldmarker={{{,}}}:foldenable

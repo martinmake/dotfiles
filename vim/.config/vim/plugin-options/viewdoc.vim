@@ -7,6 +7,7 @@ if exists(':Alias')
 endif
 
 nnoremap <silent> K :ViewDoc <cword><cr>
+nnoremap <silent> M :ViewDocMan <cword><cr>
 
 augroup vimrcs_plugins_viewdoc | au!
     au BufEnter [Doc* setlocal colorcolumn=0

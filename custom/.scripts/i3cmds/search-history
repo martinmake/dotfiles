@@ -4,4 +4,4 @@
 
 DMENU_FLAGS="-f -n -i -c -bw 4 -l 20 -nb black"
 
-cut -c 16- .cache/zsh/history | dmenu $DMENU_FLAGS | tr '\n' ' ' | xclip -selection clipboard
+cut -c 16- ~/.cache/zsh/history | dmenu $DMENU_FLAGS | tr '\n' ' ' | xclip -selection clipboard

@@ -2,11 +2,8 @@
 st.alpha: 0.90
 
 !! Set a default font and font size as below:
-! st.font: Monospace-15
-! st.font: -*-terminus-*-*-*-*-*-150-*-*-*-*-*-*
-! st.font: -xos4-terminus-medium-r-normal--32-320-72-72-c-160-iso10646-1
-st.font: -xos4-terminus-medium-r-normal--18-320-72-72-c-160-iso10646-1
-dmenu.font: -xos4-terminus-medium-r-normal--18-320-72-72-c-160-iso10646-1
+st.font: terminus-12
+dmenu.font: terminus-12
 
 st.termname: st-256color
 st.borderpx: 1
