@@ -1,2 +1,3 @@
-setlocal commentstring=#\ %s
 autocmd BufEnter * RainbowToggleOff
+
+setlocal commentstring=#\ %s

@@ -1,1 +1,1 @@
-autocmd BufRead,BufNewFile *.mpp,*m++,*.cppm,*.c++m set filetype=cpp
+autocmd BufRead,BufNewFile *.cpp,*.hpp,*.mpp,*m++,*.cppm,*.c++m set filetype=cpp

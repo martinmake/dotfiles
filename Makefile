@@ -1,64 +1,69 @@
 include Makefile.conf
 
 .PHONY: all
-all: $(PACKAGES)
+all: $(PACKAGES) ## links all package files
 
 .PHONY: install
-install:
-	@$(PACKAGE_MANAGER) $(PACKAGE_MANAGER_FLAGS_INSTALL) - < $(PKGLIST)
+install: ## installs all packages in pkglist via $(PACKAGE_MANAGER)
+	@$(PACKAGE_MANAGER) $(PACKAGE_MANAGER_FLAGS_INSTALL) - < pkglist
 
-.PHONY: $(PKGLIST)
-$(PKGLIST):
+.PHONY: pkglist
+pkglist: ## creates/updates pkglist with packages currently maintained by $(PACKAGE_MANAGER)
 	@$(PACKAGE_MANAGER) $(PACKAGE_MANAGER_FLAGS_LIST_INSTALLED_PACKAGES) | tee $@
 
 .PHONY: $(PACKAGES)
-custom:
+custom: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-zsh: bash
+zsh: bash ## package
 	@$(STOW) $(STOW_FLAGS) $@
-bash: sh
+bash: sh ## package
 	@$(STOW) $(STOW_FLAGS) $@
-sh:
+sh: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-vim:
+vim: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-ranger:
+ranger: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-vifm:
+vifm: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-tmux:
+tmux: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-git:
+git: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-X:
+X: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-i3: X
+i3: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-st: X
+st: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-dmenu: X
+dmenu: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-surf: X
+surf: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-groff:
+groff: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-mozilla: X
+mozilla: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-syncthing: X
+syncthing: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-weechat:
+weechat: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-zathura: X
+zathura: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-dunst: X
+dunst: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-gef: gdb
+gef: gdb ## package
 	@$(STOW) $(STOW_FLAGS) $@
-gdb:
+gdb: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-lldb:
+lldb: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-ghidra: X
+ghidra: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-other:
+other: ## package
 	@$(STOW) $(STOW_FLAGS) $@
+
+
+.PHONY:help
+help: ## lists documented targets
+	@grep -Eh '^[0-9a-zA-Z_-$$()]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'

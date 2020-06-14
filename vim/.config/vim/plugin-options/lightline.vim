@@ -1,6 +1,6 @@
-let g:lightline = {
-     \ 'colorscheme': g:colors_name,
-    \ }
+set noshowmode
+
+let g:lightline = { 'colorscheme': g:colors_name }
 
 let g:lightline.component = { 'mode'        : '%{lightline#mode()}',
                             \ 'absolutepath': '%F',
@@ -11,7 +11,7 @@ let g:lightline.component = { 'mode'        : '%{lightline#mode()}',
                             \ 'paste'       : '%{&paste?"PASTE":""}',
                             \ 'readonly'    : '%R',
                             \ 'charvalue'   : '%b',
-                            \ 'charvaluehex': '%B',
+                            \ 'charvaluehex': '0x%B',
                             \ 'fileencoding': '%{&fenc!=#""?&fenc:&enc}',
                             \ 'fileformat'  : '%{&ff}',
                             \ 'filetype'    : '%{&ft!=#""?&ft:"no ft"}',
@@ -21,5 +21,14 @@ let g:lightline.component = { 'mode'        : '%{lightline#mode()}',
                             \ 'lineinfo'    : '%3l:%-2v',
                             \ 'line'        : '%l',
                             \ 'column'      : '%c',
-                            \ 'close'       : '',
+                            \ 'close'       : '☭ ',
                             \ 'winnr'       : '%{winnr()}' }
+
+let g:lightline.active = {
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent'  ],
+      \              [ 'fileformat',
+                     \ 'fileencoding',
+                     \ 'filetype',
+                     \ 'charvaluehex' ] ]
+      \ }

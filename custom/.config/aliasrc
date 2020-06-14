@@ -2,7 +2,8 @@
 alias sudo="sudo " # USE ALIASES WHEN RUNNING COMMANDS THROUGH SUDO
 alias ka="killall"
 alias rm="trash-put"
-alias vmake="make VERBOSE=1"
+alias makev="make VERBOSE=1"
+alias makec="make clean"
 alias history="history 1"
 alias finch="export TERM=screen; finch"
 alias ghist="history | cut -d' ' -f4- | grep"

@@ -156,16 +156,14 @@ xnoremap <silent> @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 filetype plugin indent on
 syntax on
 set nobackup
-set shortmess=F
 set nowritebackup
 set swapfile
 set lazyredraw
-set nohidden
+set hidden
 set noshowmatch
 set matchtime=1
 set diffopt+=vertical
 set noerrorbells
-set visualbell
 set ignorecase
 set smartcase
 set noautoread
@@ -174,7 +172,6 @@ set backspace=eol,start,indent
 set whichwrap+=<,>
 set complete-=i
 set completeopt=menu,preview
-set display=lastline,msgsep
 set formatoptions=tcrqn2j
 set nomagic
 set laststatus=2
@@ -192,7 +189,7 @@ set inccommand=split
 set encoding=utf-8
 set splitbelow splitright
 " internal
-	set updatetime=500
+	set updatetime=200
 	set history=10000
 " system
 	set shell=$SHELL
@@ -223,5 +220,7 @@ set splitbelow splitright
 	set autoindent
 	set smartindent
 	set nocindent
+	" preproc indent fix
+	inoremap # X#
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1

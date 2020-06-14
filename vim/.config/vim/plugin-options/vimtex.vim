@@ -13,18 +13,18 @@ let g:vimtex_toc_show_numbers = 0
 let g:tex_flavor = "latex"
 
 let g:vimtex_compiler_latexmk = {
-  \ 'background' : 1,
-  \ 'build_dir' : 'build',
-  \ 'callback' : 0,
-  \ 'continuous' : 0,
-  \ 'options' : [
-  \   '-pdf',
-  \   '-verbose',
-  \   '-file-line-error',
-  \   '-shell-escape',
-  \   '-synctex=1',
-  \   '-interaction=nonstopmode',
-  \ ],
+    \ 'background' : 1,
+    \ 'build_dir' : 'build',
+    \ 'callback' : 0,
+    \ 'continuous' : 0,
+    \ 'options' : [
+    \   '-pdf',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-shell-escape',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
 \}
 
 let g:vimtex_syntax_minted = [

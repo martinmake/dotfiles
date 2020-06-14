@@ -3,6 +3,7 @@
 	email = martin.michalec.2003@gmail.com
 [core]
 	editor = vim
+	pager = diff-so-fancy | less -RFX
 [credential]
 	helper = cache --timeout 1300
 [credential "https://github.com"]
@@ -13,8 +14,11 @@
 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
 [merge]
 	tool = diffmerge
+	conflictstyle = diff3
 [mergetool "diffmerge"]
 	cmd = "diffmerge --mergre --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
 	trustExitCode = true
 [hub]
 	protocol = https
+[push]
+	followTags = true

@@ -4,7 +4,7 @@ syntax reset
 
 let g:colors_name = 'mechanical'
 
-" if has('nvim')
+" if has('nvim') " {{{
 "   let g:terminal_background = "#000000"
 "   let g:terminal_foreground = "#ffffff"
 "   let g:terminal_color_0    = "#000000"
@@ -23,59 +23,90 @@ let g:colors_name = 'mechanical'
 "   let g:terminal_color_13   = "#ff00ff"
 "   let g:terminal_color_14   = "#00ffff"
 "   let g:terminal_color_15   = "#fafafa"
-" endif
+" endif " }}}
 
-hi Folded            ctermfg=magenta     ctermbg=none     cterm=none
-hi Sneak             ctermfg=magenta     ctermbg=none     cterm=reverse,bold
-hi SneakScope        ctermfg=cyan        ctermbg=none     cterm=reverse,bold
-hi VertSplit         ctermfg=81          ctermbg=none     cterm=bold
+" Unsorted{{{
+hi SignColumn        ctermfg=none        ctermbg=none     cterm=none
+hi Title             ctermfg=none        ctermbg=none     cterm=none
+hi Info              ctermfg=blue        ctermbg=none     cterm=none
+hi HighlightText     ctermfg=cyan        ctermbg=none     cterm=bold,reverse
+" }}}
+" special {{{
+  hi TODO              ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
+  hi VertSplit         ctermfg=cyan        ctermbg=none     cterm=bold
+  hi Normal            ctermfg=white       ctermbg=none     cterm=none
+  hi Visual            ctermfg=none        ctermbg=234      cterm=bold
+  hi Special           ctermfg=darkMagenta ctermbg=none     cterm=none
+  hi NonText           ctermfg=235         ctermbg=none     cterm=bold
+  hi SpecialKey        ctermfg=red         ctermbg=none     cterm=bold
+  hi Conceal           ctermfg=red         ctermbg=none     cterm=bold
+" }}}
+" folding {{{
+hi Folded            ctermfg=blue        ctermbg=none     cterm=none
+hi FoldColumn        ctermfg=magenta     ctermbg=none     cterm=none
+" }}}
+" {{{ searching
+hi Sneak             ctermfg=cyan        ctermbg=none     cterm=reverse,bold
+hi SneakScope        ctermfg=magenta     ctermbg=none     cterm=reverse,bold
+hi Search            ctermfg=cyan        ctermbg=none     cterm=reverse,bold
+hi CurrentSearch     ctermfg=magenta     ctermbg=none     cterm=reverse,bold
+hi NonMatch          ctermfg=245         ctermbg=none     cterm=none
+" }}}
+" diff {{{
 hi DiffAdd           ctermfg=green       ctermbg=none     cterm=bold
 hi DiffDelete        ctermfg=red         ctermbg=none     cterm=bold
 hi DiffChange        ctermfg=white       ctermbg=none     cterm=italic
 hi DiffText          ctermfg=red         ctermbg=none     cterm=bold
-hi Comment           ctermfg=darkGreen   ctermbg=none     cterm=italic
-hi Constant          ctermfg=red         ctermbg=none     cterm=none
-hi Normal            ctermfg=white       ctermbg=none     cterm=none
-hi Visual            ctermfg=none        ctermbg=234      cterm=bold
-hi Special           ctermfg=darkMagenta ctermbg=none     cterm=none
-hi Structure         ctermfg=lightGreen  ctermbg=none     cterm=none
-hi Type              ctermfg=lightGreen  ctermbg=none     cterm=none
-hi Keyword           ctermfg=darkCyan    ctermbg=none     cterm=none
-hi Conditional       ctermfg=darkCyan    ctermbg=none     cterm=none
-hi Statement         ctermfg=lightBlue   ctermbg=none     cterm=none
-hi TODO              ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
+" }}}
+" Pmenu {{{
 hi Pmenu             ctermfg=lightBlue   ctermbg=none     cterm=none
 hi PmenuSel          ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
 hi PmenuSbar         ctermfg=lightBlue   ctermbg=none     cterm=none
 hi PmenuThumb        ctermfg=lightBlue   ctermbg=none     cterm=reverse
-hi LineNr            ctermfg=lightBlue   ctermbg=none     cterm=none
-hi CursorLineNr      ctermfg=magenta     ctermbg=none     cterm=bold
-hi WildMenu          ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
+" }}}
+" LineNr {{{
+hi LineNr       ctermfg=lightBlue   ctermbg=none     cterm=none
+hi CursorLineNr ctermfg=magenta     ctermbg=none     cterm=bold
+" }}}
+" StatusLine {{{
 hi StatusLine        ctermfg=lightBlue   ctermbg=none     cterm=none
+hi StatusLineNC      ctermfg=none        ctermbg=none     cterm=none
+" }}}
+" WildMenu {{{
+hi WildMenu          ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
+" }}}
+" TabLine {{{
 hi TabLine           ctermfg=white       ctermbg=none     cterm=none
 hi TabLineSel        ctermfg=lightBlue   ctermbg=none     cterm=reverse,bold
 hi TabLineFill       ctermfg=none        ctermbg=none     cterm=none
+" }}}
+" OverLength {{{
 hi ColorColumn       ctermfg=red         ctermbg=black    cterm=bold
 hi OverLength        ctermfg=red         ctermbg=none     cterm=bold
-hi NonText           ctermfg=235         ctermbg=none     cterm=bold
-hi SpecialKey        ctermfg=red         ctermbg=none     cterm=bold
-hi Cursor            ctermfg=none        ctermbg=none     cterm=none
+" }}}
+" Cursor {{{
+hi Cursor            ctermfg=green       ctermbg=none     cterm=none
 hi CursorLine        ctermfg=none        ctermbg=233      cterm=none
 hi CursorColumn      ctermfg=none        ctermbg=233      cterm=none
-hi ColorColumn       ctermfg=red         ctermbg=black    cterm=bold
-hi OverLength        ctermfg=red         ctermbg=none     cterm=bold
-hi Search            ctermfg=cyan        ctermbg=none     cterm=reverse,bold
-hi CurrentSearch     ctermfg=magenta     ctermbg=none     cterm=reverse,bold
-hi NonMatch          ctermfg=245         ctermbg=none     cterm=none
-hi FoldColumn        ctermfg=magenta     ctermbg=none     cterm=none
-hi Conceal           ctermfg=red         ctermbg=none     cterm=bold
-hi SignColumn        ctermfg=none        ctermbg=none     cterm=none
+" }}}
+" important {{{
 hi Error             ctermfg=red         ctermbg=black    cterm=reverse,bold
-hi Warning           ctermfg=yellow      ctermbg=none     cterm=bold,reverse
+hi Warning           ctermfg=yellow      ctermbg=black    cterm=bold,reverse
+" }}}
+" code {{{
+hi Comment           ctermfg=darkGreen   ctermbg=none     cterm=italic
+hi Constant          ctermfg=red         ctermbg=none     cterm=none
 hi PreProc           ctermfg=darkMagenta ctermbg=none     cterm=none
-hi StatusLineNC      ctermfg=none        ctermbg=none     cterm=none
-hi Title             ctermfg=none        ctermbg=none     cterm=none
-hi Identifier        ctermfg=none        ctermbg=none     cterm=none
-
+hi Keyword           ctermfg=darkCyan    ctermbg=none     cterm=none
+hi Identifier        ctermfg=white       ctermbg=none     cterm=none
+hi Structure         ctermfg=lightGreen  ctermbg=none     cterm=none
+hi Type              ctermfg=lightGreen  ctermbg=none     cterm=none
+hi Function          ctermfg=lightBlue   ctermbg=none     cterm=none
+hi Conditional       ctermfg=lightBlue   ctermbg=none     cterm=none
+hi Statement         ctermfg=lightBlue   ctermbg=none     cterm=none
+" }}}
+" links {{{
 hi link SpellBad Error
 hi link SpellCap Warning
+hi link WarningMsg Warning
+" }}}

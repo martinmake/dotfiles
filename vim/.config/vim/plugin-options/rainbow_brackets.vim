@@ -1,17 +1,9 @@
 let g:rainbow_conf = {
-\   'guifgs':      [
-                        \'#ffffff',
-                        \'#94dae3',
-                        \'#fffee6',
-                        \'#ffe3e4',
-                        \'#828282'
-                  \],
 \   'ctermfgs':    [
-                        \'12',
-                        \'12',
-                        \'12',
-                        \'12',
-                        \'12'
+\                  'lightblue',
+\                  'lightyellow',
+\                  'lightcyan',
+\                  'lightmagenta'
                   \],
 \   'operators':   '_,_',
 \   'parentheses': [
@@ -20,15 +12,6 @@ let g:rainbow_conf = {
                   \],
 \   'separately':  {
 \       '*': {},
-\       'lisp': {
-\           'guifgs': [
-                            \'royalblue3',
-                            \'darkorange3',
-                            \'seagreen3',
-                            \'firebrick',
-                            \'darkorchid3'
-                     \],
-\       },
 \       'vim': {
 \           'parentheses': [
                                 \'start=/(/ end=/)/',

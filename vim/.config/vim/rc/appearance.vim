@@ -37,7 +37,7 @@ set guioptions-=L
 set fillchars+=vert:\┃
 
 " Height of the command bar
-set cmdheight=1
+set cmdheight=2
 set showtabline=2
 
 " Always show current position
@@ -55,19 +55,27 @@ set showtabline=2
 	set hlsearch
 	set incsearch
 " tabbing
-	set tabstop=4
+	set tabstop=8
 	set shiftwidth=0
 	set softtabstop=0
-	let g:indentLine_char_list= ['|', '¦', '┊']
+	" let g:indentLine_char_list= ['|', '¦', '┊']
+	let g:indentLine_char_list= ['|']
 	set list
-	set listchars=tab::·,space:·,trail:·,eol:¬,extends:>,precedes:<,conceal:*
+	" set listchars=tab::·,space:·,trail:·,extends:>,precedes:<,conceal:*
+	set listchars=tab:\|.,space:.,trail:.,extends:>,precedes:<,conceal:*
 " folding {{{
 	set foldenable
 	set foldminlines=0
 	set foldlevel=99
 	set foldmethod=marker
+	set foldmarker={{{,}}}
 	set foldcolumn=0
 " }}}
+
+set shortmess=cfilmnrwxF
+set visualbell
+set display=lastline,msgsep
+set signcolumn=yes
 
 " Color column
 let g:colorcolumn=80

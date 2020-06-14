@@ -220,11 +220,11 @@ xmap <silent> <leader>gS <plug>(scratch-selection-clear)
 	noremap <C-B> <C-O>
 
 " toggle line wrap
-	map <leader>lw :set wrap!<CR>
+	map <silent> <leader>lw :set wrap!<CR>
 
 " substitute
-	nmap S :%s//g<LEFT><LEFT>
-	vmap S :s//g<LEFT><LEFT>
+	nmap <silent> S :%s//g<LEFT><LEFT>
+	vmap <silent> S :s//g<LEFT><LEFT>
 
 " search setup:
 	vmap <Plug>N N
@@ -233,13 +233,13 @@ xmap <silent> <leader>gS <plug>(scratch-selection-clear)
     call esearch#map('<leader>es', 'esearch')
 
 " toggle orthography
-	map <leader>o :setlocal spell!<CR>
+	map <silent> <leader>o :setlocal spell!<CR>
 
 " Nerd tree
-	nmap <leader>t :NERDTreeToggle<CR>
+	nmap <silent> <leader>t :NERDTreeToggle<CR>
 
 " FZF setup:
-	nmap <leader>ff :wa! \| FZF<CR>
+	nmap <silent> <leader>ff :wa! \| FZF<CR>
 	let g:fzf_action = {
 	  \ 'ctrl-t': 'tab split',
 	  \ 'enter':  'tab split',
@@ -247,58 +247,58 @@ xmap <silent> <leader>gS <plug>(scratch-selection-clear)
 	  \ 'ctrl-v': 'vsplit' }
 
 " tab setup:
-	nmap <M-1> 1gt
-	nmap <M-2> 2gt
-	nmap <M-3> 3gt
-	nmap <M-4> 4gt
-	nmap <M-5> 5gt
-	nmap <M-6> 6gt
-	nmap <M-7> 7gt
-	nmap <M-8> 8gt
-	nmap <M-9> 9gt
-	nmap <M-0> 10gt
-	imap <M-1> <C-O>1gt
-	imap <M-2> <C-O>2gt
-	imap <M-3> <C-O>3gt
-	imap <M-4> <C-O>4gt
-	imap <M-5> <C-O>5gt
-	imap <M-6> <C-O>6gt
-	imap <M-7> <C-O>7gt
-	imap <M-8> <C-O>8gt
-	imap <M-9> <C-O>9gt
-	imap <M-0> <C-O>10gt
+	nnoremap <M-1> 1gt
+	nnoremap <M-2> 2gt
+	nnoremap <M-3> 3gt
+	nnoremap <M-4> 4gt
+	nnoremap <M-5> 5gt
+	nnoremap <M-6> 6gt
+	nnoremap <M-7> 7gt
+	nnoremap <M-8> 8gt
+	nnoremap <M-9> 9gt
+	nnoremap <M-0> 10gt
+	inoremap <M-1> <C-O>1gt
+	inoremap <M-2> <C-O>2gt
+	inoremap <M-3> <C-O>3gt
+	inoremap <M-4> <C-O>4gt
+	inoremap <M-5> <C-O>5gt
+	inoremap <M-6> <C-O>6gt
+	inoremap <M-7> <C-O>7gt
+	inoremap <M-8> <C-O>8gt
+	inoremap <M-9> <C-O>9gt
+	inoremap <M-0> <C-O>10gt
 
 " Debugging setup:
 	nmap <leader>b :BreakpointToggle<CR>
 
 " Util setup:
-	nmap <leader>rf :read !find -name ''<LEFT>
-	nmap <leader>rsf :read !find -regextype sed -regex '.*\.\(h\\|hh\\|hpp\\|c\\|cc\\|cpp\\|cxx\\|s\\|S\)$' \| sort<CR>
-	nmap <leader>rsd :read !find -type d -name '*' \| sort<CR>
-	nmap <leader>x  :wa! \| !./%<CR>
-	nmap <leader>mx :wa! \| !chmod +x %<CR>
-	nmap <leader>mt :wa! \| !clear; ctags --exclude=.git --exclude='*.log' -R * <CR>
+	nmap <silent> <leader>rf :read !find -name ''<LEFT>
+	nmap <silent> <leader>rsf :read !find -regextype sed -regex '.*\.\(h\\|hh\\|hpp\\|c\\|cc\\|cpp\\|cxx\\|s\\|S\)$' \| sort<CR>
+	nmap <silent> <leader>rsd :read !find -type d -name '*' \| sort<CR>
+	nmap <silent> <leader>x  :wa! \| !./%<CR>
+	nmap <silent> <leader>mx :wa! \| !chmod +x %<CR>
+	nmap <silent> <leader>mt :wa! \| !clear; ctags --exclude=.git --exclude='*.log' -R * <CR>
 
 " Check file in shellcheck:
 	map <leader>sc :wa! \| !shellcheck %<CR>
 
 " Makefile setup:
-	nmap <leader>ma :wa! \| !clear; time make<CR>
-	nmap <leader>mc :wa! \| !clear; time make clean<CR>
-	nmap <leader>mf :wa! \| !clear; time make flash<CR>
-	nmap <leader>ms :wa! \| !clear;      make serial<CR>
-	nmap <leader>mv :wa! \| !clear;      make vcp<CR>
+	nmap <silent> <leader>ma :wa! \| !clear; time make<CR>
+	nmap <silent> <leader>mc :wa! \| !clear; time make clean<CR>
+	nmap <silent> <leader>mf :wa! \| !clear; time make flash<CR>
+	nmap <silent> <leader>ms :wa! \| !clear;      make serial<CR>
+	nmap <silent> <leader>mv :wa! \| !clear;      make vcp<CR>
 
 " git setup:
-	map <leader>gs  :Gstatus<CR>
-	map <leader>gpl :Gstatus<CR>
-	map <leader>gps :Gstatus<CR>
+	map <silent> <leader>gs  :gstatus<CR>
+" 	map <silent> <leader>gpl :gstatus<CR>
+" 	map <silent> <leader>gps :gstatus<CR>
 
 " Open corresponding .pdf/.html or preview
-	map <leader>p :!opout <c-r>%<CR><CR>
+	map <silent> <leader>p :!opout <c-r>%<CR><CR>
 
 " Swap bettween hex and plain text views
-	nmap <leader>h :call ToggleHexView()<CR>
+	nmap <silent> <leader>h :call ToggleHexView()<CR>
 	let g:is_hex_view=1
 	function! ToggleHexView ()
 		if g:is_hex_view
@@ -316,12 +316,12 @@ xmap <silent> <leader>gS <plug>(scratch-selection-clear)
 	let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 
 " ycm
-map <leader>yr  :YcmRestartServer<CR>
-map <leader>gdf :YcmCompleter GoToDefinition<CR>
-map <leader>gdc :YcmCompleter GoToDeclaration<CR>
-map <leader>gi  :YcmCompleter GoToInclude<CR>
-map <leader>gt  :YcmCompleter GetType<CR>
-map <leader>fi  :YcmCompleter FixIt<CR>
-map <leader>sd  :YcmCompleter GetDoc<CR>
+map <silent> <leader>yr  :YcmRestartServer<CR>
+map <silent> <leader>gdf :YcmCompleter GoToDefinition<CR>
+map <silent> <leader>gdc :YcmCompleter GoToDeclaration<CR>
+map <silent> <leader>gi  :YcmCompleter GoToInclude<CR>
+map <silent> <leader>gt  :YcmCompleter GetType<CR>
+map <silent> <leader>fi  :YcmCompleter FixIt<CR>
+map <silent> <leader>sd  :YcmCompleter GetDoc<CR>
 let g:ycm_key_list_select_completion=['<C-N>']
 let g:ycm_key_list_previous_completion=['<C-P>']

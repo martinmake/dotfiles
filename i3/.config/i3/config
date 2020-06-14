@@ -60,7 +60,8 @@ exec_always --no-startup-id podentr
 # exec st -e gotop
 
 bar {
-	font pango:mono 10
+# 	font pango:mono 10
+	font pango:c64 pro mono 6
 	status_command i3blocks
 	position top
 	mode dock

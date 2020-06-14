@@ -18,7 +18,7 @@ let g:ycm_key_detailed_diagnostics = '<Plug>(ShowDetailedLine)'
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_enable_diagnostic_signs = 1
-let g:ycm_enable_diagnostic_highlighting = 0
+let g:ycm_enable_diagnostic_highlighting = 1
 let g:ycm_echo_current_diagnostic = 1
 
 let g:ycm_disable_for_files_larger_than_kb = 1024 * g:largefile_trigger_size
@@ -83,7 +83,9 @@ endfunction
 
 nmap <silent> <Plug>(SmartGoTo) :call SmartGoTo()<cr>
 
-highlight link YcmErrorSection   Error
-highlight link YcmErrorSign      Error
-highlight link YcmWarningSection Warning
-highlight link YcmWarningSign    Warning
+highlight! link YcmErrorSection   Error
+highlight! link YcmErrorSign      Error
+highlight! link YcmErrorLine      None
+highlight! link YcmWarningSection Warning
+highlight! link YcmWarningSign    Warning
+highlight! link YcmWarningLine    None
