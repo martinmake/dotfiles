@@ -21,14 +21,14 @@ let g:lightline.component = { 'mode'        : '%{lightline#mode()}',
                             \ 'lineinfo'    : '%3l:%-2v',
                             \ 'line'        : '%l',
                             \ 'column'      : '%c',
-                            \ 'close'       : '☭ ',
+                            \ 'close'       : '☭  ',
                             \ 'winnr'       : '%{winnr()}' }
 
-let g:lightline.active = {
-      \   'right': [ [ 'lineinfo' ],
-      \              [ 'percent'  ],
-      \              [ 'fileformat',
-                     \ 'fileencoding',
-                     \ 'filetype',
-                     \ 'charvaluehex' ] ]
-      \ }
+let g:lightline.active = { 'right': [ [ 'lineinfo' ],
+                       \              [ 'percent'  ],
+                       \              [ 'fileformat',
+                                      \ 'fileencoding',
+                                      \ 'filetype',
+                                      \ 'charvaluehex' ] ]
+                       \ , 'middle': [ '-------' ]
+                       \ }

@@ -1,4 +1,4 @@
-let g:ycm_add_preview_to_completeopt=1
+" let g:ycm_add_preview_to_completeopt=1
 let g:ycm_autoclose_preview_window_after_completion=1
 let g:ycm_min_num_of_chars_for_completion=1
 let g:ycm_auto_trigger=1
@@ -27,8 +27,8 @@ let g:ycm_global_ycm_extra_conf = g:vim_plugin_options_directory.'/ycm_extra_con
 
 let g:ycm_last_message = ''
 
-" let g:ycm_error_symbol = '✘'
-" let g:ycm_warning_symbol = '✘'
+let g:ycm_error_symbol = 'XX'
+let g:ycm_warning_symbol = '!!'
 
 let s:smart_goto_guard = 0
 let s:modified = 1

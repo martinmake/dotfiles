@@ -316,12 +316,12 @@ xmap <silent> <leader>gS <plug>(scratch-selection-clear)
 	let g:UltiSnipsJumpBackwardTrigger='<S-Tab>'
 
 " ycm
-map <silent> <leader>yr  :YcmRestartServer<CR>
-map <silent> <leader>gdf :YcmCompleter GoToDefinition<CR>
-map <silent> <leader>gdc :YcmCompleter GoToDeclaration<CR>
-map <silent> <leader>gi  :YcmCompleter GoToInclude<CR>
-map <silent> <leader>gt  :YcmCompleter GetType<CR>
-map <silent> <leader>fi  :YcmCompleter FixIt<CR>
-map <silent> <leader>sd  :YcmCompleter GetDoc<CR>
+nmap <silent> <leader>yr  :YcmRestartServer<CR>
+nmap <silent> <leader>gdf :YcmCompleter GoToDefinition<CR>
+nmap <silent> <leader>gdc :YcmCompleter GoToDeclaration<CR>
+nmap <silent> <leader>gi  :YcmCompleter GoToInclude<CR>
+nmap <silent> <leader>gt  :YcmCompleter GetType<CR>
+nmap <silent> <leader>fi  :YcmCompleter FixIt<CR>
+nmap <silent> <leader>sd  :YcmCompleter GetDoc<CR>
 let g:ycm_key_list_select_completion=['<C-N>']
 let g:ycm_key_list_previous_completion=['<C-P>']

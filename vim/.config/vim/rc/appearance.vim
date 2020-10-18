@@ -59,10 +59,11 @@ set showtabline=2
 	set shiftwidth=0
 	set softtabstop=0
 	" let g:indentLine_char_list= ['|', '¦', '┊']
-	let g:indentLine_char_list= ['|']
+	" let g:indentLine_char_list= ['|']
+	let g:indentLine_char_list= ['┃']
 	set list
-	" set listchars=tab::·,space:·,trail:·,extends:>,precedes:<,conceal:*
-	set listchars=tab:\|.,space:.,trail:.,extends:>,precedes:<,conceal:*
+	set listchars=tab::·,space:·,trail:·,extends:>,precedes:<,conceal:*
+	" set listchars=tab:\|.,space:.,trail:.,extends:>,precedes:<,conceal:*
 " folding {{{
 	set foldenable
 	set foldminlines=0

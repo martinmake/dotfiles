@@ -2,8 +2,8 @@ setlocal commentstring=#\ %s
 
 setlocal foldmethod=indent
 
-setlocal tabstop=2
-setlocal shiftwidth=2
+setlocal tabstop=4
+setlocal shiftwidth=4
 
 " if helpers#parse_shebang().exe ==# 'python'
 "   let b:neomake_python_pylint_exe = 'python'

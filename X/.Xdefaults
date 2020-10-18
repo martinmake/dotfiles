@@ -2,10 +2,10 @@
 st.alpha: 0.90
 
 !! Set a default font and font size as below:
-/* st.font: terminus-12 */
-/* dmenu.font: terminus-12 */
-st.font: C64 Pro Mono-6
-dmenu.font: c64 pro mono-6
+st.font: terminus-10
+/* st.font: C64 Pro Mono-6 */
+dmenu.font: terminus-12
+/* dmenu.font: C64 Pro Mono-6 */
 
 st.termname: st-256color
 st.borderpx: 1
@@ -36,4 +36,4 @@ dmenu.selforeground : white
 *.color12:  #3030ff
 *.color13:  #ff00ff
 *.color14:  #00ffff
-*.color15:  #fafafa
+*.color15:  #ffffff

@@ -1,5 +1,3 @@
-let g:polyglot_disabled = ['latex']
-
 let g:vimtex_echo_ignore_wait = 1
 
 let g:vimtex_imaps_enabled = 0
