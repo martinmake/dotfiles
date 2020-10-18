@@ -20,24 +20,16 @@ alias dotfiles="git --git-dir=~/.config/dotfiles/ --work-tree=/$HOME/"
 
 ## Usage
 
+* The actual work is done with make
+
+```sh
+make help
+```
+
 * Adding dotfiles
 
 ```sh
 dotfiles add <DOTFILE>...
 dotfiles commit
 dotfiles push
-```
-
-################################################################
-## HOW SYMLINK CONFIGURATION AND INSTALL ALL PACKAGES
-
-```console
-$ ./stow_all.sh
-$ ./install_packages.sh
-```
-
-## HOW SAVE CONFIGURATION
-
-```console
-$ ./save_packages.sh
 ```
