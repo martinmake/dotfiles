@@ -26,6 +26,9 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:python3_host_prog='/usr/bin/python'
+let g:loaded_ruby_provider=0
+
 " spelling
 	set spellfile=$XDG_CONFIG_HOME/nvim/spell/en.utf-8.add
 	set spelllang=en_us
@@ -159,6 +162,7 @@ set nobackup
 set nowritebackup
 set swapfile
 set lazyredraw
+set ttyfast
 set hidden
 set noshowmatch
 set matchtime=1
@@ -224,3 +228,4 @@ set splitbelow splitright
 	inoremap # X#
 
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1

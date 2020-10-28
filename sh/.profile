@@ -86,6 +86,6 @@ if [ "$TERM" = "linux" ]; then
 	print "\e[?16;2;112;c"
 
 	setterm -background black -foreground white -store
-
-# 	( tmux attach || tmux new-session ) && exit
 fi
+
+( tmux attach || tmux new-session ) && exit

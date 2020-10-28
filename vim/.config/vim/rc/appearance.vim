@@ -80,5 +80,6 @@ set signcolumn=yes
 
 " Color column
 let g:colorcolumn=80
-set colorcolumn=80
-match OverLength /\%81v.*/
+" match OverLength /\%81v.*/
+match OverLength /$^/
+let &colorcolumn=0

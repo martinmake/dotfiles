@@ -49,6 +49,7 @@ static struct item *items = NULL;
 static struct item *matches, *matchend;
 static struct item *prev, *curr, *next, *sel;
 static int mon = -1, screen;
+static int use_text_input = 0;
 
 static Atom clip, utf8;
 static Display *dpy;
@@ -628,7 +629,10 @@ insert:
 		break;
 	case XK_Return:
 	case XK_KP_Enter:
-		puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
+		if (use_text_input)
+			puts((sel && (ev->state & ShiftMask)) ? sel->text : text);
+		else
+			puts((sel && !(ev->state & ShiftMask)) ? sel->text : text);
 		if (!(ev->state & ControlMask)) {
 			cleanup();
 			exit(0);
@@ -892,6 +896,8 @@ main(int argc, char *argv[])
 			fstrstr = cistrstr;
     } else if (!strcmp(argv[i], "-n")) /* instant select only match */
 			instant = 1;
+		else if (!strcmp(argv[i], "-t")) /* favors text input over selection */
+			use_text_input = 1;
 		else if (i + 1 == argc)
 			usage();
 		/* these options take one argument */

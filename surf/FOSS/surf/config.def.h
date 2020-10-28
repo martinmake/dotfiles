@@ -70,8 +70,9 @@ static int winsize[] = { 800, 600 };
 static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
                                     WEBKIT_FIND_OPTIONS_WRAP_AROUND;
 
-#define PROMPT_GO   "GO:"
-#define PROMPT_FIND "FIND:"
+#define PROMPT_GO     "GO:"
+#define PROMPT_FIND   "FIND:"
+#define PROMPT_SEARCH "SEARCH:"
 
 /* SETPROP(readprop, setprop, prompt)*/
 #define SETPROP(r, s, p) { \
@@ -84,11 +85,31 @@ static WebKitFindOptions findopts = WEBKIT_FIND_OPTIONS_CASE_INSENSITIVE |
         } \
 }
 
+#define GO() { \
+        .v = (const char *[]){ "/bin/sh", "-c", \
+             "prop=\"$(printf '%b' \"$(xprop -id $1 $2 " \
+             "| sed \"s/^$2(STRING) = //;s/^\\\"\\(.*\\)\\\"$/\\1/\" && cat ~/.surf/bookmarks)\" " \
+             "| dmenu -l 10 -p \"$4\" -w $1)\" && " \
+             "xprop -id $1 -f $3 8s -set $3 \"$prop\"", \
+             "surf-setprop", winid, "_SURF_URI", "_SURF_GO", PROMPT_GO, NULL \
+        } \
+}
+
+#define FIND() { \
+        .v = (const char *[]){ "/bin/sh", "-c", \
+             "prop=\"$(printf '%b' \"$(xprop -id $1 $2 " \
+             "| </dev/null)\" " \
+             "| dmenu -p \"$4\" -w $1)\" && " \
+             "xprop -id $1 -f $3 8s -set $3 \"$prop\"", \
+             "surf-setprop", winid, "_SURF_FIND", "_SURF_FIND", PROMPT_FIND, NULL \
+        } \
+}
+
 #define SEARCH() { \
         .v = (const char *[]){ "/bin/sh", "-c", \
              "xprop -id $1 -f $2 8s -set $2 \"" \
-             "$(dmenu -p Search: -w $1 < /dev/null)\"", \
-             "surf-search", winid, "_SURF_SEARCH", NULL \
+             "$(dmenu -p \"$3\" -w $1 < /dev/null)\"", \
+             "surf-search", winid, "_SURF_SEARCH", PROMPT_SEARCH, NULL \
         } \
 }
 
@@ -187,9 +208,12 @@ static Key keys[] = {
 	{ 0,                     GDK_KEY_i,      insert,     { .i = 1 } },
 	{ 0,                     GDK_KEY_Escape, insert,     { .i = 0 } },
 
-	{ 0,                     GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
-	{ 0,                     GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
-	{ 0,                     GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+// 	{ 0,                     GDK_KEY_g,      spawn,      SETPROP("_SURF_URI", "_SURF_GO", PROMPT_GO) },
+// 	{ 0,                     GDK_KEY_f,      spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+// 	{ 0,                     GDK_KEY_slash,  spawn,      SETPROP("_SURF_FIND", "_SURF_FIND", PROMPT_FIND) },
+	{ 0,                     GDK_KEY_g,      spawn,      GO()     },
+	{ 0,                     GDK_KEY_f,      spawn,      FIND()   },
+	{ 0,                     GDK_KEY_slash,  spawn,      FIND()   },
 	{ 0,                     GDK_KEY_s,      spawn,      SEARCH() },
 	{ 0,                     GDK_KEY_m,      spawn,      BM_ADD("_SURF_URI") },
 

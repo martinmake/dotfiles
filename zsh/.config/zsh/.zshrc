@@ -1,7 +1,11 @@
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh 2> /dev/null
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2> /dev/null
-source /usr/share/zsh/plugins/zsh-you-should-use/zsh-you-should-use.zsh 2> /dev/null
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2> /dev/null
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh                   2> /dev/null
+source /usr/share/zsh/plugins/zsh-you-should-use/zsh-you-should-use.zsh                     2> /dev/null
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh           2> /dev/null
+source /usr/share/zsh/plugins/zsh-system-clipboard/zsh-system-clipboard.zsh              2> /dev/null
+
+typeset -g ZSH_SYSTEM_CLIPBOARD_TMUX_SUPPORT='true'
+typeset -g ZSH_SYSTEM_CLIPBOARD_SELECTION='PRIMARY'
 
 # Enable colors and change prompt:
 autoload -U colors && colors

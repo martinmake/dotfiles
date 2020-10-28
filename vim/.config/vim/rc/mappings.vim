@@ -194,7 +194,7 @@ xmap <silent> <leader>gS <plug>(scratch-selection-clear)
 
 " toggle text limiting
 	nmap <leader>lt :call ToggleLimitText()<CR>
-	let g:is_limit_text=1
+	let g:is_limit_text=0
 	function! ToggleLimitText()
 		if g:is_limit_text
 			let g:is_limit_text=0

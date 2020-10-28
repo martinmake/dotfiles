@@ -15,18 +15,6 @@ endif
 
 let g:largefile_trigger_size=0.5
 
-let g:python3_host_prog='/usr/bin/python'
-
-let g:loaded_ruby_provider = 0
-
-if exists('t_8f')
-	let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-endif
-
-if exists('t_8b')
-	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-
 " disable some default plugins
 let g:loaded_2html_plugin    = 1
 let g:loaded_netrw           = 1
@@ -47,24 +35,27 @@ call plug#begin(g:vim_plugin_directory)
 
 " 	code related                                                            {{{
 	Plug 'https://github.com/haya14busa/incsearch.vim'
+		\, { 'for': ['asm', 'c', 'cpp'] }
 	Plug 'https://github.com/tpope/vim-commentary'
-	Plug 'https://github.com/scrooloose/nerdcommenter' " might be a better option
+" 		\, { 'for': ['c', 'cpp', 'sh', 'python', 'vim', 'unix', 'markdown'] }
+" 	Plug 'https://github.com/scrooloose/nerdcommenter' " might be a better option
+" 		\, { 'for': ['c', 'cpp', 'python', 'vim', 'unix', 'markdown'] }
 	Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
+		\, { 'for': ['c', 'cpp', 'sh', 'python'] }
 	Plug 'https://github.com/HugoNikanor/vim-breakpoint'
-	Plug 'https://github.com/neoclide/coc.nvim'
-		\, { 'do': { -> coc#util#install()} }
+		\, { 'for': ['asm', 'c', 'cpp', 'python'] }
 " 	}}}
 
 " 	TODO: check out and sort these plugins                                  {{{
-	Plug 'https://github.com/tpope/vim-repeat'
-	Plug 'https://github.com/vim-scripts/cecutil'
-	Plug 'https://github.com/google/vim-maktaba'
-	Plug 'https://github.com/Shougo/unite.vim'
-	Plug 'https://github.com/jeetsukumaran/vim-indentwise'
-	Plug 'https://github.com/coderifous/textobj-word-column.vim'
-	Plug 'https://github.com/Julian/vim-textobj-brace'
-	Plug 'https://github.com/kana/vim-textobj-indent'
-	Plug 'https://github.com/kana/vim-textobj-user'
+" 	Plug 'https://github.com/tpope/vim-repeat'
+" 	Plug 'https://github.com/vim-scripts/cecutil'
+" 	Plug 'https://github.com/google/vim-maktaba'
+" 	Plug 'https://github.com/Shougo/unite.vim'
+" 	Plug 'https://github.com/jeetsukumaran/vim-indentwise'
+" 	Plug 'https://github.com/coderifous/textobj-word-column.vim'
+" 	Plug 'https://github.com/Julian/vim-textobj-brace'
+" 	Plug 'https://github.com/kana/vim-textobj-indent'
+" 	Plug 'https://github.com/kana/vim-textobj-user'
 	Plug 'https://github.com/chaoren/vim-wordmotion'
 	Plug 'https://github.com/haya14busa/vim-easyoperator-line'
 	Plug 'https://github.com/svermeulen/vim-easyclip'
@@ -93,18 +84,17 @@ call plug#begin(g:vim_plugin_directory)
 	command! AddCSSColors call plug#load('vim-css-color')
 	Plug 'https://github.com/luochen1990/rainbow'
 		\, helpers#is_modern() ? {} : { 'on': [] }
-" 	Plug 'https://github.com/sheerun/vim-polyglot'
 	Plug 'https://github.com/othree/javascript-libraries-syntax.vim'
+		\, {'for': 'js'}
 	Plug 'https://github.com/neovimhaskell/haskell-vim'
+		\, {'for': 'hs'}
 	Plug 'https://github.com/Bellaktris/vim-hack'
 	Plug 'https://github.com/nelstrom/vim-markdown-folding'
+		\, {'for': 'markdown'}
 	Plug 'https://github.com/goerz/ipynb_notedown.vim'
+		\, {'for': 'python'}
 	Plug 'https://github.com/artoj/qmake-syntax-vim'
-	Plug 'https://github.com/octol/vim-cpp-enhanced-highlight'
-		\, { 'for': ['c', 'cpp'] }
-	Plug 'https://github.com/LucHermitte/lh-vim-lib'
-	Plug 'https://github.com/LucHermitte/VimFold4C'
-		\, { 'for': ['c', 'cpp'] }
+		\, {'for': 'make'}
 " 	Plug 'https://github.com/tpope/vim-sleuth' " meh indentation
 " 	}}}
 
@@ -139,7 +129,6 @@ call plug#begin(g:vim_plugin_directory)
 " 	Latex                                                                   {{{
 	Plug 'https://github.com/lervag/vimtex'
 		\, {'for': 'tex'}
-
 	Plug 'https://github.com/KeitaNakamura/tex-conceal.vim'
 		\, {'for': 'tex'}
 " 	}}}
@@ -197,7 +186,7 @@ call plug#begin(g:vim_plugin_directory)
 
 " 	code unrelated                                                          {{{
 	Plug 'https://github.com/vimwiki/vimwiki'
-		\, { 'for': ['vimwiki'] }
+" 		\, { 'for': ['vimwiki'] }
 	Plug 'https://github.com/wincent/terminus'
 	Plug 'https://github.com/chrisbra/csv.vim'
 		\, { 'for': ['csv'] }
@@ -230,19 +219,21 @@ call plug#begin(g:vim_plugin_directory)
 	Plug 'https://github.com/justinmk/vim-sneak'
 	Plug 'https://github.com/osyo-manga/vim-anzu'
 	Plug 'https://github.com/haya14busa/vim-asterisk'
-	Plug 'https://github.com/wellle/targets.vim'
+" 	Plug 'https://github.com/wellle/targets.vim'
 	Plug 'https://github.com/vim-scripts/repeat.vim'
 	Plug 'https://github.com/bkad/CamelCaseMotion'
 " 	}}}
 
 " 	autocomplete                                                            {{{
-	Plug 'https://github.com/ycm-core/YouCompleteMe'
-		\, { 'for': ['c', 'cpp', 'make'] }
+" 	Plug 'https://github.com/ycm-core/YouCompleteMe'
+" 		\, { 'for': ['c', 'cpp', 'make'] }
+	Plug 'https://github.com/neoclide/coc.nvim'
+		\, { 'do': { -> coc#util#install()} }
 	Plug 'https://github.com/sirver/UltiSnips'
 		\, { 'for': ['c', 'cpp', 'make', 'python', 'sh', 'make'] }
 	Plug 'https://github.com/jiangmiao/auto-pairs'
-" Plug 'https://github.com/ervandew/supertab'
-	Plug 'https://github.com/tpope/vim-endwise'
+" 	 Plug 'https://github.com/ervandew/supertab'
+" 	Plug 'https://github.com/tpope/vim-endwise'
 	Plug 'https://github.com/Yggdroot/indentLine'
 		\, { 'for': ['python'] }
 " 	}}}
@@ -280,6 +271,12 @@ call plug#begin(g:vim_plugin_directory)
 "	meh plugin
 " 	Plug 'https://github.com/quark-zju/vim-cpp-auto-include'
 " 		\, { 'for': ['c', 'cpp'] }
+	Plug 'https://github.com/octol/vim-cpp-enhanced-highlight'
+		\, { 'for': ['c', 'cpp'] }
+	Plug 'https://github.com/LucHermitte/lh-vim-lib'
+		\, { 'for': ['c', 'cpp'] }
+	Plug 'https://github.com/LucHermitte/VimFold4C'
+		\, { 'for': ['c', 'cpp'] }
 " 	}}}
 
 " 	CMake                                                                   {{{
