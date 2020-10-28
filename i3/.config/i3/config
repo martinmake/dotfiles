@@ -97,13 +97,13 @@ bindsym $mod+q      	[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q	[con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 
 bindsym $mod+w      	exec --no-startup-id $BROWSER
-bindsym $mod+Shift+w   	exec $term -e nmtui
+bindsym $mod+Shift+w	exec $term -e nmtui
 
 # bindsym $mod+e      	exec $term -e neomutt && pkill -RTMIN+12 i3blocks
-bindsym $mod+e			exec --no-startup-id $term -e $EDITOR
+bindsym $mod+e      	exec --no-startup-id $term -e $EDITOR
 bindsym $mod+Shift+e	exec --no-startup-id tutorialvids
 
-bindsym $mod+r      	exec $term -e $SHELL -ic $FILE
+bindsym $mod+r      	exec --no-startup-id $term -e $FILE
 bindsym $mod+Shift+r	exec --no-startup-id winresize
 
 bindsym $mod+t      	split toggle

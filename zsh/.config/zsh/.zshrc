@@ -2,7 +2,7 @@ source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh                   2> /dev/null
 source /usr/share/zsh/plugins/zsh-you-should-use/zsh-you-should-use.zsh                     2> /dev/null
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh           2> /dev/null
-source /usr/share/zsh/plugins/zsh-system-clipboard/zsh-system-clipboard.zsh              2> /dev/null
+source /usr/share/zsh/plugins/zsh-system-clipboard/zsh-system-clipboard.zsh                 2> /dev/null
 
 typeset -g ZSH_SYSTEM_CLIPBOARD_TMUX_SUPPORT='true'
 typeset -g ZSH_SYSTEM_CLIPBOARD_SELECTION='PRIMARY'
@@ -156,3 +156,7 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 
 bindkey -r "h" # unbind run-help
 bindkey -r "H" # unbind run-help
+
+if [ "$TERM" != "tmux-256color" ]; then
+	( TERM=xterm-256color tmux new-session ) && exit
+fi
