@@ -1,26 +1,26 @@
-# martinmake's Arch Linux dotfiles
+# martinmake's dotfiles
 
 ## Description
 
-These are all my Arch Linux user dotfiles managed through git
+All of martinmake's configs, scripts, installed programs
 
 ## Installation
 
 1. Clone the repository
 
 ```sh
-git clone https://www.github.com/martinmake/dotfiles-archlinux ~/.config/dotfiles
+git clone https://www.github.com/martinmake/dotfiles ~/dotfiles
 ```
 
 2. To address the repository you should setup this alias
 
 ```sh
-alias dotfiles="git --git-dir=~/.config/dotfiles/ --work-tree=/$HOME/"
+alias dotfiles="git --git-dir=~/dotfiles/ --work-tree=/$HOME/"
 ```
 
 ## Usage
 
-* The actual work is done with make
+* Linking and installing is done through make, for more info go to dotfiles directory and run:
 
 ```sh
 make help
