@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+if [ "$(bspc query -T --node | grep '"state":"fullscreen"')" ]; then
+	picom --daemon
+else
+	killall picom
+fi
+
+bspc node focused --state \~fullscreen

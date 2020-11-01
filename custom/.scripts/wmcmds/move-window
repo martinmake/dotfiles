@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+if [ "$(bspc query -T --node | grep '"state":"floating"')" ]; then
+	CMD='-v'
+	case $1 in
+		west ) VALUE='-20   0' ;;
+		south) VALUE='  0  20' ;;
+		north) VALUE='  0 -20' ;;
+		east ) VALUE=' 20   0' ;;
+	esac
+else
+	CMD='-s'
+	VALUE=$1
+fi
+
+bspc node $CMD $VALUE

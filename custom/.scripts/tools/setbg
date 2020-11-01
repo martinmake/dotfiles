@@ -1,4 +1,36 @@
-#!/bin/sh
-# Sets the background. If given an argument, will set file as background.
-[ ! -z "$1" ] && cp "$1" ~/.config/wall.png && notify-send -i "$HOME/.config/wall.png" "Wallpaper changed."
-xwallpaper --zoom ~/.config/wall.png
+#!/bin/env sh
+
+USAGE="usage: $0 [-i <image_for_internal_output>] [-e <image_for_external_output>]"
+
+INTERNAL="${XDG_CONFIG_HOME}/wallpapers/internal.png"
+EXTERNAL="${XDG_CONFIG_HOME}/wallpapers/external.png"
+
+while getopts hi:e: opt; do
+	case $opt in
+	    h)
+		    echo $USAGE
+		    exit 0
+		    ;;
+	    i)
+		    NEW_INTERNAL="$OPTARG"
+		    ;;
+	    e)
+		    NEW_EXTERNAL="$OPTARG"
+		    ;;
+	    ?)
+		    echo $USAGE
+		    exit 2
+		    ;;
+	esac
+done
+
+[ "$NEW_INTERNAL" ] && [ ! -f "$NEW_INTERNAL" ] && echo "No such file: $NEW_INTERNAL" && exit 1
+[ "$NEW_EXTERNAL" ] && [ ! -f "$NEW_EXTERNAL" ] && echo "No such file: $NEW_EXTERNAL" && exit 1
+
+# Sets internal background. If given an argument, will set file as background.
+[ "$NEW_INTERNAL" ] && cp "$NEW_INTERNAL" ${INTERNAL} && notify-send -i "${INTERNAL}" "Wallpaper changed."
+[ "$NEW_EXTERNAL" ] && cp "$NEW_EXTERNAL" ${EXTERNAL} && notify-send -i "${EXTERNAL}" "Wallpaper changed."
+
+XWALLPAPERS+="$([ -f $INTERNAL ] && echo '--output' LVDS1 '--zoom' ${INTERNAL}) "
+XWALLPAPERS+="$([ -f $EXTERNAL ] && echo '--output' VGA1  '--zoom' ${EXTERNAL}) "
+xwallpaper ${XWALLPAPERS}

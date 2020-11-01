@@ -1,0 +1,15 @@
+#!/bin/bash
+
+IMAGE=/tmp/screen.png
+BACKGROUND_IMAGE=$IMAGE
+LOCK_IMAGE=/tmp/lock.png
+
+LOCK_OPTIONS=$(echo -u -e -i $IMAGE)
+
+scrot $BACKGROUND_IMAGE
+convert $BACKGROUND_IMAGE -fuzz 1000 -blur 3 -paint 3 -brightness-contrast 20x50 $IMAGE
+
+[[ -f $LOCK_IMAGE ]] && convert $IMAGE $LOCK_IMAGE -gravity center -composite -matte $IMAGE
+
+i3lock $LOCK_OPTIONS
+rm $IMAGE

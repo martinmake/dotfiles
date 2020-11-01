@@ -2,6 +2,6 @@
 
 # This script opens history in centered dmenu and save selection into clipboard
 
-DMENU_FLAGS="-f -n -i -c -bw 4 -l 20 -nb black"
+DMENU_FLAGS="-f -n -i -c -bw 1 -l 20 -nb black"
 
 cut -c 16- ~/.cache/zsh/history | dmenu $DMENU_FLAGS | tr '\n' ' ' | xclip -selection clipboard

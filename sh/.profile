@@ -2,8 +2,9 @@
 # Profile file. Runs on login.
 
 # Default programs
+export WM="bspwm"
 export EDITOR="nvim"
-export TERMINAL="st"
+export TERMINAL="stx"
 export BROWSER="surf"
 export READER="zathura"
 export FILE="ranger"
@@ -51,17 +52,17 @@ export LESS_TERMCAP_ue="$(printf '%b' '[0m')";
 
 echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && . "$XDG_CONFIG_HOME/bash/.bashrc"
 
-# Start graphical server if i3 not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec startx
-
-# Start syncthing
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x i3 >/dev/null && exec syncthing
-
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 
 # `man set` && `/noclobber` you dummy
 set -o noclobber
+
+# Start graphical server if WM is not already running.
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x "${WM}" >/dev/null && exec startx
+
+# Start syncthing
+# [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x syncthing >/dev/null && exec syncthing
 
 if [ "$TERM" = "linux" ]; then
 	print "\e]P0000000" #black
@@ -87,5 +88,5 @@ if [ "$TERM" = "linux" ]; then
 
 	setterm -background black -foreground white -store
 
-	( tmux attach || tmux new-session ) && exit
+	tmux new-session && exit
 fi

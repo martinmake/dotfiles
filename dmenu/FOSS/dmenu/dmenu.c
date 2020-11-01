@@ -29,7 +29,7 @@
 #define NUMBERSBUFSIZE        (NUMBERSMAXDIGITS * 2) + 1
 
 /* enums */
-enum { SchemeNorm, SchemeSel, SchemeOut, SchemeNormHighlight, SchemeSelHighlight, SchemeMid, SchemeLast }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeOut, SchemeOutHighlight, SchemeNormHighlight, SchemeSelHighlight, SchemeMid, SchemeMidHighlight, SchemeLast }; /* color schemes */
 
 struct item {
 	char *text;
@@ -134,7 +134,16 @@ drawhighlights(struct item *item, int x, int y, int maxw)
 	char restorechar, tokens[sizeof text], *highlight,  *token;
 	int indentx, highlightlen;
 
-	drw_setscheme(drw, scheme[item == sel ? SchemeSelHighlight : SchemeNormHighlight]);
+
+	if (item == sel)
+		drw_setscheme(drw, scheme[SchemeSelHighlight]);
+	else if (item->out)
+		drw_setscheme(drw, scheme[SchemeOutHighlight]);
+	else if (item->left == sel || item->right == sel)
+		drw_setscheme(drw, scheme[SchemeMidHighlight]);
+	else
+		drw_setscheme(drw, scheme[SchemeNormHighlight]);
+
 	strcpy(tokens, text);
 	for (token = strtok(tokens, " "); token; token = strtok(NULL, " ")) {
 		highlight = fstrstr(item->text, token);
@@ -169,10 +178,10 @@ drawitem(struct item *item, int x, int y, int w)
 {
 	if (item == sel)
 		drw_setscheme(drw, scheme[SchemeSel]);
-	else if (item->left == sel || item->right == sel)
-		drw_setscheme(drw, scheme[SchemeMid]);
 	else if (item->out)
 		drw_setscheme(drw, scheme[SchemeOut]);
+	else if (item->left == sel || item->right == sel)
+		drw_setscheme(drw, scheme[SchemeMid]);
 	else
 		drw_setscheme(drw, scheme[SchemeNorm]);
 
@@ -803,7 +812,7 @@ setup(void)
 					break;
 
 		if (centered) {
-			mw = MIN(MAX(max_textw() + promptw, min_width), info[i].width);
+			mw = MIN(MAX(max_textw() + promptw, min_width), MIN(info[i].width, max_width));
 			x = info[i].x_org + ((info[i].width  - mw) / 2);
 			y = info[i].y_org + ((info[i].height - mh) / 2);
 		} else {
@@ -821,7 +830,7 @@ setup(void)
 			    parentwin);
 
 		if (centered) {
-			mw = MIN(MAX(max_textw() + promptw, min_width), wa.width);
+			mw = MIN(MAX(max_textw() + promptw, min_width), MIN(wa.width, max_width));
 			x = (wa.width  - mw) / 2;
 			y = (wa.height - mh) / 2;
 		} else {

@@ -1,10 +1,11 @@
 bf	~/.config/bmfiles
 bd	~/.config/bmdirs
-cfb	~/.bashrc
 cfa	~/.config/aliasrc
-cfz	~/.zshrc
+cfsh	~/.zshrc
+cfsb	~/.config/polybar/config
 cfv	~/.config/nvim/init.vim
-cfr	~/.config/ranger/rc.conf
-cfi	~/.config/i3/config
-cfd	~/.Xdefaults
+cfxr	~/.config/Xresources
 cfp	~/.profile
+cfk	~/.config/sxhkd/sxhkdrc
+cfwm	~/.config/bspwm/bspwmrc
+cft	~/.tmux.conf

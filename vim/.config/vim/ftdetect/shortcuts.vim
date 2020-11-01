@@ -1,1 +1,1 @@
-autocmd BufWritePost ~/.config/bmdirs,~/.config/bmfiles set filetype=shortcuts
+autocmd BufRead ${XDG_CONFIG_HOME}/bmdirs,${XDG_CONFIG_HOME}/bmfiles set filetype=shortcuts

@@ -1,2 +1,3 @@
 #!/bin/sh
-exec i3
+
+exec bspwm

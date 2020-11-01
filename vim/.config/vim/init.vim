@@ -139,6 +139,8 @@ call plug#begin(g:vim_plugin_directory)
 " 	}}}
 
 " 	Git integration                                                         {{{
+	Plug 'https://github.com/airblade/vim-gitgutter'
+	Plug 'https://github.com/jreybert/vimagit'
 	Plug 'https://github.com/tpope/vim-fugitive'
 	Plug 'https://github.com/junegunn/gv.vim'
 	Plug 'https://github.com/int3/vim-extradite'
@@ -186,7 +188,7 @@ call plug#begin(g:vim_plugin_directory)
 
 " 	code unrelated                                                          {{{
 	Plug 'https://github.com/vimwiki/vimwiki'
-" 		\, { 'for': ['vimwiki'] }
+		\, { 'on': ['VimwikiIndex'] }
 	Plug 'https://github.com/wincent/terminus'
 	Plug 'https://github.com/chrisbra/csv.vim'
 		\, { 'for': ['csv'] }
@@ -219,7 +221,8 @@ call plug#begin(g:vim_plugin_directory)
 	Plug 'https://github.com/justinmk/vim-sneak'
 	Plug 'https://github.com/osyo-manga/vim-anzu'
 	Plug 'https://github.com/haya14busa/vim-asterisk'
-" 	Plug 'https://github.com/wellle/targets.vim'
+	Plug 'https://github.com/wellle/targets.vim'
+" 	Plug 'https://github.com/tpope/vim-surround'
 	Plug 'https://github.com/vim-scripts/repeat.vim'
 	Plug 'https://github.com/bkad/CamelCaseMotion'
 " 	}}}
@@ -232,21 +235,17 @@ call plug#begin(g:vim_plugin_directory)
 	Plug 'https://github.com/sirver/UltiSnips'
 		\, { 'for': ['c', 'cpp', 'make', 'python', 'sh', 'make'] }
 	Plug 'https://github.com/jiangmiao/auto-pairs'
-" 	 Plug 'https://github.com/ervandew/supertab'
-" 	Plug 'https://github.com/tpope/vim-endwise'
+" 	Plug 'https://github.com/ervandew/supertab'
+	Plug 'https://github.com/tpope/vim-endwise'
 	Plug 'https://github.com/Yggdroot/indentLine'
 		\, { 'for': ['python'] }
 " 	}}}
 
 " 	utilities                                                                 {{{
-	Plug 'https://github.com/tpope/vim-surround'
 	Plug 'https://github.com/kassio/neoterm'
 	Plug 'https://github.com/vifm/vifm.vim'
-	Plug 'https://github.com/airblade/vim-gitgutter'
-	Plug 'https://github.com/jreybert/vimagit'
 	Plug 'https://github.com/sjl/gundo.vim'
 	Plug 'https://github.com/chrisbra/NrrwRgn'
-	Plug 'https://github.com/kovetskiy/sxhkd-vim'
 " 	}}}
 
 " 	misc                                                                    {{{
@@ -268,6 +267,8 @@ call plug#begin(g:vim_plugin_directory)
 " 	C/C++                                                                   {{{
 	Plug 'https://github.com/bfrg/vim-cpp-modern'
 		\, { 'for': ['c', 'cpp'] }
+" 	Plug 'https://github.com/vim-scripts/vim-lldb'
+" 		\, { 'for': ['c', 'cpp'] }
 "	meh plugin
 " 	Plug 'https://github.com/quark-zju/vim-cpp-auto-include'
 " 		\, { 'for': ['c', 'cpp'] }
@@ -293,6 +294,11 @@ call plug#begin(g:vim_plugin_directory)
 		\, { 'for': ['python'] }
 	Plug 'https://github.com/vim-scripts/indentpython.vim'
 		\, { 'for': ['python'] }
+" 	}}}
+
+" 	sxkd                                                                    {{{
+	Plug 'https://github.com/baskerville/vim-sxhkdrc'
+		\, { 'for': ['sxhkdrc'] }
 " 	}}}
 
 " 	OpenSCAD                                                                {{{

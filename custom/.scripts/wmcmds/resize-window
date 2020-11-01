@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+bspc node --resize "$1" "$3" "$4" || bspc node --resize "$2" "$3" "$4"

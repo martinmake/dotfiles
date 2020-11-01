@@ -106,6 +106,12 @@ hi Function          ctermfg=cyan        ctermbg=none     cterm=none
 hi Conditional       ctermfg=cyan        ctermbg=none     cterm=none
 hi Statement         ctermfg=cyan        ctermbg=none     cterm=none
 " }}}
+" spell {{{
+hi SpellBad          ctermfg=red         ctermbg=none     cterm=reverse,bold
+hi SpellCap          ctermfg=blue        ctermbg=none     cterm=reverse,bold
+hi SpellLocal        ctermfg=magenta     ctermbg=none     cterm=reverse,bold
+hi SpellRare         ctermfg=cyan        ctermbg=none     cterm=reverse,bold
+" }}}
 
 " links {{{
 hi link SpellBad Error

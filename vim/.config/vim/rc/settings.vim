@@ -16,13 +16,10 @@
 "    -> set . to always work via normal mode
 "    -> visual @
 "    -> treat long lines as break lines
-"    -> reasonable mappings to open paths
-"    -> reasonable mappings to move between windows
 "    -> remember info about open buffers on close
 "    -> remember info about open buffers on close
 "    -> delete trailing white space on save,
 "    -> neovim defaults
-"    -> neovim reasonable mappings
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -32,18 +29,18 @@ let g:loaded_ruby_provider=0
 " spelling
 	set spellfile=$XDG_CONFIG_HOME/nvim/spell/en.utf-8.add
 	set spelllang=en_us
-set spellcapcheck="[.?!]\_[\])'" \t]\+"
+	set spellcapcheck="[.?!]\_[\])'" \t]\+"
 
 " extern vimrc's
 	set secure
 	set exrc
 
 " persistent undo
-execute 'set undodir='.g:vim_tmp_directory.'/undodir'
-set undofile
+	execute 'set undodir='.g:vim_tmp_directory.'/undodir'
+	set undofile
 
 " :tmpfile
-command! Tmpfile :execute 'tabedit '.g:vim_tmp_directory.'/tmpfile'
+	command! Tmpfile :execute 'tabedit '.g:vim_tmp_directory.'/tmpfile'
 
 if !filereadable(g:vim_tmp_directory.'/tmpfile')
 	execute 'silent !touch '.g:vim_tmp_directory.'/tmpfile'
@@ -65,13 +62,6 @@ augroup END
 " define xtabedit
 command! -nargs=1 XTabedit call helpers#open_new_or_existing(<f-args>)
 
-" [Command lines]
-augroup command_line | au!
-	au CmdWinEnter * nnoremap <buffer> <S-CR> <CR>
-	au CmdWinEnter * nnoremap <buffer> <CR>   <CR>
-	au CmdWinEnter * nnoremap <buffer> <ESC> <C-C>
-augroup END
-
 " use Unix as the standard file type
 set fileformats=unix,dos,mac
 
@@ -90,38 +80,11 @@ endif
 " endif
 
 
-" set . to always work via normal mode
-xnoremap <silent> . :normal .<cr>
-
-
 " visual @
 function! ExecuteMacroOverVisualRange()
 	ho "@".getcmdline()
 	ecute ":'<,'>normal @".nr2char(getchar())
 endfunction
-
-xnoremap <silent> @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
-
-
-" treat long lines as break lines
-" (useful when moving around in them)
-	nnoremap j gj
-	nnoremap k gk
-
-" reasonable mappings to open paths
-	nnoremap <C-W>gf gf
-	nnoremap gf <C-W>gf
-
-" reasonable mappings to move between windows
-	tnoremap <ESC> <C-\><C-N>
-	tnoremap <C-W>h <C-\><C-N><C-W>h
-	tnoremap <C-W>j <C-\><C-N><C-W>j
-	tnoremap <C-W>k <C-\><C-N><C-W>k
-	tnoremap <C-W>l <C-\><C-N><C-W>l
-	tmap <C-H> <C-W>h
-	tmap <C-J> <C-W>j
-	tmap <C-K> <C-W>k
-	tmap <C-L> <C-W>l
 
 " remember info about open buffers on close
 	augroup vimrcs_settings_defaults
@@ -155,7 +118,6 @@ xnoremap <silent> @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 " sudo write
 	cmap w! w !sudo tee % >/dev/null
 
-
 filetype plugin indent on
 syntax on
 set nobackup
@@ -177,7 +139,7 @@ set whichwrap+=<,>
 set complete-=i
 set completeopt=menu,preview
 set formatoptions=tcrqn2j
-set nomagic
+set magic
 set laststatus=2
 set mouse=nr
 set nrformats=bin,hex

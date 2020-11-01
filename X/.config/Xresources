@@ -4,28 +4,21 @@ st.alpha: 0.90
 !! Set a default font and font size as below:
 st.font: terminus-10
 /* st.font: C64 Pro Mono-6 */
-dmenu.font: terminus-12
-/* dmenu.font: C64 Pro Mono-6 */
 
 st.termname: st-256color
 st.borderpx: 1
 
 !! Set the background, foreground and cursor colors as below:
-*.background: black
-*.foreground: white
-*.cursorColor: white
-
-dmenu.background : black
-dmenu.foreground : white
-dmenu.selbackground : blue
-dmenu.selforeground : white
+*.background:  #000000
+*.foreground:  #ffffff
+*.cursorColor: #ffff00
 
 !! martinmake:
 *.color0:   #000000
 *.color1:   #cd0000
 *.color2:   #00cd00
 *.color3:   #cdcd00
-*.color4:   #2020ff
+*.color4:   #0000cd
 *.color5:   #cd00cd
 *.color6:   #00cdcd
 *.color7:   #e5e5e5
@@ -33,7 +26,7 @@ dmenu.selforeground : white
 *.color9:   #ff0000
 *.color10:  #00ff00
 *.color11:  #ffff00
-*.color12:  #3030ff
+*.color12:  #0000ff
 *.color13:  #ff00ff
 *.color14:  #00ffff
 *.color15:  #ffffff

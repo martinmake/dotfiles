@@ -34,6 +34,8 @@ X: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 i3: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
+bspwm: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
 st: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
 dmenu: X ## package

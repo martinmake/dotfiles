@@ -125,34 +125,33 @@ else
 		\ 'tmux split -h -l ' . helpers#free_hspace())<CR>
 endif
 
-let g:state="code"
-function! ChangeState()
-  let a:cursor_pos = getpos(".")
-  if !exists(':LLmode')
-      exec "normal :LLsession new\<CR>"
-  else
-    if g:state=="code"
-      exec "normal :LLmode debug\<CR>"
-      let g:state="debug"
-    else
-      let g:state="code"
-      exec "normal :LLmode code\<CR>"
-    endif
-  endif
-  exec cursor(a:cursor_pos[1], a:cursor_pos[2])
-endfunction
-nmap <silent> <leader>dd :call ChangeState()<CR>
+" let g:state="code"
+" function! ChangeState()
+"   let a:cursor_pos = getpos(".")
+"   if !exists(':LLmode')
+"       exec "normal :LLsession new\<CR>"
+"   else
+"     if g:state=="code"
+"       exec "normal :LLmode debug\<CR>"
+"       let g:state="debug"
+"     else
+"       let g:state="code"
+"       exec "normal :LLmode code\<CR>"
+"     endif
+"   endif
+"   exec cursor(a:cursor_pos[1], a:cursor_pos[2])
+" endfunction
+" nmap <silent> <leader>dd :call ChangeState()<CR>
 
-nmap <leader>bp <Plug>LLBreakSwitch
+" nmap <leader>bp <Plug>LLBreakSwitch
+" nmap <silent> <leader>pt :LL print <C-R>=expand('<cword>')<CR><CR>
+" vmap <silent> <leader>pt :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
 
-nmap <silent> <leader>pt :LL print <C-R>=expand('<cword>')<CR><CR>
-vmap <silent> <leader>pt :<C-U>LL print <C-R>=lldb#util#get_selection()<CR><CR>
-
-nmap <silent> <M-cr> :LL continue<CR>
-nmap <silent> <M-j> :LL next<CR>
-nmap <silent> <M-l> :LL step<CR>
-nmap <silent> <M-k> :LL reverse-next<CR>
-nmap <silent> <M-h> :LL finish<CR>
+" nmap <silent> <M-cr> :LL continue<CR>
+" nmap <silent> <M-j> :LL next<CR>
+" nmap <silent> <M-l> :LL step<CR>
+" nmap <silent> <M-k> :LL reverse-next<CR>
+" nmap <silent> <M-h> :LL finish<CR>
 
 
 " General editing
@@ -219,12 +218,49 @@ xmap <silent> <leader>gS <plug>(scratch-selection-clear)
 	noremap <C-F> <C-I>
 	noremap <C-B> <C-O>
 
+" scroll-move and remap join
+	nnoremap <M-j> j<C-E>
+	nnoremap <M-k> k<C-Y>
+
+xnoremap <silent> @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
+
+" treat long lines as break lines
+" (useful when moving around in them)
+	nnoremap j gj
+	nnoremap k gk
+
+" reasonable mappings to open paths
+	nnoremap <C-W>gf gf
+	nnoremap gf <C-W>gf
+
+" set . to always work via normal mode
+xnoremap <silent> . :normal .<cr>
+
+" [Command lines]
+augroup command_line | au!
+	au CmdWinEnter * nnoremap <buffer> <S-CR> <CR>
+	au CmdWinEnter * nnoremap <buffer> <CR>   <CR>
+	au CmdWinEnter * nnoremap <buffer> <ESC> <C-C>
+augroup END
+
+" reasonable mappings to move between windows
+	tnoremap <ESC> <C-\><C-N>
+	tnoremap <C-W>h <C-\><C-N><C-W>h
+	tnoremap <C-W>j <C-\><C-N><C-W>j
+	tnoremap <C-W>k <C-\><C-N><C-W>k
+	tnoremap <C-W>l <C-\><C-N><C-W>l
+	tmap <C-H> <C-W>h
+	tmap <C-J> <C-W>j
+	tmap <C-K> <C-W>k
+	tmap <C-L> <C-W>l
+
 " toggle line wrap
-	map <silent> <leader>lw :set wrap!<CR>
+	nnoremap <silent> <leader>lw :set wrap!<CR>
 
 " substitute
-	nmap <silent> S :%s//g<LEFT><LEFT>
-	vmap <silent> S :s//g<LEFT><LEFT>
+	nnoremap S :%s//g<LEFT><LEFT>
+	vnoremap S "hy:%s/<C-r>h//gc<left><left><left>
+
 
 " search setup:
 	vmap <Plug>N N

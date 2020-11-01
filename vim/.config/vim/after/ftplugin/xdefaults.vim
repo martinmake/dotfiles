@@ -1,1 +1,1 @@
-autocmd BufWritePost *Xdefaults !xrdb %
+autocmd BufWritePost * !xrdb %

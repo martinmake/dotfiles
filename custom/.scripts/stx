@@ -1,0 +1,21 @@
+#!/usr/bin/env sh
+
+OPTIONS=""
+COMMAND=""
+PURE=false
+
+PARSING_COMMAND=""
+for arg in $@; do
+	if [ "${PARSING_COMMAND}" = true ]; then
+		COMMAND+="$arg "
+	else
+		case $arg in
+			-e) PARSING_COMMAND=true ;;
+			-p|--pure) PURE=true ;;
+			*) OPTIONS+="$arg " ;;
+		esac
+	fi
+done
+
+[ $PURE = true ] && USE_TMUX=false || USE_TMUX=true
+USE_TMUX=${USE_TMUX} SHELL_COMMAND=${COMMAND} exec st ${OPTIONS}

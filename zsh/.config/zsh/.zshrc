@@ -157,6 +157,11 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 bindkey -r "h" # unbind run-help
 bindkey -r "H" # unbind run-help
 
-if [ "$TERM" != "tmux-256color" ]; then
-	( TERM=xterm-256color tmux new-session ) && exit
+if [ "${USE_TMUX}" = true ]; then
+	if [ "$TERM" != "tmux-256color" ]; then
+		zshexit() { tmux kill-session -t $$; }
+		( TERM=xterm-256color tmux new-session -s $$ ${SHELL_COMMAND} ) && exit
+	fi
+elif [ "${SHELL_COMMAND}" ]; then
+	eval ${SHELL_COMMAND}
 fi
