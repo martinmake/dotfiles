@@ -3,6 +3,7 @@
 
 # Default programs
 export WM="bspwm"
+export XLOCK="xsecurelock"
 export EDITOR="nvim"
 export TERMINAL="stx"
 export BROWSER="surf"
@@ -12,7 +13,8 @@ export CXX="clang++"
 export CC="clang"
 
 # PATHs setup
-export PATH="$PATH:/opt/cuda/bin:$(du "$HOME/.scripts/" | cut -f2 | tr '\n' ':' | sed 's/:*$//')"
+export PATH="$PATH:$(ls $HOME/.scripts -RL | sed -ne '/:$/p' | tr -d '\n')"
+export PATH="$PATH:/opt/cuda/bin"
 export PATH="$PATH:/root/.gem/ruby/2.7.0/bin"
 export PYTHONPATH="$PYTHONPATH:$HOME/Documents/libs/PC/int/python"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Documents/libs/PC/lib"
@@ -58,29 +60,29 @@ sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
 # `man set` && `/noclobber` you dummy
 set -o noclobber
 
-# Start graphical server if WM is not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x "${WM}" >/dev/null && exec startx
-
 # Start syncthing
 # [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x syncthing >/dev/null && exec syncthing
 
+# Start graphical server if WM is not already running.
+[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x "${WM}" >/dev/null && exec startx
+
 if [ "$TERM" = "linux" ]; then
 	print "\e]P0000000" #black
-	print "\e]P1FF0000" #darkred
-	print "\e]P200FF00" #darkgreen
-	print "\e]P3FFFF00" #brown
-	print "\e]P40000FF" #darkblue
-	print "\e]P5FF00FF" #darkmagenta
-	print "\e]P600FFFF" #darkcyan
-	print "\e]P7FFFFFF" #lightgrey
-	print "\e]P8000000" #darkgrey
-	print "\e]P9FF0000" #red
-	print "\e]PA00FF00" #green
-	print "\e]PBFFFF00" #yellow
-	print "\e]PC0000FF" #blue
-	print "\e]PDFF00FF" #magenta
-	print "\e]PE00FFFF" #cyan
-	print "\e]PFFFFFFF" #white
+	print "\e]P1cd0000" #darkred
+	print "\e]P200cd00" #darkgreen
+	print "\e]P3cdcd00" #brown
+	print "\e]P40000cd" #darkblue
+	print "\e]P5cd00cd" #darkmagenta
+	print "\e]P600cdcd" #darkcyan
+	print "\e]P7e5e5e5" #lightgrey
+	print "\e]P84d4d4d" #darkgrey
+	print "\e]P9ff0000" #red
+	print "\e]PA00ff00" #green
+	print "\e]PBffff00" #yellow
+	print "\e]PC0000ff" #blue
+	print "\e]PDff00ff" #magenta
+	print "\e]PE00ffff" #cyan
+	print "\e]PFffffff" #white
 	clear # remove background artifacting if any
 
 	# white block cursor
@@ -88,5 +90,5 @@ if [ "$TERM" = "linux" ]; then
 
 	setterm -background black -foreground white -store
 
-	tmux new-session && exit
+	[ "$TTY" != "/dev/tty2" ] && tmux new-session && exit
 fi

@@ -7,20 +7,20 @@ EXTERNAL="${XDG_CONFIG_HOME}/wallpapers/external.png"
 
 while getopts hi:e: opt; do
 	case $opt in
-	    h)
-		    echo $USAGE
-		    exit 0
-		    ;;
-	    i)
-		    NEW_INTERNAL="$OPTARG"
-		    ;;
-	    e)
-		    NEW_EXTERNAL="$OPTARG"
-		    ;;
-	    ?)
-		    echo $USAGE
-		    exit 2
-		    ;;
+		h)
+			echo $USAGE
+			exit 0
+			;;
+		i)
+			NEW_INTERNAL="$OPTARG"
+			;;
+		e)
+			NEW_EXTERNAL="$OPTARG"
+			;;
+		?)
+			echo $USAGE
+			exit 2
+			;;
 	esac
 done
 

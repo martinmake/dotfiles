@@ -86,8 +86,6 @@ call plug#begin(g:vim_plugin_directory)
 		\, helpers#is_modern() ? {} : { 'on': [] }
 	Plug 'https://github.com/othree/javascript-libraries-syntax.vim'
 		\, {'for': 'js'}
-	Plug 'https://github.com/neovimhaskell/haskell-vim'
-		\, {'for': 'hs'}
 	Plug 'https://github.com/Bellaktris/vim-hack'
 	Plug 'https://github.com/nelstrom/vim-markdown-folding'
 		\, {'for': 'markdown'}
@@ -142,6 +140,7 @@ call plug#begin(g:vim_plugin_directory)
 	Plug 'https://github.com/airblade/vim-gitgutter'
 	Plug 'https://github.com/jreybert/vimagit'
 	Plug 'https://github.com/tpope/vim-fugitive'
+	Plug 'https://github.com/tpope/vim-rhubarb'
 	Plug 'https://github.com/junegunn/gv.vim'
 	Plug 'https://github.com/int3/vim-extradite'
 " 	}}}
@@ -192,6 +191,7 @@ call plug#begin(g:vim_plugin_directory)
 	Plug 'https://github.com/wincent/terminus'
 	Plug 'https://github.com/chrisbra/csv.vim'
 		\, { 'for': ['csv'] }
+	Plug 'https://github.com/junegunn/goyo.vim'
 "	Plug 'https://github.com/vim-airline/vim-airline'
  	Plug 'https://github.com/itchyny/lightline.vim'
 	Plug 'https://github.com/vim-pandoc/vim-pandoc'
@@ -230,15 +230,15 @@ call plug#begin(g:vim_plugin_directory)
 " 	autocomplete                                                            {{{
 " 	Plug 'https://github.com/ycm-core/YouCompleteMe'
 " 		\, { 'for': ['c', 'cpp', 'make'] }
-	Plug 'https://github.com/neoclide/coc.nvim'
-		\, { 'do': { -> coc#util#install()} }
+" 	Plug 'https://github.com/neoclide/coc.nvim'
+" 		\, { 'do': { -> coc#util#install()} }
 	Plug 'https://github.com/sirver/UltiSnips'
 		\, { 'for': ['c', 'cpp', 'make', 'python', 'sh', 'make'] }
 	Plug 'https://github.com/jiangmiao/auto-pairs'
 " 	Plug 'https://github.com/ervandew/supertab'
 	Plug 'https://github.com/tpope/vim-endwise'
-	Plug 'https://github.com/Yggdroot/indentLine'
-		\, { 'for': ['python'] }
+" 	Plug 'https://github.com/Yggdroot/indentLine'
+" 		\, { 'for': ['python'] }
 " 	}}}
 
 " 	utilities                                                                 {{{
@@ -262,6 +262,19 @@ call plug#begin(g:vim_plugin_directory)
 " 	CSV                                                                     {{{
 	Plug 'https://github.com/mechatroner/rainbow_csv'
 		\, { 'for': ['csv', 'tsv'] }
+" 	}}}
+
+" 	Haskell                                                                 {{{
+	Plug 'https://github.com/neovimhaskell/haskell-vim'
+		\, { 'for': ['haskell'] }
+	Plug 'https://github.com/dag/vim2hs'
+		\, { 'for': ['haskell'] }
+	Plug 'https://github.com/eagletmt/ghcmod-vim'
+		\, { 'for': ['haskell'] }
+	Plug 'https://github.com/lukerandall/haskellmode-vim'
+		\, { 'for': ['haskell'] }
+	Plug 'https://github.com/pbrisbin/vim-syntax-shakespeare'
+		\, { 'for': ['haskell'] }
 " 	}}}
 
 " 	C/C++                                                                   {{{

@@ -30,6 +30,7 @@ hi SignColumn        ctermfg=none        ctermbg=none     cterm=none
 hi Title             ctermfg=none        ctermbg=none     cterm=none
 hi Info              ctermfg=blue        ctermbg=none     cterm=none
 hi HighlightText     ctermfg=cyan        ctermbg=none     cterm=bold,reverse
+hi MatchParen        ctermfg=cyan        ctermbg=none     cterm=bold,reverse
 " }}}
 " special {{{
   hi TODO              ctermfg=cyan        ctermbg=none     cterm=reverse,bold

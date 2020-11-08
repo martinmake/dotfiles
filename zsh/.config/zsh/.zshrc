@@ -160,7 +160,7 @@ bindkey -r "H" # unbind run-help
 if [ "${USE_TMUX}" = true ]; then
 	if [ "$TERM" != "tmux-256color" ]; then
 		zshexit() { tmux kill-session -t $$; }
-		( TERM=xterm-256color tmux new-session -s $$ ${SHELL_COMMAND} ) && exit
+		( TERM=xterm-256color tmux new-session -s $$ -c ${DIRECTORY} ${SHELL_COMMAND} ) && exit
 	fi
 elif [ "${SHELL_COMMAND}" ]; then
 	eval ${SHELL_COMMAND}

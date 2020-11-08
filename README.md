@@ -4,6 +4,8 @@
 
 All of martinmake's configs, scripts, installed programs
 
+![pacgraph](https://raw.github.com/martinmake/dotfiles/master/pacgraph.svg)
+
 ## Installation
 
 1. Clone the repository

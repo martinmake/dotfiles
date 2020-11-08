@@ -4,13 +4,13 @@
     geometry = "350x5-0+24"
     indicate_hidden = yes
     shrink = yes
-    transparency = 20
+    transparency = 0
     notification_height = 0
-    separator_height = 2
+    separator_height = 0
     padding = 0
-    horizontal_padding = 8
-    frame_width = 3
-    frame_color = "#282828"
+    horizontal_padding = 6
+    frame_width = 1
+    frame_color = "#ff0000"
 
     # Define a color for the separator.
     # possible values are:
@@ -24,7 +24,7 @@
     sort = yes
 
     idle_threshold = 120
-    font = Monospace 14
+    font = Mono 14
     line_height = 0
     markup = full
 
@@ -46,7 +46,7 @@
     ellipsize = middle
     ignore_newline = no
     stack_duplicates = true
-    hide_duplicate_count = true
+    hide_duplicate_count = false
     show_indicators = yes
     icon_position = left
     max_icon_size = 40
@@ -75,21 +75,21 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#282828"
-    foreground = "#928374"
+    background = "#000000"
+    foreground = "#ffffff"
     timeout = 5
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#458588"
-    foreground = "#ebdbb2"
+    background = "#000000"
+    foreground = "#0000ff"
     timeout = 5
 
 [urgency_critical]
-    background = "#cc2421"
-    foreground = "#ebdbb2"
-    frame_color = "#fabd2f"
+    background = "#ff0000"
+    foreground = "#000000"
+    frame_color = "#ffff00"
     timeout = 0
 
 # Every section that isn't one of the above is interpreted as a rules to

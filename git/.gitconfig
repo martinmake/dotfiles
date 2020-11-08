@@ -2,7 +2,7 @@
 	name = Martin Michalec
 	email = martin.michalec.2003@gmail.com
 [core]
-	editor = vim
+	editor = nvim
 	pager = diff-so-fancy | less -RFX
 [credential]
 	helper = cache --timeout 1300

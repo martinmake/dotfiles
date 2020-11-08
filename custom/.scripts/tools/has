@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+if ! command -v $1 >/dev/null; then
+	notify-send "COMMAND \"$1\" IS MISSING!"
+	exit 1
+fi

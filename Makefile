@@ -11,6 +11,10 @@ install: ## installs all packages in pkglist via $(PACKAGE_MANAGER)
 pkglist: ## creates/updates pkglist with packages currently maintained by $(PACKAGE_MANAGER)
 	@$(PACKAGE_MANAGER) $(PACKAGE_MANAGER_FLAGS_LIST_INSTALLED_PACKAGES) | tee $@
 
+.PHONY: pacgraph
+pacgraph: ## draws a graph of installed packages to PNG and SVG
+	$(PACGRAPH) $(PACGRAPH_FLAGS)
+
 .PHONY: $(PACKAGES)
 custom: ## package
 	@$(STOW) $(STOW_FLAGS) $@

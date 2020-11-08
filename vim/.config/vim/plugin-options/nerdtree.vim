@@ -2,12 +2,16 @@
 
 let g:netrw_localrmdir='rm -r'
 
+let g:webdevicons_enable_nerdtree = 0
+let g:webdevicons_conceal_nerdtree_brackets = 1
 let g:NERDTreeWinPos = "left"
 let g:NERDTreeWinSize=25
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:NERDTreeMinimalUI=1
+let g:NERDTreeHighlightCursorline = 1
+let g:NERDTreeMinimalUI=0
 let g:NERDTreeShowHidden=1
 let g:NERDTreeQuitOnOpen=0
+let g:NERDTreeMouseMode=1
 let g:NERDTreeIgnore=[
 	\ '\.pyc',
 	\ '\~$',

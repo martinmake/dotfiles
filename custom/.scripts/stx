@@ -4,18 +4,21 @@ OPTIONS=""
 COMMAND=""
 PURE=false
 
-PARSING_COMMAND=""
-for arg in $@; do
-	if [ "${PARSING_COMMAND}" = true ]; then
-		COMMAND+="$arg "
-	else
-		case $arg in
-			-e) PARSING_COMMAND=true ;;
-			-p|--pure) PURE=true ;;
-			*) OPTIONS+="$arg " ;;
-		esac
-	fi
+while getopts :epd: opt; do
+	case $opt in
+		e) break ;;
+		p) PURE=true ;;
+		?) OPTIONS+="-$OPTARG " ;;
+	esac
 done
 
-[ $PURE = true ] && USE_TMUX=false || USE_TMUX=true
-USE_TMUX=${USE_TMUX} SHELL_COMMAND=${COMMAND} exec st ${OPTIONS}
+PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
+PID=$(($(echo "$(pstree -lpA "$PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g') + 1))
+DIRECTORY="$(readlink /proc/"$PID"/cwd)"
+[ ! -d "${DIRECTORY}" ] && DIRECTORY=$HOME
+
+shift $(($OPTIND -1))
+COMMAND="$@"
+
+[ ${PURE} = true ] && USE_TMUX=false || USE_TMUX=true
+DIRECTORY=${DIRECTORY} USE_TMUX=${USE_TMUX} SHELL_COMMAND=${COMMAND} exec st ${OPTIONS}

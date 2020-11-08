@@ -89,11 +89,10 @@ else
   let g:grep_opts = ''
 endif
 
-xmap <silent> <leader>ag y:call FastGrepFirstRoot(substitute(@0, '--', '', 'g'), g:grep_opts)<CR>
-xmap <silent> <leader>gp y:call FastGrepLastRoot(substitute(@0, '--', '', 'g'), g:grep_opts)<CR>
-
-exec "nmap <leader>ag :FastGrepU "
-exec "nmap <leader>gp :FastGrepL "
+" xmap <silent> <leader>ag y:call FastGrepFirstRoot(substitute(@0, '--', '', 'g'), g:grep_opts)<CR>
+" xmap <silent> <leader>gp y:call FastGrepLastRoot(substitute(@0, '--', '', 'g'), g:grep_opts)<CR>
+" nmap <leader>ag :FastGrepU<SPACE>
+nmap <leader>gf :FastGrepL<SPACE>
 
 nmap <silent> <leader>en :call EnMasse()<CR>
 
@@ -253,13 +252,17 @@ augroup END
 	tmap <C-J> <C-W>j
 	tmap <C-K> <C-W>k
 	tmap <C-L> <C-W>l
+	nnoremap <C-H> <C-W>h
+	nnoremap <C-J> <C-W>j
+	nnoremap <C-K> <C-W>k
+	nnoremap <C-L> <C-W>l
 
 " toggle line wrap
 	nnoremap <silent> <leader>lw :set wrap!<CR>
 
 " substitute
-	nnoremap S :%s//g<LEFT><LEFT>
-	vnoremap S "hy:%s/<C-r>h//gc<left><left><left>
+	nnoremap S :%s//gc<LEFT><LEFT><LEFT>
+	vnoremap S "hy:%s/<C-r>h//gc<LEFT><LEFT><LEFT>
 
 
 " search setup:
@@ -272,7 +275,7 @@ augroup END
 	map <silent> <leader>o :setlocal spell!<CR>
 
 " Nerd tree
-	nmap <silent> <leader>t :NERDTreeToggle<CR>
+	nmap <silent> <leader>ft :NERDTreeToggle<CR>
 
 " FZF setup:
 	nmap <silent> <leader>ff :wa! \| FZF<CR>

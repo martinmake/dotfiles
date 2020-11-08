@@ -7,5 +7,6 @@ cfv	~/.config/nvim/init.vim
 cfxr	~/.config/Xresources
 cfp	~/.profile
 cfk	~/.config/sxhkd/sxhkdrc
+cfg	~/.gitconfig
 cfwm	~/.config/bspwm/bspwmrc
 cft	~/.tmux.conf

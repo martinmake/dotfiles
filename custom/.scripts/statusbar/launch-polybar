@@ -1,9 +1,10 @@
 #!/bin/sh
 
 killall -q polybar
+sleep 1 # fix strange bug
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
-for MONITOR in $(bspc query --monitors --names); do
-	polybar -r ${MONITOR} &
+for monitor in $(bspc query --monitors --names); do
+	polybar -r ${monitor} &
 done

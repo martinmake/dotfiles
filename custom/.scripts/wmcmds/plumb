@@ -1,0 +1,30 @@
+#!/usr/bin/env sh
+
+has xclip || exit 1
+
+PRIMARY="$(xclip -o)"; [ -z "$PRIMARY" ] && exit
+PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
+PID=$(echo "$(pstree -lpA "$PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
+cd "$(readlink /proc/"$PID"/cwd)"
+
+[ -f "$PRIMARY" ] && xdg-open "$PRIMARY" && exit
+[ -d "$PRIMARY" ] && "$TERMINAL" -e "$FILE" "$PRIMARY" && exit
+echo "$PRIMARY" | grep "^http[s]\?:\/\/" >/dev/null && "$BROWSER" "$PRIMARY" && exit
+
+websearch () { "$BROWSER" "https://duckduckgo.com/?q=$@"                       ;}
+wikipedia () { "$BROWSER" "https://en.wikipedia.org/wiki/$@"                   ;}
+wiktionary() { "$BROWSER" "https://en.wiktionary.org/wiki/$@"                  ;}
+maps      () { "$BROWSER" "https://www.openstreetmap.org/search?query=$@"      ;}
+ebay      () { "$BROWSER" "https://www.ebay.com/sch/$@"                        ;}
+aliexpress() { "$BROWSER" "https://www.aliexpress.com/wholesale?SearchText=$@" ;}
+github    () { "$BROWSER" "https://github.com/search?q=$@"                     ;}
+dictionary() { "$BROWSER" "https://www.dictionary.com/browse/$@"               ;}
+
+echo "$PRIMARY" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && website() { "$BROWSER" "$@" ;}
+echo "$PRIMARY" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
+has qrencode          >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
+man -k "^$PRIMARY$"   >/dev/null && manual() { man -Tpdf "$PRIMARY" | zathura - ;}
+file $(realpath $(which "$PRIMARY")) | grep "ASCII text executable" >/dev/null && script() { xdg-open $(realpath $(which "$PRIMARY")) ;}
+
+pipe="$(declare -F | awk '{print $3}' | dmenu -p "PLUMB \"$PRIMARY\" TO:" -i -l 15)"
+[ -z "$pipe" ] || "$pipe" "$PRIMARY"

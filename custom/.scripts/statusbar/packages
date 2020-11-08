@@ -3,4 +3,6 @@
 TO_UPGRADE=$(pacman -Qu | grep -v "\[ignored\]" | wc -l | sed -e "s/^0$//g")
 if [ ${TO_UPGRADE} ]; then
 	echo 📦 ${TO_UPGRADE}
+else
+	echo
 fi
