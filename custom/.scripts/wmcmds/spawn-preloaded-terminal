@@ -1,0 +1,52 @@
+#!/usr/bin/env sh
+
+TERMINAL=st
+KEYS=$1
+NAME=$2
+
+# I'M NOT SURE IF WE SHOULD CD
+# WINDOW_PID="$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)"
+# CLIENT_PID="$(echo "$(pstree -lpA "$WINDOW_PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')"
+# SESSION_NAME="$(tmux list-clients -F "#{session_name} #{client_pid}" | grep "$CLIENT_PID" | cut -d' ' -f 1)"
+# PANE_PID="$(tmux list-panes -a -F "#{pane_pid} #{session_name} #{pane_active}" | grep "$SESSION_NAME 1" | cut -d' ' -f 1)"
+# CD="$(readlink /proc/"$PANE_PID"/cwd)"
+# if [ "$CD" = "$HOME" ]; then
+# 	CD=
+# fi
+
+WINDOWID="$(xdotool search --class "^preloaded_terminal$" | head -n 1)"
+if [ -n "$WINDOWID" ]; then
+	if ! tmux list-sessions -F "#{session_name}" | grep preloaded_terminal >/dev/null; then
+		tmux new-session -d -s "preloaded_terminal" /bin/sh
+	fi
+	tmux send-keys -t "preloaded_terminal" "$KEYS" ';exit $?' Enter
+	RANDOMID="$(random-string '0-9' 6)"
+	WINDOWID="$(xdotool search --class "^preloaded_terminal$" | tail -n 1)"
+	bspc node "$WINDOWID" --to-desktop "H"
+	bspc node "$WINDOWID" --state tiled --flag hidden=off
+	bspc node "$WINDOWID" --to-node 'any.leaf.!window.local' --follow ||
+		bspc node "$WINDOWID" --to-node "$(bspc query -N -n)" --follow ||
+		bspc node "$WINDOWID" --to-desktop "$(bspc query -D -d)" --follow
+	bspc node "$WINDOWID" --focus
+	xdotool set_window --class "$NAME" "$WINDOWID"
+	tmux rename-session -t "preloaded_terminal" "$RANDOMID"
+else
+	tmux new-session -d -s "preloaded_terminal" /bin/sh
+	tmux send-keys -t "preloaded_terminal" "$KEYS" ';exit $?' Enter
+	$TERMINAL -c "preloaded_terminal" -e "tmux" "attach-session" "-t" "preloaded_terminal" &
+	RANDOMID="$(random-string '0-9' 6)"
+	until [ "$(xdotool search --class "^preloaded_terminal$")" ]; do :; done
+	WINDOWID="$(xdotool search --class "^preloaded_terminal$" | tail -n 1)"
+	bspc node "$WINDOWID" --to-desktop "H"
+	bspc node "$WINDOWID" --state tiled --flag hidden=off
+	bspc node "$WINDOWID" --to-node 'any.leaf.!window.local' --follow ||
+		bspc node "$WINDOWID" --to-node "$(bspc query -N -n)" --follow ||
+		bspc node "$WINDOWID" --to-desktop "$(bspc query -D -d)" --follow
+	bspc node "$WINDOWID" --focus
+	xdotool set_window --class "$NAME" "$WINDOWID"
+	tmux rename-session -t "preloaded_terminal" "$RANDOMID"
+fi
+if [ -z "$(xdotool search --classname "^preloaded_terminal$")" ]; then
+	tmux new-session -d -s "preloaded_terminal" /bin/sh
+	$TERMINAL -c "preloaded_terminal" -e "tmux" "attach-session" "-t" "preloaded_terminal" &
+fi

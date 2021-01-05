@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+TEMPFILE=$(tempname $(basename $0))
+khard template > "$TEMPFILE"
+
+"$TERMINAL" -e "$EDITOR" -c '"/ $"' "$TEMPFILE"
+ADDRESSBOOK=$(khard addressbooks | dmenu -i -p "ADD TO ADDRESSBOOK: ")
+
+if [ -n "$ADDRESSBOOK" ]; then
+	khard new --addressbook "$ADDRESSBOOK" --input-file "$TEMPFILE"
+fi
+
+rm "$TEMPFILE"

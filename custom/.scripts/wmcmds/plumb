@@ -2,29 +2,49 @@
 
 has xclip || exit 1
 
-PRIMARY="$(xclip -o)"; [ -z "$PRIMARY" ] && exit
-PID=$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)
-PID=$(echo "$(pstree -lpA "$PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')
-cd "$(readlink /proc/"$PID"/cwd)"
+CLIPBOARD="$(xclip -o -selection clipboard)"; [ -z "$CLIPBOARD" ] && exit
 
-[ -f "$PRIMARY" ] && xdg-open "$PRIMARY" && exit
-[ -d "$PRIMARY" ] && "$TERMINAL" -e "$FILE" "$PRIMARY" && exit
-echo "$PRIMARY" | grep "^http[s]\?:\/\/" >/dev/null && "$BROWSER" "$PRIMARY" && exit
+WINDOW_PID="$(xprop -id "$(xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}')" | grep -m 1 PID | cut -d " " -f 3)"
+CLIENT_PID="$(echo "$(pstree -lpA "$WINDOW_PID" | tail -n 1)" | awk -F'---' '{print $NF}' | sed -re 's/[^0-9]//g')"
+SESSION_NAME="$(tmux list-clients -F "#{session_name} #{client_pid}" | grep "$CLIENT_PID" | cut -d' ' -f 1)"
+PANE_PID="$(tmux list-panes -a -F "#{pane_pid} #{session_name} #{pane_active}" | grep "$SESSION_NAME 1" | cut -d' ' -f 1)"
+cd "$(readlink /proc/"$PANE_PID"/cwd)"
 
-websearch () { "$BROWSER" "https://duckduckgo.com/?q=$@"                       ;}
-wikipedia () { "$BROWSER" "https://en.wikipedia.org/wiki/$@"                   ;}
-wiktionary() { "$BROWSER" "https://en.wiktionary.org/wiki/$@"                  ;}
-maps      () { "$BROWSER" "https://www.openstreetmap.org/search?query=$@"      ;}
-ebay      () { "$BROWSER" "https://www.ebay.com/sch/$@"                        ;}
-aliexpress() { "$BROWSER" "https://www.aliexpress.com/wholesale?SearchText=$@" ;}
-github    () { "$BROWSER" "https://github.com/search?q=$@"                     ;}
-dictionary() { "$BROWSER" "https://www.dictionary.com/browse/$@"               ;}
+# auto options
+if [ $# -eq 0 ]; then
+	[ -f "$CLIPBOARD" ]                        && exec xdg-open "$CLIPBOARD"
+	[ -d "$CLIPBOARD" ]                        && exec spawn-preloaded-terminal "$FILE $CLIPBOARD"
+	echo "$CLIPBOARD" | grep "^magnet:\?.*"    && exec transadd "$CLIPBOARD"
 
-echo "$PRIMARY" | grep "^.*\.[A-Za-z]\+.*" >/dev/null && website() { "$BROWSER" "$@" ;}
-echo "$PRIMARY" | grep "^.*@.*\.[A-Za-z]\+$" >/dev/null && email() { xdg-email "$@" ;}
-has qrencode          >/dev/null && qrcode() { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
-man -k "^$PRIMARY$"   >/dev/null && manual() { man -Tpdf "$PRIMARY" | zathura - ;}
-file $(realpath $(which "$PRIMARY")) | grep "ASCII text executable" >/dev/null && script() { xdg-open $(realpath $(which "$PRIMARY")) ;}
+	# the extracting could use some work
+	URIS=$(echo $CLIPBOARD | sed 's/.*│//g' | tr '\n' ' ' | grep -aEo '((http|https)://|www\.)[a-zA-Z0-9.]*[:]?[a-zA-Z0-9./&%?#=_-]*'| uniq | sed 's/^www./http:\/\/www\./g')
+	[ "$URIS" ] && exec "$BROWSER" $URIS
+fi
 
-pipe="$(declare -F | awk '{print $3}' | dmenu -p "PLUMB \"$PRIMARY\" TO:" -i -l 15)"
-[ -z "$pipe" ] || "$pipe" "$PRIMARY"
+# conditional options
+echo "$CLIPBOARD" | grep "^.*\.[A-Za-z]\+.*"                          && website () { "$BROWSER" "$@"                                            ;}
+echo "$CLIPBOARD" | grep "^.*@.*\.[A-Za-z]\+$"                        && email   () { notify-send "TODO: implement mutt email"                   ;}
+has qrencode                                                          && qrcode  () { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
+file $(realpath $(which "$CLIPBOARD")) | grep "ASCII text executable" && script  () { xdg-open $(realpath $(which "$@"))                         ;}
+man -k "^$(echo $CLIPBOARD | tr ' ' '-')$"                            && manual  () { spawn-preloaded-terminal "man $(echo $@ | tr ' ' '-')"     ;}
+
+# generic options
+writenew         () { mkdir -p "$(dirname $@)" && "$TERMINAL" -e "$EDITOR" "$@"                    ;}
+duckduckgo       () { "$BROWSER" "https://duckduckgo.com/?q=$(urlencode "$@")"                                    ;}
+youtube          () { "$BROWSER" "https://www.youtube.com/results?search_query=$(urlencode "$@")"                 ;}
+wikipedia        () { "$BROWSER" "https://en.wikipedia.org/wiki/$(urlencode "$@")"                                ;}
+wiktionary       () { "$BROWSER" "https://en.wiktionary.org/wiki/$(urlencode "$@")"                               ;}
+openstreetmap    () { "$BROWSER" "https://www.openstreetmap.org/search?query=$(urlencode "$@")"                   ;}
+ebay             () { "$BROWSER" "https://www.ebay.com/sch/$(urlencode "$@")"                                     ;}
+aliexpress       () { "$BROWSER" "https://www.aliexpress.com/wholesale?SearchText=$(urlencode "$@")"              ;}
+github           () { "$BROWSER" "https://github.com/search?q=$(urlencode "$@")"                                  ;}
+dictionary       () { "$BROWSER" "https://www.dictionary.com/browse/$(urlencode "$@")"                            ;}
+thesaurus        () { "$BROWSER" "https://www.thesaurus.com/browse/$(urlencode "$@")"                             ;}
+thepiratebay     () { "$BROWSER" "https://thepiratebay.org/search.php?q=$(urlencode "$@")"                        ;}
+worldpostalcodes () { "$BROWSER" "https://ezcmd.com/world-postal-codes?action=webapi&zip_query=$(urlencode "$@")" ;}
+vatvalidator     () { "$BROWSER" "https://ezcmd.com/vat-validator?action=webapi&vat_number=$(urlencode "$@")"     ;}
+timeserver       () { "$BROWSER" "https://ezcmd.com/time-server?action=webapi&address=$(urlencode "$@")"          ;}
+iptolocation     () { "$BROWSER" "https://ezcmd.com/ip-to-location?action=webapi&ip_address=$(urlencode "$@")"    ;}
+
+pipe="$(declare -F | awk '{print $3}' | dmenu -p "PLUMB \"$(echo $CLIPBOARD | cut -c 1-190)\" TO:" -i -l 15)"
+[ -z "$pipe" ] || "$pipe" "$CLIPBOARD"

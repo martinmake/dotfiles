@@ -1,0 +1,23 @@
+#!/usr/bin/env sh
+
+VERTICAL=$1
+HORIZONTAL=$2
+
+OFFSET_FROM_STATUSBAR=16
+OFFSET_FROM_SIDES=1
+
+WID=$(xdotool getwindowfocus)
+
+W=$(xdotool getwindowgeometry "$WID" | grep Geometry | sed -e 's/x/ /g' | awk '{print $2}')
+H=$(xdotool getwindowgeometry "$WID" | grep Geometry | sed -e 's/x/ /g' | awk '{print $3}')
+X=
+Y=
+case "$HORIZONTAL" in
+	 left) X=$OFFSET_FROM_SIDES                                                               ;;
+	right) X=$(( $(xdotool getdisplaygeometry | awk '{print $1}') - W - 1 - $OFFSET_FROM_SIDES )) ;;
+esac
+case "$VERTICAL" in
+	   top) Y=$OFFSET_FROM_STATUSBAR                                                           ;;
+	bottom) Y=$(( $(xdotool getdisplaygeometry | awk '{print $2}') - H - 1 - $OFFSET_FROM_SIDES )) ;;
+esac
+xdotool windowmove "$WID" "$X" "$Y"

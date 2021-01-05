@@ -1,0 +1,117 @@
+#!/usr/bin/env sh
+
+# INPUT
+wid=${1?}
+class=$2
+instance=$3
+consequences=$4
+eval ${consequences^^}
+
+# DERIVED
+title=$(xtitle "$wid")
+
+# OUTPUT
+monitor=
+desktop=
+node=
+state=
+layer=
+split_dir=
+split_ratio=
+hidden=
+sticky=
+private=
+locked=
+marked=
+center=
+follow=on
+manage=
+focus=on
+border=
+rectangle=
+
+case :$class:$title in
+	(*:preloaded_*:*)
+		focus=off
+		follow=off
+		desktop=H
+		;;
+	(*:dropdown_*:*)
+		sticky=on
+		state=floating
+		;;
+	(*:Dragon-drag-and-drop:*)
+		sticky=on
+		state=floating
+		layer=above
+		;;
+	(surf:*:*)
+		state=floating
+		;;
+	(*:Brave-browser:*)
+		desktop=5
+		;;
+	(*:discord:*)
+		desktop=8
+		;;
+	(*:Gimp:*)
+		state=tiling
+		desktop=6
+		;;
+	(*:Pidgin:*)
+		desktop=7
+		state=tiling
+		;;
+	(*:mpv:*)
+		state=floating
+		sticky=on
+		layer=above
+		focus=off
+		W=$(( $(xdotool getwindowgeometry "$wid" | grep Geometry | sed -e 's/x/ /g' | awk '{print $2}') / 5))
+		H=$(( $(xdotool getwindowgeometry "$wid" | grep Geometry | sed -e 's/x/ /g' | awk '{print $3}') / 5))
+		X=$(( $(xdotool getdisplaygeometry                                          | awk '{print $1}') - 2 - W ))
+		Y=$(( $(xdotool getdisplaygeometry                                          | awk '{print $2}') - 2 - H ))
+		rectangle="${W}x${H}+${X}+${Y}"
+	(::*) # FUCKED UP Spotify...
+		desktop=9
+		;;
+	(*)
+		state=floating
+		center=on
+		;;
+esac
+
+# STARTUP
+if [ "$BORDER" = "OFF" ]; then border=on
+	follow=off
+	focus=off
+	case $instance:$class:$title in
+		(surf:*:*)
+			desktop=2
+			state=tiling
+			;;
+		(*)
+			;;
+	esac
+fi
+
+cat << EOF | tr -d '\n' | sed 's/\s\+/ /g'
+	${monitor:+monitor=$monitor}
+	${desktop:+desktop=$desktop}
+	${node:+node=$node}
+	${state:+state=$state}
+	${layer:+layer=$layer}
+	${split_dir:+split_dir=$split_dir}
+	${split_ratio:+split_ratio=$split_ratio}
+	${hidden:+hidden=$hidden}
+	${sticky:+sticky=$sticky}
+	${private:+private=$private}
+	${locked:+locked=$locked}
+	${marked:+marked=$marked}
+	${center:+center=$center}
+	${follow:+follow=$follow}
+	${manage:+manage=$manage}
+	${focus:+focus=$focus}
+	${border:+border=$border}
+	${rectangle:+rectangle=$rectangle}
+EOF

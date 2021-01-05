@@ -1,16 +1,15 @@
 #!/usr/bin/env sh
 
-if [ "$(bspc query -T --node | grep '"state":"floating"')" ]; then
-	CMD='-v'
+if bspc query -N -n '.focused.floating'; then
 	case $1 in
 		west ) VALUE='-20   0' ;;
 		south) VALUE='  0  20' ;;
 		north) VALUE='  0 -20' ;;
 		east ) VALUE=' 20   0' ;;
 	esac
+	bspc node --move $VALUE
 else
-	CMD='-s'
-	VALUE=$1
+	DIRECTION=$1
+	bspc node --swap $DIRECTION || bspc node --to-monitor $DIRECTION --follow
 fi
-
-bspc node $CMD $VALUE
+exit $?

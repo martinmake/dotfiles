@@ -7,5 +7,3 @@ case $(xkb-switch) in
 	"$US") setxkbmap -layout sk -variant qwerty ;;
 	"$SK") setxkbmap -layout us                 ;;
 esac
-
-pkill -SIGRTMIN+13 i3blocks

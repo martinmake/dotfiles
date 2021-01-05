@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+# AUTHCODE=$(pass show caldav)
+AUTHCODE="4/0AY0e-g5q5xWC4bkzYYOkG8tYVRSPKdgxrmq7e3ZWqiSERwTd4KHJe4PgXjWq_IJtRfaJ_g"
+CALDAV_DIR=$XDG_CONFIG_HOME/calcurse/caldav
+MAIN_CALENDAR=${CALDAV_DIR}/main.config
+CALENDARS=$(ls ${CALDAV_DIR}/*.config | grep -v ${MAIN_CALENDAR})
+
+for calendar in ${CALENDARS}; do
+	calcurse-caldav --config ${calendar} --init keep-remote --authcode "${AUTHCODE}"
+done
+
+calcurse-caldav --config ${MAIN_CALENDAR} --init two-way --authcode "${AUTHCODE}"

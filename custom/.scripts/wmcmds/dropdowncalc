@@ -1,2 +1,10 @@
 #!/bin/sh
-ifinstalled bc && echo "Welcome to the Calculator." && bc -lq
+
+if has bc; then
+	echo "Welcome to the Calculator."
+	bc -lq;
+elif has ipython
+	ipython
+else
+	python
+fi

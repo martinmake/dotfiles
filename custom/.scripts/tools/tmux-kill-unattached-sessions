@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+for session in $(tmux list-sessions | grep -v '(attached)' | cut -d: -f1); do
+	tmux kill-session -t $session
+done

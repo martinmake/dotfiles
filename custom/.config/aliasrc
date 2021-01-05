@@ -2,22 +2,26 @@
 alias sudo="sudo " # USE ALIASES WHEN RUNNING COMMANDS THROUGH SUDO
 alias ka="killall"
 alias rm="trash-put"
-alias makev="make VERBOSE=1"
-alias makec="make clean"
 alias history="history 1"
-alias finch="export TERM=screen; finch"
 alias ghist="history | cut -d' ' -f4- | grep"
-alias l="ls -Al"
-alias ll="ls -Al"
-alias t="tree -a"
+alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+alias   ls="lsd --classify --icon never -1"
+alias  lst="lsd --classify --icon never -1 --date relative --total-size --blocks size --blocks date --blocks name"
+alias   ll="lsd --classify --icon never --date relative --almost-all --long"
+alias    l="lsd --classify --icon never --date relative --almost-all --long --blocks permission --blocks size --blocks date --blocks name"
+alias tree="lsd --classify --icon never --date relative --almost-all --long --tree --total-size"
+alias  tre="lsd --classify --icon never --date relative --almost-all --long --tree"
+alias    t="/usr/bin/tree"
+
 # alias make="colormake"
+alias dnd="dragon-drag-and-drop -ax 2>/dev/null"
 alias gdb="gdb -q"
 alias avr-gdb="avr-gdb -q"
 alias arm-none-eabi-gdb="arm-none-eabi-gdb -q"
 alias xtensa-esp32-elf-gdb="xtensa-esp32-elf-gdb -q"
 alias st-util="st-util -m"
 alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
-alias calcurse="calcurse -D ~/.config/calcurse"
 alias magit="nvim -c Magit"
 alias p="sudo pacman"
 alias pip="sudo pip"
@@ -25,22 +29,17 @@ alias pip2="sudo pip2"
 alias pip3="sudo pip3"
 alias gem="sudo gem"
 alias npm="sudo npm"
-alias SS="sudo systemctl"
+alias finch="export TERM=screen; finch"
+alias sysctl="sudo systemctl"
 alias f="fuck"
 alias g="git"
-alias h="hub"
-alias gccp="git commit -m common; git push"
-alias trem="transmission-remote"
+alias gh="hub"
 alias e="$EDITOR"
-alias v="$EDITOR"
 alias x="sxiv -ft *"
-alias sdn="sudo shutdown -h now"
 alias gua="git remote | xargs -L1 git push --all"
-alias ls="ls -hN --color=auto --group-directories-first"
 alias grep="grep --color=auto"
 alias diff="diff --color=auto"
-alias ccat="highlight --force --out-format=ansi"
-alias pcat="pygmentize"
+alias ccat="highlight --out-format=ansi"
 alias yt="youtube-dl --add-metadata -i -o '%(upload_date)s-%(title)s.%(ext)s'"
 alias yta="yt -x -f bestaudio/best"
 alias YT="youtube-viewer"
@@ -48,16 +47,48 @@ alias ref="shortcuts >/dev/null; source ~/.config/shortcutrc"
 alias upc="sudo pacman -Syu; pkill -RTMIN+8 i3blocks"
 alias lsp="pacman -Qett --color=always | less"
 alias ffmpeg="ffmpeg -hide_banner"
-alias tree="tree -C"
 alias demangle="c++filt"
 alias youtube-dl="youtube-dl -i"
 alias tmux="TERM=xterm-256color tmux"
+alias mutt="neomut"
+alias tspreed="tspreed -n 1 -lw 700 -i -bfp line -c 1"
+alias vimdiff="nvim -d"
+alias starwars="telnet towel.blinkenlights.nl"
+
+ef () { fzf | xargs -r -I % $EDITOR % }
+es () { find -L "$HOME/.scripts"   -type f | fzf | xargs -r      $EDITOR   }
+ec () { find -L "$XDG_CONFIG_HOME" \( \
+	    -iwholename "*/tmp/*"          \
+	-or -iwholename "*/cache/*"        \
+	-or -iwholename "*/__pychache__/*" \
+	-or -iwholename "*/.git/*"         \
+	-or -path "$XDG_CONFIG_HOME/nvim/plugged/*"  \
+	-or -path "$XDG_CONFIG_HOME/nvim/view/*"     \
+	-or -path "$XDG_CONFIG_HOME/vim/plugged/*"   \
+	-or -path "$XDG_CONFIG_HOME/vim/view/*"      \
+	-or -path "$XDG_CONFIG_HOME/discordptb/*"    \
+	-or -path "$XDG_CONFIG_HOME/discord/*"       \
+	-or -path "$XDG_CONFIG_HOME/GIMP/*"          \
+	-or -path "$XDG_CONFIG_HOME/Electron/*"      \
+	-or -path "$XDG_CONFIG_HOME/teams/*"         \
+	-or -path "$XDG_CONFIG_HOME/p3x-onenote/*"   \
+	-or -path "$XDG_CONFIG_HOME/Microsoft/*"     \
+	-or -path "$XDG_CONFIG_HOME/eDEX-UI/*"       \
+	-or -path "$XDG_CONFIG_HOME/skypeforlinux/*" \
+	-or -path "$XDG_CONFIG_HOME/Franz/*"         \
+	-or -path "$XDG_CONFIG_HOME/coc/*"           \
+	-or -path "$XDG_CONFIG_HOME/TabNine/*"       \
+	-or -path "$XDG_CONFIG_HOME/XMind/*"         \
+	-or -path "$XDG_CONFIG_HOME/spotify/*"       \
+	-or -path "$XDG_CONFIG_HOME/Trello/*"        \
+	-or -iwholename "*google*"      \
+	-or -iwholename "*caprine*"     \
+	-or -iwholename "*brave*"       \
+	-or -iwholename "*oomox*"       \
+	-or -iwholename "*syncthing*"   \
+	-or -iwholename "*whatsapp*"    \
+	-or -iwholename "*libreoffice*" \
+	-or -iname      "*.log*"        \
+	\) -prune -o -type f -print | fzf | xargs -r $EDITOR }
 
 eval "$(thefuck --alias)"
-
-command -v nvim > /dev/null && alias vim="nvim" vimdiff="nvim -d"
-
-shdl() { curl -O $(curl -s http://sci-hub.tw/"$@" | grep location.href | grep -o http.*pdf) ;}
-se() { du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf | xargs  -r $EDITOR ;}
-sv() { vcopy "$(du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf)" ;}
-vf() { fzf | xargs -r -I % $EDITOR % ;}

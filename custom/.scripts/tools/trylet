@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+for font in $(ls /usr/share/figlet/*.* | awk -F/ '{print $NF}' | cut -d. -f1); do
+	toilet -f "$font" "$@" && echo $font && read
+done

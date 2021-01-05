@@ -1,0 +1,31 @@
+#!/usr/bin/env sh
+
+COMMAND=$1
+NAME=${2:-$(basename $COMMAND)}
+
+if ! xdotool search --class "^dropdown_$NAME$"; then
+	if ! tmux list-sessions | grep "dropdown_$NAME"; then
+		tmux new-session -d -s "dropdown_$NAME" $COMMAND
+	fi
+	$TERMINAL -c "dropdown_$NAME" -e "tmux" "attach-session" "-t" "dropdown_$NAME" &
+	case $NAME in
+		todoman)
+			tmux send-keys -t "dropdown_$NAME" "C-e" "C-u" "C-l" "list" "Enter"
+			;;
+	esac
+else
+	WINDOWID="$(xdotool search --class "^dropdown_$NAME$" | tail -n 1)"
+	if   bspc query -N -n "$WINDOWID.hidden" \
+	|| ! bspc query -N -n "$WINDOWID.local"
+	then
+		case $NAME in
+			todoman)
+				tmux send-keys -t "dropdown_$NAME" "C-e" "C-u" "C-l" "list" "Enter"
+				;;
+		esac
+		bspc node "$WINDOWID" --to-monitor "$(bspc query -M -m)"
+		bspc node "$WINDOWID" --flag hidden=off --focus
+	else
+		bspc node "$WINDOWID" --flag hidden=on
+	fi
+fi

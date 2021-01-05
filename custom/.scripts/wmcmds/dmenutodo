@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+ACTION=$(echo 'new;list' | tr ';' '\n' | dmenu -i -p 'ACTION: ')
+
+case "$ACTION" in
+	new) ;;
+	list) ;;
+esac

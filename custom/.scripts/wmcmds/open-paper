@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+function get_papers() { find -L ~/documents/papers -type f; }
+function get_chosen_papers() { get_papers | dmenu -i -l 20; }
+
+while IFS= read -r chosen_paper; do
+	[ -f "${chosen_paper}" ] && $READER "$chosen_paper" &
+done <<< $(get_chosen_papers)

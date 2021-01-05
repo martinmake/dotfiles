@@ -1,0 +1,9 @@
+[submodule "st/FOSS/st"]
+	path = st/FOSS/st
+	url = git://github.com/martinmake/st.git
+[submodule "tabbed/FOSS/tabbed"]
+	path = tabbed/FOSS/tabbed
+	url = https://github.com/martinmake/tabbed.git
+[submodule "dmenu/FOSS/dmenu"]
+	path = dmenu/FOSS/dmenu
+	url = https://github.com/martinmake/dmenu.git

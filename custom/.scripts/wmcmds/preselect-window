@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+DIRECTION=$1
+OPPOSITE_DIRECTION=""
+case $DIRECTION in
+	west)  OPPOSITE_DIRECTION=east  ;;
+	south) OPPOSITE_DIRECTION=north ;;
+	north) OPPOSITE_DIRECTION=south ;;
+	east)  OPPOSITE_DIRECTION=west  ;;
+esac
+
+FOCUSED_WINDOWID="$(bspc query -N -n)"
+ACTION_DONE=""
+for windowid in $(bspc query -N -n '.leaf.!window'); do
+	if [ "$(bspc query -N -n "${windowid}#${OPPOSITE_DIRECTION}.window")" = "$FOCUSED_WINDOWID" ]; then
+		bspc node --to-node "${windowid}"
+		ACTION_DONE="true"
+	fi
+done
+if [ -z "$ACTION_DONE" ]; then
+	bspc node --presel-dir $DIRECTION -i
+fi

@@ -1,0 +1,6 @@
+#!/bin/sh
+has transmission-cli tremc || exit 1
+
+! pgrep -x transmission-da >/dev/null && transmission-daemon && notify-send -i "$PIX/torrent.svg" "Starting torrent daemon..." && sleep 3 && pkill -RTMIN+7 i3blocks
+
+$TERMINAL -e tremc

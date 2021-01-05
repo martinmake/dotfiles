@@ -1,0 +1,17 @@
+# header information
+	set realname = "Martin Michalec"
+	set from = "McMitarrr@gmail.com"
+
+# mail folders
+	set folder = "~/mail/McMitarrr@gmail.com/"
+	set spoolfile = "+Inbox"
+	set record    = "+[Gmail]/Sent Mail"
+	set postponed = "+[Gmail]/Drafts"
+	set trash     = "+[Gmail]/Trash"
+
+# IMAP - Internet Message Access Protocol
+	set imap_user = "McMitarrr@gmail.com"
+	set imap_pass = "`pass show imap`"
+# SMTP - Simple Mail Transfer Protocol
+	set smtp_url = "smtps://McMitarrr@smtp.gmail.com"
+	set smtp_pass = "`pass show smtp`"

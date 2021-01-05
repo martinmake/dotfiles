@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+TEMPNAME=$(tempname calc)
+
+cat << EOF > $TEMPNAME
+from math import *
+EOF
+
+PYTHONSTARTUP=$TEMPNAME ipython --no-banner
+
+rm $TEMPNAME

@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+ALLOWED=$1
+LENGTH=$2
+
+tr -dc "$ALLOWED" < /dev/urandom | head -c "$LENGTH"

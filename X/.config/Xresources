@@ -5,28 +5,36 @@ st.alpha: 0.90
 st.font: terminus-10
 /* st.font: C64 Pro Mono-6 */
 
-st.termname: st-256color
-st.borderpx: 1
+st.termname: xterm-256color // cursor fix
+st.shell: /bin/zsh
+/* st.xfps: */
+/* st.actionfps: */
+/* st.blinktimeout: */
+/* st.bellvolume: */
+st.tabspaces: 8
+st.borderpx: 0
+st.cwscale: 1.0
+st.chscale: 1.0
 
 !! Set the background, foreground and cursor colors as below:
 *.background:  #000000
-*.foreground:  #ffffff
-*.cursorColor: #ffff00
+*.foreground:  #FFFFFF
+*.cursorColor: #FFFF00
 
 !! martinmake:
-*.color0:   #000000
-*.color1:   #cd0000
-*.color2:   #00cd00
-*.color3:   #cdcd00
-*.color4:   #0000cd
-*.color5:   #cd00cd
-*.color6:   #00cdcd
-*.color7:   #e5e5e5
-*.color8:   #4d4d4d
-*.color9:   #ff0000
-*.color10:  #00ff00
-*.color11:  #ffff00
-*.color12:  #0000ff
-*.color13:  #ff00ff
-*.color14:  #00ffff
-*.color15:  #ffffff
+*.color0:   #000000 // black             background
+*.color1:   #7F0000 // darkRed           not used
+*.color2:   #007F00 // darkGreen         comment
+*.color3:   #FF7F00 // darkOrange orange WARNING
+*.color4:   #0000FF // darkBlue          not used
+*.color5:   #7F007F // darkMagenta       not used
+*.color6:   #007F7F // darkCyan          "function"
+*.color7:   #EFEFEF //                   inactive
+*.color8:   #7F7F7F //     grey          inactive
+*.color9:   #FF0000 //     red           DANGER, error, first accent, string
+*.color10:  #00FF00 //     green         SAFETY INSTRUCTIONS, OK, success, command
+*.color11:  #FFFF00 //     yellow        CAUTION, second accent, cursor, selected
+*.color12:  #2D2EFF //     blue          NOTICE, dim information
+*.color13:  #FF00FF //     magenta       current node
+*.color14:  #00FFFF //     cyan          other nodes, link
+*.color15:  #FFFFFF //     white         foreground, basic

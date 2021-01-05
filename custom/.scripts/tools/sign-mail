@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+EN='us'
+SK='sk(qwerty)'
+RU='ru'
+
+case $(xkb-switch) in
+	"$EN") cat $XDG_CONFIG_HOME/mutt/signatures/en ;;
+	"$SK") cat $XDG_CONFIG_HOME/mutt/signatures/sk ;;
+	"$RU") cat $XDG_CONFIG_HOME/mutt/signatures/ru ;;
+esac

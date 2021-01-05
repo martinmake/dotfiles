@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+DIR=$1
+
+bspc node --focus $DIR || bspc monitor --focus $DIR

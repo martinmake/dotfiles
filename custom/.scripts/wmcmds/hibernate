@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 xlock
 sudo -A systemctl suspend

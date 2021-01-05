@@ -2,6 +2,7 @@ bf	~/.config/bmfiles
 bd	~/.config/bmdirs
 cfa	~/.config/aliasrc
 cfsh	~/.zshrc
+cflsc	~/.config/LS_COLORS
 cfsb	~/.config/polybar/config
 cfv	~/.config/nvim/init.vim
 cfxr	~/.config/Xresources

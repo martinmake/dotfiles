@@ -4,7 +4,11 @@ OPTIONS=""
 COMMAND=""
 PURE=false
 
+echo $@
+echo
 while getopts :epd: opt; do
+	echo $@
+	echo
 	case $opt in
 		e) break ;;
 		p) PURE=true ;;
@@ -17,8 +21,12 @@ PID=$(($(echo "$(pstree -lpA "$PID" | tail -n 1)" | awk -F'---' '{print $NF}' | 
 DIRECTORY="$(readlink /proc/"$PID"/cwd)"
 [ ! -d "${DIRECTORY}" ] && DIRECTORY=$HOME
 
-shift $(($OPTIND -1))
+echo $@
+echo
+shift $(($OPTIND - 1))
+echo $@
+echo
 COMMAND="$@"
-
+echo
 [ ${PURE} = true ] && USE_TMUX=false || USE_TMUX=true
 DIRECTORY=${DIRECTORY} USE_TMUX=${USE_TMUX} SHELL_COMMAND=${COMMAND} exec st ${OPTIONS}

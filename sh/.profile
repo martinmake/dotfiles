@@ -1,14 +1,25 @@
-#!/bin/sh
+#!/usr/bin/env sh
+
 # Profile file. Runs on login.
 
 # Default programs
 export WM="bspwm"
-export XLOCK="xsecurelock"
+export TERMINAL="st"
 export EDITOR="nvim"
-export TERMINAL="stx"
-export BROWSER="surf"
+export FILE="lf"
+export BROWSER="web-browser" # export BROWSER="tabbed-surf"
 export READER="zathura"
-export FILE="ranger"
+export XLOCK="xlock"
+export MERGE_EDITOR="vimdiff"
+export MAIL="neomutt"
+export CALENDAR="ikhal"
+export NETWORK="nmtui"
+export NEWS="newsboat"
+export CALCULATOR="calc"
+export NOTES="nvim -c VimwikiIndex"
+export ABOOK="abook"
+export TODOMAN="todo repl"
+export COUNTDOWN="termdown"
 export CXX="clang++"
 export CC="clang"
 
@@ -26,6 +37,8 @@ export GOPATH=$HOME/.go
 export NODE_PATH=$HOME/.node_modules
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
+export _Z_DATA=$XDG_DATA_HOME/z
+export IPYTHONDIR=$XDG_DATA_HOME/ipython
 
 export GROFF_TMAC_PATH="$GROFF_TMAC_PATH:$XDG_CONFIG_HOME/groff/tmac"
 export QT_QPA_PLATFORMTHEME="qt5ct"
@@ -50,45 +63,34 @@ export LESS_TERMCAP_se="$(printf '%b' '[0m')";
 export LESS_TERMCAP_us="$(printf '%b' '[1;32m')";
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')";
 
-[ ! -f "$XDG_CONFIG_HOME/shortcutrc" ] && shortcuts >/dev/null 2>&1
-
-echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && . "$XDG_CONFIG_HOME/bash/.bashrc"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+export QT_STYLE_OVERRIDE="kvantum"
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
-
-# `man set` && `/noclobber` you dummy
 set -o noclobber
 
-# Start syncthing
-# [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x syncthing >/dev/null && exec syncthing
+print "\e]P0000000" #black
+print "\e]P1cd0000" #darkred
+print "\e]P200cd00" #darkgreen
+print "\e]P3cdcd00" #brown
+print "\e]P40000cd" #darkblue
+print "\e]P5cd00cd" #darkmagenta
+print "\e]P600cdcd" #darkcyan
+print "\e]P7e5e5e5" #lightgrey
+print "\e]P84d4d4d" #darkgrey
+print "\e]P9ff0000" #red
+print "\e]PA00ff00" #green
+print "\e]PBffff00" #yellow
+print "\e]PC0000ff" #blue
+print "\e]PDff00ff" #magenta
+print "\e]PE00ffff" #cyan
+print "\e]PFffffff" #white
+clear # remove background artifacting if any
+# white block cursor
+print "\e[?16;2;112;c"
+setterm -background black -foreground white -store
 
 # Start graphical server if WM is not already running.
-[ "$(tty)" = "/dev/tty1" ] && ! pgrep -x "${WM}" >/dev/null && exec startx
-
-if [ "$TERM" = "linux" ]; then
-	print "\e]P0000000" #black
-	print "\e]P1cd0000" #darkred
-	print "\e]P200cd00" #darkgreen
-	print "\e]P3cdcd00" #brown
-	print "\e]P40000cd" #darkblue
-	print "\e]P5cd00cd" #darkmagenta
-	print "\e]P600cdcd" #darkcyan
-	print "\e]P7e5e5e5" #lightgrey
-	print "\e]P84d4d4d" #darkgrey
-	print "\e]P9ff0000" #red
-	print "\e]PA00ff00" #green
-	print "\e]PBffff00" #yellow
-	print "\e]PC0000ff" #blue
-	print "\e]PDff00ff" #magenta
-	print "\e]PE00ffff" #cyan
-	print "\e]PFffffff" #white
-	clear # remove background artifacting if any
-
-	# white block cursor
-	print "\e[?16;2;112;c"
-
-	setterm -background black -foreground white -store
-
-	[ "$TTY" != "/dev/tty2" ] && tmux new-session && exit
-fi
+whence startx >/dev/null && [ "$(tty)" = "/dev/tty1" ] && ! pgrep -x "${WM}" >/dev/null && exec startx
+[ "$TERM" = "linux" ] && [ "$TTY" != "/dev/tty2" ] && exec tmux new-session

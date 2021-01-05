@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+DIVISOR=${3:-3}
+
+WID=$(xdotool getwindowfocus)
+
+H=$(( $(xdotool getdisplaygeometry | awk '{print $1}') / DIVISOR ))
+W=$(( $(xdotool getdisplaygeometry | awk '{print $2}') / DIVISOR ))
+xdotool windowsize "$WID" $H $W

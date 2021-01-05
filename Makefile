@@ -24,7 +24,11 @@ bash: sh ## package
 	@$(STOW) $(STOW_FLAGS) $@
 sh: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-vim: ## package
+neovim: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+vim: neovim ## alias
+	@$(STOW) $(STOW_FLAGS) $@
+text-editor: neovim ## solution
 	@$(STOW) $(STOW_FLAGS) $@
 ranger: ## package
 	@$(STOW) $(STOW_FLAGS) $@
@@ -34,7 +38,7 @@ tmux: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 git: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-X: ## package
+X: ## solution
 	@$(STOW) $(STOW_FLAGS) $@
 i3: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
@@ -66,10 +70,14 @@ lldb: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 ghidra: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
+mutt: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+mail: mutt ## solution
+	@$(STOW) $(STOW_FLAGS) $@
 other: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 
 
 .PHONY:help
 help: ## lists documented targets
-	@grep -Eh '^[0-9a-zA-Z_-$$()]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
+	@grep -Eh '^[0-9a-zA-Z_-$$()]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-15s\033[0m %s\n", $$1, $$2}'
