@@ -1,0 +1,288 @@
+# ███████╗██╗  ██╗██╗  ██╗██╗  ██╗██████╗ ██████╗  ██████╗
+# ██╔════╝╚██╗██╔╝██║  ██║██║ ██╔╝██╔══██╗██╔══██╗██╔════╝
+# ███████╗ ╚███╔╝ ███████║█████╔╝ ██║  ██║██████╔╝██║
+# ╚════██║ ██╔██╗ ██╔══██║██╔═██╗ ██║  ██║██╔══██╗██║
+# ███████║██╔╝ ██╗██║  ██║██║  ██╗██████╔╝██║  ██║╚██████╗
+# ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝
+#
+# the Simple X HotKey Daemon Runtime Configuration
+
+# Basic binds
+super + Return
+	spawn-preloaded "$SHELL" shell
+super + shift + Return
+	$TERMINAL
+super + {d,D}
+	{dmenu_run,j4-dmenu-desktop}
+super + r
+	spawn-preloaded "$FILE" file
+super + p
+	passmenu --type
+# super + P
+# 	open-paper
+super + m
+	toggle-dropdown "$MAIL" mail
+super + shift + n
+	toggle-dropdown "$NEWS" news
+super + c
+	clipmenu
+super + shift + c
+	toggle-dropdown "$CALENDAR" calendar
+super + shift + p
+	toggle-dropdown "$CALCULATOR" calculator
+super + t
+	toggle-dropdown "$TODOMAN" todoman
+super + shift + t
+	toggle-dropdown "$TMUX" tmux
+super + n
+	toggle-dropdown "$NOTES" notes
+Alt_R
+	toggle-compositor
+button2
+	plumb
+ctrl + button2
+	plumb --no-auto
+super + a
+	toggle-dropdown "$ABOOK" abook
+# super + shift + a
+# 	new-contact
+super + shift + c
+	mpv --no-osc --no-input-default-bindings --input-conf=/dev/null --title='mpvfloat' /dev/video0
+super + e
+	toggle-dropdown "$EDITOR" editor
+super + w
+	$BROWSER
+super + shift + w
+	toggle-dropdown "$NETWORK" network
+
+# Et cetera...
+super + grave
+	dmenuunicode
+# super + Scroll_Lock
+# 	killall screenkey || screenkey
+super + Insert
+	showclip
+super + shift + x
+	prompt "Shutdown computer?" "sudo -A shutdown -h now"
+# super + shift + BackSpace
+# 	prompt "Reboot computer?" "sudo -A reboot"
+super + shift + Escape
+	prompt 'Leave Xorg?' 'killall Xorg'
+super + x
+	$XLOCK & xset dpms force off ; mpc pause ; pauseallmpv
+# XF86Launch1
+# 	xset dpms force off
+# XF86TouchpadToggle
+# 	(synclient | grep "TouchpadOff.*1" && synclient TouchpadOff=0) || synclient TouchpadOff=1
+# XF86Touchpad{Off,On}
+# 	synclient TouchpadOff={1,0}
+XF86MonBrightnessDown
+	xbacklight -dec 15
+XF86MonBrightnessUp
+	xbacklight -inc 15
+
+# Recording
+# Take screenshot
+Print
+	maim pic-full-$(date '+%y%m%d-%H%M-%S').png
+# Pick screenshot type
+shift + Print
+	maimpick
+# Print: Record audio or video; Del: kill recording
+super + Print
+	dmenurecord
+super + Delete
+	dmenurecord kill
+
+# # Pause audio
+# super + p
+# 	mpc toggle
+# super + shift + p
+# 	mpc pause; pauseallmpv
+# # Changes to next/previous tracks
+# super + {comma,period}
+# 	mpc {prev,next}
+# # Restart track
+# super + shift + less
+# 	mpc seek 0%
+# # Seek foward in song
+# super + {_,shift +} bracketright
+# 	mpc seek +{10,120}
+# # Seek backward in song
+# super + {_,shift +} bracketleft
+# 	mpc seek -{10,120}
+# Increase volume
+super + {equal,plus}
+	amixer sset Master {5,15}%+; pkill -RTMIN+10 $STATUSBAR
+# Decrease volume
+super {_,shift +} + minus
+	amixer sset Master {5,15}%-; pkill -RTMIN+10 $STATUSBAR
+super + shift + m
+	amixer sset Master toggle; pkill -RTMIN+10 $STATUSBAR
+
+# Audiokeys
+XF86AudioMute
+	amixer sset Master toggle; pkill -RTMIN+10 $STATUSBAR
+XF86AudioMicMute is unbound.
+XF86Audio{Raise,Lower}Volume
+	amixer sset Master 5%{+,-}; pkill -RTMIN+10 $STATUSBAR
+XF86Audio{Next,Prev}
+	playerctl {next,previous}
+# XF86Audio{Pause,Play,Stop}
+# 	playerctl {pause,play,stop}
+XF86AudioPlay
+	playerctl play-pause
+XF86Audio{Rewind,Forward}
+	playerctl position {-,+}10
+XF86AudioRecord
+	dmenurecord
+XF86AudioMedia
+	spotify
+
+XF86WebCam
+	camtoggle
+XF86Display is unbound.
+
+XF86PowerOff
+	prompt "Shutdown computer?" "sudo -A shutdown -h now"
+XF86Calculator
+	$TERMINAL -e bc
+# XF86Sleep
+# 	hibernate
+XF86WWW
+	$BROWSER
+XF86DOS
+	$TERMINAL
+XF86ScreenSaver
+	xlock & xset dpms force off ; mpc pause ; pauseallmpv # xlock is my script which uses i3lock
+XF86TaskPane
+	$TERMINAL -e htop
+XF86Mail
+	$TERMINAL -e neomutt
+XF86MyComputer
+	$TERMINAL -e $FILE /
+
+# Function keys
+# super + shift + F1
+# 	grep LARBSWELCOME ~/.xprofile && ( sed -i "/LARBSWELCOME/d" ~/.xprofile && notify-send "LARBS welcome message" "Welcome message disabled. Press Super+Shift+F1 again to reverse." ) || ( echo "notify-send -i "$HOME/.local/share/larbs/larbs.png" \"Welcome to LARBS\" \"Press super+F1 for the help menu.\" # LARBSWELCOME" >> ~/.xprofile && notify-send "LARBS welcome message" "Welcome message re-enabled." )
+# Show readme
+# super + F1
+# 	groff -mom $HOME/.local/share/larbs/readme.mom -Tpdf | zathura -
+super + F2
+	rotatekeymap
+# Change display
+super + F3
+	xlock
+super + F4
+	hibernate
+super + F5
+	sync-with-cloud
+# Start torrent daemon/open interface
+super +  {_,shift + }F6
+	{torrentd-start,torrentd-toggle}
+# toggle torrent daemon
+super + F7
+	displayselect
+# Mount a USB drive or Android device
+super + {F8,F9}
+	{dmenumount,dmenuumount}
+# super + {F10,F11,F12}
+# 	playerctl {previous,play-pause,next}
+
+super + {_,shift + }q
+	quit-window {close,kill}
+
+# rotate current node 90 degrees
+super + shift + R
+	bspc node @focused:/ --rotate 90
+
+# move the current node to receptacle or  swap the current node and the biggest local node
+super + space
+	bspc node --state tiled; bspc node --to-node 'any.local.leaf.!window' || bspc node --swap biggest.local || bspc node --swap next.local
+
+#
+# state/flags
+#
+
+# set the window state
+#super + {t,shift + t,s}
+#bspc node -t {tiled,pseudo_tiled,floating}
+
+super + shift + {t,space}
+	bspc node focused --state \~{tiled,floating}
+super + shift + f
+	toggle-fullscreen
+super + f
+	bspc desktop --layout next
+
+super + shift + {h,j,k,l}
+	move-window {west,south,north,east}
+# expand a window by moving one of its side outward
+super + shift + {y,u,i,o}
+	resize-window {right left -20 0,bottom top 0 20,bottom top 0 -20,right left 20 0}
+super + {h,j,k,l}
+	focus-in-direction {west,south,north,east}
+
+# preselect the direction
+super + {y,u,i,o}
+	preselect-window {west,south,north,east}
+
+# center
+# super + shift + c
+# balance
+super + shift + b
+	bspc node @/ -B
+
+# focus the node for the given path jump
+# super + {p,b,comma,period}
+# 	bspc node --focus @{parent,brother,first,second}
+
+# super + {g,semicolon}
+# 	bspc desktop {prev,next}.occupied --focus
+# super + {Prior,Next}
+# 	bspc desktop {prev,next}.occupied --focus
+super + Tab
+	bspc desktop last --focus
+
+# focus or swap the next node
+# super + {_,shift + }c
+# 	bspc node --{focus,swap} next.local
+
+# focus the older or newer node in the focus history
+
+# focus or send to the given desktop
+super + {_,shift + }{0-9}
+	bspc {desktop --focus,node --to-desktop} {0-9} --follow
+
+# preselect the ratio
+super + ctrl + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+	bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + space
+bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# contract a window by moving one of its side inward
+
+# # Toggle gaps
+# super + shift + d
+# 	bspc config window_gap {2,15}
+# # Increase/descrease gap size
+# super { ,+ shift }+ z
+# 	bspc config window_gap $(($(bspc config window_gap) {+,-} 3))
+
+# super + u
+# 	cat /tmp/dropdown | xargs -I win bspc node win --flag hidden; bspc node -f win
+# super + o
+# 	bspc node -g sticky={on,off}
+
+# super + {i,o}
+# 	bspc node -f {prev,next}.local
+# super + shift + c
+# 	bspc node focused -t \~floating ; hover right
+# super + shift + c
+# 	bspc node focused -t \~floating ; hover left

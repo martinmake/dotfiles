@@ -1,0 +1,306 @@
+# ██╗     ███████╗██████╗  ██████╗
+# ██║     ██╔════╝██╔══██╗██╔════╝
+# ██║     █████╗  ██████╔╝██║
+# ██║     ██╔══╝  ██╔══██╗██║
+# ███████╗██║     ██║  ██║╚██████╗
+# ╚══════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝
+
+# variables {{{
+	set shell sh
+	set shellopts '-eu'
+	set ifs "\n"
+
+	set previewer ~/.config/lf/scope
+
+	set scrolloff 10
+	set smartcase  on
+	set smartdia   on
+	set incsearch  on
+	set globsearch on
+	set wrapscan   on
+	set wrapscroll off
+
+	set info size:atime
+	set dirfirst off
+	set drawbox on
+	set number on
+	set relativenumber on
+	set promptfmt "\033[31;1m%u\033[33;1m@\033[31;1m%h\033[0m:\033[31;1m%w\033[0m\033[1m%f\033[0m"
+# }}}
+# cmds/functions {{{
+	cmd rename %[ -e $1 ] && printf "file exists" || mv $f $1
+	cmd drag-and-drop &dragon-drag-and-drop -ax $fs
+
+
+	cmd bulkrename $vidir
+# 	cmd open &$OPENER "$f"
+	cmd trash %trash-put $fx
+	cmd open ${{ # {{{
+		case $(file --mime-type $f -b) in
+				       text/troff) man ./ $f;;
+					   text/*) $EDITOR $fx ;;
+			image/x-xcf|image/svg+xml) setsid gimp $f >/dev/null 2>&1 & ;;
+					  image/*) rotdir $f | setsid sxiv -aio 2>/dev/null | lf-select & ;;
+					  audio/*) mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f ;;
+					  video/*) setsid mpv --input-ipc-server=/tmp/mpvsoc$(date +%%s) $f -quiet >/dev/null 2>&1 & ;;
+				  application/pdf) setsid zathura $fx >/dev/null 2>&1 & ;;
+						*) for f in $fx; do setsid $OPENER $f >/dev/null 2>&1 & done ;;
+		esac
+	}} # }}}
+# 	cmd delete %{{ # {{{
+# 		printf "delete %s?[y/N] " "$(echo $fx | tr '\n' ' ')"
+# 		read ans
+# 		[ $ans = "y" ] && rm -rf $fx
+# 	}} # }}}
+	cmd goto ${{ # {{{
+		dest="$(sed '/^#/d' ~/.config/directories | cut -d'	' -f2- | fzf --prompt='go to: ')" &&
+			lf -remote "send $id cd $dest"
+	}} # }}}
+	cmd moveto ${{ # {{{
+		dest="$(sed '/^#/d' ~/.config/directories | cut -d'	' -f2- | fzf --prompt 'move to: ')" &&
+			eval mv -iv -t $dest $fx &&
+			notify-send "🚚 File(s) moved." "File(s) moved to $dest."
+	}} # }}}
+	cmd copyto ${{ # {{{
+		printf "copy to: "
+		dest="$(sed '/^#/d' ~/.config/directories | cut -d'	' -f2- | fzf --prompt 'copy to: ')" &&
+			eval cp -ivr -t $dest $fx &&
+			notify-send "📋 File(s) copied." "File(s) copies to $dest."
+	}} # }}}
+# }}}
+# keybinds {{{
+	# remove default {{{
+		# The following commands are provided by lf: {{{
+			map 'q'       # quit
+			map 'k'       # up
+			map '<up>'    # up
+			map '<c-u>'   # half-up
+			map '<c-b>'   # page-up
+			map '<pgup>'  # page-up
+			map 'j'       # down
+			map '<down>'  # down
+			map '<c-d>'   # half-down
+			map '<c-f>'   # page-down
+			map '<pgdn>'  # page-down
+			map 'h'       # updir
+			map '<left>'  # updir
+			map 'l'       # open
+			map '<right>' # open
+			map 'gg'      # top
+			map '<home>'  # top
+			map 'G'       # bottom
+			map '<end>'   # bottom
+			map           # toggle
+			map 'v'       # invert
+			map 'u'       # unselect
+			map           # glob-select
+			map           # glob-unselect
+			map 'y'       # copy
+			map 'd'       # cut
+			map 'p'       # paste
+			map 'c'       # clear
+			map           # sync
+			map           # draw
+			map '<c-l>'   # redraw
+			map           # load
+			map '<c-r>'   # reload
+			map           # echo
+			map           # echomsg
+			map           # echoerr
+			map           # cd
+			map           # select
+			map           # delete
+			map 'r'       # rename
+			map           # source
+			map           # push
+			map ':'       # read
+			map '$'       # shell
+			map '%'       # shell-pipe
+			map '!'       # shell-wait
+			map '&'       # shell-async
+			map 'f'       # find
+			map 'F'       # find-back
+			map ';'       # find-next
+			map ','       # find-prev
+			map '/'       # search
+			map '?'       # search-back
+			map 'n'       # search-next
+			map 'N'       # search-prev
+			map 'm'       # mark-save
+			map "'"       # mark-load
+			map '"'       # mark-remove
+		# }}}
+		# The following command line commands are provided by lf: {{{
+			map '<esc>'        # cmd-escape
+			map '<tab>'        # cmd-complete
+			map '<c-j>'        # cmd-enter
+			map '<enter>'      # cmd-enter
+			map '<c-c>'        # cmd-interrupt
+			map '<c-n>'        # cmd-history-next
+			map '<c-p>'        # cmd-history-prev
+			map '<c-b>'        # cmd-left
+			map '<left>'       # cmd-left
+			map '<c-f>'        # cmd-right
+			map '<right>'      # cmd-right
+			map '<c-a>'        # cmd-home
+			map '<home>'       # cmd-home
+			map '<c-e>'        # cmd-end
+			map '<end>'        # cmd-end
+			map '<c-d>'        # cmd-delete
+			map '<delete>'     # cmd-delete
+			map '<backspace>'  # cmd-delete-back
+			map '<backspace2>' # cmd-delete-back
+			map '<c-u>'        # cmd-delete-home
+			map '<c-k>'        # cmd-delete-end
+			map '<c-w>'        # cmd-delete-unix-word
+			map '<c-y>'        # cmd-yank
+			map '<c-t>'        # cmd-transpose
+			map '<a-t>'        # cmd-transpose-word
+			map '<a-f>'        # cmd-word
+			map '<a-b>'        # cmd-word-back
+			map '<a-d>'        # cmd-delete-word
+			map '<a-c>'        # cmd-capitalize-word
+			map '<a-u>'        # cmd-uppercase-word
+			map '<a-l>'        # cmd-lowercase-word
+		# }}}
+		# The following commands/keybindings are provided by default: {{{
+			cmd open      # &$OPENER "$f"
+			map e         # $$EDITOR "$f"
+			map i         # $$PAGER  "$f"
+			map w         # $$SHELL
+		# }}}
+		# The following additional keybindings are provided by default: {{{
+			map zh        # set hidden!
+			map zr        # set reverse!
+			map zn        # set info
+			map zs        # set info size
+			map zt        # set info time
+			map za        # set info size:time
+			map sn        # :set sortby natural; set info
+			map ss        # :set sortby size; set info size
+			map st        # :set sortby time; set info time
+			map sa        # :set sortby atime; set info atime
+			map sc        # :set sortby ctime; set info ctime
+			map se        # :set sortby ext; set info
+			map gh        # cd ~
+			map <space>   # :toggle; down
+		# }}}
+	# }}}
+source "~/.config/lf/shortcuts"
+	# application {{{
+		map 'q'     quit
+		map '<c-r>' reload
+		map '<c-l>' redraw
+	# }}}
+	# prompt {{{
+		map ':' read
+		map '$' shell
+		map '%' shell-pipe
+		map '!' shell-wait
+		map '&' shell-async
+	# }}}
+	# positioning {{{
+		map 'h' updir
+		map 'j' down
+		map 'k' up
+		map 'l' open
+
+		map 'gg' top
+		map 'G'  bottom
+
+		map '<c-u>' half-up
+		map '<c-d>' half-down
+
+		map '<c-b>' page-up
+		map '<c-f>' page-down
+
+		map '<pgup>' page-up
+		map '<pgdn>' page-down
+
+		map '<home>' top
+		map '<end>'  bottom
+
+		map '<up>'    up
+		map '<right>' open
+		map '<down>'  down
+		map '<left>'  updir
+	# }}}
+	# creating {{{
+		map mkd push %mkdir<space>
+	# }}}
+	# editing {{{
+		map 'mkx' $chmod +x $fx
+		map 'cW' bulkrename
+		map 'cw' push :rename<space>
+		map 'A' $lf -remote "send $id push :rename<space>$(basename $f)"
+		map 'I' $lf -remote "send $id push :rename<space>$(basename $f)<c-a><a-f><c-f>"
+	# }}}
+	# opening {{{
+		map 'S' $$SHELL
+		map 'e' $$EDITOR $fx
+		map 'E' push $$EDITOR<space>
+		map 'os' &sxiv $fx
+		map 'oz' &zathura $fx
+		map 'O' &echo $fx | tr ' ' '\n' | xargs -I% xdg-open %
+	# }}}
+	# going {{{
+		map 'G' goto
+	# }}}
+	# copying {{{
+		map 'y' cut
+		map 'C' copyto
+	# }}}
+	# deleting {{{
+		map 'D' trash
+	# }}}
+	# moving {{{
+		map 'd' cut
+		map 'p' paste
+		map 'M' moveto
+	# }}}
+	# executing {{{
+		map x $$f
+		map X !$f
+	# }}}
+	# selecting {{{
+		map <space> :toggle; down
+		map us glob-unselect *
+		map * glob-select *
+	# }}}
+	# finding {{{
+		map ff $lf -remote "send $id select '$(                                   fzf)'"
+		map fs $lf -remote "send $id select '$(find -L $HOME/.local/bin -type f | fzf)'"
+		map f. $lf -remote "send $id select '$(find -L $HOME/dotfiles   -type f | fzf)'"
+	# }}}
+	# searching {{{
+		map '/' push :search<enter>**<left>
+		map '?' push :search-back<enter>**<left>
+		map 'n' search-next
+		map 'N' search-prev
+	# }}}
+	# bookmarking {{{
+	# }}}
+	# marking {{{
+	# }}}
+	# showing {{{
+		map zh set hidden!
+		map zr set reverse!
+		map zn set info
+		map zs set info size
+		map zt set info time
+		map za set info size:time
+	# }}}
+	# sorting {{{
+		map sn :set sortby natural; set info
+		map st :set sortby time;    set info  time
+		map sa :set sortby atime;   set info atime
+		map sc :set sortby ctime;   set info ctime
+		map ss :set sortby size;    set info size
+		map se :set sortby ext;     set info
+	# }}}
+	# drag-and-drop {{{
+		map dnd drag-and-drop
+	# }}}
+	# archiving {{{
+	# }}}
+# }}}

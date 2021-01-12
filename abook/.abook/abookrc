@@ -1,0 +1,54 @@
+field company = "Company", string
+field position = "Position", string
+field display_name = "Display Name", string
+field nicknames = "Nicknames", list
+view CONTACT = name, email, company, position, groups, display_name, nicknames
+
+view ADDRESS = address, address2, city, state, zip, country
+
+field pager = "Pager", string
+view PHONE = phone, workphone, pager, mobile, fax
+
+field birthday = "Birthday", date
+field IBAN = "IBAN", string
+view OTHER = url, birthday, anniversary, IBAN, notes
+
+set autosave = true
+set add_email_prevent_duplicates = true
+set preserve_fields = all
+set show_all_emails = true
+set mutt_return_all_emails = true
+
+set print_command = lpr
+set www_command = web-browser
+set mutt_command = neomutt
+
+set use_mouse = true
+set scroll_speed = 1
+
+set sort_field = last_name
+set address_style = eu
+set index_format = " {name:30} {display_name:12} {email:40} {phone:17|workphone|mobile}"
+set show_cursor = false
+set use_ascii_only = false
+set use_colors = true
+set color_header_fg = yellow
+set color_header_bg = red
+set color_footer_fg = yellow
+set color_footer_bg = red
+set color_list_even_fg = red
+set color_list_even_bg = default
+set color_list_odd_fg = yellow
+set color_list_odd_bg = default
+set color_list_header_fg = yellow
+set color_list_header_bg = red
+set color_list_highlight_fg = black
+set color_list_highlight_bg = yellow
+set color_tab_border_fg = red
+set color_tab_border_bg = default
+set color_tab_label_fg = yellow
+set color_tab_label_bg = red
+set color_field_name_fg = red
+set color_field_name_bg = default
+set color_field_value_fg = red
+set color_field_value_bg = default

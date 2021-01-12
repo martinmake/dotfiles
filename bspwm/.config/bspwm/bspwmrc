@@ -16,7 +16,7 @@ if bspc query --monitors --names | grep VGA1 >/dev/null; then
 	bspc monitor LVDS1 -d 0 H
 else
 	xrandr --output LVDS1 --auto --scale 1.0x1.0 --rotate normal --primary
-	bspc monitor -d H 1 2 3 4 5 6 7 8 9 0 H
+	bspc monitor -d 1 2 3 4 5 6 7 8 9 0 H
 fi
 
 bspc desktop H --layout monocle
@@ -163,20 +163,20 @@ bspc rule -r "*"
 	# }}}
 # }}}
 # autostart {{{
-xrdb $XDG_CONFIG_HOME/Xresources        & # Use Xresources colors/settings on startup
-remaps                                  & # run the remaps script, switching caps/esc and more; check it for more info
-xset r rate 200 60                      & # Speed xrate up
-setbg                                   & # set the background with the `setbg` script
-[ ! "$(pgrep sxhkd    )" ] && sxhkd     & # keybinds
-[ ! "$(pgrep picom    )" ] && picom     & # X compositor
-[ ! "$(pgrep dunst    )" ] && dunst     & # dunst for notifications
-[ ! "$(pgrep unclutter)" ] && unclutter & # Remove mouse when idle
-launch-polybar                          & # status bar
+xrdb $XDG_CONFIG_HOME/Xresources                    & # Use Xresources colors/settings on startup
+remaps                                              & # run the remaps script, switching caps/esc and more; check it for more info
+xset r rate 200 60                                  & # Speed xrate up
+setbg                                               & # set the background with the `setbg` script
+[ ! "$(pgrep sxhkd    )" ] && sxhkd                 & # keybinds
+[ ! "$(pgrep picom    )" ] && picom                 & # X compositor
+[ ! "$(pgrep dunst    )" ] && dunst                 & # dunst for notifications
+[ ! "$(pgrep unclutter)" ] && unclutter --timeout 1 & # Remove xcursor when idle
+launch-polybar                                      & # status bar
 
 # border=off => use startup rules
-bspc rule --add 'discord'       --one-shot "border=off" && bspc rule --add 'discord' --one-shot "border=off" && discord            &
-bspc rule --add 'Pidgin'        --one-shot "border=off" && bspc rule --add 'Pidgin'  --one-shot "border=off" && pidgin             &
-bspc rule --add 'Brave-browser' --one-shot "border=off" &&                                                      brave              &
-bspc rule --add '*:surf'        --one-shot "border=off" &&                                                      $BROWSER           &
+# bspc rule --add 'discord'       --one-shot "border=off" && bspc rule --add 'discord' --one-shot "border=off" && discord            &
+# bspc rule --add 'Pidgin'        --one-shot "border=off" && bspc rule --add 'Pidgin'  --one-shot "border=off" && pidgin             &
+# bspc rule --add 'Brave-browser' --one-shot "border=off" &&                                                      brave              &
+# bspc rule --add '*:surf'        --one-shot "border=off" &&                                                      $BROWSER           &
 bspc rule --add '*'             --one-shot "border=off" &&                                                      gtk-launch spotify &
 # }}}

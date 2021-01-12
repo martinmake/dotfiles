@@ -63,3 +63,7 @@ eagle.epf
 *.tmp
 *.epf
 *.cam
+
+# Logs
+*.log
+*.logs

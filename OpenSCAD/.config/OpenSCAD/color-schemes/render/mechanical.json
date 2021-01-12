@@ -1,0 +1,19 @@
+{
+    "name" : "mechanical",
+    "index" : 1,
+    "show-in-gui" : true,
+
+    "colors" : {
+        "background" :         "#000000",
+        "axes-color" :         "#ff0000",
+        "opencsg-face-front" : "#ffff00",
+        "opencsg-face-back" :  "#555500",
+        "cgal-face-front" :    "#ffff00",
+        "cgal-face-back" :     "#555500",
+        "cgal-face-2d" :       "#ff0000",
+        "cgal-edge-front" :    "#ffff00",
+        "cgal-edge-back" :     "#ffff00",
+        "cgal-edge-2d" :       "#ffff00",
+        "crosshair" :          "#ff0000"
+    }
+}

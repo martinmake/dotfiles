@@ -1,0 +1,60 @@
+[calendars]
+	[[personal]]
+		path = ~/.local/share/calendars/personal/cokxeIGga9s6C6X7Cr_omYob3svudNy9/
+		type = discover
+	[[school]]
+		path = ~/.local/share/calendars/school/*
+		type = discover
+	[[gmail]]
+		path = ~/.local/share/calendars/gmail/*/
+		type = discover
+[default]
+	default_calendar = personal-calendar
+	default_dayevent_duration = 1h
+	default_event_duration = 1d
+	highlight_event_days = True
+	print_new = False
+	show_all_days = True
+	timedelta = 2d
+[highlight_days]
+	color =
+	default_color = dark red
+	method = fg
+	multiple =
+[keybindings]
+	left = left, h, backspace
+	down = down, j
+	up = up, k
+	right = right, l
+	duplicate = d
+	delete = r
+	export = x
+	external_edit = e
+	log = L
+	mark = v
+	new = n
+	other = o
+	quit = q, Q
+	save = meta enter
+	search = /
+	today = t
+	view = enter, space
+[view]
+	theme = mechanical
+	bold_for_light_color = False
+	dynamic_days = True
+# 	event_view_weighting = 1
+	frame = color
+	monthdisplay = firstfullweek
+	event_view_always_visible = True
+# 	agenda_day_format = {bold}{name}, {date-long}{reset}
+# 	agenda_event_format = {calendar-color}{cancelled}{start-end-time-style} {title}{repeat-symbol}{description-separator}{description}{reset}
+# 	event_format = {calendar-color}{cancelled}{start}-{end}   {title}{repeat-symbol}{description-separator}{description}{reset}
+[locale]
+	timeformat = %H:%M
+	dateformat = %Y-%m-%d
+	longdateformat = %Y-%m-%d
+	datetimeformat = %Y-%m-%d %H:%M
+	longdatetimeformat = %Y-%m-%d %H:%M
+	firstweekday = 0
+	weeknumbers = left

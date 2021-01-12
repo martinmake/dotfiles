@@ -1,7 +1,7 @@
 class LoadBreakpoints(GenericCommand):
     _cmdline_ = "lb"
     _syntax_  = f"{_cmdline_}"
-    __doc__ = "SFS"
+    __doc__ = "Load all .breakpoinst_* files."
 
     def do_invoke(self, argv):
         for filename in os.popen("find -name '.breakpoints_*'").read().split('\n'):

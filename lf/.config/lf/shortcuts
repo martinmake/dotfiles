@@ -1,0 +1,33 @@
+map gH %lf -remote "send $id cd ~/"
+map gdC %lf -remote "send $id cd ~/documents"
+map gdW %lf -remote "send $id cd ~/downloads"
+map g. %lf -remote "send $id cd ~/dotfiles"
+map gP %lf -remote "send $id cd ~/projects"
+map gmM %lf -remote "send $id cd ~/multimedia"
+map gW %lf -remote "send $id cd ~/multimedia/wallpapers"
+map gcF %lf -remote "send $id cd ~/.config"
+map gsC %lf -remote "send $id cd ~/.scripts"
+map goW %lf -remote "send $id cd ~/openware"
+map gI %lf -remote "send $id cd ~/.icons"
+map gL %lf -remote "send $id cd ~/projects/learning"
+map g/ %lf -remote "send $id cd /"
+map gmN %lf -remote "send $id cd /mnt"
+map gU %lf -remote "send $id cd /usr"
+map gV %lf -remote "send $id cd /var"
+map gT %lf -remote "send $id cd /tmp"
+map gO %lf -remote "send $id cd /opt"
+map gbT %lf -remote "send $id cd /boot"
+map bf $$EDITOR ~/.config/shortcuts/files
+map bd $$EDITOR ~/.config/shortcuts/directories
+map cfa $$EDITOR ~/.config/aliasrc
+map cffm $$EDITOR ~/.config/lf/lfrc
+map cfsh $$EDITOR ~/.config/zsh/zshrc
+map cfc $$EDITOR ~/.config/LS_COLORS
+map cfsb $$EDITOR ~/.config/polybar/config
+map cfe $$EDITOR ~/.config/nvim/init.vim
+map cfxr $$EDITOR ~/.config/Xresources
+map cfk $$EDITOR ~/.config/sxhkd/sxhkdrc
+map cfwm $$EDITOR ~/.config/bspwm/bspwmrc
+map cfp $$EDITOR ~/.profile
+map cfg $$EDITOR ~/.gitconfig
+map cft $$EDITOR ~/.tmux.conf

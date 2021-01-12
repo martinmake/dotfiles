@@ -1,16 +1,3 @@
-# if [ "${USE_TMUX}" = true ]; then
-# 	if [ "$TERM" != "tmux-256color" ]; then
-# 		zshexit() { tmux kill-session -t $$; }
-# 		( TERM=xterm-256color tmux new-session -s $$ -c ${DIRECTORY} ${SHELL_COMMAND} ) && exit
-# 	fi
-# elif [ "${SHELL_COMMAND}" ]; then
-# 	eval ${SHELL_COMMAND}
-# fi
-# 	if [ "$TERM" != "tmux-256color" ]; then
-# 		zshexit() { tmux kill-session -t $$; }
-# 		( TERM=xterm-256color tmux new-session -s $$ -c ${DIRECTORY} ${SHELL_COMMAND} ) && exit
-# 	fi
-
 source /usr/share/zsh/scripts/zplug/init.zsh
 
 MAGIC_ENTER_GIT_COMMAND='git status -u .'

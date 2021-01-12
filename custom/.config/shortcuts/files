@@ -1,0 +1,14 @@
+bf	~/.config/shortcuts/files
+bd	~/.config/shortcuts/directories
+cfa	~/.config/aliasrc
+cffm	~/.config/lf/lfrc
+cfsh	~/.config/zsh/zshrc
+cfc	~/.config/LS_COLORS
+cfsb	~/.config/polybar/config
+cfe	~/.config/nvim/init.vim
+cfxr	~/.config/Xresources
+cfk	~/.config/sxhkd/sxhkdrc
+cfwm	~/.config/bspwm/bspwmrc
+cfp	~/.profile
+cfg	~/.gitconfig
+cft	~/.tmux.conf

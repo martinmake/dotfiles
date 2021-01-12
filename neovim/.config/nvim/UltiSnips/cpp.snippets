@@ -1,0 +1,44 @@
+snippet #ifndef "#ifndef ... #define ... #endif" b
+#ifndef _$1_
+#define _$1_
+
+${0:${VISUAL:code}}
+
+#endif
+endsnippet
+
+snippet class "class { ... }" b
+class $1
+{
+	public: // CONSTRUCTORS
+		$1(void) = default;
+	public: // DESTRUCTOR
+		~$1(void) = default;
+
+	public: // VARIABLES
+
+	public: // GETTERS
+	public: // SETTERS
+
+	public: // METHODS
+	public: // OPERATORS
+};
+endsnippet
+
+snippet struct "struct { ... }" b
+struct $1
+{
+	public: // CONSTRUCTORS
+		$1(void) = default;
+	public: // DESTRUCTOR
+		~$1(void) = default;
+
+	public: // VARIABLES
+
+	public: // GETTERS
+	public: // SETTERS
+
+	public: // METHODS
+	public: // OPERATORS
+};
+endsnippet

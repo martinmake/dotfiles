@@ -1,9 +1,18 @@
-[submodule "st/FOSS/st"]
-	path = st/FOSS/st
+[submodule "st/projects/st"]
+	path = st/projects/st
 	url = git://github.com/martinmake/st.git
-[submodule "tabbed/FOSS/tabbed"]
-	path = tabbed/FOSS/tabbed
+[submodule "tabbed/projects/tabbed"]
+	path = tabbed/projects/tabbed
 	url = https://github.com/martinmake/tabbed.git
-[submodule "dmenu/FOSS/dmenu"]
-	path = dmenu/FOSS/dmenu
+[submodule "dmenu/projects/dmenu"]
+	path = dmenu/projects/dmenu
 	url = https://github.com/martinmake/dmenu.git
+[submodule "surf/projects/surf"]
+	path = surf/projects/surf
+	url = https://github.com/martinmake/surf.git
+[submodule "zsh/.config/zsh/custom/plugins/zsh-syntax-highlighting"]
+	path = zsh/.config/zsh/custom/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "zsh/.config/zsh/custom/plugins/zsh-syntax-highlighting-filetypes"]
+	path = zsh/.config/zsh/custom/plugins/zsh-syntax-highlighting-filetypes
+	url = https://github.com/trapd00r/zsh-syntax-highlighting-filetypes

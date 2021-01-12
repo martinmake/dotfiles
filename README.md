@@ -14,19 +14,15 @@ All of martinmake's configs, scripts, installed programs
 git clone https://www.github.com/martinmake/dotfiles ~/dotfiles
 ```
 
-2. To address the repository you should setup this alias
+2. To address the repository you should add this alias
 
 ```sh
-alias dotfiles="git --git-dir=~/dotfiles/ --work-tree=/$HOME/"
+alias dotfiles="git --git-dir=$HOME/dotfiles/ --work-tree=/$HOME/"
 ```
 
 ## Usage
 
-* Linking and installing is done through make, for more info go to dotfiles directory and run:
-
-```sh
-make help
-```
+* Linking and installing is done through make, for more info run `make help`
 
 * Adding dotfiles
 

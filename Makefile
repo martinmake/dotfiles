@@ -13,22 +13,28 @@ pkglist: ## creates/updates pkglist with packages currently maintained by $(PACK
 
 .PHONY: pacgraph
 pacgraph: ## draws a graph of installed packages to PNG and SVG
-	$(PACGRAPH) $(PACGRAPH_FLAGS)
+	@$(PACGRAPH) $(PACGRAPH_FLAGS)
 
 .PHONY: $(PACKAGES)
 custom: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-zsh: bash ## package
-	@$(STOW) $(STOW_FLAGS) $@
-bash: sh ## package
-	@$(STOW) $(STOW_FLAGS) $@
 sh: ## package
 	@$(STOW) $(STOW_FLAGS) $@
+zsh: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+# bash: sh ## package
+# 	@$(STOW) $(STOW_FLAGS) $@
 neovim: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 vim: neovim ## alias
-	@$(STOW) $(STOW_FLAGS) $@
 text-editor: neovim ## solution
+mpd: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+ncmpcpp: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+neofetch: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+lf: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 ranger: ## package
 	@$(STOW) $(STOW_FLAGS) $@
@@ -39,10 +45,19 @@ tmux: ## package
 git: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 X: ## solution
-	@$(STOW) $(STOW_FLAGS) $@
 i3: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
+i3blocks: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
 bspwm: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
+polybar: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
+sxhkd: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
+sxiv: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
+gtkwave: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
 st: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
@@ -50,9 +65,9 @@ dmenu: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
 surf: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-groff: ## package
+tabbed: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-mozilla: X ## package
+groff: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 syncthing: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
@@ -62,17 +77,42 @@ zathura: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
 dunst: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-gef: gdb ## package
-	@$(STOW) $(STOW_FLAGS) $@
 gdb: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+gef: gdb ## package
 	@$(STOW) $(STOW_FLAGS) $@
 lldb: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-ghidra: X ## package
+neomutt: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-mutt: ## package
+notmuch: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-mail: mutt ## solution
+mutt: neomutt ## alias
+mail: neomutt notmuch ## solution
+cava: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+pipe-viewer: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+picom: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
+themix: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
+oomox: themix ## alias
+lsconfig: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+kicad: X ## package
+	@$(STOW) $(STOW_FLAGS) $@
+tremc: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+khal: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+khard: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+todoman: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+newsboat: ## package
+	@$(STOW) $(STOW_FLAGS) $@
+OpenSCAD: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
 other: ## package
 	@$(STOW) $(STOW_FLAGS) $@

@@ -13,7 +13,7 @@
 .Xauthority
 .viminfo
 .mozilla
-!.mozilla/firefox/martinmake.default
+!.mozilla/firefox/*.default
 .local
 .config
 .kodi

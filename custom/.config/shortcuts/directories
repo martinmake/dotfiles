@@ -1,0 +1,20 @@
+H	~/
+dC	~/documents
+dW	~/downloads
+.	~/dotfiles
+P	~/projects
+mM	~/multimedia
+W	~/multimedia/wallpapers
+cF	~/.config
+sC	~/.scripts
+oW	~/openware
+I	~/.icons
+L	~/projects/learning
+
+/	/
+mN	/mnt
+U	/usr
+V	/var
+T	/tmp
+O	/opt
+bT	/boot

@@ -7,7 +7,7 @@ export WM="bspwm"
 export TERMINAL="st"
 export EDITOR="nvim"
 export FILE="lf"
-export BROWSER="web-browser" # export BROWSER="tabbed-surf"
+export BROWSER="web-browser"
 export READER="zathura"
 export XLOCK="xlock"
 export MERGE_EDITOR="vimdiff"
@@ -24,33 +24,33 @@ export CXX="clang++"
 export CC="clang"
 
 # PATHs setup
-export PATH="$PATH:$(ls $HOME/.scripts -RL | sed -ne '/:$/p' | tr -d '\n')"
-export PATH="$PATH:/opt/cuda/bin"
-export PATH="$PATH:/root/.gem/ruby/2.7.0/bin"
-export PYTHONPATH="$PYTHONPATH:$HOME/Documents/libs/PC/int/python"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Documents/libs/PC/lib"
-
-export ESPIDF=/opt/esp-idf
-export IDF_PATH=/opt/esp-idf
-export R_HOME=$HOME/.R
-export GOPATH=$HOME/.go
-export NODE_PATH=$HOME/.node_modules
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
+
+export PATH="$PATH:$(ls $HOME/.local/bin -RL | sed -ne '/:$/p' | tr -d '\n')"
+export PATH="$PATH:/opt/cuda/bin"
+export PATH="$PATH:/root/.gem/ruby/2.7.0/bin"
+
+export DOT="$HOME/dotfiles"
+export ESPIDF=/opt/esp-idf
+export IDF_PATH=/opt/esp-idf
+export R_HOME=$XDG_DATA_HOME/.R
+export GOPATH=$XDG_DATA_HOME/.go
+export NODE_PATH=$XDG_DATA_HOME/.node_modules
 export _Z_DATA=$XDG_DATA_HOME/z
 export IPYTHONDIR=$XDG_DATA_HOME/ipython
-
 export GROFF_TMAC_PATH="$GROFF_TMAC_PATH:$XDG_CONFIG_HOME/groff/tmac"
 export QT_QPA_PLATFORMTHEME="qt5ct"
-export DOT="$HOME/dotfiles"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
-export SUDO_ASKPASS="$HOME/.scripts/tools/dmenupass"
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch-config"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
+export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
+export INPUTRC="$XDG_CONFIG_HOME/inputc"
 
 export MAKEFLAGS="-j4 --no-print-directory"
 export FZF_DEFAULT_COMMAND="find -type f 2>/dev/null"
-export FZF_DEFAULT_OPTS="--multi --cycle --color='dark,fg:15,fg+:0,bg:0,bg+:13,info:2,gutter:0,border:0,spinner:2,hl:14,header:0,pointer:0,marker:9,prompt:15,hl+:15'"
+export FZF_DEFAULT_OPTS="--multi --cycle --color='dark,fg:15,fg+:0,bg:0,bg+:11,hl:14,hl+:9,info:12,gutter:0,border:13,spinner:9,header:9,pointer:9,marker:9,prompt:9'"
+export BAT_THEME="mechanical"
 export TIMEFMT="$'\nreal\t%E\nuser\t%U\nsys\t%S'"
 
 # less/man colors
@@ -67,7 +67,7 @@ export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 export QT_STYLE_OVERRIDE="kvantum"
 
 # Switch escape and caps if tty:
-sudo -n loadkeys ~/.scripts/ttymaps.kmap 2>/dev/null
+sudo -n loadkeys ~/$XDG_CONFIG_HOME/ttymaps.kmap
 set -o noclobber
 
 print "\e]P0000000" #black

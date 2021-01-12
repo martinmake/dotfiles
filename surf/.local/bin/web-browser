@@ -1,0 +1,50 @@
+#!/usr/bin/env sh
+
+SURF="firejail --noprofile --hosts-file="$XDG_DATA_HOME/adblockhosts" surf"
+
+print_usage () { echo "Usage: $(basename $0) [-f URIFN] [URI]..." ;}
+
+# URIS HAVE TO BE URLENCODED, NO SPACES ALLOWED
+URIFN=
+while getopts hf: opt; do
+	case $opt in
+		h)
+			print_usage
+			exit
+			;;
+		f)
+			URIFN="$OPTARG"
+			if [ ! -f "$URIFN" ]; then
+				echo "$(basename $0): '$URIFN': No such file or directory"
+				print_usage
+				exit 1
+			fi
+			;;
+	esac
+done
+shift $(($OPTIND - 1))
+
+if [ "$URIFN" ]; then
+	URIS="$(cat $URIFN) $@"
+else
+	URIS=$@
+fi
+
+XID=$(tabbed -d ${URIS:+-s} -f -n surf $SURF -e )
+for uri in $(echo $URIS | tr ' ' '\n' | tac); do
+	echo $uri
+	$SURF -e $XID $uri &
+done
+
+
+move2receptacle ()
+{
+	local XID=$1
+	local RECEPTACLE_XID=$(bspc query -N -n 'any.local.leaf.!window')
+	if [ "$RECEPTACLE_XID" ]; then
+		until bspc node "$XID" --state tiled --to-node "$RECEPTACLE_XID"; do
+			:
+		done
+	fi
+}
+move2receptacle $XID
