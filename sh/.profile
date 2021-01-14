@@ -27,6 +27,15 @@ export CC="clang"
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
 
+export XDG_DESKTOP_DIR=""
+export XDG_DOWNLOAD_DIR="downloads"
+export XDG_TEMPLATES_DIR="templates"
+export XDG_PUBLICSHARE_DIR="public"
+export XDG_DOCUMENTS_DIR="documents"
+export XDG_MUSIC_DIR="music"
+export XDG_PICTURES_DIR="multimedia/pictures"
+export XDG_VIDEOS_DIR="multimedia/videos"
+
 export PATH="$PATH:$(ls $HOME/.local/bin -RL | sed -ne '/:$/p' | tr -d '\n')"
 export PATH="$PATH:/opt/cuda/bin"
 export PATH="$PATH:/root/.gem/ruby/2.7.0/bin"

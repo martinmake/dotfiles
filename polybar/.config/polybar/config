@@ -61,8 +61,8 @@ padding-right = 0
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = xos4 Terminus:pixelsize=10
-font-1 = xos4 Terminus:pixelsize=10
+font-0 = Terminus:pixelsize=10
+font-1 = Terminus:pixelsize=10
 font-2 = Inconsolata Nerd Font:size=8;1
 font-3 = Noto Color Emoji:scale=14:style=Regular;0
 font-4 = Symbola:pixelsize=9;1
@@ -79,17 +79,17 @@ scroll-down = bspwm-deskprev
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[bar/LVDS1]
+[bar/LVDS-1]
 inherit = bar/mechanical
-monitor = LVDS1
+monitor = LVDS-1
 
 modules-left = bspwm xkeyboard xbacklight volume xwindow
 modules-center = spotify
 modules-right = torrents packages memory cpu temperature battery filesystem wlan eth date
 
-[bar/VGA1]
+[bar/VGA-1]
 inherit = bar/mechanical
-monitor = VGA1
+monitor = VGA-1
 
 modules-left = bspwm xkeyboard volume xwindow
 modules-center = spotify

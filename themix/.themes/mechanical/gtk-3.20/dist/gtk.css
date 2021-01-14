@@ -7132,6 +7132,9 @@ frame.border-ridge > border {
 viewport separator {
   background-image: image(mix(#ffffff,#000000,0.9)); }
 
+viewport menu separator {
+  background-image: image(mix(#000000,#ff0000,0.18)); }
+
 /***************
  ! Places view *
 ****************/

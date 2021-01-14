@@ -453,7 +453,7 @@ TIMEFMT=$'\n%J\n%U user\n%S system\n%P cpu\n%*E total'
 stty -ixon # Disable ctrl-s and ctrl-q.
 
 # Load aliases and shortcuts if existent.
-[ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
-[ -f "$HOME/.config/aliasrc"    ] && source "$HOME/.config/aliasrc"
+[ -f "$XDG_CONFIG_HOME/shortcutrc" ] && source "$XDG_CONFIG_HOME/shortcutrc"
+[ -f "$XDG_CONFIG_HOME/aliasrc"    ] && source "$XDG_CONFIG_HOME/aliasrc"
 
 zplug load

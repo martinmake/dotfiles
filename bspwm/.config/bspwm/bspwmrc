@@ -9,13 +9,13 @@
 
 xsetroot -cursor_name left_ptr
 
-if bspc query --monitors --names | grep VGA1 >/dev/null; then
-	xrandr --output VGA1  --auto --scale 1.0x1.0 --rotate normal --primary \
-	       --output LVDS1 --auto --scale 1.0x1.0 --rotate normal --below VGA1
-	bspc monitor VGA1  -d 1 2 3 4 5 6 7 8 9
-	bspc monitor LVDS1 -d 0 H
+if bspc query --monitors --names | grep VGA-1 >/dev/null; then
+	xrandr --output VGA-1  --auto --scale 1.0x1.0 --rotate normal --primary \
+	       --output LVDS-1 --auto --scale 1.0x1.0 --rotate normal --below VGA-1
+	bspc monitor VGA-1  -d 1 2 3 4 5 6 7 8 9
+	bspc monitor LVDS-1 -d 0 H
 else
-	xrandr --output LVDS1 --auto --scale 1.0x1.0 --rotate normal --primary
+	xrandr --output LVDS-1 --auto --scale 1.0x1.0 --rotate normal --primary
 	bspc monitor -d 1 2 3 4 5 6 7 8 9 0 H
 fi
 

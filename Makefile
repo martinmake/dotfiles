@@ -44,7 +44,8 @@ tmux: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 git: ## package
 	@$(STOW) $(STOW_FLAGS) $@
-X: ## solution
+X: ## package
+	@$(STOW) $(STOW_FLAGS) $@
 i3: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
 i3blocks: X ## package
@@ -98,7 +99,7 @@ picom: X ## package
 themix: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
 oomox: themix ## alias
-lsconfig: ## package
+lscolors: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 kicad: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
@@ -114,9 +115,6 @@ newsboat: ## package
 	@$(STOW) $(STOW_FLAGS) $@
 OpenSCAD: X ## package
 	@$(STOW) $(STOW_FLAGS) $@
-other: ## package
-	@$(STOW) $(STOW_FLAGS) $@
-
 
 .PHONY:help
 help: ## lists documented targets
