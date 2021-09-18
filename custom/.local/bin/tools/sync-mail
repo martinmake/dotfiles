@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+CHANNEL=${1:-'--all'}
+
+mbsync --config "$XDG_CONFIG_HOME/isync/mbsyncrc" "${CHANNEL}"

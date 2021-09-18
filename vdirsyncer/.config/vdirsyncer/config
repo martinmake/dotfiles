@@ -1,112 +1,166 @@
-#####################################################################################
-##                                                                                 ##
-## ██╗   ██╗██████╗ ██╗██████╗ ███████╗██╗   ██╗███╗   ██╗ ██████╗███████╗██████╗  ##
-## ██║   ██║██╔══██╗██║██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║██╔════╝██╔════╝██╔══██╗ ##
-## ██║   ██║██║  ██║██║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║██║     █████╗  ██████╔╝ ##
-## ╚██╗ ██╔╝██║  ██║██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║██║     ██╔══╝  ██╔══██╗ ##
-##  ╚████╔╝ ██████╔╝██║██║  ██║███████║   ██║   ██║ ╚████║╚██████╗███████╗██║  ██║ ##
-##   ╚═══╝  ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═══╝ ╚═════╝╚══════╝╚═╝  ╚═╝ ##
-##                                                                                 ##
-#####################################################################################
+#    ===============================================================================
+#
+#
+#    ██╗   ██╗██████╗ ██╗██████╗ ███████╗██╗   ██╗███╗   ██╗ ██████╗███████╗██████╗
+#    ██║   ██║██╔══██╗██║██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║██╔════╝██╔════╝██╔══██╗
+#    ██║   ██║██║  ██║██║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║██║     █████╗  ██████╔╝
+#    ╚██╗ ██╔╝██║  ██║██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║██║     ██╔══╝  ██╔══██╗
+#     ╚████╔╝ ██████╔╝██║██║  ██║███████║   ██║   ██║ ╚████║╚██████╗███████╗██║  ██║
+#      ╚═══╝  ╚═════╝ ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═══╝ ╚═════╝╚══════╝╚═╝  ╚═╝
+#                     ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
+#                    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
+#                    ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
+#                    ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
+#                    ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
+#                     ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
+#
+#
+#    ===============================================================================
+
+# ETESYNC_URL="<https://etebase.domain.tld>" etesync-dav manage add "<username>" --password "<password>"
+
+# CALDAV {{{
+	# personal {{{
+		# pair {{{
+			[pair personal_calendar_pair]
+			a = "personal_calendar_storage_caldav"
+			b = "personal_calendar_storage_filesystem"
+			collections = ["from a", "from b"]
+			metadata = ["displayname", "color"]
+			conflict_resolution = null
+		# }}}
+		# a {{{
+			[storage personal_calendar_storage_caldav]
+			type = "caldav"
+			url = "http://localhost:37358/martin/"
+			username = "martin"
+			password.fetch = ["command", "pass", "show", "DAV/martin"]
+		# }}}
+		# b {{{
+			[storage personal_calendar_storage_filesystem]
+			type = "filesystem"
+			path = "~/.local/share/calendars/personal"
+			fileext = ".ics"
+		# }}}
+	# }}}
+	# gmail {{{
+		# pair {{{
+			[pair gmail_calendar_pair]
+			a = "gmail_calendar_storage_google_calendar"
+			b = "gmail_calendar_storage_filesystem"
+			collections = ["from a", "from b"]
+			metadata = ["displayname", "color"]
+			conflict_resolution = null
+		# }}}
+		# a {{{
+			[storage gmail_calendar_storage_google_calendar]
+			type = "google_calendar"
+			token_file = "~/.local/share/vdirsyncer/tokens/calendars/gmail.token"
+			client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
+			client_secret.fetch = ["command", "pass", "show", "Google/PIM"]
+		# }}}
+		# b {{{
+			[storage gmail_calendar_storage_filesystem]
+			type = "filesystem"
+			path = "~/.local/share/calendars/gmail"
+			fileext = ".ics"
+		# }}}
+	# }}}
+	# school {{{
+		# pair {{{
+			[pair school_calendar_pair]
+			a = "school_calendar_storage_google_calendar"
+			b = "school_calendar_storage_filesystem"
+			collections = ["from a", "from b"]
+			metadata = ["displayname", "color"]
+			conflict_resolution = null
+		# }}}
+		# a {{{
+			[storage school_calendar_storage_google_calendar]
+			type = "google_calendar"
+			token_file = "~/.local/share/vdirsyncer/tokens/calendars/school.token"
+			client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
+			client_secret.fetch = ["command", "pass", "show", "Google/PIM"]
+		# }}}
+		# b {{{
+			[storage school_calendar_storage_filesystem]
+			type = "filesystem"
+			path = "~/.local/share/calendars/school"
+			fileext = ".ics"
+		# }}}
+	# }}}
+# }}}
+# CARDDAV {{{
+	# personal {{{
+		# pair {{{
+			[pair personal_contacts_pair]
+			a = "personal_contacts_storage_carddav"
+			b = "personal_contacts_storage_filesystem"
+			collections = ["from a", "from b"]
+			metadata = ["displayname"]
+			conflict_resolution = null
+		# }}}
+		# a {{{
+			[storage personal_contacts_storage_carddav]
+			type = "carddav"
+			url = "http://localhost:37358/martin/"
+			username = "martin"
+			password.fetch = ["command", "pass", "show", "DAV/martin"]
+		# }}}
+		# b {{{
+			[storage personal_contacts_storage_filesystem]
+			type = "filesystem"
+			path = "~/.local/share/contacts/personal"
+			fileext = ".vcf"
+		# }}}
+	# }}}
+	# gmail {{{
+		# pair {{{
+			[pair gmail_contacts_pair]
+			a = "gmail_contacts_storage_google_contacts"
+			b = "gmail_contacts_storage_filesystem"
+			collections = ["from a", "from b"]
+			metadata = ["displayname"]
+			conflict_resolution = null
+		# }}}
+		# a {{{
+			[storage gmail_contacts_storage_google_contacts]
+			type = "google_contacts"
+			token_file = "~/.local/share/vdirsyncer/tokens/contacts/gmail.token"
+			client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
+			client_secret.fetch = ["command", "pass", "show", "Google/PIM"]
+		# }}}
+		# b {{{
+			[storage gmail_contacts_storage_filesystem]
+			type = "filesystem"
+			path = "~/.local/share/contacts/gmail"
+			fileext = ".vcf"
+		# }}}
+	# }}}
+	# school {{{
+		# pair {{{
+			[pair school_contacts_pair]
+			a = "school_contacts_storage_google_contacts"
+			b = "school_contacts_storage_filesystem"
+			collections = ["from a", "from b"]
+			metadata = ["displayname"]
+			conflict_resolution = null
+		# }}}
+		# a {{{
+			[storage school_contacts_storage_google_contacts]
+			type = "google_contacts"
+			token_file = "~/.local/share/vdirsyncer/tokens/contacts/school.token"
+			client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
+			client_secret.fetch = ["command", "pass", "show", "Google/PIM"]
+		# }}}
+		# b {{{
+			[storage school_contacts_storage_filesystem]
+			type = "filesystem"
+			path = "~/.local/share/contacts/school"
+			fileext = ".vcf"
+		# }}}
+	# }}}
+# }}}
 
 [general] # A folder where vdirsyncer can store some metadata about each pair.
 	status_path = "~/.local/share/vdirsyncer/status/"
-
-# CALDAV
-	# PAIR
-	[pair personal_calendar_pair]
-		a = "personal_calendar_storage_caldav"
-		b = "personal_calendar_storage_filesystem"
-		collections = ["from a", "from b"]
-		metadata = ["displayname", "color"]
-		conflict_resolution = null
-	[pair gmail_calendar_pair]
-		a = "gmail_calendar_storage_google_calendar"
-		b = "gmail_calendar_storage_filesystem"
-		collections = ["from a", "from b"]
-		metadata = ["displayname", "color"]
-		conflict_resolution = null
-	[pair school_calendar_pair]
-		a = "school_calendar_storage_google_calendar"
-		b = "school_calendar_storage_filesystem"
-		collections = ["from a", "from b"]
-		metadata = ["displayname", "color"]
-		conflict_resolution = null
-	# CLOUD STORAGE (A)
-	[storage personal_calendar_storage_caldav]
-		type = "caldav"
-		url = "http://localhost:37358/martinmake/"
-		username = "martinmake"
-		password.fetch = ["command", "pass", "show", "etesync"]
-	[storage gmail_calendar_storage_google_calendar]
-		type = "google_calendar"
-		token_file = "~/.local/share/vdirsyncer/tokens/calendars/gmail.token"
-		client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
-		client_secret.fetch = ["command", "pass", "show", "google-syncing-api"]
-	[storage school_calendar_storage_google_calendar]
-		type = "google_calendar"
-		token_file = "~/.local/share/vdirsyncer/tokens/calendars/school.token"
-		client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
-		client_secret.fetch = ["command", "pass", "show", "google-syncing-api"]
-	# LOCAL STORAGE (B)
-	[storage personal_calendar_storage_filesystem]
-		type = "filesystem"
-		path = "~/.local/share/calendars/personal"
-		fileext = ".ics"
-	[storage gmail_calendar_storage_filesystem]
-		type = "filesystem"
-		path = "~/.local/share/calendars/gmail"
-		fileext = ".ics"
-	[storage school_calendar_storage_filesystem]
-		type = "filesystem"
-		path = "~/.local/share/calendars/school"
-		fileext = ".ics"
-# CARDDAV
-	# PAIR
-	[pair personal_contacts_pair]
-		a = "personal_contacts_storage_carddav"
-		b = "personal_contacts_storage_filesystem"
-		collections = ["from a", "from b"]
-		metadata = ["displayname"]
-		conflict_resolution = null
-	[pair gmail_contacts_pair]
-		a = "gmail_contacts_storage_google_contacts"
-		b = "gmail_contacts_storage_filesystem"
-		collections = ["from a", "from b"]
-		metadata = ["displayname"]
-		conflict_resolution = null
-	[pair school_contacts_pair]
-		a = "school_contacts_storage_google_contacts"
-		b = "school_contacts_storage_filesystem"
-		collections = ["from a", "from b"]
-		metadata = ["displayname"]
-		conflict_resolution = null
-	# CLOUD STORAGE (A)
-	[storage personal_contacts_storage_carddav]
-		type = "carddav"
-		url = "http://localhost:37358/martinmake/"
-		username = "martinmake"
-		password.fetch = ["command", "pass", "show", "etesync"]
-	[storage gmail_contacts_storage_google_contacts]
-		type = "google_contacts"
-		token_file = "~/.local/share/vdirsyncer/tokens/contacts/gmail.token"
-		client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
-		client_secret.fetch = ["command", "pass", "show", "google-syncing-api"]
-	[storage school_contacts_storage_google_contacts]
-		type = "google_contacts"
-		token_file = "~/.local/share/vdirsyncer/tokens/contacts/school.token"
-		client_id = "564603730869-ojo5d2d7v7p6fprajopldais2nql3ul1.apps.googleusercontent.com"
-		client_secret.fetch = ["command", "pass", "show", "google-syncing-api"]
-	# LOCAL STORAGE (B)
-	[storage personal_contacts_storage_filesystem]
-		type = "filesystem"
-		path = "~/.local/share/contacts/personal"
-		fileext = ".vcf"
-	[storage gmail_contacts_storage_filesystem]
-		type = "filesystem"
-		path = "~/.local/share/contacts/gmail"
-		fileext = ".vcf"
-	[storage school_contacts_storage_filesystem]
-		type = "filesystem"
-		path = "~/.local/share/contacts/school"
-		fileext = ".vcf"

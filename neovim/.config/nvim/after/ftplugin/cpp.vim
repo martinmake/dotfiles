@@ -1,3 +1,6 @@
 setlocal commentstring=//\ %s
 
-lua require('lspconfig').clangd.setup{on_attach=require'completion'.on_attach}
+" set foldmethod=expr
+" set foldexpr=nvim_treesitter#foldexpr()
+
+lua require('lspconfig').clangd.setup{on_attach=require'custom.lsp.on_attach'}

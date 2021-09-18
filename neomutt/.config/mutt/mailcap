@@ -1,0 +1,4 @@
+text/html; lynx -dump %s; nametemplate=%s.html; copiousoutput;
+text/plain; cat %s; nametemplate=%s.txt; copiousoutput;
+image/jpeg; sxiv %s &;
+image/png; sxiv %s &;

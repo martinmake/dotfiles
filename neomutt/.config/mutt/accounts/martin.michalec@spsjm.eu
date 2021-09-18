@@ -1,0 +1,26 @@
+# header information {{{
+	set realname = "Martin Michalec IV.B"
+	set from = "martin.michalec@spsjm.eu"
+# }}}
+# SMTP information {{{
+	set smtp_url = ""
+# }}}
+# mailboxes {{{
+	set folder = "~/mail/martin.michalec@spsjm.eu/"
+	unmailboxes *
+	named-mailboxes \
+		"Doručené"            "+Inbox"                                 \
+		"Dôležité"            "+[Gmail]/D&APQ-le&AX4-it&AOk-/"         \
+		"S hviezdičkou"       "+[Gmail]/S hviezdi&AQ0-kou/"            \
+		"Odoslané"            "+[Gmail]/Odoslan&AOk-/"                 \
+		"Rozpracované správy" "+[Gmail]/Rozp&AO0-san&AOk- spr&AOE-vy/" \
+		"Všetky správy"       "+[Gmail]/V&AWE-etky spr&AOE-vy/"        \
+		"Kôš"                 "+[Gmail]/K&APQBYQ-/"                    \
+		"Spam"                "+[Gmail]/Spam/"
+	set spoolfile = "+Inbox"
+	set record    = "+[Gmail]/Odoslan&AOk-/"
+	set postponed = "+[Gmail]/Rozp&AO0-san&AOk- spr&AOE-vy/"
+	set trash     = "+[Gmail]/K&APQBYQ-/"
+# }}}
+
+set signature = "sign-mail martin.michalec@spsjm.eu|"

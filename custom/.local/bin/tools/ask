@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+US='us'
+SK='sk(qwerty)'
+RU='ru'
+
+case $(xkb-switch) in
+	"$US") LANG="en_US" ;;
+	"$SK") LANG="sk_SK" ;;
+	"$RU") LANG="ru_RU" ;;
+esac
+
+TUXI_LANG="${LANG}" tuxi -bqa -l  "$@"

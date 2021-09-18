@@ -4,8 +4,10 @@ EN='us'
 SK='sk(qwerty)'
 RU='ru'
 
+EMAIL=${1:default}
+
 case $(xkb-switch) in
-	"$EN") cat $XDG_CONFIG_HOME/mutt/signatures/en ;;
-	"$SK") cat $XDG_CONFIG_HOME/mutt/signatures/sk ;;
-	"$RU") cat $XDG_CONFIG_HOME/mutt/signatures/ru ;;
+	"$EN") cat $XDG_CONFIG_HOME/mutt/signatures/$EMAIL/en ;;
+	"$SK") cat $XDG_CONFIG_HOME/mutt/signatures/$EMAIL/sk ;;
+	"$RU") cat $XDG_CONFIG_HOME/mutt/signatures/$EMAIL/ru ;;
 esac

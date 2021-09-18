@@ -247,7 +247,7 @@ source "~/.config/lf/shortcuts"
 		map 'G' goto
 	# }}}
 	# copying {{{
-		map 'y' cut
+		map 'y' copy
 		map 'C' copyto
 	# }}}
 	# deleting {{{

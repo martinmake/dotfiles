@@ -5,7 +5,7 @@ wid=${1?}
 class=$2
 instance=$3
 consequences=$4
-eval ${consequences^^}
+eval `echo ${consequences} | tr '[:lower:]' '[:upper:]'`
 
 # DERIVED
 title=$(xtitle "$wid")
@@ -30,11 +30,11 @@ focus=on
 border=
 rectangle=
 
-case :$class:$title in
-	(*:preloaded_*:*)
-		focus=off
-		follow=off
-		desktop=H
+# echo "$instance:$class:$title" >> /tmp/dump
+
+case "$instance:$class:$title" in
+	(*:shell:*)
+		state=tiling
 		;;
 	(*:dropdown_*:*)
 		sticky=on
@@ -56,24 +56,28 @@ case :$class:$title in
 		;;
 	(*:Gimp:*)
 		state=tiling
-		desktop=6
+		;;
+	(*:FreeCAD*:*)
+		state=tiling
 		;;
 	(*:Pidgin:*)
 		desktop=7
 		state=tiling
 		;;
-	(*:mpv:*)
+	(*:Emacs:*)
+		state=tiling
+		;;
+	(*:mpv:*|*:ffplay:*)
 		state=floating
-		sticky=on
-		layer=above
-		focus=off
-		W=$(( $(xdotool getwindowgeometry "$wid" | grep Geometry | sed -e 's/x/ /g' | awk '{print $2}') / 5))
-		H=$(( $(xdotool getwindowgeometry "$wid" | grep Geometry | sed -e 's/x/ /g' | awk '{print $3}') / 5))
+		W=$(( $(xdotool getwindowgeometry "$wid" | grep Geometry | sed -e 's/x/ /g' | awk '{print $2}') / 2))
+		H=$(( $(xdotool getwindowgeometry "$wid" | grep Geometry | sed -e 's/x/ /g' | awk '{print $3}') / 2))
 		X=$(( $(xdotool getdisplaygeometry                                          | awk '{print $1}') - 2 - W ))
 		Y=$(( $(xdotool getdisplaygeometry                                          | awk '{print $2}') - 2 - H ))
 		rectangle="${W}x${H}+${X}+${Y}"
-	(::*) # FUCKED UP Spotify...
+		;;
+	(::) # Spotify...
 		desktop=9
+		state=tiling
 		;;
 	(*)
 		state=floating
@@ -90,7 +94,13 @@ if [ "$BORDER" = "OFF" ]; then border=on
 			desktop=2
 			state=tiling
 			;;
-		(*)
+		(*:GOTOP:*)
+			desktop=1
+			state=tiling
+			;;
+		(::) # Spotify...
+			desktop=9
+			state=tiling
 			;;
 	esac
 fi

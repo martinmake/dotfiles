@@ -1,110 +1,111 @@
-# program config
-	set ssl_starttls    = yes
-	set ssl_force_tls   = yes
-	set abort_nosubject = yes # prompt when no subject
-	set copy            = yes # keep copy of outgoing mail
+# settings {{{
+	set ssl_starttls       = yes
+	set ssl_force_tls      = yes
+	set abort_nosubject    = yes # prompt when no subject
+	set copy               = yes # keep copy of outgoing mail
+	set help               = no  # remove help bar
+	set markers            = no  # disables the `+` displayed at line wraps
+	set mark_old           = no  # unread mail stay unread until read
+	set mime_forward       = yes # attachments are forwarded with mail
+	set wait_key           = no  # mutt won't ask "press key to continue"
+	set rfc2047_parameters = yes
+	set fast_reply         = yes # skip to compose when replying
+	set fcc_attach         = yes # save attachments with the body
+	set forward_quote      = yes # include message in forwards
+	set reverse_name       = yes # reply as whomever it was to
+	set include            = yes # include message in replies
 	set mail_check = 60 # don't check mail more often than n seconds
 	set timeout    = 10 # check files at least each n seconds
-	set sleep_time = 0  # Pause 0 seconds for informational messages
+	set sleep_time = 0  # pause 0 seconds for informational messages
 	set sort = "reverse-date-received" # new mail first
-	set signature = "sign-mail |"
-	set date_format="%y/%m/%d %I:%M%p"
-	set index_format="%2C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
-	set smtp_authenticators = 'gssapi:login'
-	set rfc2047_parameters = yes
-	set markers      = no  # Disables the `+` displayed at line wraps
-	set mark_old     = no  # Unread mail stay unread until read
-	set mime_forward = yes #   tachments are forwarded with mail
-	set wait_key     = no  # mutt won't ask "press key to continue"
-	set fast_reply    # skip to compose when replying
-	set fcc_attach    # save attachments with the body
-	set forward_quote # include message in forwards
-	set reverse_name  # reply as whomever it was to
-	set include       # include message in replies
-	set forward_format = "Fwd: %s"  # format of subject when forwarding
+	set    date_format = "%y/%m/%d %I:%M%p"
+	set   index_format = "%4C %Z %?X?A& ? %D %-15.15F %s (%-4.4c)"
+	set forward_format = "Fwd: %s" # format of subject when forwarding
+	set smtp_authenticators = 'gssapi:plain:login'
 	set display_filter = "tac | sed '/\\\[-- Autoview/,+1d' | tac" # Suppress autoview messages.
-	set query_command = "abook --mutt-query '%s'"
+	set query_command = "abook --data ~/.local/share/abook/addressbook --mutt-query '%s'"
+	# sidebar {{{
+		set sidebar_visible       = yes
+		set sidebar_short_path    = yes
+		set sidebar_next_new_wrap = yes
+		set mail_check_stats      = yes
+		set sidebar_width = 25
+		set sidebar_format = '%D%?F? [%F]?%* %?N?%N/?%?S?%S?'
+	# }}}
+	# mime {{{
+		set mime_type_query_command = "file --mime-type -b %s"
+		alternative_order text/plain text/enriched text/html
+		auto_view text/html # automatically show html (mailcap uses lynx)
+		auto_view application/pgp-encrypted
+	# }}}
+	# path {{{
+		set   autocrypt_dir  = "$XDG_DATA_HOME/mutt/autocrypt/"
+		set certificate_file = "$XDG_DATA_HOME/mutt/certificates"
+		set     history_file = "$XDG_DATA_HOME/mutt/history"
+		set     mailcap_path = "$XDG_CONFIG_HOME/mutt/mailcap"
+	# }}}
+# }}}
+# keybinds {{{
+	# remove default keybinds {{{
+		bind index g noop # unbind *
+		# unmacro *
+	# }}}
+	# movement {{{
+		bind index               j    next-entry
+		bind index               k    previous-entry
+		bind       pager         j    next-line
+		bind       pager         k    previous-line
+		bind index,pager,browser d    half-down
+		bind index,pager,browser u    half-up
+		bind index               \031 previous-undeleted # scroll-up
+		bind index               \005 next-undeleted     # scroll-down
+		bind pager               \031 previous-line      # scroll-up
+		bind pager               \005 next-line          # scroll-down
+		bind index               G    last-entry
+		bind index               gg   first-entry
+		bind       pager,browser G    bottom-page
+		bind       pager,browser gg   top-page
+	# }}}
+	# sidebar {{{
+		bind index,pager \Ck sidebar-prev
+		bind index,pager \Cj sidebar-next
+		bind index,pager \Co sidebar-open
+		bind index,pager \Cp sidebar-prev-new
+		bind index,pager \Cn sidebar-next-new
+		bind index,pager   B sidebar-toggle-visible
+	# }}}
+	bind        attach <return> view-mailcap
+	bind        attach l        view-mailcap
+	bind  pager,attach h        exit
+	bind  pager        l        view-attachments
+	bind  index        D        delete-message
+	bind  index        U        undelete-message
+	bind  index        L        limit
+	bind  index        l        display-message
+	bind  index,query  <space>  tag-entry
+	bind  browser      h        goto-parent
+	macro browser      h        '<change-dir><kill-line>..<enter>' "Go to parent folder"
+	bind  browser      l        select-entry
+	bind  index,pager  H        view-raw-message
+	bind  index,pager  S        sync-mailbox
+	bind  index,pager  R        group-reply
+	bind  editor       <Tab>    complete-query
 
-# mime config
-	set mime_type_query_command = "file --mime-type -b %s"
-	alternative_order text/plain text/enriched text/html
-	auto_view text/html # automatically show html (mailcap uses lynx)
-	auto_view application/pgp-encrypted
+	macro index,pager X '<pipe-message>ripmime -i - -d ' "Save all attachments."
 
-# path config
-	set   autocrypt_dir  = "~/.mutt/autocrypt/"
-	set certificate_file = "~/.mutt/certificates"
-	set     history_file = "~/.mutt/history"
-	set     mailcap_path = "/usr/local/share/mutt-wizard/mailcap"
+	# TODO: add to khard, not abook, then convert khard -> abook
+	macro index,pager   a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<enter><pipe-message>khard add-email<enter><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<enter>" "add the sender address to abook"
+	macro index       \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+	macro index         O "<enter-command>setenv channel \$from<enter><shell-escape>sync-mail $channel<enter>" "run sync-mail"
+	macro index       \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
+	macro index         A "<limit>all\n" "show all messages (undo limit)"
+	macro index         @ "<enter-command>source select-email-account|<enter><sidebar-open>" "select email account"
+# }}}
 
-# mail files
-	set folder = "$HOME/mail/"
-	set spoolfile = "+inbox/"
-	set record = "+sent/"
-	set postponed = "+postponed/"
-	set trash = "+trash/"
+# set crypt_autosign = yes
+# set crypt_opportunistic_encrypt = yes
+# set pgp_self_encrypt = yes
+# set pgp_default_key  = 'your@gpgemailaddre.ss'
 
-# keybinds
-# 	remove default keybinds
-		unbind *
-		unmacro *
-# 	movement
-		bind index j next-entry
-		bind index k previous-entry
-		bind pager j next-line
-		bind pager k previous-line
-		bind index,pager,browser d half-down
-		bind index,pager,browser u half-up
-		bind index \031 previous-undeleted # scroll-up
-		bind index \005 next-undeleted     # scroll-down
-		bind pager \031 previous-line      # scroll-up
-		bind pager \005 next-line          # scroll-down
-
-bind attach <return> view-mailcap
-bind attach l view-mailcap
-bind index G last-entry
-bind index gg first-entry
-bind pager,attach h exit
-bind pager l view-attachments
-bind index D delete-message
-bind index U undelete-message
-bind index L limit
-bind index l display-message
-bind index,query <space> tag-entry
-#bind browser h goto-parent
-macro browser h '<change-dir><kill-line>..<enter>' "Go to parent folder"
-bind index,pager H view-raw-message
-bind browser l select-entry
-bind pager,browser gg top-page
-bind pager,browser G bottom-page
-bind index,pager S sync-mailbox
-bind index,pager R group-reply
-bind editor <Tab> complete-query
-
-#set crypt_autosign = yes
-#set crypt_opportunistic_encrypt = yes
-#set pgp_self_encrypt = yes
-#set pgp_default_key  = 'your@gpgemailaddre.ss'
-
-macro index,pager a "<enter-command>set my_pipe_decode=\$pipe_decode pipe_decode<return><pipe-message>abook --add-email<return><enter-command>set pipe_decode=\$my_pipe_decode; unset my_pipe_decode<return>" "add the sender address to abook"
-macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
-macro index O "<shell-escape>mw -Y<enter>" "run mw -Y to sync all mail"
-macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
-macro index A "<limit>all\n" "show all messages (undo limit)"
-
-# Sidebar mappings
-set sidebar_visible = yes
-set sidebar_width = 20
-set sidebar_short_path = yes
-set sidebar_next_new_wrap = yes
-set mail_check_stats
-set sidebar_format = '%D%?F? [%F]?%* %?N?%N/? %?S?%S?'
-bind index,pager \Ck sidebar-prev
-bind index,pager \Cj sidebar-next
-bind index,pager \Co sidebar-open
-bind index,pager \Cp sidebar-prev-new
-bind index,pager \Cn sidebar-next-new
-bind index,pager B sidebar-toggle-visible
-
-source "$XDG_CONFIG_HOME/mutt/accounts/gmail"
 source "$XDG_CONFIG_HOME/mutt/colorschemes/mechanical"
+source "$XDG_CONFIG_HOME/mutt/accounts/default"

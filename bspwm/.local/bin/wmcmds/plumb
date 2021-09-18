@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 has xclip || exit 1
 
@@ -26,10 +26,11 @@ echo "$CLIPBOARD" | grep "^.*\.[A-Za-z]\+.*"                          && website
 echo "$CLIPBOARD" | grep "^.*@.*\.[A-Za-z]\+$"                        && email   () { notify-send "TODO: implement mutt email"                   ;}
 has qrencode                                                          && qrcode  () { qrencode "$@" -s 10 -o /tmp/qr.png && xdg-open /tmp/qr.png ;}
 file $(realpath $(which "$CLIPBOARD")) | grep "ASCII text executable" && script  () { xdg-open $(realpath $(which "$@"))                         ;}
-man -k "^$(echo $CLIPBOARD | tr ' ' '-')$"                            && manual  () { spawn-preloaded-terminal "man $(echo $@ | tr ' ' '-')"     ;}
+man -k "^$(echo $CLIPBOARD | tr ' ' '-')$"                            && manual  () { spawn-terminal "man $(echo $@ | tr ' ' '-')"               ;}
 
 # generic options
-writenew         () { mkdir -p "$(dirname $@)" && "$TERMINAL" -e "$EDITOR" "$@"                    ;}
+writenew         () { mkdir -p "$(dirname $@)" && "$TERMINAL" -e "$EDITOR" "$@"                                   ;}
+qrcode           () { xcqr "$@"                                                                                   ;}
 duckduckgo       () { "$BROWSER" "https://duckduckgo.com/?q=$(urlencode "$@")"                                    ;}
 youtube          () { "$BROWSER" "https://www.youtube.com/results?search_query=$(urlencode "$@")"                 ;}
 wikipedia        () { "$BROWSER" "https://en.wikipedia.org/wiki/$(urlencode "$@")"                                ;}
@@ -37,7 +38,8 @@ wiktionary       () { "$BROWSER" "https://en.wiktionary.org/wiki/$(urlencode "$@
 openstreetmap    () { "$BROWSER" "https://www.openstreetmap.org/search?query=$(urlencode "$@")"                   ;}
 ebay             () { "$BROWSER" "https://www.ebay.com/sch/$(urlencode "$@")"                                     ;}
 aliexpress       () { "$BROWSER" "https://www.aliexpress.com/wholesale?SearchText=$(urlencode "$@")"              ;}
-github           () { "$BROWSER" "https://github.com/search?q=$(urlencode "$@")"                                  ;}
+github_search    () { "$BROWSER" "https://github.com/search?q=$(urlencode "$@")"                                  ;}
+github_repo      () { "$BROWSER" "https://github.com/$@"                                                          ;}
 dictionary       () { "$BROWSER" "https://www.dictionary.com/browse/$(urlencode "$@")"                            ;}
 thesaurus        () { "$BROWSER" "https://www.thesaurus.com/browse/$(urlencode "$@")"                             ;}
 thepiratebay     () { "$BROWSER" "https://thepiratebay.org/search.php?q=$(urlencode "$@")"                        ;}

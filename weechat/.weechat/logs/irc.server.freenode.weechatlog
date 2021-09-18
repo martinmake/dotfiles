@@ -1,0 +1,167 @@
+2021-05-25 22:35:00	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2021-05-25 22:35:01	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2021-05-25 22:35:01	--	gnutls: receiving 2 certificates
+2021-05-25 22:35:01	--	 - certificate[1] info:
+2021-05-25 22:35:01	--	   - subject `CN=card.freenode.net', issuer `CN=R3,O=Let's Encrypt,C=US', serial 0x04c80ea4cbbcd0af9d6c9e3f516e828f111c, RSA key 4096 bits, signed using RSA-SHA256, activated `2021-04-19 05:43:31 UTC', expires `2021-07-18 05:43:31 UTC', pin-sha256="kK+ut4A5qoGqyxfORm/2KPeU2VoCvz5WGDdesWNtNVY="
+2021-05-25 22:35:01	--	 - certificate[2] info:
+2021-05-25 22:35:01	--	   - subject `CN=R3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x400175048314a4c8218c84a90c16cddf, RSA key 2048 bits, signed using RSA-SHA256, activated `2020-10-07 19:21:40 UTC', expires `2021-09-29 19:21:40 UTC', pin-sha256="jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0="
+2021-05-25 22:35:01	--	gnutls: peer's certificate is trusted
+2021-05-25 22:35:01	--	irc: connected to chat.freenode.net/7000 (38.229.70.22)
+2021-05-25 22:35:01	--	card.freenode.net: *** Looking up your hostname...
+2021-05-25 22:35:01	--	card.freenode.net: *** Checking Ident
+2021-05-25 22:35:01	--	card.freenode.net: *** Your forward and reverse DNS do not match, ignoring hostname
+2021-05-25 22:35:09	--	card.freenode.net: *** No Ident response
+2021-05-25 22:35:09	--	Welcome to the freenode Internet Relay Chat Network martinmake
+2021-05-25 22:35:09	--	Your host is card.freenode.net[38.229.70.22/7000], running version ircd-seven-1.1.9
+2021-05-25 22:35:09	--	This server was created Sun Jul 12 2020 at 20:44:33 UTC
+2021-05-25 22:35:09	--	card.freenode.net ircd-seven-1.1.9 DOQRSZaghilopsuwz CFILMPQSbcefgijklmnopqrstuvz bkloveqjfI
+2021-05-25 22:35:09	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstuz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2021-05-25 22:35:09	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 KNOCK CPRIVMSG CNOTICE :are supported by this server
+2021-05-25 22:35:09	--	MONITOR=100 WHOX SAFELIST ELIST=CTU ETRACE :are supported by this server
+2021-05-25 22:35:09	--	There are 88 users and 68864 invisible on 41 servers
+2021-05-25 22:35:09	--	21 :IRC Operators online
+2021-05-25 22:35:09	--	19 :unknown connection(s)
+2021-05-25 22:35:09	--	37601 :channels formed
+2021-05-25 22:35:09	--	I have 5053 clients and 1 servers
+2021-05-25 22:35:09	--	5053 6593 :Current local users 5053, max 6593
+2021-05-25 22:35:09	--	68952 84899 :Current global users 68952, max 84899
+2021-05-25 22:35:09	--	Highest connection count: 6594 (6593 clients) (466064 connections received)
+2021-05-25 22:35:09	--	- card.freenode.net Message of the Day -
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- Welcome to card.freenode.net in Washington, DC, US, kindly sponsored by
+2021-05-25 22:35:09	--	- Team Cymru (http://www.team-cymru.org).
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- CARD, ORSON SCOTT [1951-]. Born in Richland, Washington, Card grew up in
+2021-05-25 22:35:09	--	- California, Arizona, and Utah. He lived in Brazil for two years as an unpaid
+2021-05-25 22:35:09	--	- missionary for the Mormon Church. Author of the Ender and Alvin Maker books,
+2021-05-25 22:35:09	--	- Card's science fiction and fantasy work is strongly influenced by his Mormon
+2021-05-25 22:35:09	--	- cultural background. The first author to win the Hugo and Nebula novel awards
+2021-05-25 22:35:09	--	- two years in a row, Card currently lives in Greensboro, North Carolina, US.
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- Welcome to freenode - supporting the free and open source
+2021-05-25 22:35:09	--	- software communities since 1998.
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- By connecting to freenode you indicate that you have read and
+2021-05-25 22:35:09	--	- accept our policies and guidelines as set out on https://freenode.net
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- In the event that you observe behaviour that contravenes our policies,
+2021-05-25 22:35:09	--	- please notify a volunteer staff member via private message, or send us an
+2021-05-25 22:35:09	--	- e-mail to complaints@freenode.net -- we will do our best to address the
+2021-05-25 22:35:09	--	- situation within a reasonable period of time, and we may request further
+2021-05-25 22:35:09	--	- information or, as appropriate, involve other parties such as channel operators
+2021-05-25 22:35:09	--	- Group Contacts representing an on-topic group.
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- freenode runs an open proxy scanner.
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- If you are looking for assistance, you may be able to find a list of
+2021-05-25 22:35:09	--	- volunteer staff on '/stats p' (shows only on-call staff) or by joining
+2021-05-25 22:35:09	--	- #freenode and using the '/who freenode/staff/*' command. You may message
+2021-05-25 22:35:09	--	- any of us at any time. Please note that freenode predominantly provides
+2021-05-25 22:35:09	--	- assistance via private message, and while we have a network channel the
+2021-05-25 22:35:09	--	- primary venue for support requests is via private message to a member
+2021-05-25 22:35:09	--	- of the volunteer staff team.
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- From time to time, volunteer staff may send server-wide notices relating to
+2021-05-25 22:35:09	--	- the project, or the communities that we host. The majority of such notices
+2021-05-25 22:35:09	--	- will be sent as wallops, and you can '/mode <yournick> +w' to ensure that you
+2021-05-25 22:35:09	--	- do not miss them. Important messages relating to the freenode project, including
+2021-05-25 22:35:09	--	- notices of upcoming maintenance and other scheduled downtime will be issued as
+2021-05-25 22:35:09	--	- global notices.
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- Representing an on-topic project? Don't forget to register, more information
+2021-05-25 22:35:09	--	- can be found on the https://freenode.net website under "Group Registration".
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- Thank you also to our server sponsors for the sustained support in keeping the
+2021-05-25 22:35:09	--	- network going for close to two decades.
+2021-05-25 22:35:09	--	-
+2021-05-25 22:35:09	--	- Thank you for using freenode!
+2021-05-25 22:35:09	--	End of /MOTD command.
+2021-05-25 22:35:09	--	User mode [+RZi] by martinmake
+2021-05-25 22:35:10	--	NickServ (NickServ@services.): This nickname is registered. Please choose a different nickname, or identify via /msg NickServ identify <password>.
+2021-05-25 22:36:14	--	irc: connecting to server chat.freenode.net/7000 (SSL)...
+2021-05-25 22:36:14	--	gnutls: connected using 2048-bit Diffie-Hellman shared secret exchange
+2021-05-25 22:36:14	--	gnutls: receiving 2 certificates
+2021-05-25 22:36:14	--	 - certificate[1] info:
+2021-05-25 22:36:14	--	   - subject `CN=kornbluth.freenode.net', issuer `CN=R3,O=Let's Encrypt,C=US', serial 0x045b927c64ae335097b48c53fe422f69eb07, RSA key 4096 bits, signed using RSA-SHA256, activated `2021-04-06 04:41:56 UTC', expires `2021-07-05 04:41:56 UTC', pin-sha256="RbMyecKixOdaDVpxuJynSjxFqbLEXxWHOjVtS9FqzZE="
+2021-05-25 22:36:14	--	 - certificate[2] info:
+2021-05-25 22:36:14	--	   - subject `CN=R3,O=Let's Encrypt,C=US', issuer `CN=DST Root CA X3,O=Digital Signature Trust Co.', serial 0x400175048314a4c8218c84a90c16cddf, RSA key 2048 bits, signed using RSA-SHA256, activated `2020-10-07 19:21:40 UTC', expires `2021-09-29 19:21:40 UTC', pin-sha256="jQJTbIh0grw0/1TkHSumWb+Fs0Ggogr621gT3PvPKG0="
+2021-05-25 22:36:14	--	gnutls: peer's certificate is trusted
+2021-05-25 22:36:14	--	irc: connected to chat.freenode.net/7000 (82.96.96.11)
+2021-05-25 22:36:14	--	kornbluth.freenode.net: *** Looking up your hostname...
+2021-05-25 22:36:14	--	kornbluth.freenode.net: *** Checking Ident
+2021-05-25 22:36:15	--	kornbluth.freenode.net: *** Your forward and reverse DNS do not match, ignoring hostname
+2021-05-25 22:36:23	--	kornbluth.freenode.net: *** No Ident response
+2021-05-25 22:36:23	--	Welcome to the freenode Internet Relay Chat Network martinmake
+2021-05-25 22:36:23	--	Your host is kornbluth.freenode.net[82.96.96.11/7000], running version ircd-seven-1.1.9
+2021-05-25 22:36:23	--	This server was created Sun Jul 12 2020 at 20:42:30 UTC
+2021-05-25 22:36:23	--	kornbluth.freenode.net ircd-seven-1.1.9 DOQRSZaghilopsuwz CFILMPQSbcefgijklmnopqrstuvz bkloveqjfI
+2021-05-25 22:36:23	--	CHANTYPES=# EXCEPTS INVEX CHANMODES=eIbq,k,flj,CFLMPQScgimnprstuz CHANLIMIT=#:120 PREFIX=(ov)@+ MAXLIST=bqeI:100 MODES=4 NETWORK=freenode STATUSMSG=@+ CALLERID=g CASEMAPPING=rfc1459 :are supported by this server
+2021-05-25 22:36:23	--	CHARSET=ascii NICKLEN=16 CHANNELLEN=50 TOPICLEN=390 DEAF=D FNC TARGMAX=NAMES:1,LIST:1,KICK:1,WHOIS:1,PRIVMSG:4,NOTICE:4,ACCEPT:,MONITOR: EXTBAN=$,ajrxz CLIENTVER=3.0 SAFELIST ELIST=CTU CPRIVMSG :are supported by this server
+2021-05-25 22:36:23	--	CNOTICE KNOCK WHOX ETRACE MONITOR=100 :are supported by this server
+2021-05-25 22:36:23	--	There are 88 users and 68859 invisible on 41 servers
+2021-05-25 22:36:23	--	21 :IRC Operators online
+2021-05-25 22:36:23	--	13 :unknown connection(s)
+2021-05-25 22:36:23	--	37601 :channels formed
+2021-05-25 22:36:23	--	I have 5863 clients and 1 servers
+2021-05-25 22:36:23	--	5863 7816 :Current local users 5863, max 7816
+2021-05-25 22:36:23	--	68947 85053 :Current global users 68947, max 85053
+2021-05-25 22:36:23	--	Highest connection count: 7817 (7816 clients) (314564 connections received)
+2021-05-25 22:36:23	--	- kornbluth.freenode.net Message of the Day -
+2021-05-25 22:36:23	--	- Welcome to kornbluth.freenode.net in Frankfurt, DE, EU.
+2021-05-25 22:36:23	--	- Thanks to Probe Networks (www.probe-networks.de) for
+2021-05-25 22:36:23	--	- sponsoring this server!
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- KORNBLUTH, CYRIL M. [1923-1958].  Born in New York City and
+2021-05-25 22:36:23	--	- an active member of the Futurians, Cyril Kornbluth sold his
+2021-05-25 22:36:23	--	- first story professionally at age 15.  By the 1940's his
+2021-05-25 22:36:23	--	- stories appeared widely under several pennames, including
+2021-05-25 22:36:23	--	- S.D. Gottesman and Cecil Corman.  He left his university
+2021-05-25 22:36:23	--	- studies in Chicago to serve in the Army in Europe during
+2021-05-25 22:36:23	--	- WWII, then returned to school and work in Chicago until he
+2021-05-25 22:36:23	--	- began writing full-time in 1951.  The author of The Marching
+2021-05-25 22:36:23	--	- Morons and the novels The Space Merchants (with Frederik
+2021-05-25 22:36:23	--	- Pohl) and The Syndic, he's best known for his biting social
+2021-05-25 22:36:23	--	- satire and his collaborations with Pohl and with Judith
+2021-05-25 22:36:23	--	- Merril.
+2021-05-25 22:36:23	--	- Welcome to freenode - supporting the free and open source
+2021-05-25 22:36:23	--	- software communities since 1998.
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- By connecting to freenode you indicate that you have read and
+2021-05-25 22:36:23	--	- accept our policies and guidelines as set out on https://freenode.net
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- In the event that you observe behaviour that contravenes our policies,
+2021-05-25 22:36:23	--	- please notify a volunteer staff member via private message, or send us an
+2021-05-25 22:36:23	--	- e-mail to complaints@freenode.net -- we will do our best to address the
+2021-05-25 22:36:23	--	- situation within a reasonable period of time, and we may request further
+2021-05-25 22:36:23	--	- information or, as appropriate, involve other parties such as channel operators
+2021-05-25 22:36:23	--	- Group Contacts representing an on-topic group.
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- freenode runs an open proxy scanner.
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- If you are looking for assistance, you may be able to find a list of
+2021-05-25 22:36:23	--	- volunteer staff on '/stats p' (shows only on-call staff) or by joining
+2021-05-25 22:36:23	--	- #freenode and using the '/who freenode/staff/*' command. You may message
+2021-05-25 22:36:23	--	- any of us at any time. Please note that freenode predominantly provides
+2021-05-25 22:36:23	--	- assistance via private message, and while we have a network channel the
+2021-05-25 22:36:23	--	- primary venue for support requests is via private message to a member
+2021-05-25 22:36:23	--	- of the volunteer staff team.
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- From time to time, volunteer staff may send server-wide notices relating to
+2021-05-25 22:36:23	--	- the project, or the communities that we host. The majority of such notices
+2021-05-25 22:36:23	--	- will be sent as wallops, and you can '/mode <yournick> +w' to ensure that you
+2021-05-25 22:36:23	--	- do not miss them. Important messages relating to the freenode project, including
+2021-05-25 22:36:23	--	- notices of upcoming maintenance and other scheduled downtime will be issued as
+2021-05-25 22:36:23	--	- global notices.
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- Representing an on-topic project? Don't forget to register, more information
+2021-05-25 22:36:23	--	- can be found on the https://freenode.net website under "Group Registration".
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- Thank you also to our server sponsors for the sustained support in keeping the
+2021-05-25 22:36:23	--	- network going for close to two decades.
+2021-05-25 22:36:23	--	-
+2021-05-25 22:36:23	--	- Thank you for using freenode!
+2021-05-25 22:36:23	--	End of /MOTD command.
+2021-05-25 22:36:23	--	User mode [+RZi] by martinmake
+2021-05-25 22:36:23	--	NickServ (NickServ@services.): This nickname is registered. Please choose a different nickname, or identify via /msg NickServ identify <password>.
+2021-05-25 22:36:34	=!=	irc: this buffer is not a channel!

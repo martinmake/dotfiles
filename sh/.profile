@@ -12,11 +12,12 @@ export READER="zathura"
 export XLOCK="xlock"
 export MERGE_EDITOR="vimdiff"
 export MAIL="neomutt"
+export MESSENGER="gomuks"
 export CALENDAR="ikhal"
 export NETWORK="nmtui"
 export NEWS="newsboat"
 export CALCULATOR="calc"
-export NOTES="nvim -c VimwikiIndex"
+export NOTES="joplin"
 export ABOOK="abook"
 export TODOMAN="todo repl"
 export COUNTDOWN="termdown"
@@ -26,6 +27,7 @@ export CC="clang"
 # PATHs setup
 export XDG_DATA_HOME=$HOME/.local/share
 export XDG_CONFIG_HOME=$HOME/.config
+export ENV=$HOME/.shinit
 
 export XDG_DESKTOP_DIR=""
 export XDG_DOWNLOAD_DIR="downloads"
@@ -39,6 +41,9 @@ export XDG_VIDEOS_DIR="multimedia/videos"
 export PATH="$PATH:$(ls $HOME/.local/bin -RL | sed -ne '/:$/p' | tr -d '\n')"
 export PATH="$PATH:/opt/cuda/bin"
 export PATH="$PATH:/root/.gem/ruby/2.7.0/bin"
+export PATH="$PATH:/home/martinmake/.local/share/.go/bin/"
+
+export MAILCAPS="$XDG_CONFIG_HOME/mutt/mailcap"
 
 export DOT="$HOME/dotfiles"
 export ESPIDF=/opt/esp-idf
@@ -57,10 +62,11 @@ export SUDO_ASKPASS="$HOME/.local/bin/tools/dmenupass"
 export INPUTRC="$XDG_CONFIG_HOME/inputc"
 
 export MAKEFLAGS="-j4 --no-print-directory"
-export FZF_DEFAULT_COMMAND="find -type f 2>/dev/null"
-export FZF_DEFAULT_OPTS="--multi --cycle --color='dark,fg:15,fg+:0,bg:0,bg+:11,hl:14,hl+:9,info:12,gutter:0,border:13,spinner:9,header:9,pointer:9,marker:9,prompt:9'"
-export BAT_THEME="mechanical"
 export TIMEFMT="$'\nreal\t%E\nuser\t%U\nsys\t%S'"
+export FZF_DEFAULT_COMMAND="find 2>/dev/null"
+export FZF_DEFAULT_OPTS="--multi --bind=ctrl-j:accept --preview='bat -f {} 2>/dev/null || lsd -1 --color=always {}' --cycle --layout=reverse --color='dark,fg:15,fg+:11,bg:0,bg+:0,hl:14,hl+:9,info:12,gutter:0,border:15,spinner:9,header:9,pointer:9,marker:9,prompt:9'"
+export BAT_THEME="base16"
+export WWW_HOME='duckduckgo.com'
 
 # less/man colors
 export LESS=-R
@@ -72,8 +78,13 @@ export LESS_TERMCAP_se="$(printf '%b' '[0m')";
 export LESS_TERMCAP_us="$(printf '%b' '[1;32m')";
 export LESS_TERMCAP_ue="$(printf '%b' '[0m')";
 
-export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 export QT_STYLE_OVERRIDE="kvantum"
+
+
+unset SSH_AGENT_PID
+if [ "${gnupg_SSH_AUTH_SOCK_by:-0}" -ne $$ ]; then
+	export SSH_AUTH_SOCK="$(gpgconf --list-dirs agent-ssh-socket)"
+fi
 
 # Switch escape and caps if tty:
 sudo -n loadkeys ~/$XDG_CONFIG_HOME/ttymaps.kmap

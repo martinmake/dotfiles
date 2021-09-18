@@ -1,34 +1,42 @@
-# ███╗   ██╗███████╗██╗    ██╗███████╗██████╗  ██████╗  █████╗ ████████╗ #
-# ████╗  ██║██╔════╝██║    ██║██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝ #
-# ██╔██╗ ██║█████╗  ██║ █╗ ██║███████╗██████╔╝██║   ██║███████║   ██║    #
-# ██║╚██╗██║██╔══╝  ██║███╗██║╚════██║██╔══██╗██║   ██║██╔══██║   ██║    #
-# ██║ ╚████║███████╗╚███╔███╔╝███████║██████╔╝╚██████╔╝██║  ██║   ██║    #
-# ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝   ╚═╝    #
-#           ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗                #
-#          ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝                #
-#          ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗               #
-#          ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║               #
-#          ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝               #
-#           ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝                #
+#    ======================================================================
+#
+#
+#    ███╗   ██╗███████╗██╗    ██╗███████╗██████╗  ██████╗  █████╗ ████████╗
+#    ████╗  ██║██╔════╝██║    ██║██╔════╝██╔══██╗██╔═══██╗██╔══██╗╚══██╔══╝
+#    ██╔██╗ ██║█████╗  ██║ █╗ ██║███████╗██████╔╝██║   ██║███████║   ██║
+#    ██║╚██╗██║██╔══╝  ██║███╗██║╚════██║██╔══██╗██║   ██║██╔══██║   ██║
+#    ██║ ╚████║███████╗╚███╔███╔╝███████║██████╔╝╚██████╔╝██║  ██║   ██║
+#    ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝ ╚══════╝╚═════╝  ╚═════╝ ╚═╝  ╚═╝   ╚═╝
+#                ██████╗ ██████╗ ███╗   ██╗███████╗██╗ ██████╗
+#               ██╔════╝██╔═══██╗████╗  ██║██╔════╝██║██╔════╝
+#               ██║     ██║   ██║██╔██╗ ██║█████╗  ██║██║  ███╗
+#               ██║     ██║   ██║██║╚██╗██║██╔══╝  ██║██║   ██║
+#               ╚██████╗╚██████╔╝██║ ╚████║██║     ██║╚██████╔╝
+#                ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝     ╚═╝ ╚═════╝
+#
+#
+#    ======================================================================
 
 # documentation: https://newsboat.org/releases/2.22/docs/newsboat.html
 
 # settings {{{
 	article-sort-order date-asc
-	notify-program "notify-send"
-
-	auto-reload                yes
 	always-display-description yes
-	show-read-feeds            no
+
+	auto-reload      yes
+	show-read-feeds  no
+	show-keymap-hint no
 
 	external-url-viewer "urlscan -dc -r 'linkhandler {}'"
 	browser linkhandler
+
+	notify-program "notify-send"
 # }}}
 # formatting {{{
 	datetime-format "%L"
 
-	   feedlist-format "%4i %n%S%11u %t%?T? (%T)&?"
-	articlelist-format "%4i%f%13D%6LB %?T?|%-17T|  ?%t"
+	   feedlist-format "%4i %n%S%11u %t %?T? (%T)&?"
+	articlelist-format "%4i%f%13D%6LB %?T?|%-17T| ?%t"
 	  selecttag-format "%2i %T (%u)[%n]"
 	    podlist-format "%4i [%-5p %%] %-12S %F"
 	     notify-format "RSS  reloaded [%n:%f]"
@@ -46,46 +54,54 @@
 	     dialogs-title-format "%N %V - Dialogs"
 # }}}
 # keybinds {{{
-	bind-key h  quit
-	bind-key j  down
-	bind-key k  up
-	bind-key l  open
-	bind-key d  pagedown
-	bind-key u  pageup
-	bind-key j  next articlelist
-	bind-key k  prev articlelist
-	bind-key J  next-feed articlelist
-	bind-key K  prev-feed articlelist
-	bind-key n  next-unread
-	bind-key N  prev-unread
-	bind-key G  end
-	bind-key gg home
-	bind-key BACKSPACE quit
-
-	bind-key a  toggle-show-read-feeds
-	bind-key R  toggle-article-read
-	bind-key D  pb-download
-	bind-key U  show-urls
-	bind-key x  pb-delete
-
-	macro O open-in-browser-and-mark-read
-	macro t set browser "tsp youtube-dl --add-metadata -ic"                    ; open-in-browser ; set browser linkhandler
-	macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
-	macro v set browser "setsid nohup mpv"                                     ; open-in-browser ; set browser linkhandler
-	macro w set browser "w3m"                                                  ; open-in-browser ; set browser linkhandler
-	macro p set browser "dmenuhandler"                                         ; open-in-browser ; set browser linkhandler
-	macro c set browser "xsel -b <<<"                                          ; open-in-browser ; set browser linkhandler
+# 	unbind-key -a
+	# movement {{{
+		bind-key h         quit
+		bind-key j         down
+		bind-key k         up
+		bind-key l         open
+		bind-key d         pagedown
+		bind-key u         pageup
+		bind-key j         next articlelist
+		bind-key k         prev articlelist
+		bind-key J         next-feed articlelist
+		bind-key K         prev-feed articlelist
+		bind-key n         next-unread
+		bind-key N         prev-unread
+		bind-key G         end
+		bind-key g         home
+		bind-key BACKSPACE quit
+		bind-key q         quit
+	# }}}
+	# view {{{
+		bind-key a toggle-show-read-feeds
+		bind-key U show-urls
+	# }}}
+	# alter {{{
+		bind-key R toggle-article-read
+		bind-key D pb-download
+		bind-key x pb-delete
+	# }}}
+	# open {{{
+		macro O open-in-browser-and-mark-read
+		macro t set browser "tsp youtube-dl --add-metadata -ic"                    ; open-in-browser ; set browser linkhandler
+		macro a set browser "tsp youtube-dl --add-metadata -xic -f bestaudio/best" ; open-in-browser ; set browser linkhandler
+		macro v set browser "setsid nohup mpv"                                     ; open-in-browser ; set browser linkhandler
+		macro w set browser "w3m"                                                  ; open-in-browser ; set browser linkhandler
+		macro p set browser "dmenuhandler"                                         ; open-in-browser ; set browser linkhandler
+		macro c set browser "xsel -b <<<"                                          ; open-in-browser ; set browser linkhandler
+	# }}}
 # }}}
 # colors {{{
 	# standout, underline, reverse, blink, dim, bold, protect, invis
-	color background        color15 default
-	color listnormal        color15 default
-	color listfocus         black   color11 bold
-	color listnormal_unread color9  black   bold
-	color listfocus_unread  color9  color11 bold
-	color info              color12 default
-	color article           color15 default
-	# color end-of-text-marker color15 default
+	color background         color15 default
+	color listnormal         color15 default
+	color listfocus          color11 default bold
+	color listnormal_unread  color9  default bold
+	color listfocus_unread   color11 default bold
+	color info               color12 default
+	color article            color15 default
+	color end-of-text-marker color15 default
 
 	# feedlist, articlelist, article, all
 	highlight article     "^Feed: .*"                    color10 default bold
@@ -93,23 +109,28 @@
 	highlight article     "^Author: .*"                  color10 default bold
 	highlight article     "^Date: .*"                    color12 default bold
 	highlight article     "^Link: .*"                    color14 default bold
+
 	highlight article     "^Feed: "                      color15 default bold
 	highlight article     "^Title: "                     color15 default bold
 	highlight article     "^Author: "                    color15 default bold
 	highlight article     "^Date: "                      color15 default bold
 	highlight article     "^Link: "                      color15 default bold
+
+	highlight feedlist    "\\([^\\)]+\\)"                color12 default bold
+
+	highlight articlelist "[0-9]+ days? ago"             color12 default bold
+	highlight articlelist " [0-9.KMG]+ ?B "              color2  default bold
+
+	highlight article     "\\[[0-9]+\\]"                 color13 default bold
+	highlight article     "\\[image\\ [0-9]+\\]"         color13 default bold
+	highlight article     "\\[embedded flash: [0-9]+\\]" color13 default bold
+
 	highlight all         "(https?|irc|gopher)://[^ ]*"  color14 default
 	highlight all         "#[^ ]+"                       color9  default
 	highlight all         "([0-9]+:)+([0-9]+)"           color12 default
 	highlight all         "\"[^\"]*\""                   color2  default
 	highlight all         "\\$[0-9.]+"                   color2  default bold
 	highlight all         "[0-9.]+%"                     color2  default bold
-	highlight feedlist    "\\([^\\)]+\\)"                color12 default bold
-	highlight articlelist "[0-9]+ days? ago"             color12 default bold
-	highlight articlelist " [0-9.KMG]+ ?B "              color2  default bold
-	highlight article     "\\[[0-9]+\\]"                 color13 default bold
-	highlight article     "\\[image\\ [0-9]+\\]"         color13 default bold
-	highlight article     "\\[embedded flash: [0-9]+\\]" color13 default bold
 # }}}
 
 # vim: ft=conf

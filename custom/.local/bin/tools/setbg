@@ -31,6 +31,6 @@ done
 [ "$NEW_INTERNAL" ] && cp "$NEW_INTERNAL" ${INTERNAL} && notify-send -i "${INTERNAL}" "Wallpaper changed."
 [ "$NEW_EXTERNAL" ] && cp "$NEW_EXTERNAL" ${EXTERNAL} && notify-send -i "${EXTERNAL}" "Wallpaper changed."
 
-XWALLPAPERS+="$([ -f $INTERNAL ] && echo '--output' LVDS-1 '--zoom' ${INTERNAL}) "
-XWALLPAPERS+="$([ -f $EXTERNAL ] && echo '--output' VGA-1  '--zoom' ${EXTERNAL}) "
+XWALLPAPERS="${XWALLPAPERS} $([ -f $INTERNAL ] && echo '--output' LVDS1 '--zoom' ${INTERNAL}) "
+XWALLPAPERS="${XWALLPAPERS} $([ -f $EXTERNAL ] && echo '--output' VGA1  '--zoom' ${EXTERNAL}) "
 xwallpaper ${XWALLPAPERS}

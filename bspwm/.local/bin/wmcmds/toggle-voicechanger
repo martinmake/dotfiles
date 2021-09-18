@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+# Doesn't actually toggle...
+# Kill sox to stop it.
+
+PITCH='-150'
+
+pactl load-module module-null-sink sink_name=voicechanger
+sox -t pulseaudio default -t pulseaudio voicechanger pitch "${PITCH}" contrast 100 echo 0 1 20 0.4
+pactl unload-module module-null-sink sink_name=voicechanger

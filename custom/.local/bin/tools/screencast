@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+WEBCAM_DELAY="0.7"
+OUTPUT="screencast.mkv"
+
+POSITIONAL=()
+while [[ $# -gt 0 ]]; do
+	case $1 in
+		-l|--live)
+			OUTPUT="rtmp://live.restream.io/live/`pass show Restream/comrade_martin/stream-key`"
+			shift
+			;;
+		*)
+			POSITIONAL+=("$1")
+			shift
+			;;
+	esac
+done
+set -- "${POSITIONAL[@]}" # restore positional parameters
+
+# -i ":0.0+0,1680" \
+ffmpeg \
+	-video_size "1366x768" \
+	-framerate "30" \
+	-f "x11grab" \
+	-itsoffset "-${WEBCAM_DELAY}" \
+	-i ":0.0+0,0" \
+	 \
+	-f "alsa" \
+	-i "pulse" \
+	 \
+	-f "alsa" \
+	-i "default" \
+	 \
+	-c:v "libx264" \
+	-c:a "aac" \
+	 \
+	-framerate "24" \
+	-g "24" \
+	-x264-params "keyint=48:scenecut=0" \
+	 \
+	-preset "ultrafast" \
+	-b:v "4M" \
+	-pix_fmt "yuv420p" \
+	 \
+	-vf "scale=1920:1080:force_original_aspect_ratio=decrease:flags=lanczos,pad=1920:1080:(ow-iw)/2:(oh-ih)/2,setsar=1" \
+	-af "acompressor=threshold=0.089:ratio=9:attack=200:release=1000" \
+	-af "highpass=200,lowpass=3000,afftdn" \
+	 \
+	"${OUTPUT}"
+
+# 	-threads 2 \
+# 	-pix_fmt yuvj420p \
+# 	-b:v 4500k \
+# 	-b:a 128k \
+# 	-ar 44100 \
+# 	-acodec aac \
+# 	-vcodec libx264 \
+# 	-preset medium \
+# 	-crf 28 \

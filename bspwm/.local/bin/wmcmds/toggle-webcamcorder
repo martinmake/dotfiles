@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+
+DROIDCAM_DEV="/dev/video0"
+
+on_exit() {
+	killall droidcam-cli
+}
+trap on_exit EXIT
+
+if [ "$(pgrep -f "sh $(which toggle-webcamcorder)" | wc -l)" -gt "2" ]; then
+	kill -9 $(pgrep -f '^mpv.*-$')
+	kill -9 $(pgrep -f '^sh .*toggle-webcamcorder')
+else
+	if [ $(adb devices | wc -l) -gt 2 ]; then
+		droidcam-cli "-dev=${DROIDCAM_DEV}" -v -nocontrols -size=1920x1080 adb 4747 &
+		INPUT=${DROIDCAM_DEV}
+	else
+		INPUT=${1:-"/dev/video1"}
+	fi
+
+	cd "$XDG_DATA_HOME/vapoursynth-vhs-fx"
+	( while true; do \
+		  ffmpeg -i "${INPUT}" -f yuv4mpegpipe -strict -1 -pix_fmt yuv420p pipe: \
+		| vspipe --y4m Effect_NTSC.vpy -a 'vf=/dev/stdin' - \
+	; done) \
+	| (mpv -no-osc --profile=low-latency --cache=no - && kill -9 $(pgrep -f '^sh .*toggle-webcamcorder'))
+fi

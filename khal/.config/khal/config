@@ -1,7 +1,7 @@
 [calendars]
-	[[personal]]
-		path = ~/.local/share/calendars/personal/cokxeIGga9s6C6X7Cr_omYob3svudNy9/
-		type = discover
+# 	[[personal]]
+# 		path = ~/.local/share/calendars/personal/cokxeIGga9s6C6X7Cr_omYob3svudNy9/
+# 		type = discover
 	[[school]]
 		path = ~/.local/share/calendars/school/*
 		type = discover
@@ -9,7 +9,7 @@
 		path = ~/.local/share/calendars/gmail/*/
 		type = discover
 [default]
-	default_calendar = personal-calendar
+# 	default_calendar = personal-calendar
 	default_dayevent_duration = 1h
 	default_event_duration = 1d
 	highlight_event_days = True

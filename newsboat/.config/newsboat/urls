@@ -184,4 +184,8 @@
 	https://www.alpinelinux.org/atom.xml "News" "Technology" "Linux" "Alpine Linux"
 # }}}
 
+# Other {{{
+	https://waitbutwhy.com/feed
+# }}}
+
 # vim: ft=conf

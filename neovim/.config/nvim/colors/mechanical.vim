@@ -4,27 +4,6 @@ syntax reset
 
 let g:colors_name = 'mechanical'
 
-" if has('nvim') " {{{
-"   let g:terminal_background = "#000000"
-"   let g:terminal_foreground = "#ffffff"
-"   let g:terminal_color_0    = "#000000"
-"   let g:terminal_color_1    = "#cd0000"
-"   let g:terminal_color_2    = "#00cd00"
-"   let g:terminal_color_3    = "#cdcd00"
-"   let g:terminal_color_4    = "#2020ff"
-"   let g:terminal_color_5    = "#cd00cd"
-"   let g:terminal_color_6    = "#00cdcd"
-"   let g:terminal_color_7    = "#e5e5e5"
-"   let g:terminal_color_8    = "#4d4d4d"
-"   let g:terminal_color_9    = "#ff0000"
-"   let g:terminal_color_10   = "#00ff00"
-"   let g:terminal_color_11   = "#ffff00"
-"   let g:terminal_color_12   = "#3030ff"
-"   let g:terminal_color_13   = "#ff00ff"
-"   let g:terminal_color_14   = "#00ffff"
-"   let g:terminal_color_15   = "#ffffff"
-" endif " }}}
-
 " Unsorted{{{
 hi SignColumn        ctermfg=none        ctermbg=none     cterm=none
 hi Title             ctermfg=none        ctermbg=none     cterm=none
@@ -61,8 +40,8 @@ hi DiffChange        ctermfg=3           ctermbg=none     cterm=italic
 hi DiffText          ctermfg=red         ctermbg=none     cterm=bold
 " }}}
 " Pmenu {{{
-hi Pmenu             ctermfg=cyan        ctermbg=none     cterm=none
-hi PmenuSel          ctermfg=cyan        ctermbg=none     cterm=reverse,bold
+hi Pmenu             ctermfg=cyan        ctermbg=233      cterm=none
+hi PmenuSel          ctermfg=magenta     ctermbg=none     cterm=reverse,bold
 hi PmenuSbar         ctermfg=cyan        ctermbg=none     cterm=none
 hi PmenuThumb        ctermfg=cyan        ctermbg=none     cterm=reverse
 " }}}
@@ -88,8 +67,8 @@ hi OverLength        ctermfg=red         ctermbg=none     cterm=bold
 " }}}
 " Cursor {{{
 hi Cursor            ctermfg=yellow      ctermbg=none     cterm=none
-hi CursorLine        ctermfg=none        ctermbg=232      cterm=none
-hi CursorColumn      ctermfg=none        ctermbg=232      cterm=none
+hi CursorLine        ctermfg=none        ctermbg=233      cterm=none
+hi CursorColumn      ctermfg=none        ctermbg=233      cterm=none
 " }}}
 " important {{{
 hi Error             ctermfg=red         ctermbg=black    cterm=reverse,bold
@@ -113,6 +92,9 @@ hi SpellBad          ctermfg=red         ctermbg=none     cterm=reverse,bold
 hi SpellCap          ctermfg=blue        ctermbg=none     cterm=reverse,bold
 hi SpellLocal        ctermfg=magenta     ctermbg=none     cterm=reverse,bold
 hi SpellRare         ctermfg=cyan        ctermbg=none     cterm=reverse,bold
+" }}}
+" float {{{
+hi FloatBorder       ctermfg=magenta     ctermbg=none     cterm=bold
 " }}}
 
 " links {{{

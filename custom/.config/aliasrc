@@ -1,63 +1,75 @@
 #!/usr/bin/env sh
 
-alias sudo="sudo " # aliases will work with sudo
-alias ka="killall"
-alias rm="trash-put"
-alias history="history 1"
-alias ghist="history | cut -d' ' -f4- | grep"
-alias pubip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias sudo='sudo ' # aliases will work with sudo
+alias ka='killall'
+alias rm='trash-put'
+alias history='history 1'
+alias ghist='history | cut -d' ' -f4- | grep'
+alias pubip='dig +short myip.opendns.com @resolver1.opendns.com'
 
-alias   ls="lsd --classify --icon never -1"
-alias  lst="lsd --classify --icon never -1 --date relative --total-size --blocks size --blocks date --blocks name"
-alias   ll="lsd --classify --icon never --date relative --almost-all --long"
-alias    l="lsd --classify --icon never --date relative --almost-all --long --blocks permission --blocks size --blocks date --blocks name"
-alias tree="lsd --classify --icon never --date relative --almost-all --long --tree --total-size"
-alias  tre="lsd --classify --icon never --date relative --almost-all --long --tree"
-alias    t="/usr/bin/tree"
+alias   ls='lsd -1'
+alias  lst='lsd -1                         --total-size --blocks size --blocks date --blocks name'
+alias   ll='lsd        --almost-all --long'
+alias    l='lsd        --almost-all --long              --blocks size --blocks date --blocks name'
+alias tree='/usr/bin/tree'
+alias   tt='lsd --tree --almost-all --long --total-size'
+alias    t='lsd --tree --almost-all        --total-size --blocks size --blocks date --blocks name'
 
-# alias make="colormake"
-alias dotfiles="git --git-dir=$HOME/dotfiles/ --work-tree=/$HOME/"
-alias dnd="dragon-drag-and-drop -ax 2>/dev/null"
-alias gdb="gdb -q"
-alias avr-gdb="avr-gdb -q"
-alias arm-none-eabi-gdb="arm-none-eabi-gdb -q"
-alias xtensa-esp32-elf-gdb="xtensa-esp32-elf-gdb -q"
-alias st-util="st-util -m"
-alias mpv="mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)"
-alias magit="nvim -c Magit"
-alias p="sudo pacman"
-alias pip="sudo pip"
-alias pip2="sudo pip2"
-alias pip3="sudo pip3"
-alias gem="sudo gem"
-alias npm="sudo npm"
-alias finch="export TERM=screen; finch"
-alias sysctl="sudo systemctl"
-alias f="fuck"
-alias g="git"
-alias h="hub"
-alias e="$EDITOR"
-alias x="sxiv -ft *"
-alias gua="git remote | xargs -L1 git push --all"
-alias grep="grep --color=auto"
-alias diff="diff --color=auto"
-alias ccat="highlight --out-format=ansi"
-alias youtube-dl="youtube-dl -i"
-alias yt="youtube-dl --add-metadata -o '%(upload_date)s-%(title)s.%(ext)s'"
-alias yta="yt -x -f bestaudio/best"
-alias YT="youtube-viewer"
-alias upc="sudo pacman -Syu"
-alias lsp="pacman -Qett --color=always | less"
-alias ffmpeg="ffmpeg -hide_banner"
-alias demangle="c++filt"
-alias tmux="TERM=xterm-256color tmux"
-alias mutt="neomut"
-alias tspreed="tspreed -n 1 -lw 700 -i -bfp line -c 1"
-alias vimdiff="nvim -d"
-alias starwars="telnet towel.blinkenlights.nl"
+alias ping='prettyping --nolegend'
 
-ef () {                                      fzf | xargs -r $EDITOR }
-es () { find -L "$HOME/.local/bin" -type f | fzf | xargs -r $EDITOR }
-e. () { find -L "$HOME/dotfiles"   -type f | fzf | xargs -r $EDITOR }
+alias zz='z -c'
+
+# alias make='colormake'
+alias dotfiles='git --git-dir=$HOME/dotfiles/ --work-tree=/$HOME/'
+alias dnd='dragon-drag-and-drop -ax 2>/dev/null'
+alias gdb='gdb -q'
+alias avr-gdb='avr-gdb -q'
+alias arm-none-eabi-gdb='arm-none-eabi-gdb -q'
+alias xtensa-esp32-elf-gdb='xtensa-esp32-elf-gdb -q'
+alias st-util='st-util -m'
+alias mpv='mpv --input-ipc-server=/tmp/mpvsoc$(date +%s)'
+alias magit='nvim -c Magit'
+alias lg='lazygit'
+alias pip='sudo pip'
+alias pip2='sudo pip2'
+alias pip3='sudo pip3'
+alias gem='sudo gem'
+alias npm='sudo npm'
+alias finch='export TERM=screen; finch'
+alias sysctl='sudo systemctl'
+alias f='fuck'
+alias g='git'
+alias h='hub'
+alias e='$EDITOR'
+alias x='sxiv -ft *'
+alias gua='git remote | xargs -L1 git push --all'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+alias ccat='highlight --out-format=ansi'
+alias youtube-dl='youtube-dl -i'
+alias yt='youtube-dl --add-metadata -o "%(upload_date)s-%(title)s.%(ext)s"'
+alias yta='yt -x -f bestaudio/best'
+alias YT='youtube-viewer'
+alias upc='sudo pacman -Syu'
+alias lsp='pacman -Qett --color=always | less'
+alias ffmpeg='ffmpeg -hide_banner'
+alias demangle='c++filt'
+alias tmux='TERM=xterm-256color tmux'
+alias mutt='neomut'
+alias tspreed='tspreed -n 1 -lw 400 -i -bfp line -c 1'
+alias vimdiff='nvim -d'
+alias starwars='telnet towel.blinkenlights.nl'
+alias d='devour'
+
+alias md='mkdir -p'
+alias rd='rmdir'
+
+alias fef='    find -L "./"               -type f 2>/dev/null | fzf | xargs -r $EDITOR'
+alias fes='    find -L "$HOME/.local/bin" -type f 2>/dev/null | fzf | xargs -r $EDITOR'
+alias fe.='    find -L "$HOME/dotfiles"   -type f 2>/dev/null | fzf | xargs -r $EDITOR'
+alias fcd='cd `find -L "./"               -type d 2>/dev/null | fzf`'
+alias cd.='cd ~/dotfiles'
+
+alias zk="$EDITOR ~/zettelkasten/index.md"
 
 eval "$(thefuck --alias)"

@@ -1,0 +1,27 @@
+# header information {{{
+	set realname = "Martin Michalec"
+	set from = "martin@michalec.dev"
+# }}}
+# SMTP information {{{
+	set smtp_url = "smtp://martin@michalec.dev@smtp.michalec.dev:587"
+	set smtp_pass = `pass show "E-mail/$from"`
+# }}}
+# mailboxes {{{
+	set folder = "~/mail/$from/"
+	unmailboxes *
+	named-mailboxes \
+		"INBOX"   "+INBOX/"   \
+		"ARCHIVE" "+ARCHIVE/" \
+		"DRAFTS"  "+DRAFTS/"  \
+		"SENT"    "+SENT"     \
+		"TRASH"   "+TRASH/"   \
+		"JUNK"    "+JUNK/"
+	set spoolfile = "+INBOX/"
+	set record    = "+SENT/"
+	set postponed = "+DRAFTS/"
+	set trash     = "+TRASH/"
+# }}}
+
+set signature = "sign-mail default|"
+
+# vim: ft=muttrc

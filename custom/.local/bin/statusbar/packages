@@ -1,7 +1,13 @@
 #!/bin/sh
 
-TO_UPGRADE=$(pacman -Qu | grep -v "\[ignored\]" | wc -l | sed -e "s/^0$//g")
-if [ ${TO_UPGRADE} ]; then
+TO_UPGRADE=`yay -Qu 2>/dev/null`
+if [ $? != 0 ]; then
+	TO_UPGRADE=""
+else
+	TO_UPGRADE=`echo "${TO_UPGRADE}" | grep -v "\[ignored\]" | wc -l | sed -e "s/^0$//g"`
+fi
+
+if [ "${TO_UPGRADE}" ]; then
 	echo 📦 ${TO_UPGRADE}
 else
 	echo

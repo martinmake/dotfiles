@@ -1,0 +1,45 @@
+#!/usr/bin/env sh
+
+COMMAND=$1
+NAME=${2:-$(basename $COMMAND)}
+
+case "$NAME" in shell|file)
+	CD=`xpwd`
+	if [ "$CD" = "$HOME" ]; then
+		CD=""
+	fi
+esac
+
+# new-session {{{
+if [ -n "${CD}" ]; then
+	case $NAME in
+		file)
+			SESSION_NAME=`tmux new-session -d -P $COMMAND $CD`
+			;;
+		*)
+			SESSION_NAME=`tmux new-session -d -P $COMMAND`
+			;;
+	esac
+else
+	case $NAME in
+		*)
+			SESSION_NAME=`tmux new-session -d -P $COMMAND`
+			;;
+	esac
+fi
+# }}}
+# send-keys {{{
+if [ -n "${CD}" ]; then
+	case $NAME in
+		shell)
+			tmux send-keys -t "$SESSION_NAME" "cd $CD" "Enter" "C-l"
+			;;
+	esac
+else
+	case $NAME in
+	esac
+fi
+# }}}
+# attach-session {{{
+$TERMINAL -c "$NAME" -e "tmux" "attach-session" -t "${SESSION_NAME}" &
+# }}}

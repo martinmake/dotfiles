@@ -1,0 +1,27 @@
+# header information {{{
+	set realname = "Товарищ Мартин Мирославович Михалец"
+	set from = "comrade-martin@kocmoc.party"
+# }}}
+# SMTP information {{{
+	set smtp_url = "smtp://comrade-martin@kocmoc.party@smtp.kocmoc.party:587"
+	set smtp_pass = `pass show "E-mail/$from"`
+# }}}
+# mailboxes {{{
+	set folder = "~/mail/$from/"
+	unmailboxes *
+	named-mailboxes \
+		"INBOX"   "+INBOX/"   \
+		"ARCHIVE" "+ARCHIVE/" \
+		"DRAFTS"  "+DRAFTS/"  \
+		"SENT"    "+SENT"     \
+		"TRASH"   "+TRASH/"   \
+		"JUNK"    "+JUNK/"
+	set spoolfile = "+INBOX/"
+	set record    = "+SENT/"
+	set postponed = "+DRAFTS/"
+	set trash     = "+TRASH/"
+# }}}
+
+set signature = "sign-mail default|"
+
+# vim: ft=muttrc

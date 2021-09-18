@@ -1,0 +1,146 @@
+#    ======================================================================
+#
+#
+#    ███╗   ███╗██████╗ ███████╗██╗   ██╗███╗   ██╗ ██████╗██████╗  ██████╗
+#    ████╗ ████║██╔══██╗██╔════╝╚██╗ ██╔╝████╗  ██║██╔════╝██╔══██╗██╔════╝
+#    ██╔████╔██║██████╔╝███████╗ ╚████╔╝ ██╔██╗ ██║██║     ██████╔╝██║
+#    ██║╚██╔╝██║██╔══██╗╚════██║  ╚██╔╝  ██║╚██╗██║██║     ██╔══██╗██║
+#    ██║ ╚═╝ ██║██████╔╝███████║   ██║   ██║ ╚████║╚██████╗██║  ██║╚██████╗
+#    ╚═╝     ╚═╝╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═══╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝
+#
+#
+#    ======================================================================
+
+# global settings {{{
+	Create Both
+	Expunge Both
+	SyncState *
+# }}}
+# accounts {{{
+	# martin@michalec.dev {{{
+		# IMAPStore {{{
+			IMAPStore                 martin@michalec.dev-IMAPStore
+			User                      martin@michalec.dev
+			PassCmd "pass show E-mail/martin@michalec.dev"
+			Host "imap.michalec.dev"
+			SSLType IMAPS
+			SSLVersions TLSv1.2
+			AuthMechs PLAIN
+		# }}}
+
+		# MaildirStore {{{
+			MaildirStore martin@michalec.dev-MaildirStore
+			Path  "~/mail/martin@michalec.dev/"
+			Inbox "~/mail/martin@michalec.dev/INBOX"
+			Subfolders Verbatim
+		# }}}
+
+		# Channel {{{
+			Channel martin@michalec.dev
+			Far    :martin@michalec.dev-IMAPStore:
+			Near   :martin@michalec.dev-MaildirStore:
+			Patterns *
+		# }}}
+	# }}}
+
+	# comrade-martin@kocmoc.party {{{
+		# IMAPStore {{{
+			IMAPStore                 comrade-martin@kocmoc.party-IMAPStore
+			User                      comrade-martin@kocmoc.party
+			PassCmd "pass show E-mail/comrade-martin@kocmoc.party"
+			Host "imap.kocmoc.party"
+			SSLType IMAPS
+			SSLVersions TLSv1.2
+			AuthMechs PLAIN
+		# }}}
+
+		# MaildirStore {{{
+			MaildirStore comrade-martin@kocmoc.party-MaildirStore
+			Path  "~/mail/comrade-martin@kocmoc.party/"
+			Inbox "~/mail/comrade-martin@kocmoc.party/INBOX"
+			Subfolders Verbatim
+		# }}}
+
+		# Channel {{{
+			Channel comrade-martin@kocmoc.party
+			Far    :comrade-martin@kocmoc.party-IMAPStore:
+			Near   :comrade-martin@kocmoc.party-MaildirStore:
+			Patterns *
+		# }}}
+	# }}}
+
+	# martin.michalec.2003@gmail.com {{{
+		# IMAPStore {{{
+			IMAPStore                 martin.michalec.2003@gmail.com-IMAPStore
+			User                      martin.michalec.2003@gmail.com
+			PassCmd "pass show E-mail/martin.michalec.2003@gmail.com"
+			Host imap.gmail.com
+			SSLType IMAPS
+			AuthMechs PLAIN
+		# }}}
+
+		# MaildirStore {{{
+			MaildirStore martin.michalec.2003@gmail.com-MaildirStore
+			Path  ~/mail/martin.michalec.2003@gmail.com/
+			Inbox ~/mail/martin.michalec.2003@gmail.com/Inbox
+			Subfolders Verbatim
+		# }}}
+
+		# Channel {{{
+			Channel martin.michalec.2003@gmail.com
+			Far    :martin.michalec.2003@gmail.com-IMAPStore:
+			Near   :martin.michalec.2003@gmail.com-MaildirStore:
+			Patterns *
+		# }}}
+	# }}}
+
+	# McMitarrr@gmail.com {{{
+		# IMAPStore {{{
+			IMAPStore                 McMitarrr@gmail.com-IMAPStore
+			User                      McMitarrr@gmail.com
+			PassCmd "pass show E-mail/McMitarrr@gmail.com"
+			Host imap.gmail.com
+			SSLType IMAPS
+			AuthMechs PLAIN
+		# }}}
+
+		# MaildirStore {{{
+			MaildirStore McMitarrr@gmail.com-MaildirStore
+			Path  ~/mail/McMitarrr@gmail.com/
+			Inbox ~/mail/McMitarrr@gmail.com/Inbox
+			Subfolders Verbatim
+		# }}}
+
+		# Channel {{{
+			Channel McMitarrr@gmail.com
+			Far    :McMitarrr@gmail.com-IMAPStore:
+			Near   :McMitarrr@gmail.com-MaildirStore:
+			Patterns *
+		# }}}
+	# }}}
+
+	# martin.michalec@spsjm.eu {{{
+		# IMAPStore {{{
+			IMAPStore                 martin.michalec@spsjm.eu-IMAPStore
+			User                      martin.michalec@spsjm.eu
+			PassCmd "pass show E-mail/martin.michalec@spsjm.eu"
+			Host imap.gmail.com
+			SSLType IMAPS
+			AuthMechs PLAIN
+		# }}}
+
+		# MaildirStore {{{
+			MaildirStore martin.michalec@spsjm.eu-MaildirStore
+			Path  ~/mail/martin.michalec@spsjm.eu/
+			Inbox ~/mail/martin.michalec@spsjm.eu/Inbox
+			Subfolders Verbatim
+		# }}}
+
+		# Channel {{{
+			Channel martin.michalec@spsjm.eu
+			Far    :martin.michalec@spsjm.eu-IMAPStore:
+			Near   :martin.michalec@spsjm.eu-MaildirStore:
+			Patterns *
+		# }}}
+	# }}}
+# }}}

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+pkill -f "mpv --no-osc $1" || mpv --no-osc $1

@@ -1,15 +1,15 @@
-;==========================================================
+;    =======================================================
 ;
 ;
-;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
-;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
-;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
-;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
-;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
-;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;    ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;    ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;    ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;    ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;    ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;    ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
 ;
 ;
-;==========================================================
+;    =======================================================
 
 [colors]
 black       = ${xrdb:color0: #000000}
@@ -28,10 +28,11 @@ blue        = ${xrdb:color12:#0000FF}
 magenta     = ${xrdb:color13:#FF00FF}
 cyan        = ${xrdb:color14:#00FFFF}
 white       = ${xrdb:color15:#FFFFFF}
-background  = ${xrdb:background:#000000}
-foreground  = ${xrdb:foreground:#ffffff}
 
-cursor = ${xrdb:cursorColor:#ffff00}
+background  = ${xrdb:background: #000000}
+foreground  = ${xrdb:foreground: #ffffff}
+cursor      = ${xrdb:cursorColor:#ffff00}
+
 alert = ${colors.red}
 foreground-inactive = ${colors.gray}
 
@@ -43,7 +44,6 @@ offset-x = 0%
 offset-y = 0%
 radius = 0.0
 fixed-center = true
-; separator = " | "
 separator = " "
 
 wm-restack = bspwm
@@ -79,17 +79,17 @@ scroll-down = bspwm-deskprev
 cursor-click = pointer
 cursor-scroll = ns-resize
 
-[bar/LVDS-1]
+[bar/LVDS1]
 inherit = bar/mechanical
-monitor = LVDS-1
+monitor = LVDS1
 
 modules-left = bspwm xkeyboard xbacklight volume xwindow
 modules-center = spotify
 modules-right = torrents packages memory cpu temperature battery filesystem wlan eth date
 
-[bar/VGA-1]
+[bar/VGA1]
 inherit = bar/mechanical
-monitor = VGA-1
+monitor = VGA1
 
 modules-left = bspwm xkeyboard volume xwindow
 modules-center = spotify
@@ -97,7 +97,7 @@ modules-right = torrents packages memory cpu temperature battery filesystem wlan
 
 [module/spotify]
 type = custom/script
-exec = polybar-spotify --playpause-font 6 --trunclen 100
+exec = polybar-spotify --playpause '⏸,▶' --playpause-font 6 --trunclen 100
 interval = 1
 format-underline = ${colors.green}
 click-left = playerctl play-pause
@@ -111,7 +111,7 @@ interval = 5000
 [module/packages]
 type = custom/script
 exec = ~/.local/bin/statusbar/packages
-interval = 30
+interval = 300
 format-underline = ${colors.yellow}
 click-left = $TERMINAL -e yay -Syu&
 
@@ -124,7 +124,7 @@ click-left = $TERMINAL -e tremc
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:7:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard

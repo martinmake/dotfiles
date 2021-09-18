@@ -1,5 +1,8 @@
+# Special
+neovim/**/tmp/
+
 # CMake build
-build
+build/
 
 # Compiled Object files
 *.slo
@@ -67,3 +70,6 @@ eagle.epf
 # Logs
 *.log
 *.logs
+
+# Other
+zsh/.config/zsh/.zcompdump*

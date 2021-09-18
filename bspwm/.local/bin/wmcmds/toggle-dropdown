@@ -6,13 +6,19 @@ NAME=${2:-$(basename $COMMAND)}
 if ! xdotool search --class "^dropdown_$NAME$"; then
 	if ! tmux list-sessions | grep "dropdown_$NAME"; then
 		tmux new-session -d -s "dropdown_$NAME" $COMMAND
+		case $NAME in
+			tmux)
+				tmux send-keys -t "dropdown_$NAME" "tmux set status on" "Enter" "C-l"
+				;;
+		esac
 	fi
-	$TERMINAL -c "dropdown_$NAME" -e "tmux" "attach-session" "-t" "dropdown_$NAME" &
 	case $NAME in
 		todoman)
-			tmux send-keys -t "dropdown_$NAME" "C-e" "C-u" "C-l" "list" "Enter"
+			tmux send-keys -t "dropdown_$NAME" "C-l" "list" "Enter"
+			tmux send-keys -t "dropdown_$NAME" -R
 			;;
 	esac
+	$TERMINAL -c "dropdown_$NAME" -e "tmux" "attach-session" "-t" "dropdown_$NAME" &
 else
 	WINDOWID="$(xdotool search --class "^dropdown_$NAME$" | tail -n 1)"
 	if   bspc query -N -n "$WINDOWID.hidden" \

@@ -7,14 +7,20 @@ notify-send '🔄 SYNCHRONIZING ADDRESS BOOK'
 vdirsyncer discover
 vdirsyncer sync
 vdirsyncer metasync
-TEMPFILE=$(tempname $(basename $0))
-cat /dev/null $(find $XDG_DATA_HOME/contacts/personal/ -type f -name '*.vcf') >> $TEMPFILE
-cat /dev/null $(find $XDG_DATA_HOME/contacts/school/   -type f -name '*.vcf') >> $TEMPFILE
-mv $HOME/.abook/addressbook $HOME/.abook/addressbook~
-abook --convert --infile "$TEMPFILE" --informat vcard --outfile $HOME/.abook/addressbook --outformat abook
-rm $TEMPFILE
+mv "$XDG_DATA_HOME/abook/addressbook" "$XDG_DATA_HOME/abook/addressbook~"
+i=0
+IFS="
+"
+for entry in $(khard email | tail -n+2 | sed -e 's/  \+/\|/g' -e 's/.$//'); do
+	IFS='|' read name type email <<< $entry
+	echo -e "[$i]\nname=$name\nemail=$email" >> "$XDG_DATA_HOME/abook/addressbook"
+	i=$((i+1))
+done
 
-# mail
 notify-send '🔄 SYNCHRONIZING MAIL'
+sync-mail
+
+notify-send '🔄 SYNCHRONIZING NOTES
+joplin sync
 
 notify-send '✔ FINISHED SYNCHRONIZING'

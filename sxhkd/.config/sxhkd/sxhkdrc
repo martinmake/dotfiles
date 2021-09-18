@@ -1,27 +1,36 @@
-# ███████╗██╗  ██╗██╗  ██╗██╗  ██╗██████╗ ██████╗  ██████╗
-# ██╔════╝╚██╗██╔╝██║  ██║██║ ██╔╝██╔══██╗██╔══██╗██╔════╝
-# ███████╗ ╚███╔╝ ███████║█████╔╝ ██║  ██║██████╔╝██║
-# ╚════██║ ██╔██╗ ██╔══██║██╔═██╗ ██║  ██║██╔══██╗██║
-# ███████║██╔╝ ██╗██║  ██║██║  ██╗██████╔╝██║  ██║╚██████╗
-# ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝
+#    ========================================================
 #
-# the Simple X HotKey Daemon Runtime Configuration
+#
+#    ███████╗██╗  ██╗██╗  ██╗██╗  ██╗██████╗ ██████╗  ██████╗
+#    ██╔════╝╚██╗██╔╝██║  ██║██║ ██╔╝██╔══██╗██╔══██╗██╔════╝
+#    ███████╗ ╚███╔╝ ███████║█████╔╝ ██║  ██║██████╔╝██║
+#    ╚════██║ ██╔██╗ ██╔══██║██╔═██╗ ██║  ██║██╔══██╗██║
+#    ███████║██╔╝ ██╗██║  ██║██║  ██╗██████╔╝██║  ██║╚██████╗
+#    ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝
+#
+#
+#    ========================================================
+#        the Simple X HotKey Daemon Runtime Configuration
 
 # Basic binds
 super + Return
-	spawn-preloaded "$SHELL" shell
+	spawn-terminal "$SHELL" shell
 super + shift + Return
-	$TERMINAL
+	 $TERMINAL
 super + {d,D}
 	{dmenu_run,j4-dmenu-desktop}
 super + r
-	spawn-preloaded "$FILE" file
+	spawn-terminal "$FILE" file
 super + p
-	passmenu --type
-# super + P
-# 	open-paper
+	namemenu --type -l 20
+super + P
+	passmenu --type -l 20
 super + m
+	toggle-dropdown "$MESSENGER" messenger
+super + shift + m
 	toggle-dropdown "$MAIL" mail
+super + n
+	toggle-dropdown "$NOTES" notes
 super + shift + n
 	toggle-dropdown "$NEWS" news
 super + c
@@ -31,11 +40,11 @@ super + shift + c
 super + shift + p
 	toggle-dropdown "$CALCULATOR" calculator
 super + t
-	toggle-dropdown "$TODOMAN" todoman
+	toggle-dropdown "$SHELL" tmux
 super + shift + t
-	toggle-dropdown "$TMUX" tmux
-super + n
-	toggle-dropdown "$NOTES" notes
+	toggle-dropdown "$TODOMAN" todoman
+super + v
+	toggle-webcamcorder
 Alt_R
 	toggle-compositor
 button2
@@ -54,6 +63,10 @@ super + w
 	$BROWSER
 super + shift + w
 	toggle-dropdown "$NETWORK" network
+super + shift + s
+	toggle-screenkey
+super + z
+	boomer
 
 # Et cetera...
 super + grave

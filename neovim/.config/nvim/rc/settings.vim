@@ -1,30 +1,16 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sections:
-"    -> enable filetype plugins
-"    -> set folding
-"    -> extern vimrc's
-"    -> persistent undo
-"    -> qf windows
-"    -> define xtabedit
-"    -> [Command Lines]
-"    -> clipboard copy/paste
-"    -> remove the Windows ^M - when the encodings gets messed up
-"    -> wildignore
-"    -> use Unix as the standard file type
-"    -> set numbers
-"    -> set par as vim formatter
-"    -> set . to always work via normal mode
-"    -> visual @
-"    -> treat long lines as break lines
-"    -> remember info about open buffers on close
-"    -> remember info about open buffers on close
-"    -> delete trailing white space on save,
-"    -> neovim defaults
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 let g:python3_host_prog='/usr/bin/python'
 let g:loaded_ruby_provider=0
+
+" disable some default plugins {{{
+	let g:loaded_2html_plugin    = 1
+	let g:loaded_netrw           = 1
+	let g:loaded_netrwPlugin     = 1
+	let g:loaded_getscriptPlugin = 1
+	let g:loaded_logipat         = 1
+	let g:loaded_rrhelper        = 1
+	let g:loaded_vimballPlugin   = 1
+	let g:python_host_skip_check = 1
+" }}}
 
 " spelling
 	set spellfile=$XDG_CONFIG_HOME/nvim/spell/en.utf-8.add
@@ -190,3 +176,4 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 
 let g:completion_matching_strategy_list = [ 'exact', 'substring', 'fuzzy' ]
 
+let g:largefile_trigger_size=0.5

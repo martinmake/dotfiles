@@ -1,25 +1,29 @@
 #!/usr/bin/env sh
 
-# ██████╗ ███████╗██████╗ ██╗    ██╗███╗   ███╗██████╗  ██████╗
-# ██╔══██╗██╔════╝██╔══██╗██║    ██║████╗ ████║██╔══██╗██╔════╝
-# ██████╔╝███████╗██████╔╝██║ █╗ ██║██╔████╔██║██████╔╝██║
-# ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║██╔══██╗██║
-# ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║██║  ██║╚██████╗
-# ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
+#    =============================================================
+#
+#
+#    ██████╗ ███████╗██████╗ ██╗    ██╗███╗   ███╗██████╗  ██████╗
+#    ██╔══██╗██╔════╝██╔══██╗██║    ██║████╗ ████║██╔══██╗██╔════╝
+#    ██████╔╝███████╗██████╔╝██║ █╗ ██║██╔████╔██║██████╔╝██║
+#    ██╔══██╗╚════██║██╔═══╝ ██║███╗██║██║╚██╔╝██║██╔══██╗██║
+#    ██████╔╝███████║██║     ╚███╔███╔╝██║ ╚═╝ ██║██║  ██║╚██████╗
+#    ╚═════╝ ╚══════╝╚═╝      ╚══╝╚══╝ ╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
+#
+#
+#    =============================================================
 
 xsetroot -cursor_name left_ptr
 
-if bspc query --monitors --names | grep VGA-1 >/dev/null; then
-	xrandr --output VGA-1  --auto --scale 1.0x1.0 --rotate normal --primary \
-	       --output LVDS-1 --auto --scale 1.0x1.0 --rotate normal --below VGA-1
-	bspc monitor VGA-1  -d 1 2 3 4 5 6 7 8 9
-	bspc monitor LVDS-1 -d 0 H
+if bspc query --monitors --names | grep VGA1 >/dev/null; then
+	xrandr --output VGA1  --auto --scale 1.0x1.0 --rotate right  --primary \
+	       --output LVDS1 --auto --scale 1.0x1.0 --rotate normal --below VGA1
+	bspc monitor VGA1  -d 1 2 3 4 5 6 7 8 9
+	bspc monitor LVDS1 -d 0
 else
-	xrandr --output LVDS-1 --auto --scale 1.0x1.0 --rotate normal --primary
-	bspc monitor -d 1 2 3 4 5 6 7 8 9 0 H
+	xrandr --output LVDS1 --auto --scale 1.0x1.0 --rotate normal --primary
+	bspc monitor -d 1 2 3 4 5 6 7 8 9 0
 fi
-
-bspc desktop H --layout monocle
 
 # If refreshing bspwm, remove all previous rules to prevent doubling up.
 bspc rule -r "*"
@@ -74,7 +78,7 @@ bspc rule -r "*"
 		pointer_action2=none
 		pointer_action3=resize_corner
 # 			Action performed when pressing pointer_modifier + button<n>. Accept the following values: move, resize_side, resize_corner, focus, none.
-		click_to_focus=false
+		click_to_focus=button1
 # 			Button used for focusing a window (or a monitor). The possible values are: button1, button2, button3, any, none. Defaults to button1.
 		swallow_first_click=false
 # 			Don’t replay the click that makes a window focused if click_to_focus isn’t none.
@@ -172,11 +176,15 @@ setbg                                               & # set the background with 
 [ ! "$(pgrep dunst    )" ] && dunst                 & # dunst for notifications
 [ ! "$(pgrep unclutter)" ] && unclutter --timeout 1 & # Remove xcursor when idle
 launch-polybar                                      & # status bar
+clipmenud                                           & # clipboard storage
 
 # border=off => use startup rules
 # bspc rule --add 'discord'       --one-shot "border=off" && bspc rule --add 'discord' --one-shot "border=off" && discord            &
 # bspc rule --add 'Pidgin'        --one-shot "border=off" && bspc rule --add 'Pidgin'  --one-shot "border=off" && pidgin             &
 # bspc rule --add 'Brave-browser' --one-shot "border=off" &&                                                      brave              &
 # bspc rule --add '*:surf'        --one-shot "border=off" &&                                                      $BROWSER           &
-bspc rule --add '*'             --one-shot "border=off" &&                                                      gtk-launch spotify &
+bspc desktop --focus 3                          && spawn-terminal "$SHELL" shell &
+bspc rule --add 'GOTOP' --one-shot "border=off" && st -c GOTOP gotop             &
+sleep 1
+bspc rule --add '*'     --one-shot "border=off" && gtk-launch spotify            &
 # }}}

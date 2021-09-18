@@ -22,52 +22,9 @@ let mapleader=" "
 let g:mapleader=" "
 let g:maplocalleader=" "
 
-" General
-" if &clipboard[:10] == 'unnamedplus'
-
-"           \ ':<c-u>silent! call EasyClip#Paste#PasteTextVisualMode(''+'',1)<CR>'
-"     xnoremap <silent> <expr> P
-"           \ ':<c-u>silent! call EasyClip#Paste#PasteTextVisualMode(''+'',1)<CR>'
-"     nnoremap <silent> s :<c-u>silent! call EasyClip#Substitute#OnPreSubstitute('+', 1)<CR>:silent! set opfunc=EasyClip#Substitute#SubstituteMotion<CR>g@
-"     nnoremap <silent> S :<c-u>silent! call EasyClip#Substitute#SubstituteLine('+', 1)<CR>:silent! call repeat#set("\<plug>SubstituteLine")<CR>
-" else
-"     if &clipboard[:6] == 'unnamed'
-"         xnoremap <silent> <expr> p
-"               \ ':<c-u>silent! call EasyClip#Paste#PasteTextVisualMode(''*'',1)<CR>'
-"         xnoremap <silent> <expr> P
-"               \ ':<c-u>silent! call EasyClip#Paste#PasteTextVisualMode(''*'',1)<CR>'
-"         nnoremap <silent> s :<c-u>silent! call EasyClip#Substitute#OnPreSubstitute('*', 1)<CR>:silent! set opfunc=EasyClip#Substitute#SubstituteMotion<CR>g@
-"         nnoremap <silent> S :<c-u>silent! call EasyClip#Substitute#SubstituteLine('*', 1)<CR>:silent! call repeat#set("\<plug>SubstituteLine")<CR>
-"     else
-"         xnoremap <silent> <expr> p
-"               \ ':<c-u>silent! call EasyClip#Paste#PasteTextVisualMode(''"'',1)<CR>'
-"         xnoremap <silent> <expr> P
-"               \ ':<c-u>silent! call EasyClip#Paste#PasteTextVisualMode(''"'',1)<CR>'
-"         nnoremap <silent> s :<c-u>silent! call EasyClip#Substitute#OnPreSubstitute('"', 1)<CR>:silent! set opfunc=EasyClip#Substitute#SubstituteMotion<CR>g@
-"         nnoremap <silent> S :<c-u>silent! call EasyClip#Substitute#SubstituteLine('"', 1)<CR>:silent! call repeat#set("\<plug>SubstituteLine")<CR>
-"     endif
-" endif
-
-" nmap <c-n> <plug>EasyClipSwapPasteForward
-" nmap <c-p> <plug>EasyClipSwapPasteBackwards
-
-" nmap yc <Plug>(Exchange)
-" xmap X <Plug>(Exchange)
-" nmap ycc <Plug>(ExchangeClear)
-" nmap ycs <Plug>(ExchangeLine)
-" nmap d<leader>l <plug>(easyoperator-line-delete)
-" nmap y<leader>l <plug>(easyoperator-line-yank)
-" nmap c<leader>l <plug>(easyoperator-line-cut)
-" nmap s<leader>l <plug>(easyoperator-line-substitute)
-
-" omap <leader>l  <plug>(easyoperator-line-select)
-" xmap <leader>l  <plug>(easyoperator-line-select)
-
-
 " Appearance
 nmap <silent> <leader>za :set foldenable!<CR>
 nmap <ESC> :nohlsearch<CR>
-
 
 " Filesystem and code navigation
 " nnoremap <leader>jp g]
@@ -89,7 +46,7 @@ endif
 
 nmap <silent> <leader>en :call EnMasse()<CR>
 
-map <leader>cd :cd %:p:h<CR>:pwd<CR>
+map gcd :cd %:p:h<CR>:pwd<CR>
 map <silent> <leader>te :call helpers#call_from_last_root_dir('FZF')<CR>
 
 map <silent> <Leader>rf :call rtags#FindRefs()<CR>
@@ -162,8 +119,8 @@ nmap <silent> <leader>ux mmHmt:%s/<c-V><CR>//ge<CR>:retab<CR>'tzt'm
 
 nnoremap <silent> <C-d> <cmd>lua vim.lsp.buf.definition()<CR>
 " nnoremap <silent> <C-h> <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <leader>sr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <leader>ss <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <leader>Sr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <leader>Ss <cmd>lua vim.lsp.buf.document_symbol()<CR>
 
 " Folding setup:
 	nnoremap <leader><leader> za
@@ -188,8 +145,8 @@ nnoremap <silent> <leader>ss <cmd>lua vim.lsp.buf.document_symbol()<CR>
 	endfunction
 
 " commenting
-	nmap <C-C> gcc
-	vmap <C-C> gc
+	nmap <C-c> gcc
+	vmap <C-c> gc<ESC>
 
 " repeat motion with f and t
 	nnoremap ; <NOP>
@@ -212,6 +169,9 @@ xnoremap <silent> @ :<C-u>call ExecuteMacroOverVisualRange()<cr>
 	nnoremap j gj
 	nnoremap k gk
 
+	nnoremap Q gq
+	vnoremap Q gq
+
 " reasonable mappings to open paths
 	nnoremap <C-W>gf gf
 	nnoremap gf <C-W>gf
@@ -227,27 +187,26 @@ augroup command_line | au!
 augroup END
 
 " reasonable mappings to move between windows
-	tnoremap <ESC> <C-\><C-N>
-	tnoremap <C-W>h <C-\><C-N><C-W>h
-	tnoremap <C-W>j <C-\><C-N><C-W>j
-	tnoremap <C-W>k <C-\><C-N><C-W>k
-	tnoremap <C-W>l <C-\><C-N><C-W>l
-	tmap <C-H> <C-W>h
-	tmap <C-J> <C-W>j
-	tmap <C-K> <C-W>k
-	tmap <C-L> <C-W>l
-	nnoremap <C-H> <C-W>h
-	nnoremap <C-J> <C-W>j
-	nnoremap <C-K> <C-W>k
-	nnoremap <C-L> <C-W>l
+	" tnoremap <ESC> <C-\><C-n>
+	tnoremap <C-w>h <C-\><C-n><C-w>h
+	tnoremap <C-w>j <C-\><C-n><C-w>j
+	tnoremap <C-w>k <C-\><C-n><C-w>k
+	tnoremap <C-w>l <C-\><C-n><C-w>l
+	tmap <C-h> <C-w>h
+	tmap <C-j> <C-w>j
+	tmap <C-k> <C-w>k
+	tmap <C-l> <C-w>l
+	nnoremap <C-h> <C-w>h
+	nnoremap <C-j> <C-w>j
+	nnoremap <C-k> <C-w>k
+	nnoremap <C-l> <C-w>l
 
 " toggle line wrap
 	nnoremap <silent> <leader>lw :set wrap!<CR>
 
 " substitute
-	nnoremap S :%s//gc<LEFT><LEFT><LEFT>
-	vnoremap S :s//gc<LEFT><LEFT><LEFT>
-	vnoremap s "hy:%s/<C-r>h//gc<LEFT><LEFT><LEFT>
+	vnoremap si :s//gc<LEFT><LEFT><LEFT>
+	vnoremap ss "hy:%s/<C-r>h//gc<LEFT><LEFT><LEFT>
 
 " search setup:
 	vmap <Plug>N N
@@ -289,7 +248,7 @@ augroup END
 	nmap <silent> <leader>mt :wa! \| !clear; ctags --exclude=.git --exclude='*.log' -R * <CR>
 
 " Check file in shellcheck:
-	nmap <leader>sc :wa! \| !shellcheck %<CR>
+	" nmap <leader>shc :wa! \| !shellcheck %<CR>
 
 " Makefile setup:
 	nmap <silent> <leader>ma :wa! \| !clear; time make<CR>
@@ -300,8 +259,6 @@ augroup END
 
 " git setup:
 	nmap <silent> <leader>gs  :gstatus<CR>
-" 	nmap <silent> <leader>gpl :gstatus<CR>
-" 	nmap <silent> <leader>gps :gstatus<CR>
 
 " Open corresponding .pdf/.html or preview
 	nmap <silent> <leader>p :!opout <c-r>%<CR><CR>
@@ -318,3 +275,70 @@ augroup END
 			%!xxd
 		endif
 	endfunction
+
+" ib = inner buffer
+onoremap ib :exec "normal! ggVG"<cr>
+" iv = current viewable text in the buffer
+onoremap iv :exec "normal! HVL"<cr>
+
+" reasonable
+nnoremap Y y$
+
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : "") . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : "") . 'j'
+
+nnoremap <silent> <M-S-h> @='xhP'<CR>
+nnoremap <silent> <M-S-j> :m .+1<CR>
+nnoremap <silent> <M-S-k> :m .-2<CR>
+nnoremap <silent> <M-S-l> @='xp'<CR>
+
+vnoremap <silent> <M-S-h> @='xhPgvhoho'<CR>
+vnoremap <silent> <M-S-j> :m '>+1<CR>gv
+vnoremap <silent> <M-S-k> :m '<-2<CR>gv
+vnoremap <silent> <M-S-l> @='xpgvolol'<CR>
+
+inoremap <silent> <M-S-j> <C-o>:m .+1<CR>
+inoremap <silent> <M-S-k> <C-o>:m .-2<CR>
+
+inoremap  ,  ,<c-g>u
+inoremap  .  .<c-g>u
+inoremap  !  !<c-g>u
+inoremap  ?  ?<c-g>u
+inoremap  (  (<c-g>u
+inoremap  )  )<c-g>u
+inoremap  [  [<c-g>u
+inoremap  ]  ]<c-g>u
+inoremap  {  {<c-g>u
+inoremap  }  }<c-g>u
+inoremap  <  <<c-g>u
+inoremap  >  ><c-g>u
+inoremap  "  "<c-g>u
+inoremap  '  '<c-g>u
+inoremap  `  `<c-g>u
+inoremap  +  +<c-g>u
+inoremap  -  -<c-g>u
+inoremap  *  *<c-g>u
+inoremap  /  /<c-g>u
+inoremap  %  %<c-g>u
+inoremap  =  =<c-g>u
+inoremap \| \|<c-g>u
+inoremap  &  &<c-g>u
+inoremap  ^  ^<c-g>u
+inoremap  @  @<c-g>u
+inoremap  ~  ~<c-g>u
+inoremap  $  $<c-g>u
+inoremap  #  #<c-g>u
+inoremap  ;  ;<c-g>u
+inoremap  :  :<c-g>u
+
+nnoremap <silent> <leader>co <CMD>copen<CR>
+nnoremap <silent> <leader>cc <CMD>cclose<CR>
+nnoremap <silent> <leader>cn <CMD>cnext<CR>
+nnoremap <silent> <leader>cp <CMD>cprev<CR>
+nnoremap <silent> <leader>lo <CMD>lopen<CR>
+nnoremap <silent> <leader>lc <CMD>lclose<CR>
+nnoremap <silent> <leader>ln <CMD>lnext<CR>
+nnoremap <silent> <leader>lp <CMD>lprev<CR>

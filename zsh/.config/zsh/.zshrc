@@ -1,50 +1,53 @@
-source /usr/share/zsh/scripts/zplug/init.zsh
+# vi mode
+bindkey -v
+export KEYTIMEOUT=1
 
 MAGIC_ENTER_GIT_COMMAND='git status -u .'
-MAGIC_ENTER_OTHER_COMMAND='l . && echo'
-plugins+=(z git ufw npm node)
-plugins+=(compleat)
-plugins+=(magic-enter)
-plugins+=(you-should-use)
-plugins+=(autoswitch_virtualenv)
-plugins+=(history-search-multi-word)
-plugins+=(zsh-interactive-cd)
-plugins+=(zsh-navigation-tools)
-plugins+=(zsh-syntax-highlighting-filetypes)
-plugins+=(insulter)
+MAGIC_ENTER_OTHER_COMMAND='l'
 
 export ZSH_CUSTOM=$ZDOTDIR/custom
-source /usr/share/oh-my-zsh/oh-my-zsh.sh
+
+source $ZSH_CUSTOM/plugins/zsh-z/zsh-z.plugin.zsh
+
+source $ZSH_CUSTOM/plugins/insulter/insulter.plugin.zsh
+source $ZSH_CUSTOM/plugins/magic-enter/magic-enter.plugin.zsh
+
+source $ZSH_CUSTOM/plugins/you-should-use/you-should-use.plugin.zsh
+source $ZSH_CUSTOM/plugins/autoswitch-virtualenv/autoswitch_virtualenv.plugin.zsh
+
+source $ZSH_CUSTOM/plugins/fzf-tab/fzf-tab.zsh
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# switch group using `,` and `.`
+zstyle ':fzf-tab:*' switch-group ',' '.'
+zstyle ':fzf-tab:complete:*' fzf-preview 'bat -f $realpath 2>/dev/null || lsd -1 --color=always $realpath'
+# preview directory's content with lsd when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
+# give a preview of commandline arguments when completing `kill`
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USER -o pid,user,comm -w -w"
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
+zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:wrap
+
 
 # Basic auto/tab complete:
-autoload -U compinit
+autoload -Uz compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots) # Include hidden files.
 
-ZSH_SYSTEM_CLIPBOARD_TMUX_SUPPORT='true'
-ZSH_SYSTEM_CLIPBOARD_SELECTION='CLIPBOARD'
-zplug "kutsan/zsh-system-clipboard"
-zplug load
+export FZF_COMPLETION_TRIGGER='**'
 
-# BROKEN 4ME ATM
-# EASY_MOTION_TARGET_KEYS="asdghklqwertyuiopzxcvbnmfj;"
-# EASY_MOTION_DIM="fg=245"
-# EASY_MOTION_HIGHLIGHT="fg=196,bold"
-# EASY_MOTION_HIGHLIGHT_2_FIRST="fg=#ffb400,bold"
-# EASY_MOTION_HIGHLIGHT_2_SECOND="fg=#b98300,bold"
-# bindkey -M vicmd ' ' vi-easy-motion
-# zplug "IngoMeyer441/zsh-easy-motion"
-# zplug load
+source $ZSH_CUSTOM/plugins/vim-mode/zsh-vim-mode.plugin.zsh
+source $ZSH_CUSTOM/plugins/vi-increment/vi-increment.plugin.zsh
 
-zplug "softmoth/zsh-vim-mode"
-zplug "zsh-vi-more/vi-increment"
+source $ZSH_CUSTOM/plugins/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug load
-
-zplug "hlissner/zsh-autopair", defer:2
+source $ZSH_CUSTOM/plugins/autopair/autopair.plugin.zsh
 
 ZSH_AUTOSUGGEST_USE_ASYNC='true'
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
@@ -56,9 +59,9 @@ ZSH_AUTOSUGGEST_IGNORE_WIDGETS=(
 	which-command
 	yank
 	yank-pop
-# 	zle-\* # breaks with zsh-syntax-highlighting
+	# zle-\* # breaks with zsh-syntax-highlighting
 )
-zplug "zsh-users/zsh-autosuggestions"
+source $ZSH_CUSTOM/plugins/autosuggestions/zsh-autosuggestions.plugin.zsh
 
 FG_DARK_BLACK='[30m'
 FG_DARK_RED='[31m'
@@ -283,7 +286,7 @@ prompt_virtualenv()
 		else
 			local NAME=$(basename $VIRTUAL_ENV)
 		fi
-		printf "%%{$FG_RED%%}%s"      "-{"
+		printf "%%{$FG_RED%%}%s"      "{"
 		printf "%%{$FG_WHITE%%}%s" "$NAME"
 		printf "%%{$FG_RED%%}%s"      "}"
 	fi
@@ -378,23 +381,19 @@ PS1='$(prompt)'
 HISTFILE=~/.cache/zsh/history
 HISTSIZE=10000000000
 SAVEHIST=10000000000
-setopt BANG_HIST              # Treat the '!' character specially during expansion.
-setopt EXTENDED_HISTORY       # Write the history file in the ":start:elapsed;command" format.
-setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
-setopt SHARE_HISTORY          # Share history between all sessions.
-setopt HIST_EXPIRE_DUPS_FIRST # Expire duplicate entries first when trimming history.
-setopt HIST_IGNORE_DUPS       # Don't record an entry that was just recorded again.
-setopt HIST_IGNORE_ALL_DUPS   # Delete old recorded entry if new entry is a duplicate.
-setopt HIST_FIND_NO_DUPS      # Do not display a line previously found.
-setopt HIST_IGNORE_SPACE      # Don't record an entry starting with a space.
-setopt HIST_SAVE_NO_DUPS      # Don't write duplicate entries in the history file.
-setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks before recording entry.
-setopt HIST_VERIFY            # Don't execute immediately upon history expansion.
-setopt HIST_BEEP              # Beep when accessing nonexistent history.
-
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
+  setopt BANG_HIST              # Treat the '!' character specially during expansion.
+  setopt EXTENDED_HISTORY       # Write the history file in the ":start:elapsed;command" format.
+  setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
+unsetopt SHARE_HISTORY          # Share history between all sessions.
+  setopt HIST_EXPIRE_DUPS_FIRST # Expire duplicate entries first when trimming history.
+  setopt HIST_IGNORE_DUPS       # Don't record an entry that was just recorded again.
+  setopt HIST_IGNORE_ALL_DUPS   # Delete old recorded entry if new entry is a duplicate.
+  setopt HIST_FIND_NO_DUPS      # Do not display a line previously found.
+  setopt HIST_IGNORE_SPACE      # Don't record an entry starting with a space.
+  setopt HIST_SAVE_NO_DUPS      # Don't write duplicate entries in the history file.
+  setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks before recording entry.
+  setopt HIST_VERIFY            # Don't execute immediately upon history expansion.
+  setopt HIST_BEEP              # Beep when accessing nonexistent history.
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -456,4 +455,17 @@ stty -ixon # Disable ctrl-s and ctrl-q.
 [ -f "$XDG_CONFIG_HOME/shortcutrc" ] && source "$XDG_CONFIG_HOME/shortcutrc"
 [ -f "$XDG_CONFIG_HOME/aliasrc"    ] && source "$XDG_CONFIG_HOME/aliasrc"
 
-zplug load
+source $ZSH_CUSTOM/plugins/history-search-multi-word/history-search-multi-word.plugin.zsh
+zstyle :plugin:history-search-multi-word reset-prompt-protect 1
+
+ZSH_SYSTEM_CLIPBOARD_TMUX_SUPPORT='true'
+ZSH_SYSTEM_CLIPBOARD_SELECTION='CLIPBOARD'
+source $ZSH_CUSTOM/plugins/system-clipboard/zsh-system-clipboard.plugin.zsh
+
+# EASY_MOTION_TARGET_KEYS="asdghklqwertyuiopzxcvbnmfj;"
+# EASY_MOTION_DIM="fg=245"
+# EASY_MOTION_HIGHLIGHT="fg=196,bold"
+# EASY_MOTION_HIGHLIGHT_2_FIRST="fg=#ffb400,bold"
+# EASY_MOTION_HIGHLIGHT_2_SECOND="fg=#b98300,bold"
+# bindkey -M vicmd ' ' vi-easy-motion
+# source $ZSH_CUSTOM/plugins/easy-motion/easy_motion.plugin.zsh # breaks zsh-system-clipboard

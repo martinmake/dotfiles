@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
 xlock
-echo -n disk >/sys/power/state
+sudo systemctl suspend

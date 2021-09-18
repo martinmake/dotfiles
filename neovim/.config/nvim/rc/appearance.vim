@@ -48,8 +48,12 @@ endif
 	set relativenumber
 
 " Show cursor cross
-	set cursorline
-	set cursorcolumn
+set cursorline cursorcolumn
+augroup CursorCross
+	autocmd!
+	autocmd WinEnter * set   cursorline   cursorcolumn
+	autocmd WinLeave * set nocursorline nocursorcolumn
+augroup END
 
 " search
 	set hlsearch

@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+killall screenkey || screenkey \
+	--mouse \
+	--compr-cnt 3 \
+	--no-systray \
+	--timeout 2 \
+	--font-size small \
+	--key-mode translated \
+	--bak-mode normal \
+	--mods-mode emacs \
+	--vis-shift \
+	--scr 1 \
+	--font Monospace \
+	--font-color red \
+	--bg-color black \
+	--opacity 1.0

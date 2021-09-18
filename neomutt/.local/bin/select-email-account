@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+ACCOUNT_DIR="$XDG_CONFIG_HOME/mutt/accounts/"
+
+cat "$ACCOUNT_DIR/$(ls $ACCOUNT_DIR | fzf --preview="bat -f $ACCOUNT_DIR/{}")"

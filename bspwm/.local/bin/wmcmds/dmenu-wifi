@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+# WIP!
+
+SSID=$((wpa_cli scan && wpa_cli scan_result) | tail -n+5 | cut -f5 | dmenu)
+PASSWORD=$(dmenupass "PASSWORD:")
+
+wpa_passphrase "${SSID}" "${PASSWORD}" >> /etc/wpa_supplicant/wpa_supplicant.conf
