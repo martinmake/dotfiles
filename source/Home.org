@@ -1,0 +1,410 @@
+#+TITLE: Home Setup
+#+AUTHOR: Comrade Martin Miroslavovich Michalec
+#+EMAIL: Martin@Michalec.dev
+
+#+STARTUP: overview
+#+PROPERTY: header-args          :tangle-mode (identity #o444) :mkdirp yes
+#+PROPERTY: header-args:shell    :tangle-mode (identity #o555) :mkdirp yes :shebang "#!/bin/sh"
+#+PROPERTY: header-args:makefile :tangle-mode (identity #o444) :mkdirp yes :tangle ../script/10-Home.makefile
+
+* Shell Utilities
+
+~~/dotfiles/script/utilities.sh~:
+
+#+BEGIN_SRC shell :tangle-mode (identity #o444) :tangle ../script/utilities.sh
+
+  RED='\033[1;31m'
+  GREEN='\033[1;32m'
+  BLUE='\033[1;34m'
+  RESET='\033[0m'
+
+  GOOD="${GREEN}[+]${RESET}"
+  NEUTRAL="${BLUE}[*]${RESET}"
+  BAD="${RED}[-]${RESET}"
+
+  GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles/
+  MANIFEST_DIRECTORY=$HOME/.config/guix/manifests/
+
+#+END_SRC
+
+* Dotfiles Management
+
+Since configuration files are generated from =Org= code blocks, we have
+to make sure they are up to date after pulling.
+
+#+begin_src makefile
+
+.PHONY: all
+all: | sync build link update ## In order: @sync @build @link @update.
+
+#+end_src
+
+** Syncing
+
+When pulling remote dotfiles to local clone, we make sure that all Org
+files are saved in the running Emacs instance and then stash
+everything before pulling. After pulling, we pop the stash and deal
+with any merge conflicts from the stash before generating dotfiles.
+
+This gets simplified to:
+
+1. run ~dotfiles-sync~,
+2. deal with merge conflicts,
+3. run ~dotfiles-build~.
+3. run ~dotfiles-refresh~.
+
+#+begin_src makefile
+
+.PHONY: sync
+sync: ## Sync files from remote.
+	@./script/dotfiles-sync
+
+#+end_src
+
+~~/dotfiles/script/dotfiles-sync~:
+
+#+begin_src shell :tangle ../script/dotfiles-sync
+
+  cd $HOME/dotfiles
+  source ./script/utilities.sh
+
+  echo -e "${NEUTRAL} Saving Org buffers..."
+  emacsclient -u -e "(org-save-all-buffers)" \
+      -a "echo -e ${GOOD} Emacs is not running, no buffers to save." \
+      && echo -e "${GOOD} Saved Org buffers." \
+      || echo -e "${BAD} Unable to save Org buffers!" \
+
+  echo -e "${NEUTRAL} Stashing local chages..."
+  stash_result=$(git stash push -m "sync-dotfiles: Before syncing dotfiles")
+  needs_pop=1
+  if [ "$stash_result" = "No local changes to save" ]; then
+      echo -e "${GOOD} No local chages to stash."
+      needs_pop=0
+  else
+      echo -e "${GOOD} Stashed local changes."
+  fi
+
+  echo -e "${NEUTRAL} Pulling updates from remote..."
+  git pull origin master
+
+  if [ $needs_pop -eq 1 ]; then
+      echo -e "${NEUTRAL} Popping stashed changes..."
+      git stash pop
+  fi
+
+  echo -e "${NEUTRAL} Checking for merge conflicts..."
+  unmerged_files=$(git diff --name-only --diff-filter=U)
+  if [ $unmerged_files ]; then
+      echo -e "${BAD} The following files have merge conflicts!"
+      echo $unmerged_files
+      exit 1
+  else
+      echo -e "${GOOD} No merge conflicts."
+      exit 0
+  fi
+
+#+end_src
+
+** Building
+
+We ~org-babel-tangle-file~ every ~.org~ file and run every executable
+in ~./source/~ directory.
+
+#+begin_src makefile
+
+.PHONY: build
+build: ## Build files from source directory into build directory.
+	@./script/dotfiles-build
+
+.PHONY: rebuild
+rebuild: | clean build link ## @clean, @build, @link
+
+#+end_src
+
+~~/dotfiles/script/dotfiles-build~:
+
+#+begin_src shell :tangle ../script/dotfiles-build
+
+  cd $HOME/dotfiles
+  source ./script/utilities.sh
+
+  echo -e "${NEUTRAL} Tangling all org files..."
+  emacs -Q --script ./script/dotfiles-tangle.el \
+      && echo -e "${GOOD} Successfully tangled all source files." \
+      || echo -e "${BAD} Unable to tangle all source files!"
+
+  echo -e "${NEUTRAL} Running all executables..."
+  for file in ./source/*; do
+      if [ -x $file ]; then
+          $file
+      fi
+  done
+
+#+end_src
+
+~~/dotfiles/script/dotfiles-tangle.el~:
+
+#+begin_src emacs-lisp :tangle ../script/dotfiles-tangle.el
+
+  (require 'org)
+
+  (setq org-confirm-babel-evaluate nil)
+
+  (let* ((dotfiles-path (expand-file-name "~/dotfiles/source/"))
+         (org-files (directory-files dotfiles-path nil "\\.org$")))
+
+    (defun custom/tangle-org-file (org-file)
+      (message "\033[1;34m[*]\033[0m Tangling %s..." org-file)
+      (org-babel-tangle-file (expand-file-name org-file dotfiles-path))
+      (message "\033[1;32m[+]\033[0m Tangled %s." org-file))
+
+    (custom/tangle-org-file "Home.org")
+
+    (dolist (org-file org-files)
+      (unless (equal org-file "Home.org")
+        (custom/tangle-org-file org-file))))
+
+#+end_src
+
+** Linking
+
+#+begin_src makefile
+
+STOW_FLAGS:=--no-folding --dir=./build/ --target=$(HOME)
+
+#+end_src
+
+#+begin_src makefile
+
+.PHONY: link
+link: ## Link built configuration into the home directory.
+ifeq ("$(wildcard $(DIR_TO_CHECK_FOR))", "")
+	stow $(STOW_FLAGS) .
+endif
+
+#+end_src
+
+#+begin_src makefile
+
+.PHONY: relink
+relink: ## Relink built configuration into the home directory, removing old links.
+ifeq ("$(wildcard $(DIR_TO_CHECK_FOR))", "")
+	stow $(STOW_FLAGS) --restow .
+endif
+
+#+end_src
+
+#+begin_src makefile
+
+.PHONY: unlink
+unlink: ## Remove links from the home directory.
+ifeq ("$(wildcard $(DIR_TO_CHECK_FOR))", "")
+	stow $(STOW_FLAGS) --delete .
+endif
+
+#+end_src
+
+** Refreshing
+
+Refresh running Emacs session and potetionally other services.
+
+#+begin_src makefile
+
+.PHONY: refresh
+refresh: ## Refresh running services.
+	@./script/dotfiles-refresh
+
+#+end_src
+
+~~/dotfiles/script/dotfiles-refresh~:
+
+#+begin_src shell :tangle ../script/dotfiles-refresh
+
+  cd $HOME/dotfiles
+  source ./script/utilities.sh
+
+  echo -e "${NEUTRAL} Refreshing running Emacs instance..."
+  emacsclient -e '(load-file "~/dotfiles/build/.config/emacs/per-system-settings.el")' \
+      -a "echo -e ${GOOD} Emacs is not running, no instance to refresh." \
+      && echo -e "${GOOD} Emacs instance refresh successful." \
+      || echo -e "${BAD} Emacs instance refresh unsuccessful!"
+
+#+end_src
+
+** Cleaning
+
+#+begin_src makefile
+
+.PHONY: clean
+clean: unlink ## @unlink and remove build directory.
+	rm --recursive --force ./build/
+
+#+end_src
+
+#+begin_src makefile
+
+.PHONY: clean-scripts
+clean-scripts: ## Remove built scripts.
+	find ./script/ -mindepth 1 -not -path ./script/bootstrap.makefile -delete
+
+#+end_src
+
+* Profile Management
+
+Packages are separated into separate manifests that get installed as
+profiles which can be updated independently. These profiles get
+installed under the ~~/.guix-extra-profiles~ path and are sourced by
+~~/.profile~ on login.
+
+Profiles are managed by these scripts:
+
+** Activating Profiles
+
+This script accepts a space-separated list of manifest file names
+(without extension) in the ~~/.config/guix/manifests~ folder and then
+installs those profiles for the first time. If no profile names are
+provided, it installs all avaible profiles.
+
+For examle:
+
+#+begin_src shell
+
+  profiles-activate desktop emacs music
+
+#+end_src
+
+~~/dotfiles/script/profiles-activate~:
+
+#+begin_src shell :tangle ../script/profiles-activate
+
+  cd $HOME/dotfiles
+  source ./script/utilities.sh
+
+  profiles=$*
+  if ! [ $profiles ]; then
+      profiles=$MANIFEST_DIRECTORY/*.scm
+  fi
+
+  echo -e "$NEUTRAL Activating profiles..."
+  for profile in $profiles; do
+      # Remove the path and file extension, if any
+      profile_name=$(basename $profile)
+      profile_name=${profile_name%.*}
+      profile_directory=$GUIX_EXTRA_PROFILES/$profile_name
+      profile_root=$profile_directory/$profile_name
+      manifest_file=$MANIFEST_DIRECTORY/$profile_name.scm
+
+      echo -e "$NEUTRAL Activating profile $profile_name..."
+      if [ -f $manifest_file ]; then
+          mkdir -p $profile_directory
+          guix package \
+               --manifest=$manifest_file \
+               --profile=$profile_root
+
+          GUIX_PROFILE=$profile_root
+          if [ -f $GUIX_PROFILE/etc/profile ]; then
+              source $GUIX_PROFILE/etc/profile
+              echo -e "$GOOD Activated profile $profile_name."
+          else echo -e "$BAD Profile not found $profile_name!"
+          fi
+      else echo -e "$BAD Manifest file $manifest_file not found!"
+      fi
+  done
+
+#+end_src
+
+** Deactivating Profiles
+
+This script accepts a space-separated list of manifest file names
+(without extension) in the ~~/.config/guix/manifests~ folder and then
+removes them and collects any garbage. If no profile names are
+provided, it removes all active profiles.
+
+For examle:
+
+#+begin_src shell
+
+  profiles-deactivate desktop emacs music
+
+#+end_src
+
+~~/dotfiles/script/profiles-deactivate~:
+
+#+begin_src shell :tangle ../script/profiles-deactivate
+
+  cd $HOME/dotfiles
+  source ./script/utilities.sh
+
+  profiles=$*
+  if ! [ $profiles ]; then
+      profiles=$GUIX_EXTRA_PROFILES/*
+  fi
+
+  echo -e "$NEUTRAL Deactivating profiles..."
+  for profile in $profiles; do
+      # Remove the path and file extension, if any
+      profile_name=$(basename $profile)
+      profile_name=${profile_name%.*}
+      profile_directory=$GUIX_EXTRA_PROFILES/$profile_name
+
+      echo -e "$NEUTRAL Deactivating $profile_name profile..."
+      if [ -d $profile_directory ]; then
+          rm --force --recursive $profile_directory
+          echo -e "$GOOD Deactivated $profile_name profile."
+      else echo -e "$BAD Unable to deactivate $profile_name profile: Profile is not active!"
+      fi
+  done
+
+  echo -e "$NEUTRAL Collecting garbage..."
+  #guix gc
+
+#+end_src
+
+** Updating Profiles
+
+This script accepts a space-separated list of manifest file names
+(without extension) in the ~~/.config/guix/manifests~ folder and then
+installs any updates to the packages contained within them. If no
+profile name is provided, it updates all active profiles (those in ~~/.guix-extra-profiles~).
+
+For examle:
+
+#+begin_src shell
+
+  profiles-update desktop emacs music
+
+#+end_src
+
+~~/dotfiles/script/profiles-update~:
+
+#+begin_src shell :tangle ../script/profiles-update
+
+  cd $HOME/dotfiles
+  source ./script/utilities.sh
+
+  profiles=$*
+  if ! [ $profiles ]; then
+      profiles=$GUIX_EXTRA_PROFILES/*
+  fi
+
+  echo -e "$NEUTRAL Updating profiles..."
+  for profile in $profiles; do
+      profile_name=$(basename $profile)
+      profile_directory=$GUIX_EXTRA_PROFILES/$profile_name
+      profile_root=$profile_directory/$profile_name
+      manifest_file=$MANIFEST_DIRECTORY/$profile_name.scm
+
+      if [ -f $manifest_file ]; then
+          if [ -d $profile_directory ]; then
+              echo -e "$NEUTRAL Updating $profile_name profile..."
+              guix package \
+                  --manifest=$manifest_file \
+                  --profile=$profile_root
+              echo -e "$GOOD Updated $profile_name profile."
+          else echo -e "$BAD Unable to update $profile_name profile: Profile is not active!"
+          fi
+      else echo -e "$BAD Unable to update $profile_name profile: Manifest file not found! $manifest_file"
+      fi
+  done
+
+#+end_src

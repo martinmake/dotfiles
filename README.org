@@ -1,0 +1,68 @@
+#+TITLE: Dotfiles
+#+AUTHOR: Comrade Martin Miroslavovich Michalec
+#+EMAIL: martin@michalec.dev
+#+DESCRIPTION: Configuration of GNU Emacs in EXWM in GNU GuixSD
+#+KEYWORDS: org-mode, guix, guixsd, emacs, exwm, dotfiles
+#+LANGUAGE: en
+#+OPTIONS: H:4 num:nil toc:2 p:t
+#+PROPERTY: header-args:shell :shebang "#!/bin/sh"
+
+#+NAME: filter-escape-sequences
+#+begin_src shell :var INPUT="" :results raw
+
+  echo -n "$INPUT" | sed -r "s/\x1B\[(([0-9]{1,2})?(;)?([0-9]{1,2})?)?[m,K,H,f,J]//g"
+
+#+end_src
+
+* Valued Values
+
+- Keyboard Focus
+- Minimal Visuals
+- TeleText Looks
+- Literate Plain Text Configuration
+
+* Usage
+
+It's first neccessary to bootstrap the system, because "everything" is
+written in org files.
+
+#+begin_src shell
+
+  make bootstrap
+
+#+end_src
+
+Then you can check the results of ~make help~ to see what targets are
+available on your specific system.
+
+#+begin_src shell :post filter-escape-sequences(INPUT=*this*) :results verbatim
+
+  make help
+
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Targets:
+	help               List documented targets. # make help
+	all                In order: @sync @build @link @update. # make all
+	sync               Sync files from remote. # make sync
+	build              Build files from source directory into build directory. # make build
+	rebuild            @clean, @build, @link # make rebuild
+	link               Link built configuration into the home directory. # make link
+	relink             Relink built configuration into the home directory, removing old links. # make relink
+	unlink             Remove links from the home directory. # make unlink
+	refresh            Refresh running services. # make refresh
+	clean              @unlink and remove build directory. # make clean
+	desktop            @desktop-activate # make desktop
+	desktop-activate   Activate desktop profile. # make desktop-activate
+	desktop-deactivate Deactivate desktop profile. # make desktop-deactivate
+	desktop-update     Update desktop profile. # make desktop-update
+#+end_example
+
+If you're still not satisfied, you can browse the literate
+configuration for more documentation.
+
+* License
+
+Released under the [[./LICENSE][GPLv3]] unless otherwise specified by license files in subfolders.
