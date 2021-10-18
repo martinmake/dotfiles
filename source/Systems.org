@@ -1,0 +1,1009 @@
+#+TITLE: Systems Configuration
+#+AUTHOR: Comrade Martin Miroslavovich Michalec
+#+EMAIL: Martin@Michalec.dev
+
+#+STARTUP: overview
+#+PROPERTY: header-args          :tangle-mode (identity #o444) :mkdirp yes
+#+PROPERTY: header-args:shell    :tangle-mode (identity #o555) :mkdirp yes :shebang "#!/bin/sh"
+#+PROPERTY: header-args:makefile :tangle-mode (identity #o444) :mkdirp yes :tangle ../script/20-Systems.makefile
+
+* Channels
+
+Guix has a concept of [[https://guix.gnu.org/manual/en/html_node/Channels.html#Channels][channels]], git repositories containing Guix
+package definitions. Aside from the =%default-channels= list, I also use
+the [[https://gitlab.com/nonguix/nonguix][Nonguix]] channel to install packages that aren't included with Guix
+by default like the non-free Linux kernel in order to use my WIFI card.
+
+~~/.config/guix/channels.scm~:
+
+#+begin_src scheme :tangle ../build/.config/guix/channels.scm
+
+  (cons* (channel
+          (name 'nonguix)
+          (url "https://gitlab.com/nonguix/nonguix")
+          (introduction
+           (make-channel-introduction
+            "897c1a470da759236cc11798f4e0a5f7d4d59fbc"
+            (openpgp-fingerprint
+             "2A39 3FFF 68F4 EF7A 3D29  12AF 6F51 20A0 22FB B2D5"))))
+         (channel
+          (name 'flat)
+          (url "https://github.com/flatwhatson/guix-channel")
+          (commit "a14d79fc33649f55755fb4e705ab82de7852d8da"))
+         %default-channels)
+
+#+end_src
+
+* Systems
+** Base Configuration
+Base configuration of machines managed with Guix (Desktops/Laptops).
+
+Configurations deriving from ~base-operating-system~ must execute ~guix
+system~ like so:
+
+#+begin_src shell
+
+sudo -E guix system -L ~/dotfiles/.config/guix/systems reconfigure ~/dotfiles/.config/guix/systems/${SYSTEM_NAME}.scm
+
+#+end_src
+
+~~/.config/guix/systems/base.scm~:
+
+#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+
+  (define-module (base-system)
+    #:use-module (gnu)
+    #:use-module (srfi srfi-1)
+    #:use-module (gnu system nss)
+    #:use-module (gnu service pm)
+    #:use-module (gnu service cups)
+    #:use-module (gnu service desktop)
+    #:use-module (gnu service docker)
+    #:use-module (gnu service networking)
+    #:use-module (gnu service virtualization)
+    #:use-module (gnu packages wm)
+    #:use-module (gnu packages cups)
+    #:use-module (gnu packages vim)
+    #:use-module (gnu packages gtk)
+    #:use-module (gnu packages xorg)
+    #:use-module (gnu packages emacs)
+    #:use-module (gnu packages file-system)
+    #:use-module (gnu packages mtools)
+    #:use-module (gnu packages linux)
+    #:use-module (gnu packages audio)
+    #:use-module (gnu packages pulseaudio)
+    #:use-module (gnu packages web-browsers)
+    #:use-module (gnu packages version-control)
+    #:use-module (gnu packages packages-management)
+    #:use-module (nongnu packages linux)
+    #:use-module (nongnu system linux-initrd))
+
+  (use-service-modules certs)
+  (use-service-modules shells)
+  (use-service-modules desktop xorg)
+  (use-service-modules nix)
+
+#+end_src
+
+~udev-rule~ allowing members of the ~video~ group control of screen brightness.
+
+#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+
+  (define %backlight-udev-rule
+    (udev-rule
+     "90-backlight.rules"
+     (string-append "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
+                    "RUN+=\"/run/current-system/profile/bin/chgrp video /sys/class/backlight/%k/brightness\""
+                    "\n"
+                    "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
+                    "RUN+=\"/run/current-system/profile/bin/chmod g+w /sys/class/backlight/%k/brightness\"")))
+
+#+end_src
+
+~udev-rule~ changing the acceleration and speed of TrackPoint.
+
+#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+
+  (define %trackpoint-udev-rule
+    (udev-rule
+     "10-trackpoint.rules"
+     (string-append "ACTION==\"add\", "
+                    "SUBSYSTEM==\"input\", "
+                    "ATTR{name}==\"*TrackPoint*\", "
+                    "ATTR{device/sensitivity}=\"240\", "
+                    "ATTR{device/speed}=\"200\"")))
+
+#+end_src
+
+Use the ~libinput~ driver for all devices since it's a bit more modern
+that the default.
+
+#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+
+  (define %xorg-libinput-config "
+    Section \"InputClass\"
+      Identifier \"Touchpads\"
+      Driver \"libinput\"
+      MatchDevicePath \"/dev/input/event*\"
+      MatchIsTouchpad \"on\"
+
+      Option \"Tapping\" \"on\"
+      Option \"TappingDrag\" \"on\"
+      Option \"DisableWhileTyping\" \"on\"
+      Option \"MiddleEmulation\" \"on\"
+      Option \"ScrollMethod\" \"twofinger\"
+    EndSection
+    Section \"InputClass\"
+      Identifier \"Keyboards\"
+      Driver \"libinput\"
+      MatchDevicePath \"/dev/input/event*\"
+      MatchIsKeyboard \"on\"
+    EndSection
+    ")
+
+#+end_src
+
+Define the ~base-operating-system~ which will be inherited by all
+machine configurations.
+
+#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+
+  (define-public base-operating-system
+    (operating-system
+     (host-name "EmacsOS")
+     (timezone "Europe/Bratislava")
+     (locale "en_US.utf8")
+     (keyboard-layout
+      (keyboard-layout "us" "altgr-intl" #:model "thinkpad"))
+
+     ;; Use non-free Linux kernel and firmware.
+     (kernel linux)
+     (firmware (list linux-firmware))
+     (initrd microcode-initrd)
+
+     ;; Use the UEFI variant of GRUB
+     ;; with the EFI System Partition mounted on /boot/efi.
+     (bootloader (bootloader-configuration
+                  (bootloader grub-efi-bootloader)
+                  (target "/boot/efi")
+                  (timeout 3)
+                  (theme (grub-theme
+                          (inherit (grub-theme))
+                          ;; (color-normal    ((fg . light-gray  ) (bg . black)))
+                          ;; (color-highlight ((fg .       yellow) (bg . black)))
+                          (image #f)
+                          (gfxmode '("1366x768x32" "auto"))))
+
+                  (keyboard-layout keyboard-layout)))
+
+     ;; Guix enforces a filesystem entry...
+     ;; This is meant to be overridden.
+     (file-systems (cons*
+                    (file-system
+                     (mount-point "/tmp")
+                     (device "none")
+                     (type "tmpfs")
+                     (check? #f))
+                    %base-file-systems))
+
+     (users (cons*
+             (user-account
+              (name "comrade-martin")
+              (comment "Comrade Martin Miroslavovich Michalec")
+              (group "users")
+              (home-directory "/home/comrade-martin")
+              (supplementary-groups
+               '("wheel"    ;; Use sudo without password.
+                 "tty"      ;;
+                 "input"    ;;
+                 "docker"   ;; Control docker service.
+                 "realtime" ;; Allow realtime scheduling.
+                 "lp"       ;; Control bluetooth devices.
+                 "netdev"   ;; Control network devices.
+                 "audio"    ;; Control audio devices.
+                 "video"))) ;; Control video devices.
+             %base-user-accounts))
+
+     (groups (cons*
+              (user-group
+               (system? #t)
+               (name "realtime"))
+              %base-groups))
+
+     (packages
+      (append
+       (list
+        (specification->package "nss-certs") ;; HTTPS access
+        (specification->package "gvfs")      ;; User mounts
+        (specification->package "ntfs-3g") 
+        (specification->package "exfat-utils") 
+        (specification->package "fuse-exfat") 
+        (specification->package "stow") 
+        (specification->package "vim") 
+        (specification->package "xterm") 
+        (specification->package "bluez") 
+        (specification->package "bluez-alsa") 
+        (specification->package "pulseaudio") 
+        (specification->package "tlp") 
+        (specification->package "xf86-input-libinput") 
+        (specification->package "git") 
+        (specification->package "emacs") 
+        (specification->package "emacs-exwm") 
+        (specification->package "emacs-desktop-environment"))
+       %base-packages))
+
+   (services
+    (cons*
+     (service tlp-service-type
+              (tlp-configuration
+               (cpu-boost-on-ac? #t)
+               (wifi-pwr-on-bat? #t)))
+     ;; Enables JACK to enter realtime mode
+     (pam-limits-service
+      (list
+       (pam-limits-entry "@realtime"
+                         'both
+                         'rtprio 99)
+       (pam-limits-entry "@realtime"
+                         'both
+                         'memlock
+                         'unlimited)))
+     (extra-special-file
+      "/usr/bin/env"
+      (file-append coreutils "/bin/env"))
+     (service thermald-service-type)
+     (service docker-service-type)
+     (service libvirt-service-type
+              (libvirt-configuration
+               (unix-sock-group "libvirt")
+               (tls-port "16555")))
+     (service cups-service-type
+              (cups-configuration
+               (web-interfase? #t)
+               (extensions (list cups-filters))))
+     (service nix-service-type)
+     (bluetooth-service #:auto-enable? #t)
+     (service slim-service-type
+              (slim-configuration
+               (auto-login? #t)
+               (default-user "comrade-martin")
+               (xorg-configuration
+                (xorg-configuration
+                 (keyboard-layout keyboard-layout)
+                 (extra-config
+                  (list %xorg-libinput-config))))))
+     (modify-services
+      %desktop-services
+      (delete gdm-service-type)
+      (elogind-service-type
+       config => (elogind-configuration
+                  (inherit config)
+                  (handle-lid-switch-external-power 'suspend)))
+      (udev-service-type
+       config => (udev-configuration
+                  (inherit config)
+                  (rules
+                   (cons
+                    %backlight-udev-rule
+                    %trackpoint-udev-rule
+                    (udev-configuration-rules config))))))))
+
+   ;; Allow resolution of '.local' host names with mDNS.
+   (name-service-switch %mdns-host-lookup-nss)
+   (sudoers-file "sudoers" "root ALL=(ALL) ALL\n%wheel ALL=(ALL) NOPASSWD:ALL\n"))
+
+#+end_src
+
+** Machines
+*** Per-System Settings
+
+Some settings need to be customized on a per-system basis without
+twaking individual configuration files. With =org-mode='s
+~noweb~ functionality, we can define a set of variables that can be
+tweaked for each system and applied across configuration files when
+they are generated.
+
+Retrieval of these variables is done with ~custom/system-setting-get~.
+
+#+begin_src emacs-lisp :noweb yes :tangle ../build/.config/emacs/per-system-settings.el
+
+  (require 'map) ;; for map-merge
+
+  (setq custom/system-settings
+        (map-merge
+         'list
+         '((desktop/dpi . 180)
+           (desktop/background . "KOCMOC.png")
+
+           (emacs/default-face-size  . 220)
+           (emacs/variable-face-size . 245)
+           (emacs/fixed-face-size    . 200)
+
+           (polybar/height      . 25)
+           (polybar/font-0-size . 18)
+           (polybar/font-1-size . 14)
+           (polybar/font-2-size . 20)
+           (polybar/font-3-size . 13)
+
+           (dunst/font-size     . 20)
+           (dunst/max-icon-size . 80)
+
+           (vimb/default-zoom        . 180)
+           (qutebrowser/default-zoom . 200))
+         <<system-settings>>))
+
+#+end_src
+
+#+begin_src emacs-lisp :tangle ../build/.config/emacs/lisp/custom-system-settings.el
+
+  (defun custom/system-settings-load ()
+    (interactive)
+    (load-file "~/dotfiles/build/.config/emacs/per-system-settings.el"))
+
+  (defun custom/system-settings-get (setting)
+    (alist-get setting custom/system-settings))
+
+  (provide 'custom-system-settings)
+
+#+end_src
+
+*** КИРПИЧ (BRICK)
+
+- =ThinkPad X220=
+- permanent [[https://youtu.be/dz6XmUFoG2k][heavy-duty]] shell (=Mobilis OPTIMUM= - discontinued)
+- ISO keyboard
+- 300GB HDD
+
+~~/.config/guix/systems/kirpich.scm~:
+
+#+begin_src scheme :tangle ../build/.config/guix/systems/kirpich.scm
+
+  (define-module (kirpich)
+    #:use-module (base-system)
+    #:use-module (gnu)
+    #:use-module (nongnu packages linux))
+
+  (operating-system
+   (inherit base-operating-system)
+   (host-name "kirpich")
+
+   (firmware (list linux-firmware))
+
+   (swap-devices
+    (list (uuid "67928664-36ed-4dd2-8454-ec0a9a2a7c53")))
+
+   (mapped-devices
+    (list (mapped-device
+           (source (uuid "dacfe575-0d48-492e-8907-8e3db38d0f1e"))
+           (target "ROOT")
+           (type luks-device-mapping))))
+
+   (file-systems
+    (cons* (file-system
+            (mount-point "/")
+            (device "/dev/mapper/ROOT")
+            (type "btrfs")
+            (dependencies mapped-devices))
+           (file-system
+            (mount-point "/boot/efi")
+            (device (uuid "D6A9-57EB" 'fat32))
+            (type "vfat"))
+           %base-file-systems)))
+
+#+end_src
+
+*System Settings*
+
+#+begin_src emacs-lisp :noweb-ref system-settings :noweb-sep ""
+
+  (when (equal system-name "kirpich")
+    '((desktop/dpi . 180)
+
+      (emacs/default-face-size  . 190)
+      (emacs/variable-face-size . 200)
+      (emacs/fixed-face-size    . 190)
+
+      (polybar/height      . 15)
+      (polybar/font-0-size . 16)
+      (polybar/font-1-size . 12)
+      (polybar/font-2-size . 18)
+      (polybar/font-3-size . 11)
+
+      (dunst/font-size     . 20)
+      (dunst/max-icon-size . 80)
+
+      (vimb/default-zoom        . 160)
+      (qutebrowser/default-zoom . 180)))
+
+#+end_src
+
+** USB Installation Image
+
+To install =GNU GuixSD= on another machine, you first need to build a
+USB image. In order to use "any" WIFI card during installation, we
+have to use non-free ~linux-firmware~.
+
+~~/.config/guix/systems/install.scm~:
+
+#+begin_src scheme :tangle ../build/.config/guix/systems/install.scm
+
+  ;;; Copyright © 2019 Alex Griffin <a@ajgrf.com>
+  ;;; Copyright © 2019 Pierre Neidhardt <mail@ambrevar.xyz>
+  ;;; Copyright © 2019 David Wilson <david@daviwil.com>
+  ;;; Copyright © 2021 Martin Michalec <martin@michalec.dev>
+  ;;;
+  ;;; This program is free software: you can redistribute it and/or modify
+  ;;; it under the terms of the GNU General Public License as published by
+  ;;; the Free Software Foundation, either version 3 of the License, or
+  ;;; (at your option) any later version.
+  ;;;
+  ;;; This program is distributed in the hope that it will be useful,
+  ;;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ;;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ;;; GNU General Public License for more details.
+  ;;;
+  ;;; You should have received a copy of the GNU General Public License
+  ;;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+#+end_src
+#+begin_src scheme :tangle ../build/guix/systems/install.scm
+
+  (define-module (nongnu system install)
+    #:use-module (gnu system)
+    #:use-module (gnu system install)
+    #:use-module (gnu packages version-control)
+    #:use-module (gnu packages vim)
+    #:use-module (gnu packages curl)
+    #:use-module (gnu packages emacs)
+    #:use-module (gnu packages linux)
+    #:use-module (gnu packages mtools)
+    #:use-module (gnu packages package-management)
+    #:use-module (nongnu packages linux)
+    #:export (installation-os-nonfree))
+
+  (define installation-os-nonfree
+    (operating-system
+      (inherit installation-os)
+      (kernel linux)
+      (firmware (list linux-firmware))
+
+      ;; Add the 'net.ifnames' argument to prevent network interfaces
+      ;; from having really long names.  This can cause an issue with
+      ;; wpa_supplicant when you try to connect to a wifi network.
+      (kernel-arguments '("quiet" "modprobe.blacklist=radeon" "net.ifnames=0"))
+
+      ;; Add some extra packages useful for the installation process
+      (packages
+       (append (list
+                exfat-utils
+                fuse-exfat
+                git
+                curl
+                stow
+                vim
+                emacs-no-x-toolkit)
+               (operating-system-packages installation-os)))))
+
+  installation-os-nonfree
+
+#+end_src
+
+* System Configuration
+** Profile
+*** Guix
+
+#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+
+  # Load the default Guix profile
+  GUIX_PROFILE="$HOME/.guix-profile"
+  source "$GUIX_PROFILE"/etc/profile
+
+  # Load extra Guix profiles
+  GUIX_EXTRA_PROFILES=$HOME/.guix-extra-profiles
+  for profile in $GUIX_EXTRA_PROFILES/*; do
+      profile=$profile/$(basename "$profile")
+          if [ -f $profile/etc/profile ]; then
+              GUIX_PROFILE=$profile
+              source $GUIX_PROFILE/etc/profile
+          fi
+          unset profile
+  done
+
+#+end_src
+
+*** Nix
+
+#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+
+  # Load Nix environment
+  if [ -f /run/current-system/profile/etc/profile.d/nix.sh ]; then
+      source /run/current-system/profile/etc/profile.d/nix.sh
+  fi
+
+#+end_src
+
+*** Enviromental Variables
+
+#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+
+  unset PULSE_CONFIG
+  unset PULSE_CLIENTCONFIG
+
+  export VISUAL="emacsclient -a vim"
+  export EDITOR="$VISUAL"
+  export BROWSER="vimb"
+
+  export XDG_CONFIG_HOME="$HOME/.config/"
+  export XDG_DATA_HOME="$HOME/.local/share/"
+  # Make Flatpak apps visible to launcher
+  export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.local/share/flatpak/exports/share"
+  # Make applications in other profiles visible to launcher
+  export XDG_DATA_DIRS="$XDG_DATA_DIRS:$HOME/.guix-extra-profiles/*/*/share"
+
+  export PATH="$PATH:$HOME/.local/bin/"
+  export PATH="$PATH:$HOME/dotfiles/script/"
+  export PATH="$PATH:$HOME/.cargo/bin/"
+  export PATH="$PATH:$HOME/.npm-global/bin/"
+
+  export EMACS_USER_DIRECTORY="$XDG_DATA_HOME/emacs/"
+
+  # Export the path to IcedTea so that tools pick it up correctly
+  export JAVA_HOME=$(dirname $(dirname $(readlink $(which java))))
+
+  # Make sure we can reach the GPG agent for SSH auth
+  export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+
+  # Make sure `ls` collates dotfiles first (for dired)
+  export LC_COLLATE="C"
+
+  # Many build scripts expect CC to contain the compiler command
+  export CC="gcc"
+
+#+end_src
+
+*** Font fix
+
+#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+
+  # Ensure that font folders are loaded correctly
+  xset +fp $(dirname $(readlink -f ~/.guix-extra-profiles/desktop/desktop/share/fonts/truetype/fonts.dir))
+
+#+end_src
+
+*** Keyboard
+
+#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+
+  # Switch escape and caps if tty:
+  sudo -n loadkeys "$XDG_CONFIG_HOME/kmap/colemak_custom_iso.kmap"
+  set -o noclobber
+
+#+end_src
+
+*** Color Palette
+
+#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+
+  print "\e]P0000000" #black
+  print "\e]P1cd0000" #darkred
+  print "\e]P200cd00" #darkgreen
+  print "\e]P3cdcd00" #brown
+  print "\e]P40000cd" #darkblue
+  print "\e]P5cd00cd" #darkmagenta
+  print "\e]P600cdcd" #darkcyan
+  print "\e]P7e5e5e5" #lightgrey
+  print "\e]P84d4d4d" #darkgrey
+  print "\e]P9ff0000" #red
+  print "\e]PA00ff00" #green
+  print "\e]PBffff00" #yellow
+  print "\e]PC0000ff" #blue
+  print "\e]PDff00ff" #magenta
+  print "\e]PE00ffff" #cyan
+  print "\e]PFffffff" #white
+  clear # remove background artifacting if any
+  # white block cursor
+  print "\e[?16;2;112;c"
+  setterm -background black -foreground white -store
+
+#+end_src
+
+*** Start
+
+#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+
+  clear
+  neofetch
+
+#+end_src
+
+** ZSH
+
+#+begin_src shell :tangle ../build/.zprofile :tangle-mode (identity #o444)
+
+  # Honor system-wide environment variables
+  source /etc/profile
+
+#+end_src
+
+** BASH
+
+#+begin_src shell :tangle ../build/.bash_profile :tangle-mode (identity #o444)
+
+  # Load .profile
+  if [ -f ~/.profile ]; then source ~/.profile; fi
+
+  # Honor per-interactive-shell startup file
+  if [ -f ~/.bashrc ]; then source ~/.bashrc; fi
+
+#+end_src
+
+#+begin_src shell :tangle ../build/.bashrc :tangle-mode (identity #o444)
+
+  # Bash initialization for interactive non-login shells and
+  # for remote shells (info "(bash) Bash Startup Files").
+
+  # Export 'SHELL' to child processes.  Programs such as 'screen'
+  # honor it and otherwise use /bin/sh.
+  export SHELL
+
+  if [[ $- != *i* ]]
+  then
+      # We are being invoked from a non-interactive shell.  If this
+      # is an SSH session (as in "ssh host command"), source
+      # /etc/profile so we get PATH and other essential variables.
+      [[ -n "$SSH_CLIENT" ]] && source /etc/profile
+
+      # Don't do anything else.
+      return
+  fi
+
+  # Source the system-wide file.
+  source /etc/bashrc
+
+  # Adjust the prompt depending on whether we're in 'guix environment'.
+  if [ -n "$GUIX_ENVIRONMENT" ]
+  then
+      PS1='\u@\h \w [env]\$ '
+  else
+      PS1='\u@\h \w\$ '
+  fi
+  alias ls='ls -p --color=auto'
+  alias ll='ls -l'
+  alias grep='grep --color=auto'
+
+#+end_src
+
+** Shepard
+
+#+begin_src scheme :tangle ../build/.config/shepard/init.scm
+
+  (define gpg-agent
+    (make <service>
+      #:provides '(gpg-agent)
+      #:respawn? #t
+      #:start (make-system-constructor "gpg-connect-agent /bye")
+      #:stop (make-system-destructor "gpgconf --kill gpg-agent")))
+
+  (define mcron
+    (make <service>
+      #:provides '(mcron)
+      #:respawn? #t
+      #:start (make-forkexec-constructor '("mcron"))
+      #:stop  (make-kill-destructor)))
+
+  (define syncthing
+    (make <service>
+      #:provides '(syncthing)
+      #:respawn? #t
+      #:start (make-forkexec-constructor '("syncthing" "-no-browser"))
+      #:stop  (make-kill-destructor)))
+
+  (define pulseaudio
+    (make <service>
+      #:provides '(pulseaudio)
+      #:respawn? #t
+      #:start (make-forkexec-constructor '("pulseaudio"))
+      #:stop  (make-kill-destructor)))
+
+  (register-services gpg-agent mcron syncthing pulseaudio)
+
+  (action 'shepherd 'daemonize)
+
+  ;; Start user services
+  (for-each start '(mcron))
+
+#+end_src
+
+** Udiskie
+
+*Guix Packages*
+
+#+begin_src scheme :noweb-ref packages :noweb-sep ""
+
+  "udiskie"
+
+#+end_src
+
+* Scheduled Tasks
+
+I use [[https://www.gnu.org/software/mcron/][GNU mcron]] for scheduling tasks to run periodically in the background.
+
+*Guix Packages*
+
+#+begin_src scheme :noweb-ref packages :noweb-sep ""
+
+  "mcron"
+
+#+end_src
+
+* System Tools
+
+*Guix Packages*
+
+#+begin_src scheme :noweb-ref packages :noweb-sep ""
+
+  "openssh"
+  "zip"
+  "unzip"
+
+#+end_src
+
+* System Management
+
+#+begin_src shell :tangle ../script/system-update
+
+  cd $HOME/dotfiles
+  source ./script/utilities.sh
+
+  echo -e "${INFO}Updating $(hostname)..."
+  sudo -E guix system -L $XDG_CONFIG_HOME/guix/systems \
+       reconfigure $XDG_CONFIG_HOME/guix/systems/$(hostname).scm
+
+#+end_src
+
+* Nix Package Management
+
+Certains tools are not easily available through =Guix= channels, but we
+can use the =Nix= package repository.
+
+#+begin_src conf :tangle ../build/.nix-channels
+
+  https://nixos.org/channels/nixpkgs-unstable nixpkgs
+
+#+end_src
+
+The channel needs to be updated before any package can be installed:
+
+#+begin_src shell :tangle no
+
+  nix-channel --update
+
+#+end_src
+
+Installing packages:
+
+#+begin_src shell :tangle no
+
+  nix-env -i nodejs dotnet-sdk gh hledger
+# nix-env -iA nixpkgs.nodejs-12_x # For a specific version
+
+#+end_src
+
+Allow specific =unfree= packages.
+
+#+begin_src conf :tangle no
+
+  { nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "spotify"
+    ];
+  }
+
+#+end_src
+
+* System Installation
+** Building the Installation Image
+
+use the non-free kernel and firmware blobs from the [[https://gitlab.com/nonguix/nonguix][nonguix]] channel.
+
+After cloning the repo, the installation image can be built with this
+command:
+
+#+begin_src shell
+
+  guix system image ./install.scm --image-size=5G
+
+#+end_src
+
+#+begin_quote
+
+NOTE:* It can take an hour or more for this to complete, so be patient...
+
+#+end_quote
+
+Once the build is complete, Guix will print out the path to the disk
+image file that was created. You can now write the installation image
+to a USB stick using ~dd~:
+
+#+begin_src shell
+
+  sudo dd if=/gnu/store/nyg6jv3a4l0pbcvb0x7jfsb60k9qalga-disk-image of=/dev/sdX status=progress
+
+#+end_src
+
+** Installing GNU GuixSD
+
+We boot into our custom installation image and choose: =Install using the shell based program=.
+
+*** Setting Up WiFi
+
+Create a file with WiFi configuration:
+
+~wifi.conf~
+
+#+begin_src conf
+
+  network = {
+    ssid = "ssid-name"
+    key_mgmt = WPA-PSK
+    psk = "passphrase"
+  }
+
+#+end_src
+
+Run the following commands to unblock the WiFi card, determine its
+device name, and connect using the device name you received from
+~ifconfig -a~.
+
+#+begin_src shell
+
+  rfkill unblock all
+  ifconfig -a
+  wpa_supplicant -c ./wifi.conf -i wlan0 -B
+
+#+end_src
+
+Run ~dhclient~ to turn on DNS for our WiFi interface.
+
+#+begin_src shell
+
+  dhclient -v wlan0
+
+#+end_src
+
+*** Creating Partitions
+
+We'll create the following partition table:
+
+| Device    | Label | Type             | Filesystem   | Size   | Mountpoint |
+|-----------+-------+------------------+--------------+--------+------------|
+| /dev/sda1 | BOOT  | EFI System       | vfat (32)    | 256M   | /boot/efi  |
+| /dev/sda2 | SWAP  | Linux swap       | swsuspend    | RAM*2  | /N/A/        |
+| /dev/sda3 | ROOT  | Linux Filesystem | LUKS (btrfs) | <REST> | /          |
+
+#+begin_quote
+
+*NOTE:* We're only concerned with UEFI, at least for now.
+
+#+end_quote
+
+Tools to use:
+
+#+begin_src shell
+
+  cfdisk /dev/sda \
+      || fdisk /dev/sda
+
+  mkfs.fat -F32 /dev/sda1 \
+      && fatlabel /dev/sda1 -L BOOT
+
+  mkswap -L SWAP /dev/sda2
+
+  cryptsetup luksformat /dev/nvme0n1p5
+  cryptsetup open --type luks /dev/nvme0n1p5 system-root
+  mkfs.btrfs -L ROOT /dev/mapper/ROOT
+
+#+end_src
+
+Mounting partitions:
+
+#+begin_src shell
+
+  mount label=ROOT /mnt
+
+  mkdir /mnt/boot/efi
+  mount label=BOOT /mnt/boot/efi
+
+  swapon -L SWAP
+
+#+end_src
+
+Since everything installed with ~guix~ is placed into ~/gnu/store/~, we
+can make it =Copy On Write= to our new system.
+
+#+begin_src shell
+
+  herd start cow-store /mnt
+
+#+end_src
+
+*** Initial System Installation
+
+We pull down our system configuration into the installation FS (not
+~/mnt~):
+
+#+begin_src shell
+
+  git clone https://github.com/martinmake/dotfiles
+
+#+end_src
+
+We pull =guix channels= on installer system making sure we also pull
+~nonguix~ channel:
+
+#+begin_src shell
+
+  guix pull -C ./dotfiles/build/.config/guix/channels.scm
+  hash guix
+
+#+end_src
+
+We update/create new operating system with partition UUIDs.
+
+#+begin_src shell
+
+  ls -l /dev/disk/by-uuid/ ./dotfiles/build/.config/guix/systems/<SYSTEM>.scm
+  vim ./dotfiles/build/.config/guix/systems/<SYSTEM>.scm
+
+#+end_src
+
+We also push this chage to remote:
+
+#+begin_src shell
+
+  git commit -am "added machine: <machine_name>"
+  git push
+
+#+end_src
+
+We initialize our system (this will take a while):
+
+#+begin_src shell
+
+  guix system -L ./dotfiles/build/.config/guix/systems/ \
+       init ./dotfiles/build/.config/guix/systems/<SYSTEM>.scm /mnt
+
+#+end_src
+
+*** Initial System Setup
+
+We reboot into the new GNU GuixSD, to finish initial setup.
+
+First we want to set root and user password:
+
+#+begin_src shell
+
+  passwd
+  passwd <username>
+
+#+end_src
+
+Now we log into our user account and clone dotfiles repository.
+
+#+begin_src shell
+
+  git clone https://github.com/martinmake/dotfiles
+
+#+end_src
+
+Setup channels... (make sure to pull)
+
+Activate profiles:
+
+#+begin_src shell
+
+  profiles-activate desktop emacs
+
+#+end_src
+
+Now we have packages from those manifests installed and usable. They
+be later updated with ~profiles-update~.
