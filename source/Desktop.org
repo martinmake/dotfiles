@@ -215,7 +215,7 @@ I use Emacs as the desktop window manager via EXWM.  This configuration gets loa
     ; (exwm/run-in-background "syncthing-gtk --minimized")
     ; (exwm/run-in-background "udiskie -t")
     ; (exwm/run-in-background "redshift -l 37.983810:23.727539 -t 6500:3500")
-      (custom/panel-launch)
+    ; (custom/panel-launch)
     )
 
 #+end_src
