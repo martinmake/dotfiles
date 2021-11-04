@@ -158,6 +158,7 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 #+begin_src emacs-lisp
 
   (auto-revert-mode t)
+  (diminish 'auto-revert-mode)
 
 #+end_src
 
@@ -224,7 +225,7 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 * UI Settings
 ** Decluttering
 
-#+begin_src emacs-lisp :tangle ../build/.config/emacs/early-init.el :tangle-mode (identity #o444)
+#+BEGIN_SRC emacs-lisp :tangle ../build/.config/emacs/early-init.el :tangle-mode (identity #o444)
 
   (scroll-bar-mode -1)
   (  tool-bar-mode -1)
@@ -233,7 +234,11 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
   (tooltip-mode -1)
   (set-fringe-mode 10)
 
-#+end_src
+  (diminish 'buffer-face-mode)
+  (diminish 'visual-line-mode)
+  (diminish 'auto-fill-function)
+
+#+END_SRC
 
 ** Cursor Settings
 *** Disable Blinking
@@ -1208,6 +1213,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
   (use-package org-indent
     :straight nil
+    :diminish org-indent-mode
     :after org)
 
 #+end_src
