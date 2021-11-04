@@ -1029,6 +1029,13 @@ Load up the desktop environment if on a machine that supports it and the =--use-
       (setq eshell-visual-commands '("top" "htop" "nmtui" "ssh" "tmux" "guix" "less" "pip" "bat")))
     (eshell-git-prompt-use-theme 'default))
 
+#+BEGIN_SRC shell :tangle ../build/.local/bin/visual
+
+  exec $@
+
+#+END_SRC
+
+
 #+end_src
 
 #+begin_src shell :tangle ../build/.config/emacs/eshell/aliases :tangle-mode (identity #o444)
