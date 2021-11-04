@@ -386,7 +386,7 @@ I use Emacs as the desktop window manager via EXWM.  This configuration gets loa
                     (number-sequence 0 9))
           ([?\s-0   ] . (lambda () (interactive) (exwm-workspace-switch-create 10)))))
 
-  (exwm-input-set-key (kbd "<s-return>") 'vterm)
+  (exwm-input-set-key (kbd "<s-return>") 'eshell)
   (exwm-input-set-key (kbd "s-SPC"     ) 'counsel-linux-app)
   (exwm-input-set-key (kbd "s-f"       ) 'exwm-layout-toggle-fullscreen)
 
