@@ -107,6 +107,7 @@ I also have to do an extra step to make sure Emacs can find the font path from t
   "font-awesome"
   "font-google-noto"
   "font-fira-code"
+  "font-fira-sans"
   "font-jetbrains-mono"
   "font-iosevka"
   "font-iosevka-aile"
