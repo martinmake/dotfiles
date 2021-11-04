@@ -291,7 +291,7 @@ I use Emacs as the desktop window manager via EXWM.  This configuration gets loa
 #+begin_src emacs-lisp
 
   (use-package exwm-randr
-    :ensure nil
+    :straight nil
     :if custom/exwm-enabled
     :after exwm
 
@@ -396,7 +396,7 @@ I use Emacs as the desktop window manager via EXWM.  This configuration gets loa
 #+begin_src emacs-lisp
 
   (use-package exwm-systemtray
-    :ensure nil
+    :straight nil
     :disabled
     :if custom/exwm-enabled
     :after exwm

@@ -65,50 +65,31 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 #+end_src
 
 * Package Setup
-** TODO Use straight.el
+** Bootstrap straight.el
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
-  (require 'package)
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
 
-#+end_src
-
-** Archives
-
-#+begin_src emacs-lisp
-
-  (setq package-archives '(("melpa" . "https://melpa.org/packages/"   )
-                           ("org"   . "https://orgmode.org/elpa/"     )
-                           ("elpa"  . "https://elpa.gnu.org/packages/")))
-
-#+end_src
-
-** Initialize
-
-#+begin_src emacs-lisp
-
-  (package-initialize)
-
-#+end_src
-
-** Ensure Refreshed
-
-#+begin_src emacs-lisp
-
-  (unless package-archive-contents
-         (package-refresh-contents))
-  (unless (package-installed-p 'use-package)
-          (package-install     'use-package))
-
-#+end_src
+#+END_SRC
 
 ** Setup use-package
 
 #+begin_src emacs-lisp
 
-  (require 'use-package)
-  (setq use-package-always-ensure t)
-  (setq use-package-verbose nil) ;; useful for defering packages
+  (straight-use-package 'use-package)
+  (setq straight-use-package-by-default t)
 
   (use-package diminish)
 
@@ -407,7 +388,7 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     (sublimity-mode 1))
 
   (use-package sublimity-scroll
-    :ensure nil)
+    :straight nil)
 
 #+end_src
 
@@ -785,7 +766,7 @@ Documentation and the list of available languages can be found [[https:emacs-lsp
 #+begin_src emacs-lisp
 
   (use-package python-mode
-    :ensure nil
+    :straight nil
     :hook (python-mode . lsp-deferred)
 
     :custom
@@ -852,7 +833,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 #+begin_src emacs-lisp
 
   (use-package dired
-    :ensure nil
+    :straight nil
     :commands
     (dired
      dired-jump)
@@ -1226,7 +1207,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 #+begin_src emacs-lisp
 
   (use-package org-indent
-    :ensure nil
+    :straight nil
     :after org)
 
 #+end_src
@@ -1236,7 +1217,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 #+begin_src emacs-lisp
 
   (use-package org-habit
-    :ensure nil
+    :straight nil
     :after org
     :custom
     (org-habit-graph-column 60)
