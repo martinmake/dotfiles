@@ -2,7 +2,7 @@
 #+AUTHOR: Comrade Martin Miroslavovich Michalec
 
 #+STARTUP: overview
-#+PROPERTY: header-args:               :tangle-mode (identity #o444) :mkdirp yes
+#+PROPERTY: header-args                :tangle-mode (identity #o444) :mkdirp yes
 #+PROPERTY: header-args:conf           :tangle-mode (identity #o444) :mkdirp yes
 #+PROPERTY: header-args:xml            :tangle-mode (identity #o444) :mkdirp yes
 #+PROPERTY: header-args:scheme         :tangle-mode (identity #o444) :mkdirp yes
