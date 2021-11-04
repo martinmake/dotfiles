@@ -16,7 +16,7 @@ by default like the non-free Linux kernel in order to use my WIFI card.
 
 ~~/.config/guix/channels.scm~:
 
-#+begin_src scheme :tangle ../build/.config/guix/channels.scm
+#+BEGIN_SRC scheme :tangle ../build/.config/guix/channels.scm
 
   (cons* (channel
           (name 'nonguix)
@@ -32,7 +32,7 @@ by default like the non-free Linux kernel in order to use my WIFI card.
           (commit "a14d79fc33649f55755fb4e705ab82de7852d8da"))
          %default-channels)
 
-#+end_src
+#+END_SRC
 
 * Systems
 ** Base Configuration
@@ -41,15 +41,15 @@ Base configuration of machines managed with Guix (Desktops/Laptops).
 Configurations deriving from ~base-operating-system~ must execute ~guix
 system~ like so:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
 sudo -E guix system -L ~/dotfiles/.config/guix/systems reconfigure ~/dotfiles/.config/guix/systems/${SYSTEM_NAME}.scm
 
-#+end_src
+#+END_SRC
 
 ~~/.config/guix/systems/base.scm~:
 
-#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+#+BEGIN_SRC scheme :tangle ../build/.config/guix/systems/base-system.scm
 
   (define-module (base-system)
     #:use-module (gnu)
@@ -83,12 +83,12 @@ sudo -E guix system -L ~/dotfiles/.config/guix/systems reconfigure ~/dotfiles/.c
   (use-service-modules desktop xorg)
   (use-service-modules nix)
 
-#+end_src
+#+END_SRC
 
 ~udev-rule~ allowing members of the ~video~ group control of screen brightness.
 
-#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
-
+#+BEGIN_SRC scheme :tangle ../build/.config/guix/systems/base-system.scm
+  
   (define %backlight-udev-rule
     (udev-rule
      "90-backlight.rules"
@@ -98,11 +98,11 @@ sudo -E guix system -L ~/dotfiles/.config/guix/systems reconfigure ~/dotfiles/.c
                     "ACTION==\"add\", SUBSYSTEM==\"backlight\", "
                     "RUN+=\"/run/current-system/profile/bin/chmod g+w /sys/class/backlight/%k/brightness\"")))
 
-#+end_src
+#+END_SRC
 
 ~udev-rule~ changing the acceleration and speed of TrackPoint.
 
-#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+#+BEGIN_SRC scheme :tangle ../build/.config/guix/systems/base-system.scm
 
   (define %trackpoint-udev-rule
     (udev-rule
@@ -113,12 +113,12 @@ sudo -E guix system -L ~/dotfiles/.config/guix/systems reconfigure ~/dotfiles/.c
                     "ATTR{device/sensitivity}=\"240\", "
                     "ATTR{device/speed}=\"200\"")))
 
-#+end_src
+#+END_SRC
 
 Use the ~libinput~ driver for all devices since it's a bit more modern
 that the default.
 
-#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+#+BEGIN_SRC scheme :tangle ../build/.config/guix/systems/base-system.scm
 
   (define %xorg-libinput-config "
     Section \"InputClass\"
@@ -141,12 +141,12 @@ that the default.
     EndSection
     ")
 
-#+end_src
+#+END_SRC
 
 Define the ~base-operating-system~ which will be inherited by all
 machine configurations.
 
-#+begin_src scheme :tangle ../build/.config/guix/systems/base.scm
+#+BEGIN_SRC scheme :tangle ../build/.config/guix/systems/base-system.scm
 
   (define-public base-operating-system
     (operating-system
@@ -292,7 +292,7 @@ machine configurations.
    (name-service-switch %mdns-host-lookup-nss)
    (sudoers-file "sudoers" "root ALL=(ALL) ALL\n%wheel ALL=(ALL) NOPASSWD:ALL\n"))
 
-#+end_src
+#+END_SRC
 
 ** Machines
 *** Per-System Settings
@@ -305,7 +305,7 @@ they are generated.
 
 Retrieval of these variables is done with ~custom/system-setting-get~.
 
-#+begin_src emacs-lisp :noweb yes :tangle ../build/.config/emacs/per-system-settings.el
+#+BEGIN_SRC emacs-lisp :noweb yes :tangle ../build/.config/emacs/per-system-settings.el
 
   (require 'map) ;; for map-merge
 
@@ -332,9 +332,9 @@ Retrieval of these variables is done with ~custom/system-setting-get~.
            (qutebrowser/default-zoom . 200))
          <<system-settings>>))
 
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp :tangle ../build/.config/emacs/lisp/custom-system-settings.el
+#+BEGIN_SRC emacs-lisp :tangle ../build/.config/emacs/lisp/custom-system-settings.el
 
   (defun custom/system-settings-load ()
     (interactive)
@@ -345,7 +345,7 @@ Retrieval of these variables is done with ~custom/system-setting-get~.
 
   (provide 'custom-system-settings)
 
-#+end_src
+#+END_SRC
 
 *** КИРПИЧ (BRICK)
 
@@ -356,7 +356,7 @@ Retrieval of these variables is done with ~custom/system-setting-get~.
 
 ~~/.config/guix/systems/kirpich.scm~:
 
-#+begin_src scheme :tangle ../build/.config/guix/systems/kirpich.scm
+#+BEGIN_SRC scheme :tangle ../build/.config/guix/systems/kirpich.scm
 
   (define-module (kirpich)
     #:use-module (base-system)
@@ -390,11 +390,11 @@ Retrieval of these variables is done with ~custom/system-setting-get~.
             (type "vfat"))
            %base-file-systems)))
 
-#+end_src
+#+END_SRC
 
 *System Settings*
 
-#+begin_src emacs-lisp :noweb-ref system-settings :noweb-sep ""
+#+BEGIN_SRC emacs-lisp :noweb-ref system-settings :noweb-sep ""
 
   (when (equal system-name "kirpich")
     '((desktop/dpi . 180)
@@ -486,13 +486,13 @@ have to use non-free ~linux-firmware~.
 
   installation-os-nonfree
 
-#+end_src
+#+END_SRC
 
 * System Configuration
 ** Profile
 *** Guix
 
-#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.profile :tangle-mode (identity #o444)
 
   # Load the default Guix profile
   GUIX_PROFILE="$HOME/.guix-profile"
@@ -509,22 +509,22 @@ have to use non-free ~linux-firmware~.
           unset profile
   done
 
-#+end_src
+#+END_SRC
 
 *** Nix
 
-#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.profile :tangle-mode (identity #o444)
 
   # Load Nix environment
   if [ -f /run/current-system/profile/etc/profile.d/nix.sh ]; then
       source /run/current-system/profile/etc/profile.d/nix.sh
   fi
 
-#+end_src
+#+END_SRC
 
 *** Enviromental Variables
 
-#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.profile :tangle-mode (identity #o444)
 
   unset PULSE_CONFIG
   unset PULSE_CLIENTCONFIG
@@ -559,30 +559,30 @@ have to use non-free ~linux-firmware~.
   # Many build scripts expect CC to contain the compiler command
   export CC="gcc"
 
-#+end_src
+#+END_SRC
 
 *** Font fix
 
-#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.profile :tangle-mode (identity #o444)
 
   # Ensure that font folders are loaded correctly
   xset +fp $(dirname $(readlink -f ~/.guix-extra-profiles/desktop/desktop/share/fonts/truetype/fonts.dir))
 
-#+end_src
+#+END_SRC
 
 *** Keyboard
 
-#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.profile :tangle-mode (identity #o444)
 
   # Switch escape and caps if tty:
   sudo -n loadkeys "$XDG_CONFIG_HOME/kmap/colemak_custom_iso.kmap"
   set -o noclobber
 
-#+end_src
+#+END_SRC
 
 *** Color Palette
 
-#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.profile :tangle-mode (identity #o444)
 
   print "\e]P0000000" #black
   print "\e]P1cd0000" #darkred
@@ -605,29 +605,29 @@ have to use non-free ~linux-firmware~.
   print "\e[?16;2;112;c"
   setterm -background black -foreground white -store
 
-#+end_src
+#+END_SRC
 
 *** Start
 
-#+begin_src shell :tangle ../build/.profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.profile :tangle-mode (identity #o444)
 
   clear
   neofetch
 
-#+end_src
+#+END_SRC
 
 ** ZSH
 
-#+begin_src shell :tangle ../build/.zprofile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.zprofile :tangle-mode (identity #o444)
 
   # Honor system-wide environment variables
   source /etc/profile
 
-#+end_src
+#+END_SRC
 
 ** BASH
 
-#+begin_src shell :tangle ../build/.bash_profile :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.bash_profile :tangle-mode (identity #o444)
 
   # Load .profile
   if [ -f ~/.profile ]; then source ~/.profile; fi
@@ -635,9 +635,9 @@ have to use non-free ~linux-firmware~.
   # Honor per-interactive-shell startup file
   if [ -f ~/.bashrc ]; then source ~/.bashrc; fi
 
-#+end_src
+#+END_SRC
 
-#+begin_src shell :tangle ../build/.bashrc :tangle-mode (identity #o444)
+#+BEGIN_SRC shell :tangle ../build/.bashrc :tangle-mode (identity #o444)
 
   # Bash initialization for interactive non-login shells and
   # for remote shells (info "(bash) Bash Startup Files").
@@ -671,11 +671,11 @@ have to use non-free ~linux-firmware~.
   alias ll='ls -l'
   alias grep='grep --color=auto'
 
-#+end_src
+#+END_SRC
 
 ** Shepard
 
-#+begin_src scheme :tangle ../build/.config/shepard/init.scm
+#+BEGIN_SRC scheme :tangle ../build/.config/shepard/init.scm
 
   (define gpg-agent
     (make <service>
@@ -712,17 +712,17 @@ have to use non-free ~linux-firmware~.
   ;; Start user services
   (for-each start '(mcron))
 
-#+end_src
+#+END_SRC
 
 ** Udiskie
 
 *Guix Packages*
 
-#+begin_src scheme :noweb-ref packages :noweb-sep ""
+#+BEGIN_SRC scheme :noweb-ref packages :noweb-sep ""
 
   "udiskie"
 
-#+end_src
+#+END_SRC
 
 * Scheduled Tasks
 
@@ -730,27 +730,27 @@ I use [[https://www.gnu.org/software/mcron/][GNU mcron]] for scheduling tasks to
 
 *Guix Packages*
 
-#+begin_src scheme :noweb-ref packages :noweb-sep ""
+#+BEGIN_SRC scheme :noweb-ref packages :noweb-sep ""
 
   "mcron"
 
-#+end_src
+#+END_SRC
 
 * System Tools
 
 *Guix Packages*
 
-#+begin_src scheme :noweb-ref packages :noweb-sep ""
+#+BEGIN_SRC scheme :noweb-ref packages :noweb-sep ""
 
   "openssh"
   "zip"
   "unzip"
 
-#+end_src
+#+END_SRC
 
 * System Management
 
-#+begin_src shell :tangle ../script/system-update
+#+BEGIN_SRC shell :tangle ../script/system-reconfigure
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -758,47 +758,47 @@ I use [[https://www.gnu.org/software/mcron/][GNU mcron]] for scheduling tasks to
   echo -e "${INFO}Updating $(hostname)..."
   sudo -E guix system -L $XDG_CONFIG_HOME/guix/systems \
        reconfigure $XDG_CONFIG_HOME/guix/systems/$(hostname).scm
+#+END_SRC
 
-#+end_src
 
 * Nix Package Management
 
 Certains tools are not easily available through =Guix= channels, but we
 can use the =Nix= package repository.
 
-#+begin_src conf :tangle ../build/.nix-channels
+#+BEGIN_SRC conf :tangle ../build/.nix-channels
 
   https://nixos.org/channels/nixpkgs-unstable nixpkgs
 
-#+end_src
+#+END_SRC
 
 The channel needs to be updated before any package can be installed:
 
-#+begin_src shell :tangle no
+#+BEGIN_SRC shell :tangle no
 
   nix-channel --update
 
-#+end_src
+#+END_SRC
 
 Installing packages:
 
-#+begin_src shell :tangle no
+#+BEGIN_SRC shell :tangle no
 
   nix-env -i nodejs dotnet-sdk gh hledger
 # nix-env -iA nixpkgs.nodejs-12_x # For a specific version
 
-#+end_src
+#+END_SRC
 
 Allow specific =unfree= packages.
 
-#+begin_src conf :tangle no
+#+BEGIN_SRC conf :tangle no
 
   { nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
       "spotify"
     ];
   }
 
-#+end_src
+#+END_SRC
 
 * System Installation
 ** Building the Installation Image
@@ -808,11 +808,11 @@ use the non-free kernel and firmware blobs from the [[https://gitlab.com/nonguix
 After cloning the repo, the installation image can be built with this
 command:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   guix system image ./install.scm --image-size=5G
 
-#+end_src
+#+END_SRC
 
 #+begin_quote
 
@@ -824,11 +824,11 @@ Once the build is complete, Guix will print out the path to the disk
 image file that was created. You can now write the installation image
 to a USB stick using ~dd~:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   sudo dd if=/gnu/store/nyg6jv3a4l0pbcvb0x7jfsb60k9qalga-disk-image of=/dev/sdX status=progress
 
-#+end_src
+#+END_SRC
 
 ** Installing GNU GuixSD
 
@@ -840,7 +840,7 @@ Create a file with WiFi configuration:
 
 ~wifi.conf~
 
-#+begin_src conf
+#+BEGIN_SRC conf
 
   network = {
     ssid = "ssid-name"
@@ -848,27 +848,27 @@ Create a file with WiFi configuration:
     psk = "passphrase"
   }
 
-#+end_src
+#+END_SRC
 
 Run the following commands to unblock the WiFi card, determine its
 device name, and connect using the device name you received from
 ~ifconfig -a~.
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   rfkill unblock all
   ifconfig -a
   wpa_supplicant -c ./wifi.conf -i wlan0 -B
 
-#+end_src
+#+END_SRC
 
 Run ~dhclient~ to turn on DNS for our WiFi interface.
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   dhclient -v wlan0
 
-#+end_src
+#+END_SRC
 
 *** Creating Partitions
 
@@ -888,7 +888,7 @@ We'll create the following partition table:
 
 Tools to use:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   cfdisk /dev/sda \
       || fdisk /dev/sda
@@ -902,11 +902,11 @@ Tools to use:
   cryptsetup open --type luks /dev/nvme0n1p5 system-root
   mkfs.btrfs -L ROOT /dev/mapper/ROOT
 
-#+end_src
+#+END_SRC
 
 Mounting partitions:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   mount label=ROOT /mnt
 
@@ -915,64 +915,64 @@ Mounting partitions:
 
   swapon -L SWAP
 
-#+end_src
+#+END_SRC
 
 Since everything installed with ~guix~ is placed into ~/gnu/store/~, we
 can make it =Copy On Write= to our new system.
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   herd start cow-store /mnt
 
-#+end_src
+#+END_SRC
 
 *** Initial System Installation
 
 We pull down our system configuration into the installation FS (not
 ~/mnt~):
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   git clone https://github.com/martinmake/dotfiles
 
-#+end_src
+#+END_SRC
 
 We pull =guix channels= on installer system making sure we also pull
 ~nonguix~ channel:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   guix pull -C ./dotfiles/build/.config/guix/channels.scm
   hash guix
 
-#+end_src
+#+END_SRC
 
 We update/create new operating system with partition UUIDs.
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   ls -l /dev/disk/by-uuid/ ./dotfiles/build/.config/guix/systems/<SYSTEM>.scm
   vim ./dotfiles/build/.config/guix/systems/<SYSTEM>.scm
 
-#+end_src
+#+END_SRC
 
 We also push this chage to remote:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   git commit -am "added machine: <machine_name>"
   git push
 
-#+end_src
+#+END_SRC
 
 We initialize our system (this will take a while):
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   guix system -L ./dotfiles/build/.config/guix/systems/ \
        init ./dotfiles/build/.config/guix/systems/<SYSTEM>.scm /mnt
 
-#+end_src
+#+END_SRC
 
 *** Initial System Setup
 
@@ -980,30 +980,30 @@ We reboot into the new GNU GuixSD, to finish initial setup.
 
 First we want to set root and user password:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   passwd
   passwd <username>
 
-#+end_src
+#+END_SRC
 
 Now we log into our user account and clone dotfiles repository.
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   git clone https://github.com/martinmake/dotfiles
 
-#+end_src
+#+END_SRC
 
 Setup channels... (make sure to pull)
 
 Activate profiles:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   profiles-activate desktop emacs
 
-#+end_src
+#+END_SRC
 
 Now we have packages from those manifests installed and usable. They
 be later updated with ~profiles-update~.

@@ -6,7 +6,7 @@
 
 * Preamble
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;; Authors: Comrade Martin Miroslavovich Michalec <martin@michalec.dev>
   ;; URL: http://github.com/martin-michalec/emacs-theme-industrial
@@ -17,16 +17,16 @@
   (unless (>= emacs-major-version 24)
     (error "Requires Emacs version 24 or later!"))
 
-#+end_src
+#+END_SRC
 
 * Begin Theme
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (autothemer-deftheme
    industrial "Simple, Clean, High-Contrast..."
 
-#+end_src
+#+END_SRC
 
 * Color Definitions
 ** Industrial Color Standard
@@ -51,25 +51,25 @@ Extended with:
 
 ** Begin
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 (
 
-#+end_src
+#+END_SRC
 
 ** Color Range
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (((class color) (min-colors #xFFFFFF) (background dark))  ;; color column 1 GUI/24bit
    ((class color) (min-colors #x0000FF) (background dark))  ;; color column 2 Xterm/256
    ((class color) (min-colors #x00000F) (background dark))) ;; color column 3 linux/16
 
-#+end_src
+#+END_SRC
 
 ** Base
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-black      "#000000" nil nil)
   (industrial-grey       "#7F7F7F" nil nil)
@@ -88,11 +88,11 @@ Extended with:
   (industrial-magenta    "#FF00FF" nil nil)
   (industrial-red-blue   "#FF007F" nil nil)
 
-#+end_src
+#+END_SRC
 
 ** Light
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-light-red     "#FF7F7F" nil)
   (industrial-light-yellow  "#FFFF7F" nil)
@@ -101,11 +101,11 @@ Extended with:
   (industrial-light-blue    "#7F7FFF" nil)
   (industrial-light-magenta "#FF7FFF" nil)
 
-#+end_src
+#+END_SRC
 
 ** Dark
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-dark-red     "#7F0000" nil)
   (industrial-dark-yellow  "#7F7F00" nil)
@@ -114,23 +114,23 @@ Extended with:
   (industrial-dark-blue    "#00007F" nil)
   (industrial-dark-magenta "#7F007F" nil)
 
-#+end_src
+#+END_SRC
 
 ** Background
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-background-0 "#000000" nil nil)
   (industrial-background-1 "#0A0A0A" nil nil)
   (industrial-background-2 "#0F0F0F" nil nil)
   (industrial-background industrial-background-0)
 
-#+end_src
+#+END_SRC
 
 ** Aliases
 *** Basic
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-orange industrial-red-green)
 
@@ -139,30 +139,30 @@ Extended with:
 
   (industrial-dark-grey industrial-background-1)
 
-#+end_src
+#+END_SRC
 
 *** Cursor
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-cursor    industrial-yellow)
   (industrial-selection industrial-orange)
 
-#+end_src
+#+END_SRC
 
 *** Matches
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-match-selected industrial-magenta)
   (industrial-match-other    industrial-cyan   )
 
-#+end_src
+#+END_SRC
 
 *** Color Wheel
 **** RGB
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-color-wheel-1 industrial-red       )
   (industrial-color-wheel-2 industrial-red-green )
@@ -177,11 +177,11 @@ Extended with:
   (industrial-color-wheel-B industrial-magenta   )
   (industrial-color-wheel-C industrial-red-blue  )
 
-#+end_src
+#+END_SRC
 
 **** Red
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-color-wheel-red-1 industrial-magenta  )
   (industrial-color-wheel-red-2 industrial-red-blue )
@@ -189,11 +189,11 @@ Extended with:
   (industrial-color-wheel-red-4 industrial-red-green)
   (industrial-color-wheel-red-5 industrial-yellow   )
 
-#+end_src
+#+END_SRC
 
 **** Green
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-color-wheel-green-1 industrial-yellow    )
   (industrial-color-wheel-green-2 industrial-green-red )
@@ -201,11 +201,11 @@ Extended with:
   (industrial-color-wheel-green-4 industrial-green-blue)
   (industrial-color-wheel-green-5 industrial-cyan      )
 
-#+end_src
+#+END_SRC
 
 **** Blue
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (industrial-color-wheel-blue-1 industrial-cyan      )
   (industrial-color-wheel-blue-2 industrial-blue-green)
@@ -213,28 +213,28 @@ Extended with:
   (industrial-color-wheel-blue-4 industrial-blue-red  )
   (industrial-color-wheel-blue-5 industrial-magenta   )
 
-#+end_src
+#+END_SRC
 
 ** End
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 )
 
-#+end_src
+#+END_SRC
 
 * Face Configuration
 ** Begin Faces
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (
 
-#+end_src
+#+END_SRC
 
 ** Basic Faces
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (default             (:foreground industrial-white :background industrial-background
                         :font "Terminus"        :height 140))
@@ -267,11 +267,11 @@ Extended with:
 
   (bookmark-face       (:box (:color industrial-orange)))
 
-#+end_src
+#+END_SRC
 
 ** Mode Line
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (mode-line           (:box (:color industrial-red       )))
   (mode-line-inactive  (:box (:color industrial-dark-green)))
@@ -279,20 +279,20 @@ Extended with:
   (mode-line-emphasis  (:bold t))
   (mode-line-highlight ())
 
-#+end_src
+#+END_SRC
 
 ** Line Number
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (line-number              (:foreground industrial-cyan))
   (line-number-current-line (:foreground industrial-magenta))
 
-#+end_src
+#+END_SRC
 
 ** Outline
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (outline-1 (:font "Liberation Serif" :height 1.8 :foreground industrial-red)) ;; :foreground industrial-red
   (outline-2 (:font "Liberation Serif" :height 1.7 :foreground industrial-red)) ;; :foreground industrial-green
@@ -303,21 +303,21 @@ Extended with:
   (outline-7 (:font "Liberation Serif" :height 1.2 :foreground industrial-red)) ;; :foreground industrial-cyan
   (outline-8 (:font "Liberation Serif" :height 1.1 :foreground industrial-red)) ;; :foreground industrial-magenta
 
-#+end_src
+#+END_SRC
 
 ** Match and Isearch Faces
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (lazy-highlight (:foreground industrial-cyan    :inverse-video t :bold t))
   (match          (:foreground industrial-magenta :inverse-video t :bold t))
   (highlight      (:foreground industrial-orange  :inverse-video t :bold t))
 
-#+end_src
+#+END_SRC
 
 ** Builtin Syntax Faces
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (font-lock-builtin-face       (:foreground industrial-magenta    ))
   (font-lock-constant-face      (:foreground industrial-red        ))
@@ -329,7 +329,7 @@ Extended with:
   (font-lock-type-face          (:foreground industrial-green      ))
   (font-lock-warning-face       (:foreground industrial-red :bold t))
 
-#+end_src
+#+END_SRC
 
 ** Mode-Specific Faces
 *** compilation
@@ -341,77 +341,77 @@ Extended with:
 
 *** helpful
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (helpful-heading (:height 1.2))
 
-#+end_src
+#+END_SRC
 
 *** tab-bar-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(tab-bar (:foreground industrial-light0 :background industrial-dark0))
   ;(tab-bar-tab (:foreground industrial-light0 :background industrial-dark0))
 
-#+end_src
+#+END_SRC
 
 *** tab-line-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(tab-line (:foreground industrial-light0 :background industrial-dark0))
   ;(tab-bar-tab-inactive (:foreground industrial-light0 :background industrial-dark0))
 
-#+end_src
+#+END_SRC
 
 *** which-key
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (which-key-key-face (:inherit 'button :underline nil))
   (which-key-note-face (:foreground industrial-blue :bold t))
 
-#+end_src
+#+END_SRC
 
 *** which-func
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (which-func (:inherit 'font-lock-function-name-face))
 
-#+end_src
+#+END_SRC
 
 *** elixir-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(elixir-atom-face      (:foreground industrial-lightblue4))
   ;(elixir-attribute-face (:foreground industrial-burlywood4))
 
-#+end_src
+#+END_SRC
 
 *** man
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (Man-overstrike (:foreground industrial-red   :bold t))
   (Man-underline  (:foreground industrial-green :bold t))
 
-#+end_src
+#+END_SRC
 
 *** woman
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (woman-bold   (:foreground industrial-red   :bold t))
   (woman-italic (:foreground industrial-green :bold t))
 
-#+end_src
+#+END_SRC
 
 *** tldr
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(tldr-command-itself   (:foreground industrial-bright_red :bold t))
   ;(tldr-command-argument (:foreground industrial-bright_green :bold t))
@@ -420,11 +420,11 @@ Extended with:
   ;(tldr-title            (:foreground industrial-bright_red :bold t :height 1.2))
   ;(tldr-introduction     (:inherit 'font-lock-comment-face :slant 'italic))
 
-#+end_src
+#+END_SRC
 
 *** whitespace-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (whitespace-space            (:foreground industrial-dark-grey))
   (whitespace-hspace           (:foreground industrial-dark-grey))
@@ -437,11 +437,11 @@ Extended with:
   (whitespace-space-after-tab  (:inherit 'whitespace-space))
   (whitespace-space-before-tab (:inherit 'whitespace-space))
 
-#+end_src
+#+END_SRC
 
 *** rainbow-delimiters
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (rainbow-delimiters-depth-1-face   (:foreground industrial-yellow ))
   (rainbow-delimiters-depth-2-face   (:foreground industrial-green  ))
@@ -454,36 +454,36 @@ Extended with:
   (rainbow-delimiters-depth-9-face   (:foreground industrial-blue   ))
   (rainbow-delimiters-unmatched-face (:foreground industrial-red :inverse-video t :bold t))
 
-#+end_src
+#+END_SRC
 
 *** highlight-indentation-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(highlight-indentation-current-column-face (:background industrial-dark4))
   ;(highlight-indentation-face                (:background industrial-dark1))
 
-#+end_src
+#+END_SRC
 
 *** highlight-numbers
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(highlight-numbers-number (:foreground industrial-bright_purple :bold nil))
 
-#+end_src
+#+END_SRC
 
 *** highlight-symbol
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(highlight-symbol-face (:foreground industrial-neutral_purple))
 
-#+end_src
+#+END_SRC
 
 *** hi-lock
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(hi-blue     (:foreground industrial-dark0_hard :background industrial-bright_blue  ))
   ;(hi-green    (:foreground industrial-dark0_hard :background industrial-bright_green ))
@@ -495,21 +495,21 @@ Extended with:
   ;(hi-black-b  (:foreground industrial-bright_orange :background industrial-dark0_hard :bold t))
   ;(hi-black-hb (:foreground industrial-bright_cyan   :background industrial-dark0_hard :bold t))
 
-#+end_src
+#+END_SRC
 
 *** smartparens
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(sp-pair-overlay-face       (:background industrial-dark2))
   ;(sp-show-pair-match-face    (:background industrial-dark2))
   ;(sp-show-pair-mismatch-face (:background industrial-neutral_red))
 
-#+end_src
+#+END_SRC
 
 *** flycheck
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(flycheck-warning            (:underline (:style 'wave :color industrial-bright_yellow)))
   ;(flycheck-error              (:underline (:style 'wave :color industrial-bright_red)))
@@ -521,11 +521,11 @@ Extended with:
   ;(flycheck-error-list-error   (:foreground industrial-bright_red :bold t))
   ;(flycheck-error-list-info    (:foreground industrial-bright_blue :bold t))
 
-#+end_src
+#+END_SRC
 
 *** flymake
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(flymake-warning (:underline (:style 'wave :color industrial-bright_yellow)))
   ;(flymake-error   (:underline (:style 'wave :color industrial-bright_red)))
@@ -533,62 +533,62 @@ Extended with:
   ;(flymake-errline (:underline (:style 'wave :color industrial-bright_red)))
   ;(flymake-warline (:underline (:style 'wave :color industrial-bright_yellow)))
 
-#+end_src
+#+END_SRC
 
 *** auctex
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
    ;(font-latex-math-face         (:foreground industrial-lightblue4))
    ;(font-latex-sectioning-5-face (:foreground industrial-neutral_green))
    ;(font-latex-string-face       (:inherit 'font-lock-string-face))
    ;(font-latex-warning-face      (:inherit 'warning))
 
-#+end_src
+#+END_SRC
 
 *** elscreen
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(elscreen-tab-background-face     (:background industrial-dark0 :box nil))
   ;(elscreen-tab-control-face        (:foreground industrial-neutral_red :background industrial-dark2 :box nil :underline nil))
   ;(elscreen-tab-current-screen-face (:foreground industrial-dark0 :background industrial-dark4 :box nil))
   ;(elscreen-tab-other-screen-face   (:foreground industrial-light4 :background industrial-dark2 :box nil :underline nil))
 
-#+end_src
+#+END_SRC
 
 *** embrace
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(embrace-help-pair-face      (:foreground industrial-bright_blue))
   ;(embrace-help-separator-face (:foreground industrial-bright_orange))
   ;(embrace-help-key-face       (:weight 'bold industrial-bright_green))
   ;(embrace-help-mark-func-face (:foreground industrial-bright_cyan))
 
-#+end_src
+#+END_SRC
 
 *** ag
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(ag-hit-face   (:foreground industrial-neutral_blue))
   ;(ag-match-face (:foreground industrial-neutral_red))
 
-#+end_src
+#+END_SRC
 
 *** RipGrep
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(ripgrep-hit-face   (:inherit 'ag-hit-face))
   ;(ripgrep-match-face (:inherit 'ag-match-face))
 
-#+end_src
+#+END_SRC
 
 *** diff
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (diff-header         (:foreground industrial-blue :background nil :inverse-video t :bold t))
   (diff-changed        (:foreground industrial-orange))
@@ -598,31 +598,31 @@ Extended with:
   (diff-removed        (:foreground industrial-red))
   (diff-refine-removed (:foreground industrial-red :background nil :inverse-video t :bold t))
 
-#+end_src
+#+END_SRC
 
 *** diff-indicator
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (diff-indicator-changed (:inherit 'diff-changed))
   (diff-indicator-added   (:inherit 'diff-added  ))
   (diff-indicator-removed (:inherit 'diff-removed))
 
-#+end_src
+#+END_SRC
 
 *** diff-hl
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (diff-hl-change (:inherit 'diff-changed))
   (diff-hl-delete (:inherit 'diff-removed))
   (diff-hl-insert (:inherit 'diff-added  ))
 
-#+end_src
+#+END_SRC
 
 *** js2
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(js2-warning                  (:underline (:color industrial-bright_yellow :style 'wave)))
   ;(js2-error                    (:underline (:color industrial-bright_red :style 'wave)))
@@ -638,11 +638,11 @@ Extended with:
   ;(js2-jsdoc-html-tag-name      (:foreground industrial-light4 :background nil))
   ;(js2-jsdoc-html-tag-delimiter (:foreground industrial-light3 :background nil))
 
-#+end_src
+#+END_SRC
 
 *** haskell
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(haskell-interactive-face-compile-warning (:underline (:color industrial-yellow :style 'wave)))
   ;(haskell-interactive-face-compile-error   (:underline (:color industrial-red :style 'wave)))
@@ -653,11 +653,11 @@ Extended with:
   ;(haskell-pragma-face                      (:foreground industrial-medium :background nil))
   ;(haskell-constructor-face                 (:foreground industrial-neutral_aqua :background nil))
 
-#+end_src
+#+END_SRC
 
 *** org-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (org-agenda-structure     (:foreground industrial-blue :bold t))
   (org-time-grid            (:foreground industrial-grey))
@@ -716,22 +716,22 @@ Extended with:
   (org-block-begin-line        (:inherit 'org-meta-line :extend t :underline      (:color industrial-white)))
   (org-block-end-line          (:inherit 'org-meta-line :extend t :underline nil :overline industrial-white ))
 
-#+end_src
+#+END_SRC
 
 *** powerline
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(powerline-active1   (:background industrial-dark2 :inherit 'mode-line))
   ;(powerline-active2   (:background industrial-dark1 :inherit 'mode-line))
   ;(powerline-inactive1 (:background industrial-medium :inherit 'mode-line-inactive))
   ;(powerline-inactive2 (:background industrial-dark2 :inherit 'mode-line-inactive))
 
-#+end_src
+#+END_SRC
 
 *** smart-mode-line
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (sml/modes               (:foreground industrial-white :weight 'bold :bold t))
   (sml/minor-modes         (:foreground industrial-orange))
@@ -750,29 +750,29 @@ Extended with:
   (sml/col-number          (:foreground industrial-grey))
   (sml/position-percentage (:foreground industrial-grey))
 
-#+end_src
+#+END_SRC
 
 *** isearch
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (isearch      (:foreground industrial-magenta :inverse-video t :bold t))
   (isearch-fail (:foreground industrial-red     :inverse-video t :bold t))
 
-#+end_src
+#+END_SRC
 
 *** show-paren
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (show-paren-match    (:foreground industrial-cyan :inverse-video t :bold t))
   (show-paren-mismatch (:foreground industrial-red  :inverse-video t :bold t))
 
-#+end_src
+#+END_SRC
 
 *** anzu
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(anzu-mode-line         (:foreground industrial-light0 :height 100 :background industrial-faded_blue))
   ;(anzu-match-1           (:foreground industrial-dark0 :background industrial-bright_green))
@@ -781,11 +781,11 @@ Extended with:
   ;(anzu-replace-highlight (:background industrial-dark_aqua))
   ;(anzu-replace-to        (:background industrial-dark_cyan))
 
-#+end_src
+#+END_SRC
 
 *** el-search
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(el-search-match       (:background industrial-dark_cyan))
   ;(el-search-other-match (:background industrial-dark_blue))
@@ -803,40 +803,40 @@ Extended with:
   ;(avy-background-face      (:foreground industrial-dark3 ))
   ;(avy-goto-char-timer-face (:inherit 'highlight ))
 
-#+end_src
+#+END_SRC
 
 *** popup
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(popup-face                (:foreground industrial-light0 :background industrial-dark1))
   ;(popup-menu-mouse-face     (:foreground industrial-light0 :background industrial-faded_blue))
   ;(popup-menu-selection-face (:foreground industrial-light0 :background industrial-faded_blue))
   ;(popup-tip-face            (:foreground industrial-light0_hard :background industrial-dark_aqua))
 
-#+end_src
+#+END_SRC
 
 *** ac-dabbrev
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(ac-dabbrev-menu-face      (:inherit 'popup-face               ))
   ;(ac-dabbrev-selection-face (:inherit 'popup-menu-selection-face))
 
-#+end_src
+#+END_SRC
 
 *** sh-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(sh-heredoc     (:foreground industrial-darkslategray4 :background nil))
   ;(sh-quoted-exec (:foreground industrial-darkslategray4 :background nil))
 
-#+end_src
+#+END_SRC
 
 *** company
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(company-echo                     (:inherit 'company-echo-common))
   ;(company-echo-common              (:foreground industrial-bright_blue :background nil))
@@ -854,11 +854,11 @@ Extended with:
   ;(company-tooltip-mouse            (:foreground industrial-dark0 :background industrial-bright_blue))
   ;(company-tooltip-selection        (:foreground industrial-light0 :background industrial-faded_blue))
 
-#+end_src
+#+END_SRC
 
 *** dired+
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(diredp-file-name              (:foreground industrial-light2 ))
   ;(diredp-file-suffix            (:foreground industrial-light4 ))
@@ -878,11 +878,11 @@ Extended with:
   ;(diredp-read-priv              (:foreground industrial-bright_red  :background industrial-dark_red))
   ;(diredp-write-priv             (:foreground industrial-bright_aqua :background industrial-dark_aqua))
 
-#+end_src
+#+END_SRC
 
 *** helm
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(helm-M-x-key              (:foreground industrial-neutral_orange))
   ;(helm-action               (:foreground industrial-white :underline t))
@@ -927,46 +927,46 @@ Extended with:
   ;(helm-source-header        (:foreground industrial-light2 :background industrial-dark1))
   ;(helm-visible-mark         (:foreground industrial-black :background industrial-light3))
 
-#+end_src
+#+END_SRC
 
 *** column-marker
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(column-marker-1 (:background industrial-dark-blue   ))
   ;(column-marker-2 (:background industrial-dark-magenta))
   ;(column-marker-3 (:background industrial-dark-cyan   ))
 
-#+end_src
+#+END_SRC
 
 *** vline
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(vline        (:background industrial-dark_aqua))
   ;(vline-visual (:background industrial-dark_aqua))
 
-#+end_src
+#+END_SRC
 
 *** col-highlight
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (col-highlight (:inherit 'vline))
 
-#+end_src
+#+END_SRC
 
 *** column-enforce-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(column-enforce-face (:foreground industrial-dark4 :background industrial-dark_red))
 
-#+end_src
+#+END_SRC
 
 *** hydra
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (hydra-face-red      (:foreground industrial-red         ))
   (hydra-face-blue     (:foreground industrial-blue        ))
@@ -974,11 +974,11 @@ Extended with:
   (hydra-face-amaranth (:foreground industrial-dark-magenta))
   (hydra-face-teal     (:foreground industrial-dark-cyan   ))
 
-#+end_src
+#+END_SRC
 
 *** ivy
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (ivy-current-match (:foreground industrial-black :background industrial-orange :bold t :extend t))
   (ivy-minibuffer-match-face-1 (nil))
@@ -1005,12 +1005,12 @@ Extended with:
   (ivy-remote              (:foreground industrial-blue  :bold t))
 
   (counsel-active-mode (:foreground industrial-blue :bold t))
+#+END_SRC
 
-#+end_src
 
 *** smerge
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(smerge-upper           (:background industrial-mid_purple))
   ;(smerge-lower           (:background industrial-mid_blue))
@@ -1020,11 +1020,11 @@ Extended with:
   ;(smerge-refined-removed (:background industrial-dark_red))
   ;(smerge-refine-changed  (:background nil :foreground nil))
 
-#+end_src
+#+END_SRC
 
 *** git-gutter
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(git-gutter:added     (:foreground industrial-faded_green :background industrial-muted_green ))
   ;(git-gutter:deleted   (:foreground industrial-faded_red :background industrial-muted_red ))
@@ -1032,21 +1032,21 @@ Extended with:
   ;(git-gutter:separator (:foreground industrial-faded_cyan :background industrial-muted_cyan ))
   ;(git-gutter:unchanged (:foreground industrial-faded_yellow :background industrial-muted_yellow ))
 
-#+end_src
+#+END_SRC
 
 *** git-gutter-fr
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(git-gutter-fr:added    (:inherit 'git-gutter:added))
   ;(git-gutter-fr:deleted  (:inherit 'git-gutter:deleted))
   ;(git-gutter-fr:modified (:inherit 'git-gutter:modified))
 
-#+end_src
+#+END_SRC
 
 *** git-gutter+
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(git-gutter+-commit-header-face (:inherit 'font-lock-comment-face))
   ;(git-gutter+-added              (:foreground industrial-faded_green :background industrial-muted_green ))
@@ -1055,11 +1055,11 @@ Extended with:
   ;(git-gutter+-separator          (:foreground industrial-faded_cyan :background industrial-muted_cyan ))
   ;(git-gutter+-unchanged          (:foreground industrial-faded_yellow :background industrial-muted_yellow ))
 
-#+end_src
+#+END_SRC
 
 *** magit
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (magit-hash     (:foreground industrial-blue :bold t))
   ;(magit-filename (:weight 'normal))
@@ -1133,21 +1133,21 @@ Extended with:
   ;(magit-refname-stash  (:inherit 'magit-refname))
   ;(magit-refname        (:foreground industrial-light2))
 
-#+end_src
+#+END_SRC
 
 *** git-gutter-fr+
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(git-gutter-fr+-added                      (:inherit 'git-gutter+-added))
   ;(git-gutter-fr+-deleted                    (:inherit 'git-gutter+-deleted))
   ;(git-gutter-fr+-modified                   (:inherit 'git-gutter+-modified))
 
-#+end_src
+#+END_SRC
 
 *** term
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(term-color-black      (:foreground industrial-dark1))
   ;(term-color-blue       (:foreground industrial-neutral_blue))
@@ -1160,11 +1160,11 @@ Extended with:
   ;(term-default-fg-color (:foreground industrial-light0))
   ;(term-default-bg-color (:background industrial-dark0))
 
-#+end_src
+#+END_SRC
 
 *** Elfeed
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(elfeed-search-date-face         (:foreground industrial-muted_cyan))
   ;(elfeed-search-feed-face         (:foreground industrial-faded_cyan))
@@ -1172,11 +1172,11 @@ Extended with:
   ;(elfeed-search-title-face        (:foreground industrial-light3 :bold nil))
   ;(elfeed-search-unread-title-face (:foreground industrial-light0_hard :bold nil))
 
-#+end_src
+#+END_SRC
 
 *** message
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(message-header-to         (:foreground industrial-bright_cyan ))
   ;(message-header-cc         (:foreground industrial-bright_cyan ))
@@ -1189,11 +1189,11 @@ Extended with:
   ;(message-cited-text        (:foreground industrial-light3 ))
   ;(message-mml               (:foreground industrial-faded_aqua ))
 
-#+end_src
+#+END_SRC
 
 *** web-mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(web-mode-doctype-face          (:foreground industrial-light2 :weight 'bold))
   ;(web-mode-html-attr-name-face   (:inherit 'font-lock-variable-name-face))
@@ -1201,11 +1201,11 @@ Extended with:
   ;(web-mode-html-tag-face         (:foreground industrial-light3))
   ;(web-mode-html-tag-bracket-face (:inherit 'default))
 
-#+end_src
+#+END_SRC
 
 *** swoop
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(swoop-face-target-line        (:foreground industrial-light0_hard :background industrial-faded_blue))
   ;(swoop-face-target-words       (:foreground industrial-light0 :background industrial-faded_aqua))
@@ -1213,30 +1213,30 @@ Extended with:
   ;(swoop-face-header-format-line (:foreground industrial-white :background industrial-muted_blue :height 1.3 :weight 'bold))
   ;(swoop-face-line-number        (:foreground industrial-neutral_orange))
 
-#+end_src
+#+END_SRC
 
 *** helm-swoop
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(helm-swoop-target-word-face       (:foreground industrial-light0 :background industrial-faded_aqua))
   ;(helm-swoop-target-line-block-face (:foreground industrial-light0_hard :background industrial-faded_blue))
   ;(helm-swoop-target-line-face       (:foreground industrial-light0_hard :background industrial-faded_blue))
   ;(helm-swoop-line-number-face       (:foreground industrial-neutral_orange))
 
-#+end_src
+#+END_SRC
 
 *** eldoc
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(eldoc-highlight-function-argument (:foreground industrial-aquamarine4 :weight 'bold))
 
-#+end_src
+#+END_SRC
 
 *** erc
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;(erc-action-face         (:inherit 'erc-default-face))
   ;(erc-bold-face           (:weight 'bold))
@@ -1258,19 +1258,19 @@ Extended with:
   ;(erc-nick-default-face   (:weight 'bold))
   ;(erc-button              (:weight 'bold  :underline t))
 
-#+end_src
+#+END_SRC
 
 ** End Faces
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   )
 
-#+end_src
+#+END_SRC
 
 * Variables
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (custom-theme-set-variables 'industrial
                              `(pos-tip-foreground-color ,industrial-yellow)
@@ -1285,19 +1285,19 @@ Extended with:
                                                         ,industrial-white])
                              `(pdf-view-midnight-colors '(,industrial-white . ,industrial-black)))
 
-#+end_src
+#+END_SRC
 
 * End Theme
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
 )
 
-#+end_src
+#+END_SRC
 
 * Autoload
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (and load-file-name
        (boundp 'custom-theme-load-path)
@@ -1305,12 +1305,12 @@ Extended with:
                     (file-name-as-directory
                     (file-name-directory load-file-name))))
 
-#+end_src
+#+END_SRC
 
 * Epilog
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (provide-theme 'industrial)
 
-#+end_src
+#+END_SRC

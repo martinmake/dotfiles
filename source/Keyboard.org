@@ -17,7 +17,7 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 * Console
 ** ISO
 
-#+begin_src conf-unix :tangle ../build/.config/kmap/colemak_custom_iso.kmap
+#+BEGIN_SRC conf-unix :tangle ../build/.config/kmap/colemak_custom_iso.kmap
 
   alt_is_meta
   charset "iso-8859-15"  # use a ISO-8859-15 font, e.g.: consolechars -f lat9v-14
@@ -97,11 +97,11 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
       keycode 56 = Alt
       keycode 97 = Control
 
-#+end_src
+#+END_SRC
 
 *** ANSI
 
-#+begin_src conf-unix :tangle ../build/.config/kmap/colemak_custom_ansi.kmap
+#+BEGIN_SRC conf-unix :tangle ../build/.config/kmap/colemak_custom_ansi.kmap
 
   alt_is_meta
   charset "iso-8859-15"  # use a ISO-8859-15 font, e.g.: consolechars -f lat9v-14
@@ -178,11 +178,11 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
   keycode  56 = Alt
   keycode  97 = Control
 
-#+end_src
+#+END_SRC
 
 * XKB
 
-#+begin_src conf-javaprop :tangle ../build/.config/xkb/keymap.xkb :tangle-mode (identity #o444) :mkdirp yes :noweb yes
+#+BEGIN_SRC conf-javaprop :tangle ../build/.config/xkb/keymap.xkb :tangle-mode (identity #o444) :mkdirp yes :noweb yes
 
   xkb_keymap
   {
@@ -203,12 +203,12 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
      };
   };
 
-#+end_src
+#+END_SRC
 
 ** Keycodes
 
 #+NAME: xkb_keycodes
-#+begin_src conf-javaprop
+#+BEGIN_SRC conf-javaprop
 
   minimum = 8;
   maximum = 255;
@@ -523,37 +523,37 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
   alias <QKN> = <AB06>;
   alias <QKM> = <AB07>;
 
-#+end_src
+#+END_SRC
 
 ** Types
 
 #+NAME: xkb_types
-#+begin_src conf-javaprop
+#+BEGIN_SRC conf-javaprop
 
   include "complete"
 
-#+end_src
+#+END_SRC
 
 ** Compat
 
 #+NAME: xkb_compat
-#+begin_src conf-javaprop
+#+BEGIN_SRC conf-javaprop
 
   include "complete"
   include "ledcaps(group_lock)"
 
-#+end_src
+#+END_SRC
 
 ** Symbols
 
 #+NAME: xkb_symbols
-#+begin_src conf-javaprop
+#+BEGIN_SRC conf-javaprop
 
   include "pc+custom(iso)+inet(evdev)"
 
-#+end_src
+#+END_SRC
 
-#+begin_src conf-javaprop :tangle ../build/.config/xkb/symbols/custom :tangle-mode (identity #o444) :mkdirp yes
+#+BEGIN_SRC conf-javaprop :tangle ../build/.config/xkb/symbols/custom :tangle-mode (identity #o444) :mkdirp yes
 
   default partial alphanumeric_keys modifier_keys
 
@@ -690,20 +690,20 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
                  , [ backslash         , bar               , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
   };
 
-#+end_src
+#+END_SRC
 
 ** Geometry
 
 #+NAME: xkb_geometry
-#+begin_src conf-javaprop
+#+BEGIN_SRC conf-javaprop
 
   include "pc(pc105)"
 
-#+end_src
+#+END_SRC
 
 ** Xcape
 
-#+begin_src shell :tangle ../build/.local/bin/xcaper
+#+BEGIN_SRC shell :tangle ../build/.local/bin/xcaper
 
   while :; do
   	killall -q xcape
@@ -713,12 +713,12 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
   	xkb-switch -w >/dev/null
   done
 
-#+end_src
+#+END_SRC
 
 * AutoHotKey (AHK)
 ** ISO
 
-#+begin_src 
+#+BEGIN_SRC 
 
   ; Colemak Mod-DH wide mapping for ISO boards
   
@@ -776,11 +776,11 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
   ; set Backspace to CapsLock key
   SC03a::backspace
 
-#+end_src
+#+END_SRC
 
 ** ANSI
 
-#+begin_src c :tangle ../build/.config/ahk/custom_ansi.ahk
+#+BEGIN_SRC c :tangle ../build/.config/ahk/custom_ansi.ahk
 
   #Persistent
   #SingleInstance Force
@@ -1055,4 +1055,4 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
   RControl    & SC035::
   PrintScreen & SC035::Send {9}
 
-#+end_src
+#+END_SRC

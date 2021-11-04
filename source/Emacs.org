@@ -14,7 +14,7 @@
 
 Make startup faster by reducing the frequency of garbage collection and then use a hook to measure Emacs startup time.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;; The default is 800 kilobytes.  Measured in bytes.
   (setq gc-cons-threshold (* 50 1000 1000))
@@ -37,24 +37,24 @@ Make startup faster by reducing the frequency of garbage collection and then use
   (setq user-init-file (or load-file-name (buffer-file-name)))
   (setq user-emacs-directory "~/.local/share/emacs")
 
-#+end_src
+#+END_SRC
 
 * Update Load Path
 
 I've got a folder of custom Emacs Lisp libraries which must be added to the load path.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;; Add my library path to load-path
   (push "~/.config/emacs/lisp" load-path)
 
-#+end_src
+#+END_SRC
 
 * Native Compilation
 
 I've started experimenting with the =native-comp= branch of Emacs for increased performance.  Here are some settings to tweak the behavior slightly:
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;; Silence compiler warnings as they can be pretty disruptive
   (setq native-comp-async-report-warnings-errors nil)
@@ -62,7 +62,7 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
   ;; Set the right directory to store the native comp cache
   ; (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory))
 
-#+end_src
+#+END_SRC
 
 * Package Setup
 ** Bootstrap straight.el
@@ -86,18 +86,18 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 
 ** Setup use-package
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (straight-use-package 'use-package)
   (setq straight-use-package-by-default t)
 
   (use-package diminish)
 
-#+end_src
+#+END_SRC
 
 * Theming
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package autothemer)
 
@@ -106,21 +106,21 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
   (use-package rainbow-delimiters
     :hook (prog-mode . rainbow-delimiters-mode))
 
-#+end_src
+#+END_SRC
 
 ** Mode Line
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package smart-mode-line
     :init (sml/setup))
 
-#+end_src
+#+END_SRC
 
 * Generic Settings
 ** Keeping Folders Clean
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;; NOTE: If you want to move everything out of the ~/.emacs.d folder
   ;; reliably, set `user-emacs-directory` before loading no-littering!
@@ -135,27 +135,27 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 
   (setq make-backup-file nil)
 
-#+end_src
+#+END_SRC
 
 ** Custom File
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq custom-file "~/.local/share/emacs/custom.el")
 
-#+end_src
+#+END_SRC
 
 ** Shorten Prompts
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (fset 'yes-or-no-p 'y-or-n-p)
 
-#+end_src
+#+END_SRC
 
 ** Auto Reload Files
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (auto-revert-mode t)
   (diminish 'auto-revert-mode)
@@ -168,59 +168,59 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 
   (setq backup-directory-alist '(("." . "~/.local/share/emacs/backup/")))
 
-#+end_src
+#+END_SRC
 
 ** Trash instead of Deleting
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq delete-by-moving-to-trash t)
   (setq trash-directory "~/trash")
 
-#+end_src
+#+END_SRC
 
 ** Start Server
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (server-start)
 
-#+end_src
+#+END_SRC
 
 ** Window Combination Resize
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq window-combination-resize t)
 
-#+end_src
+#+END_SRC
 
 ** Better Undo
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq undo-limit 80000000
 	evil-want-fine-undo t
 	auto-save-default t
         truncate-string-ellipsis "...")
 
-#+end_src
+#+END_SRC
 
 ** Scroll
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq scroll-conservatively 100)
 
-#+end_src
+#+END_SRC
 
 ** TODO Ring Bell
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq ring-bell-function 'ignore)
 
-#+end_src
+#+END_SRC
 
 * UI Settings
 ** Decluttering
@@ -243,15 +243,15 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 ** Cursor Settings
 *** Disable Blinking
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (blink-cursor-mode -1)
 
-#+end_src
+#+END_SRC
 
 ** Relative Line Numbers Setup
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (global-display-line-numbers-mode t)
   (setq display-line-numbers-type 'relative)
@@ -263,82 +263,82 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
                   eshell-mode-hook))
     (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-#+end_src
+#+END_SRC
 
 ** Column Number
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (column-number-mode 1)
 
-#+end_src
+#+END_SRC
 
 ** Visible Bell
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq visible-bell nil)
 
-#+end_src
+#+END_SRC
 
 ** Parentheses Settings
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (show-paren-mode t)
 
-#+end_src
+#+END_SRC
 
 ** Modeline Settings
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq display-time-day-and-date t)
   (display-time-mode 0)
   (display-battery-mode 0)
 
-#+end_src
+#+END_SRC
 
 ** X Cursor
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq x-stretch-cursor t)
 
-#+end_src
+#+END_SRC
    
 ** Fonts and Icons
 *** Builtin Settings
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
    (set-language-environment "UTF-8")
    (set-default-coding-systems 'utf-8)
 
-#+end_src
+#+END_SRC
 
 *** Font Selection
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (set-fontset-font t 'symbol "Noto")
   (set-fontset-font t #x0003C0 "JuliaMono") ;; π
 
-#+end_src
+#+END_SRC
 
 *** Unicode Fonts
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package unicode-fonts
     :commands unicode-fonts-setup)
 
-#+end_src
+#+END_SRC
 
 *** All Icons
 **** Basic
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package all-the-icons
     :if (display-graphic-p)
@@ -347,46 +347,46 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     (unless (find-font (font-spec :name "all-the-icons"))
     (all-the-icons-install-fonts t)))
 
-#+end_src
+#+END_SRC
 
 **** Dired
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package all-the-icons-dired
     :diminish
     :if (display-graphic-p)
     :hook (dired-mode . all-the-icons-dired-mode))
 
-#+end_src
+#+END_SRC
 
 ** Mode Line
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;; (use-package emacs-mini-modeline)
 
-#+end_src
+#+END_SRC
 
 ** Highlight line
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
-(global-hl-line-mode 1)
+  (global-hl-line-mode 1)
 
-#+end_src
+#+END_SRC
 
 ** Prettify Symbols
 
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (global-prettify-symbols-mode 1)
 
-#+end_src
+#+END_SRC
 
 ** Sublimity
 
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (use-package sublimity
     :config
@@ -395,50 +395,50 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
   (use-package sublimity-scroll
     :straight nil)
 
-#+end_src
+#+END_SRC
 
 ** Scrolling
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
   (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
   (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
   (setq scroll-step 1) ;; keyboard scroll one line at a time
 
-#+end_src
+#+END_SRC
 
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (use-package good-scroll
     :config
     (good-scroll-mode 1))
 
-#+end_src
+#+END_SRC
 
 * Startup Settings
 ** Disabling Splash Screen
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq inhibit-startup-screen  t)
   (setq inhibit-startup-message t)
 
-#+end_src
+#+END_SRC
 
 ** Setting Initial Buffer
 
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
 
   (setq initial-buffer-choice "~/index.org")
 
-#+end_src
+#+END_SRC
 
 ** Startup Dashboard
 
 [[https://github.com/emacs-dashboard/emacs-dashboard][github repository]]
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package dashboard
     :custom
@@ -465,12 +465,12 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     (dashboard-setup-startup-hook))
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
 
-#+end_src
+#+END_SRC
 
 * Keybinds
 ** Vim Modes
+#+BEGIN_SRC emacs-lisp
 
-#+begin_src emacs-lisp
 
   (use-package evil
     :custom
@@ -499,29 +499,29 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     :after evil
     :config (evil-collection-init))
 
-#+end_src
+#+END_SRC
 
 ** Vim-like <escape>
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-#+end_src
+#+END_SRC
 
 ** Commenting
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package evil-nerd-commenter
     :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
-#+end_src
+#+END_SRC
 
 ** Space for Custom Keybinds
 *** general
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package general
     :config
@@ -532,19 +532,19 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     (custom/leader-keys "t" '(:ignore t :which-key "toggle"))
     (custom/leader-keys "o" '(:ignore t :which-key "org"   )))
 
-#+end_src
+#+END_SRC
 
 *** hydra
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package hydra)
 
-#+end_src
+#+END_SRC
 
 **** scale text
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (defhydra hydra-text-scale (:timeout 4)
     "scale text"
@@ -555,12 +555,12 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
   (custom/leader-keys
     "ts" '(hydra-text-scale/body :which-key "scale text"))
 
-#+end_src
+#+END_SRC
 
 * Replacements for Builtin Modes
 ** ivy
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package ivy
     :diminish
@@ -574,12 +574,12 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 
     :config
     (ivy-mode 1))
+#+END_SRC
 
-#+end_src
 
 ** ivy-rich
+#+BEGIN_SRC emacs-lisp
 
-#+begin_src emacs-lisp
 
   (use-package ivy-rich
     :after ivy
@@ -606,20 +606,20 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     :config
     (setq ivy-initial-inputs-alist nil)) ; don't start searches with ^
 
-#+end_src
+#+END_SRC
 
 ** swiper
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package swiper)
 
-#+end_src
+#+END_SRC
 
 * Project Management
 ** projectile
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package projectile
     :diminish projectile-mode
@@ -636,11 +636,11 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     :after projectile
     :config (counsel-projectile-mode))
 
-#+end_src
+#+END_SRC
 
 ** magit
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package magit
     :commands magit-status
@@ -648,23 +648,23 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 
   ; (use-package magit-todo)
 
-#+end_src
+#+END_SRC
 
 ** forge
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package forge
     :after magit)
 
-#+end_src
+#+END_SRC
 
 * Language Support
 ** Language Server Protocol (LSP)
 
 Documentation and the list of available languages can be found [[https:emacs-lsp.github.io/lsp-mode/][here]].
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
     (defun custom/lsp-mode-setup ()
       (setq lsp-headerline-breadcrumb-segments '(path-up-to-project file symbols))
@@ -716,11 +716,11 @@ Documentation and the list of available languages can be found [[https:emacs-lsp
     (use-package lsp-ivy
       :after lsp)
 
-#+end_src
+#+END_SRC
 
 ** TODO Debugger Adapter Protocol (DAP)
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package dap-mode
     :commands (dap-debug)
@@ -737,7 +737,7 @@ Documentation and the list of available languages can be found [[https:emacs-lsp
     (setq lsp-enable-dap-auto-configuration nil)
     (dap-ui-mode 1))
 
-#+end_src
+#+END_SRC
 
 ** TODO yasnippet
 ** TODO Running Compileres and Unit Test Tools
@@ -768,7 +768,7 @@ Documentation and the list of available languages can be found [[https:emacs-lsp
 **  sh
 **  Python
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package python-mode
     :straight nil
@@ -782,13 +782,13 @@ Documentation and the list of available languages can be found [[https:emacs-lsp
     :custom (pyvenv-workon "emacs")
     :config (pyvenv-tracking-mode 1))
 
-#+end_src
+#+END_SRC
 
 **  Rust
 **  Go
 **  TypeScript
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
         (use-package typescript-mode
           :mode "\\.ts\\'"
@@ -801,11 +801,11 @@ Documentation and the list of available languages can be found [[https:emacs-lsp
           (require 'dap-node)
           (dap-node-setup))
 
-#+end_src
+#+END_SRC
 
 * Window Management
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package perspective
     :bind (("C-x k" . persp-kill-buffer*))
@@ -814,13 +814,13 @@ Documentation and the list of available languages can be found [[https:emacs-lsp
     :init
     (persp-mode))
 
-#+end_src
+#+END_SRC
 
 * Desktop Environment
 
 Load up the desktop environment if on a machine that supports it and the =--use-exwm= argument was passed to Emacs on startup.  Desktop environment and window management code can be found in Desktop.org.
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (setq custom/is-termux nil)
   (setq custom/exwm-enabled (and (not custom/is-termux)
@@ -830,12 +830,12 @@ Load up the desktop environment if on a machine that supports it and the =--use-
   (when custom/exwm-enabled
     (require 'custom-desktop))
 
-#+end_src
+#+END_SRC
 
 * File Management
 ** Dired
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package dired
     :straight nil
@@ -857,11 +857,11 @@ Load up the desktop environment if on a machine that supports it and the =--use-
   (use-package dired-single
     :after dired)
 
-#+end_src
+#+END_SRC
 
 *** Open in External Program
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package dired-open
     :after dired
@@ -871,11 +871,11 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (setq dired-open-extensions '(("png" . "sxiv")
                                   ("mkv" . "mpv" ))))
 
-#+end_src
+#+END_SRC
 
 *** Hide Dotfiles
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package dired-hide-dotfiles
   ; :hook (dired-mode . dired-hide-dotfiles-mode)
@@ -883,7 +883,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (evil-collection-define-key 'normal 'dired-mode-map
       "H" 'dired-hide-dotfiles-mode))
 
-#+end_src
+#+END_SRC
 
 * Terminals and Shells
 ** term
@@ -901,12 +901,11 @@ Load up the desktop environment if on a machine that supports it and the =--use-
   (use-package eterm-256color
     :hook (term-mode . eterm-256color-mode))
 
-#+end_src
+#+BEGIN_SRC emacs-lisp
 
 ** ansi-term
 ** vterm
 
-#+begin_src emacs-lisp
 
   ;(use-package vterm
   ;  :commands vterm
@@ -915,11 +914,10 @@ Load up the desktop environment if on a machine that supports it and the =--use-
   ;  (vterm-shell "zsh")
   ;  (vterm-max-scrollback 10000))
 
-#+end_src
 
 ** shell
 
-#+begin_src emacs-lisp
+#+END_SRC
 
   (add-hook 'shell-mode-hook
           (lambda ()
@@ -929,15 +927,15 @@ Load up the desktop environment if on a machine that supports it and the =--use-
             (make-local-variable 'font-lock-function)
             (setq font-lockfunction (lambda (_) nil))))
 
-#+end_src
+#+BEGIN_SRC emacs-lisp
 
 ** eshell
 
-#+begin_src emacs-lisp
 
   (defun custom/configure-eshell ()
     ;; Save command history when commands are entered.
     (add-hook 'eshell-pre-command-hook 'eshell-save-some-history)
+#+END_SRC
 
     ;;Truncate buffer for performance
     (add-to-list 'eshell-output-filter-functions 'eshell-truncate-buffer)
@@ -954,6 +952,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 	  eshell-prompt-regexp "^[^#$]*[#$] "
 	  eshell-highlight-prompt nil
 	  eshell-aliases-file "~/.config/emacs/eshell/aliases")
+#+BEGIN_SRC emacs-lisp
 
     (defun eshell/ef (fname-regexp &rest dir) (ef fname-regexp default-directory))
 
@@ -1005,9 +1004,11 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 	     (or (curr-dir-git-branch-string (eshell/pwd)))
 	     (propertize "$ " 'face 'default)
 	    ))))
+#+END_SRC
 
   (use-package eshell
     :hook (eshell-first-time-mode . custom/configure-eshell)
+#+BEGIN_SRC shell :tangle ../build/.local/bin/mu-init
 
     :config
     (with-eval-after-load 'esh-opt
@@ -1015,26 +1016,24 @@ Load up the desktop environment if on a machine that supports it and the =--use-
       (setq eshell-visual-commands '("top" "htop" "nmtui" "ssh" "tmux" "guix" "less" "pip" "bat")))
     (eshell-git-prompt-use-theme 'default))
 
-#+BEGIN_SRC shell :tangle ../build/.local/bin/visual
 
   exec $@
 
 #+END_SRC
 
 
-#+end_src
+#+BEGIN_SRC conf-space
 
-#+begin_src shell :tangle ../build/.config/emacs/eshell/aliases :tangle-mode (identity #o444)
 
   alias ff 'find-file $1'
   alias d 'dired $1'
+#+END_SRC
 
-#+end_src
 
 * Modes
 ** Org Mode
+#+BEGIN_SRC conf-space
 
-#+begin_src emacs-lisp
 
   (defun custom/org-mode-setup ()
     (org-indent-mode       1)
@@ -1042,6 +1041,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (auto-fill-mode        1)
     (visual-line-mode      1)
     (setq evil-auto-indent nil))
+#+END_SRC
 
   (use-package org
     :hook (org-mode . custom/org-mode-setup)
@@ -1050,6 +1050,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (org-hide-emphasis-markers t)
 
     (org-startup-folded 'showeverything)
+#+BEGIN_SRC conf-space
 
     (org-src-tab-acts-natively t)
     (org-src-preserve-indentation nil)
@@ -1057,6 +1058,7 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
     (org-tags-column 0)
     (org-agenda-align-tags-to-column 80)
+#+END_SRC
 
     (org-agenda-start-on-weekday nil)
     (org-agenda-span 10)
@@ -1204,23 +1206,23 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     "ocm" '(:which-key "Metric")
     "ocmw" '((lambda () (interactive) (org-capture nil "jj")) :which-key "Weight"))
 
-#+end_src
+#+END_SRC
 
 *** Modules
 **** Indent
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package org-indent
     :straight nil
     :diminish org-indent-mode
     :after org)
 
-#+end_src
+#+END_SRC
 
 **** Habit
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package org-habit
     :straight nil
@@ -1231,23 +1233,23 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (org-habit-following-days  2)
     (org-habit-show-all-today t))
 
-#+end_src
+#+END_SRC
 
 *** Theming
 **** Bullets
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package org-bullets
     :hook (org-mode . org-bullets-mode)
     :custom
     (org-bullets-bullet-list '("⦿" "⌾" "⊚" "⊙" "◯" "￮" "•" "·")))
 
-#+end_src
+#+END_SRC
 
 **** Lists
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (font-lock-add-keywords 'org-mode
                           '(("^\s*\\([-]\\) "
@@ -1256,11 +1258,11 @@ Load up the desktop environment if on a machine that supports it and the =--use-
                                                  (match-end 1)
                                                  "－"))))))
 
-#+end_src
+#+END_SRC
 
 **** Tables
 
-#+begin_src emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp :tangle no
 
   (font-lock-add-keywords
    'org-mode
@@ -1289,11 +1291,11 @@ Load up the desktop environment if on a machine that supports it and the =--use-
      ("-\\(+\\)-"
       (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "╋"))))))
 
-#+end_src
+#+END_SRC
 
 **** Visual Fill
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (defun custom/org-mode-visual-fill ()
     (setq visual-fill-column-width 100
@@ -1305,12 +1307,12 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     :custom
     (visual-fill-column-center-text t))
 
-#+end_src
+#+END_SRC
 
 *** Babel
 **** Languages
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (org-babel-do-load-languages
     'org-babel-load-languages
@@ -1374,11 +1376,11 @@ You can add more src block templates below by copying one of the lines and chang
                 (delq 'kocmoc-mode-line-string global-mode-string))))
       (kocmoc-mode 1)
 
-#+end_src
+#+END_SRC
 
 ** Rainbow Mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package rainbow-mode
     :hook (prog-mode . rainbow-mode)
@@ -1393,28 +1395,28 @@ You can add more src block templates below by copying one of the lines and chang
                              (:background ,color)
                              (:font ,"Terminus"))))))) ;; I've added this line
 
-#+end_src
+#+END_SRC
 
 ** Pretty Mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package pretty-mode
     :config (global-pretty-mode))
 
-#+end_src
+#+END_SRC
 
 ** Json Mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package json-mode)
 
-#+end_src
+#+END_SRC
 
 ** Whitespace Mode
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   ;; Make whitespace-mode with very basic background coloring for whitespaces.
   ;; http://ergoemacs.org/emacs/whitespace-mode.html
@@ -1436,16 +1438,16 @@ You can add more src block templates below by copying one of the lines and chang
 * Utilities
 ** Command Logging
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package command-log-mode
     :commands command-log-mode)
 
-#+end_src
+#+END_SRC
 
 ** Touch Typing Practice
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package speed-type
     :commands (speed-type))
@@ -1481,37 +1483,37 @@ You can add more src block templates below by copying one of the lines and chang
       (modify-frame-parameters (selected-frame) (list (cons 'cursor-type 'hbar)))
       (speed-type-mode 1)))
 
-#+end_src
+#+END_SRC
 
 ** Mark Multiple
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package mark-multiple
     :bind (("C-c n" . 'mark-next-like-this))) ;; bad kbd
 
-#+end_src
+#+END_SRC
 
 ** Expand Region
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package expand-region
     :bind (("C-c e" . er/expand-region))) ;; bad kbd
 
-#+end_src
+#+END_SRC
 
 ** Floobits
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package floobits)
 
-#+end_src
+#+END_SRC
 
 ~~/.floorc.json~:
 
-#+begin_src json :tangle no
+#+BEGIN_SRC json :tangle no
 
   {
     "auth": {
@@ -1523,12 +1525,12 @@ You can add more src block templates below by copying one of the lines and chang
     }
   }
 
-#+end_src
+#+END_SRC
 
 * Help Improvements
 ** which-key
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package which-key
     :diminish
@@ -1540,11 +1542,11 @@ You can add more src block templates below by copying one of the lines and chang
     :config
     (which-key-mode))
 
-#+end_src
+#+END_SRC
 
 ** helpful
 
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 
   (use-package helpful
     :commands
@@ -1563,4 +1565,4 @@ You can add more src block templates below by copying one of the lines and chang
     ([remap describe-variable] . counsel-describe-variable)
     ([remap describe-key     ] . helpful-key              ))
 
-#+end_src
+#+END_SRC

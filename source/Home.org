@@ -32,12 +32,12 @@
 Since configuration files are generated from =Org= code blocks, we have
 to make sure they are up to date after pulling.
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: all
 all: | sync build link update ## In order: @sync @build @link @update.
 
-#+end_src
+#+END_SRC
 
 ** Syncing
 
@@ -53,17 +53,17 @@ This gets simplified to:
 3. run ~dotfiles-build~.
 3. run ~dotfiles-refresh~.
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: sync
 sync: ## Sync files from remote.
 	@./script/dotfiles-sync
 
-#+end_src
+#+END_SRC
 
 ~~/dotfiles/script/dotfiles-sync~:
 
-#+begin_src shell :tangle ../script/dotfiles-sync
+#+BEGIN_SRC shell :tangle ../script/dotfiles-sync
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -103,14 +103,14 @@ sync: ## Sync files from remote.
       exit 0
   fi
 
-#+end_src
+#+END_SRC
 
 ** Building
 
 We ~org-babel-tangle-file~ every ~.org~ file and run every executable
 in ~./source/~ directory.
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: build
 build: ## Build files from source directory into build directory.
@@ -119,11 +119,11 @@ build: ## Build files from source directory into build directory.
 .PHONY: rebuild
 rebuild: | clean build link ## @clean, @build, @link
 
-#+end_src
+#+END_SRC
 
 ~~/dotfiles/script/dotfiles-build~:
 
-#+begin_src shell :tangle ../script/dotfiles-build
+#+BEGIN_SRC shell :tangle ../script/dotfiles-build
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -140,11 +140,11 @@ rebuild: | clean build link ## @clean, @build, @link
       fi
   done
 
-#+end_src
+#+END_SRC
 
 ~~/dotfiles/script/dotfiles-tangle.el~:
 
-#+begin_src emacs-lisp :tangle ../script/dotfiles-tangle.el
+#+BEGIN_SRC emacs-lisp :tangle ../script/dotfiles-tangle.el
 
   (require 'org)
 
@@ -164,17 +164,17 @@ rebuild: | clean build link ## @clean, @build, @link
       (unless (equal org-file "Home.org")
         (custom/tangle-org-file org-file))))
 
-#+end_src
+#+END_SRC
 
 ** Linking
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 STOW_FLAGS:=--no-folding --dir=./build/ --target=$(HOME)
 
-#+end_src
+#+END_SRC
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: link
 link: ## Link built configuration into the home directory.
@@ -182,9 +182,9 @@ ifeq ("$(wildcard $(DIR_TO_CHECK_FOR))", "")
 	stow $(STOW_FLAGS) .
 endif
 
-#+end_src
+#+END_SRC
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: relink
 relink: ## Relink built configuration into the home directory, removing old links.
@@ -192,9 +192,9 @@ ifeq ("$(wildcard $(DIR_TO_CHECK_FOR))", "")
 	stow $(STOW_FLAGS) --restow .
 endif
 
-#+end_src
+#+END_SRC
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: unlink
 unlink: ## Remove links from the home directory.
@@ -202,23 +202,23 @@ ifeq ("$(wildcard $(DIR_TO_CHECK_FOR))", "")
 	stow $(STOW_FLAGS) --delete .
 endif
 
-#+end_src
+#+END_SRC
 
 ** Refreshing
 
 Refresh running Emacs session and potetionally other services.
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: refresh
 refresh: ## Refresh running services.
 	@./script/dotfiles-refresh
 
-#+end_src
+#+END_SRC
 
 ~~/dotfiles/script/dotfiles-refresh~:
 
-#+begin_src shell :tangle ../script/dotfiles-refresh
+#+BEGIN_SRC shell :tangle ../script/dotfiles-refresh
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -229,25 +229,25 @@ refresh: ## Refresh running services.
       && echo -e "${GOOD} Emacs instance refresh successful." \
       || echo -e "${BAD} Emacs instance refresh unsuccessful!"
 
-#+end_src
+#+END_SRC
 
 ** Cleaning
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: clean
 clean: unlink ## @unlink and remove build directory.
 	rm --recursive --force ./build/
 
-#+end_src
+#+END_SRC
 
-#+begin_src makefile
+#+BEGIN_SRC makefile
 
 .PHONY: clean-scripts
 clean-scripts: ## Remove built scripts.
 	find ./script/ -mindepth 1 -not -path ./script/bootstrap.makefile -delete
 
-#+end_src
+#+END_SRC
 
 * Profile Management
 
@@ -267,15 +267,15 @@ provided, it installs all avaible profiles.
 
 For examle:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   profiles-activate desktop emacs music
 
-#+end_src
+#+END_SRC
 
 ~~/dotfiles/script/profiles-activate~:
 
-#+begin_src shell :tangle ../script/profiles-activate
+#+BEGIN_SRC shell :tangle ../script/profiles-activate
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -311,7 +311,7 @@ For examle:
       fi
   done
 
-#+end_src
+#+END_SRC
 
 ** Deactivating Profiles
 
@@ -322,15 +322,15 @@ provided, it removes all active profiles.
 
 For examle:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   profiles-deactivate desktop emacs music
 
-#+end_src
+#+END_SRC
 
 ~~/dotfiles/script/profiles-deactivate~:
 
-#+begin_src shell :tangle ../script/profiles-deactivate
+#+BEGIN_SRC shell :tangle ../script/profiles-deactivate
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -358,7 +358,7 @@ For examle:
   echo -e "$NEUTRAL Collecting garbage..."
   #guix gc
 
-#+end_src
+#+END_SRC
 
 ** Updating Profiles
 
@@ -369,15 +369,15 @@ profile name is provided, it updates all active profiles (those in ~~/.guix-extr
 
 For examle:
 
-#+begin_src shell
+#+BEGIN_SRC shell
 
   profiles-update desktop emacs music
 
-#+end_src
+#+END_SRC
 
 ~~/dotfiles/script/profiles-update~:
 
-#+begin_src shell :tangle ../script/profiles-update
+#+BEGIN_SRC shell :tangle ../script/profiles-update
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -407,4 +407,4 @@ For examle:
       fi
   done
 
-#+end_src
+#+END_SRC
