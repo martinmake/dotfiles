@@ -5,4 +5,4 @@ all: bootstrap ## @bootstrap and make
 .PHONY: bootstrap
 bootstrap: ## Bootstrap home setup.
 	emacs --quick --batch --load=org \
-		--execute='(org-babel-tangle-file "./source/Home.org")'
+		--execute='(org-babel-tangle-file "./source/org/Home.org")'

@@ -2,7 +2,7 @@
 #+AUTHOR: Comrade Martin Miroslavovich Michalec
 
 #+STARTUP: overview
-#+PROPERTY: header-args:emacs-lisp :tangle-mode (identity #o444) :tangle ../build/.config/emacs/industrial-theme.el :mkdirp yes
+#+PROPERTY: header-args:emacs-lisp :tangle-mode (identity #o444) :tangle ../../build/.config/emacs/industrial-theme.el :mkdirp yes
 
 * Preamble
 
@@ -116,13 +116,21 @@ Extended with:
 
 #+END_SRC
 
+** Foreground
+
+#+BEGIN_SRC emacs-lisp
+
+  (industrial-foreground industrial-white)
+
+#+END_SRC
+
 ** Background
 
 #+BEGIN_SRC emacs-lisp
 
   (industrial-background-0 "#000000" nil nil)
-  (industrial-background-1 "#0A0A0A" nil nil)
-  (industrial-background-2 "#0F0F0F" nil nil)
+  (industrial-background-1 "#060606" nil nil)
+  (industrial-background-2 "#202020" nil nil)
   (industrial-background industrial-background-0)
 
 #+END_SRC
@@ -236,10 +244,10 @@ Extended with:
 
 #+BEGIN_SRC emacs-lisp
 
-  (default             (:foreground industrial-white :background industrial-background
-                        :font "Terminus"        :height 140))
-  (fixed-pitch         (:font "Liberation Mono" :height 1.0))
-  (variable-pitch      (:font "Liberation Sans" :height 1.0))
+  (default             (:foreground industrial-foreground :background industrial-background
+                        :font "Terminus"  :height 140))
+  (fixed-pitch         (:font "Liberation Mono" :height 1.0 :weight 'light))
+  (variable-pitch      (:font "Liberation Sans" :height 1.0 :weight 'light))
 
   (shadow              (:background industrial-background-1))
   (bold                (:bold   t :weight 'bold  ))
@@ -248,14 +256,16 @@ Extended with:
   (fringe              (:inherit 'default))
   (cursor              (:background industrial-yellow :bold t))
 
-  (link                (:foreground industrial-cyan :inherit 'fixed-pitch :bold t :underline t))
+  (link                (:foreground industrial-cyan :bold t :underline t))
   (link-visited        (:foreground industrial-blue :inherit 'link))
   (button              (:foreground industrial-red  :inherit 'link))
 
   (region              (:background industrial-background-2))
   (secondary-selection (:inherit 'region))
   (cua-rectangle       (:inherit 'region))
-  (hl-line             (:inherit 'region))
+  (highlight           (:box (:color industrial-orange)))
+
+  (hl-line             (:inherit nil :underline (:color industrial-cursor)))
 
   (header-line         (:foreground industrial-blue :inverse-video t :bold t))
 
@@ -266,6 +276,8 @@ Extended with:
   (warning             (:foreground industrial-yellow :bold t))
 
   (bookmark-face       (:box (:color industrial-orange)))
+
+  (ffap                ())
 
 #+END_SRC
 
@@ -311,7 +323,6 @@ Extended with:
 
   (lazy-highlight (:foreground industrial-cyan    :inverse-video t :bold t))
   (match          (:foreground industrial-magenta :inverse-video t :bold t))
-  (highlight      (:foreground industrial-orange  :inverse-video t :bold t))
 
 #+END_SRC
 
@@ -332,12 +343,40 @@ Extended with:
 #+END_SRC
 
 ** Mode-Specific Faces
+*** custom
+
+#+BEGIN_SRC emacs-lisp
+
+  (custom-button         (:foreground industrial-black :background industrial-red      :bold t :box (:line-width 2 :style 'released-button)))
+  (custom-button-mouse   (:foreground industrial-black :background industrial-dark-red :bold t :box (:line-width 2 :style 'released-button)))
+  (custom-button-pressed (:foreground industrial-black :background industrial-red      :bold t :box (:line-width 2 :style 'pressed-button)))
+
+#+END_SRC
+
+*** eshell
+
+#+BEGIN_SRC emacs-lisp
+
+  (eshell-ls-directory (:foreground industrial-cyan))
+
+#+END_SRC
+
 *** compilation
 
-#+begin_src emacs-lisp
-  (compilation-info                          (:foreground industrial-blue :bold t))
-  (compilation-mode-line-fail                (:foreground industrial-red  :bold t))
-#+end_src
+#+BEGIN_SRC emacs-lisp
+
+  (compilation-info           (:foreground industrial-blue :bold t))
+  (compilation-mode-line-fail (:foreground industrial-red  :bold t))
+
+#+END_SRC
+
+*** help
+
+#+BEGIN_SRC emacs-lisp
+
+  (help-key-binding (:foreground industrial-red :background industrial-black :bold t :box (:line-width '(1 . -1) :color industrial-red)))
+
+#+END_SRC
 
 *** helpful
 
@@ -432,8 +471,8 @@ Extended with:
   (whitespace-indentation      (:foreground industrial-dark-grey))
   (whitespace-newline          (:foreground industrial-dark-grey))
   (whitespace-empty            (:foreground nil :background nil))
-  (whitespace-line             (:foreground industrial-red :inverse-video t))
-  (whitespace-trailing         (:foreground industrial-red :inverse-video t))
+  (whitespace-line             (:foreground industrial-black :background industrial-red :bold t))
+  (whitespace-trailing         (:foreground industrial-black :background industrial-red :bold t))
   (whitespace-space-after-tab  (:inherit 'whitespace-space))
   (whitespace-space-before-tab (:inherit 'whitespace-space))
 
@@ -494,6 +533,14 @@ Extended with:
   ;(hi-red-b    (:foreground industrial-bright_red   :bold t))
   ;(hi-black-b  (:foreground industrial-bright_orange :background industrial-dark0_hard :bold t))
   ;(hi-black-hb (:foreground industrial-bright_cyan   :background industrial-dark0_hard :bold t))
+
+#+END_SRC
+
+*** mu4e
+
+#+BEGIN_SRC emacs-lisp
+
+  (mu4e-header-highlight-face (:inherit 'hl-line))
 
 #+END_SRC
 
@@ -678,13 +725,16 @@ Extended with:
   (org-habit-ready-face          (:foreground industrial-black :bold t :background industrial-green))
   (org-habit-ready-future-face   (:foreground industrial-black :bold t :background industrial-dark-green))
 
+  (org-dispatcher-highlight (:foreground industrial-red :bold t))
+
+  (org-link                    (:inherit '(link fixed-pitch)))
   ;(org-archived                (:foreground industrial-light0 :weight 'bold))
-  (org-checkbox                (:inherit '(fixed-pitch) :foreground industrial-red :background industrial-dark-grey :bold t))
+  (org-checkbox                (:inherit 'fixed-pitch :foreground industrial-red :bold t))
   ;(org-date                    (:foreground industrial-faded_aqua :underline t))
   ;(org-deadline-announce       (:foreground industrial-faded_red))
   (org-document-info-keyword   (:inherit '(fixed-pitch font-lock-comment-face) :font "Terminus" :height 1.0))
-  (org-document-info           (:font "Liberation Serif" :foreground industrial-white :height 1.2))
-  (org-document-title          (:font "Liberation Serif" :foreground industrial-red :weight 'bold :height 1.3))
+  (org-document-info           (:font "Liberation Serif" :foreground industrial-white :height 1.7))
+  (org-document-title          (:font "Liberation Serif" :foreground industrial-red :weight 'bold :height 2.0))
   ;(org-done                    (:foreground industrial-bright_green :bold t :weight 'bold))
   ;(org-formula                 (:foreground industrial-bright_yellow))
   (org-headline-done           (:foreground industrial-dark-green))
@@ -696,8 +746,8 @@ Extended with:
   (org-table                   (:inherit 'fixed-pitch :foreground industrial-red :background industrial-dark-grey))
   (org-tag                     (:bold t :weight 'bold :font "Terminus" :height 1.0))
   ;(org-time-grid               (:foreground industrial-bright_orange))
-  (org-todo                    (:foreground industrial-red         :bold t :height 1.20 :inverse-video t))
-  (org-done                    (:foreground industrial-light-green :bold t :height 1.20))
+  (org-todo                    (:foreground industrial-red         :bold t :inverse-video t))
+  (org-done                    (:foreground industrial-light-green :bold t))
   (org-upcoming-deadline       (:inherit 'font-lock-keyword-face))
   ;(org-warning                 (:foreground industrial-bright_red :weight 'bold :underline nil :bold t))
   ;(org-column                  (:background industrial-dark0))
@@ -708,11 +758,13 @@ Extended with:
   ;(org-footnote                (:foreground industrial-faded_aqua :underline t))
   (org-verbatim                (:foreground industrial-red :inherit '(fixed-pitch shadow) :bold t))
   (org-code                    (:inherit '(fixed-pitch org-verbatim) :font "Terminus" :height 1.0))
+  (org-latex-and-related       (:inherit 'org-code :foreground industrial-cyan))
+  (org-drawer                  (:inherit '(fixed-pitch font-lock-comment-face) :font "Terminus" :height 1.0))
   (org-special-keyword         (:inherit '(fixed-pitch font-lock-keyword-face) :font "Terminus" :height 1.0))
   (org-meta-line               (:inherit '(fixed-pitch font-lock-comment-face) :font "Terminus" :height 1.0))
   (org-property-value          (:inherit '(fixed-pitch) :font "Terminus" :height 1.0))
-  (org-block                   (:inherit '(fixed-pitch) :font "Terminus" :height 1.0 :background industrial-dark-grey :extend t))
-  (org-date                    (:inherit '(fixed-pitch) :foreground industrial-cyan))
+  (org-block                   (:inherit '(fixed-pitch) :font "Terminus" :height 1.0 :background industrial-background-1 :extend t))
+  (org-date                    (:inherit '(fixed-pitch) :font "Terminus" :height 1.0 :foreground industrial-cyan))
   (org-block-begin-line        (:inherit 'org-meta-line :extend t :underline      (:color industrial-white)))
   (org-block-end-line          (:inherit 'org-meta-line :extend t :underline nil :overline industrial-white ))
 
@@ -789,19 +841,6 @@ Extended with:
 
   ;(el-search-match       (:background industrial-dark_cyan))
   ;(el-search-other-match (:background industrial-dark_blue))
-
-#+end_src
-
-*** avy
-
-#+begin_src emacs-lisp
-
-  ;(avy-lead-face-0          (:foreground industrial-bright_blue ))
-  ;(avy-lead-face-1          (:foreground industrial-bright_aqua ))
-  ;(avy-lead-face-2          (:foreground industrial-bright_purple ))
-  ;(avy-lead-face            (:foreground industrial-bright_red ))
-  ;(avy-background-face      (:foreground industrial-dark3 ))
-  ;(avy-goto-char-timer-face (:inherit 'highlight ))
 
 #+END_SRC
 
@@ -976,37 +1015,77 @@ Extended with:
 
 #+END_SRC
 
-*** ivy
+*** completions
 
 #+BEGIN_SRC emacs-lisp
 
-  (ivy-current-match (:foreground industrial-black :background industrial-orange :bold t :extend t))
-  (ivy-minibuffer-match-face-1 (nil))
-  (ivy-minibuffer-match-face-2 (:foreground industrial-black :background industrial-red :bold t))
-  (ivy-minibuffer-match-face-3 (:foreground industrial-black :background industrial-red :bold t))
-  (ivy-minibuffer-match-face-4 (:foreground industrial-black :background industrial-red :bold t))
+  (completions-annotations      (:foreground industrial-blue))
+  (completions-common-part      (:foreground industrial-red))
+  (completions-first-difference (:foreground industrial-red :bold t))
 
-  (ivy-minibuffer-match-highlight (:inherit 'selection))
-  (ivy-highlight-face             (:inherit 'selection))
-
-  (swiper-line-face (:inherit 'ivy-current-match))
-  (swiper-match-face-1 (:inherit 'ivy-minibuffer-match-face-1))
-  (swiper-match-face-2 (:inherit 'ivy-minibuffer-match-face-2))
-  (swiper-match-face-3 (:inherit 'ivy-minibuffer-match-face-3))
-  (swiper-match-face-4 (:inherit 'ivy-minibuffer-match-face-4))
-
-  ;(ivy-minibuffer-match-face-1 (nil))
-  ;(ivy-minibuffer-match-face-2 (:inherit 'highlight))
-  ;(ivy-minibuffer-match-face-3 (:inherit 'highlight))
-  ;(ivy-minibuffer-match-face-4 (:inherit 'highlight))
-
-  (ivy-confirm-face        (:foreground industrial-green :bold t))
-  (ivy-match-required-face (:foreground industrial-red   :bold t))
-  (ivy-remote              (:foreground industrial-blue  :bold t))
-
-  (counsel-active-mode (:foreground industrial-blue :bold t))
 #+END_SRC
 
+*** vertico
+
+#+BEGIN_SRC emacs-lisp
+
+  (vertico-current         (:underline (:color industrial-cursor)))
+  (vertico-group-title     (:foreground industrial-cyan :bold t))
+  (vertico-group-separator (:foreground industrial-cyan :bold t :strike-through t))
+
+#+END_SRC
+
+*** corfu
+
+#+BEGIN_SRC emacs-lisp
+
+  ;(corfu-echo       (:foreground))
+  (corfu-bar        (:background industrial-red))
+  (corfu-border     (:background industrial-red))
+  (corfu-current    (:background industrial-selection :foreground industrial-black :bold t))
+  (corfu-background (:background industrial-background-1))
+
+#+END_SRC
+
+*** orderless
+
+#+BEGIN_SRC emacs-lisp
+
+  (orderless-match-face-0 (:foreground industrial-red))
+  (orderless-match-face-1 (:foreground industrial-red))
+  (orderless-match-face-2 (:foreground industrial-red))
+  (orderless-match-face-3 (:foreground industrial-red))
+
+#+END_SRC
+
+*** marginalia
+
+#+BEGIN_SRC emacs-lisp
+
+  (marginalia-file-priv-no (:foreground industrial-white))
+
+#+END_SRC
+
+*** consult
+
+#+BEGIN_SRC emacs-lisp
+
+  (consult-crm-selected ())
+
+#+END_SRC
+
+*** avy
+
+#+BEGIN_SRC emacs-lisp
+
+  (avy-lead-face   (:foreground industrial-black :background industrial-green :bold t))
+  (avy-lead-face-0 (:foreground industrial-black :background industrial-red   :bold t))
+  (avy-lead-face-1 (:foreground industrial-black :background industrial-red   :bold t))
+  (avy-lead-face-2 (:foreground industrial-black :background industrial-red   :bold t))
+  (avy-background-face      (:foreground industrial-grey :background industrial-black))
+  (avy-goto-char-timer-face (:inherit 'highlight ))
+
+#+END_SRC
 
 *** smerge
 

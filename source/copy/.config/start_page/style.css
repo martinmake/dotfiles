@@ -1,0 +1,15 @@
+img {
+    width: 10em;
+    height: 10em;
+    display:block;
+}
+
+html {
+    color: #FFFF00;
+    font: 18px "Terminus", monospace;
+    height: 100%;
+}
+
+body {
+    background-color: #FF0000;
+}

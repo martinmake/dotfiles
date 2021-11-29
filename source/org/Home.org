@@ -5,13 +5,13 @@
 #+STARTUP: overview
 #+PROPERTY: header-args          :tangle-mode (identity #o444) :mkdirp yes
 #+PROPERTY: header-args:shell    :tangle-mode (identity #o555) :mkdirp yes :shebang "#!/bin/sh"
-#+PROPERTY: header-args:makefile :tangle-mode (identity #o444) :mkdirp yes :tangle ../script/10-Home.makefile
+#+PROPERTY: header-args:makefile :tangle-mode (identity #o444) :mkdirp yes :tangle ../../script/10-Home.makefile
 
 * Shell Utilities
 
 ~~/dotfiles/script/utilities.sh~:
 
-#+BEGIN_SRC shell :tangle-mode (identity #o444) :tangle ../script/utilities.sh
+#+BEGIN_SRC shell :tangle-mode (identity #o444) :tangle ../../script/utilities.sh
 
   RED='\033[1;31m'
   GREEN='\033[1;32m'
@@ -57,13 +57,13 @@ This gets simplified to:
 
 .PHONY: sync
 sync: ## Sync files from remote.
-	@./script/dotfiles-sync
+	./script/dotfiles-sync
 
 #+END_SRC
 
 ~~/dotfiles/script/dotfiles-sync~:
 
-#+BEGIN_SRC shell :tangle ../script/dotfiles-sync
+#+BEGIN_SRC shell :tangle ../../script/dotfiles-sync
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -108,13 +108,13 @@ sync: ## Sync files from remote.
 ** Building
 
 We ~org-babel-tangle-file~ every ~.org~ file and run every executable
-in ~./source/~ directory.
+in ./source/~ directory.
 
 #+BEGIN_SRC makefile
 
 .PHONY: build
 build: ## Build files from source directory into build directory.
-	@./script/dotfiles-build
+	./script/dotfiles-build
 
 .PHONY: rebuild
 rebuild: | clean build link ## @clean, @build, @link
@@ -123,10 +123,14 @@ rebuild: | clean build link ## @clean, @build, @link
 
 ~~/dotfiles/script/dotfiles-build~:
 
-#+BEGIN_SRC shell :tangle ../script/dotfiles-build
+#+BEGIN_SRC shell :tangle ../../script/dotfiles-build
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
+
+  echo -e "${NEUTRAL} Copying static files..."
+  cp -R ./source/copy/. ./build/
+  find ./build/ -type f | xargs chmod 444
 
   echo -e "${NEUTRAL} Tangling all org files..."
   emacs -Q --script ./script/dotfiles-tangle.el \
@@ -134,7 +138,7 @@ rebuild: | clean build link ## @clean, @build, @link
       || echo -e "${BAD} Unable to tangle all source files!"
 
   echo -e "${NEUTRAL} Running all executables..."
-  for file in ./source/*; do
+  for file in ./source/exec/*; do
       if [ -x $file ]; then
           $file
       fi
@@ -144,13 +148,13 @@ rebuild: | clean build link ## @clean, @build, @link
 
 ~~/dotfiles/script/dotfiles-tangle.el~:
 
-#+BEGIN_SRC emacs-lisp :tangle ../script/dotfiles-tangle.el
+#+BEGIN_SRC emacs-lisp :tangle ../../script/dotfiles-tangle.el
 
   (require 'org)
 
   (setq org-confirm-babel-evaluate nil)
 
-  (let* ((dotfiles-path (expand-file-name "~/dotfiles/source/"))
+  (let* ((dotfiles-path (expand-file-name "~/dotfiles/source/org/"))
          (org-files (directory-files dotfiles-path nil "\\.org$")))
 
     (defun custom/tangle-org-file (org-file)
@@ -159,9 +163,10 @@ rebuild: | clean build link ## @clean, @build, @link
       (message "\033[1;32m[+]\033[0m Tangled %s." org-file))
 
     (custom/tangle-org-file "Home.org")
+    (custom/tangle-org-file "Systems.org")
 
     (dolist (org-file org-files)
-      (unless (equal org-file "Home.org")
+      (unless (member org-file '("Home.org" "Systems.org"))
         (custom/tangle-org-file org-file))))
 
 #+END_SRC
@@ -170,7 +175,7 @@ rebuild: | clean build link ## @clean, @build, @link
 
 #+BEGIN_SRC makefile
 
-STOW_FLAGS:=--no-folding --dir=./build/ --target=$(HOME)
+STOW_FLAGS:=--no-folding --dir ./build/ --target=$(HOME)
 
 #+END_SRC
 
@@ -212,13 +217,13 @@ Refresh running Emacs session and potetionally other services.
 
 .PHONY: refresh
 refresh: ## Refresh running services.
-	@./script/dotfiles-refresh
+	/script/dotfiles-refresh
 
 #+END_SRC
 
 ~~/dotfiles/script/dotfiles-refresh~:
 
-#+BEGIN_SRC shell :tangle ../script/dotfiles-refresh
+#+BEGIN_SRC shell :tangle ../../script/dotfiles-refresh
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -275,7 +280,7 @@ For examle:
 
 ~~/dotfiles/script/profiles-activate~:
 
-#+BEGIN_SRC shell :tangle ../script/profiles-activate
+#+BEGIN_SRC shell :tangle ../../script/profiles-activate
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -330,7 +335,7 @@ For examle:
 
 ~~/dotfiles/script/profiles-deactivate~:
 
-#+BEGIN_SRC shell :tangle ../script/profiles-deactivate
+#+BEGIN_SRC shell :tangle ../../script/profiles-deactivate
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -377,7 +382,7 @@ For examle:
 
 ~~/dotfiles/script/profiles-update~:
 
-#+BEGIN_SRC shell :tangle ../script/profiles-update
+#+BEGIN_SRC shell :tangle ../../script/profiles-update
 
   cd $HOME/dotfiles
   source ./script/utilities.sh
@@ -406,5 +411,45 @@ For examle:
       else echo -e "$BAD Unable to update $profile_name profile: Manifest file not found! $manifest_file"
       fi
   done
+
+#+END_SRC
+
+* Git Cofiguration
+
+#+BEGIN_SRC conf :tangle ../../build/.config/git/config
+
+  [user]
+          name = Martin Michalec
+          email = martin@michalec.dev
+
+  [credential]
+          username = comrade-martin
+  [credential "https://github.com"]
+          username = martinmake
+          #helper = "pass show GitHub/martinmake"
+
+  [diff]
+          tool = diffmerge
+  [difftool "diffmerge"]
+          cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+
+  [merge]
+          tool = diffmerge
+          conflictstyle = diff3
+  [mergetool "diffmerge"]
+          cmd = "diffmerge --mergre --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+          trustExitCode = true
+
+  [hub]
+          protocol = https
+
+  [push]
+          followTags = true
+
+  [filter "lfs"]
+          clean = git-lfs clean -- %f
+          smudge = git-lfs smudge -- %f
+          process = git-lfs filter-process
+          required = true
 
 #+END_SRC

@@ -2,8 +2,8 @@
 #+AUTHOR: Comrade Martin Miroslavovich Michalec
 
 #+STARTUP: overview
-#+PROPERTY: header-args:conf-unix :tangle-mode (identity #o444) :mkdirp yes
-#+PROPERTY: header-args:shell     :tangle-mode (identity #o555) :mkdirp yes :shebang "#!/bin/sh"
+#+PROPERTY: header-args       :tangle-mode (identity #o444) :mkdirp yes
+#+PROPERTY: header-args:shell :tangle-mode (identity #o555) :mkdirp yes :shebang "#!/bin/sh"
 
 * Foreword
 
@@ -17,7 +17,7 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 * Console
 ** ISO
 
-#+BEGIN_SRC conf-unix :tangle ../build/.config/kmap/colemak_custom_iso.kmap
+#+BEGIN_SRC conf-unix :tangle ../../build/.config/kmap/colemak_custom_iso.kmap
 
   alt_is_meta
   charset "iso-8859-15"  # use a ISO-8859-15 font, e.g.: consolechars -f lat9v-14
@@ -101,7 +101,7 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 
 *** ANSI
 
-#+BEGIN_SRC conf-unix :tangle ../build/.config/kmap/colemak_custom_ansi.kmap
+#+BEGIN_SRC conf-unix :tangle ../../build/.config/kmap/colemak_custom_ansi.kmap
 
   alt_is_meta
   charset "iso-8859-15"  # use a ISO-8859-15 font, e.g.: consolechars -f lat9v-14
@@ -182,7 +182,7 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 
 * XKB
 
-#+BEGIN_SRC conf-javaprop :tangle ../build/.config/xkb/keymap.xkb :tangle-mode (identity #o444) :mkdirp yes :noweb yes
+#+BEGIN_SRC conf-javaprop :tangle ../../build/.config/xkb/keymap.xkb :tangle-mode (identity #o444) :mkdirp yes :noweb yes
 
   xkb_keymap
   {
@@ -208,6 +208,12 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 ** Keycodes
 
 #+NAME: xkb_keycodes
+#+BEGIN_SRC conf-javaprop
+
+  include "evdev+aliases(qwerty)"
+
+#+END_SRC
+
 #+BEGIN_SRC conf-javaprop
 
   minimum = 8;
@@ -553,15 +559,15 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 
 #+END_SRC
 
-#+BEGIN_SRC conf-javaprop :tangle ../build/.config/xkb/symbols/custom :tangle-mode (identity #o444) :mkdirp yes
+#+BEGIN_SRC conf-javaprop :tangle ../../build/.config/xkb/symbols/custom :tangle-mode (identity #o444) :mkdirp yes
 
   default partial alphanumeric_keys modifier_keys
 
   xkb_symbols "base" {
       name[Group1] = "Latin (custom)";
       name[Group2] = "Cyrillic (custom)";
-    
-      key.type = "ONE_LEVEL";
+
+      key.type = "ONE_LEVEL"; 
       key <PAUS> { [ ISO_Next_Group ] };
 
       key.type = "EIGHT_LEVEL_SEMIALPHABETIC"; 
@@ -642,34 +648,34 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
                  , [ Cyrillic_el       , Cyrillic_EL       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AC09> { [ h                 , H                 , percent          , U222A           , 7                , parenleft        , Greek_theta      , Greek_THETA      ]
                  , [ Cyrillic_de       , Cyrillic_DE       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC10> { [ comma             , colon             , backslash        , U2208           , 8                , parenright       , NoSymbol         , NoSymbol         ]
+      key <AC10> { [ comma             , NoSymbol          , backslash        , U2208           , 8                , parenright       , dead_acute       , dead_grave       ]
                  , [ Cyrillic_zhe      , Cyrillic_ZHE      , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC11> { [ period            , semicolon         , quotedbl         , U2209           , 9                , NoSymbol         , NoSymbol         , NoSymbol         ]
+      key <AC11> { [ period            , NoSymbol          , quotedbl         , U2209           , 9                , NoSymbol         , dead_caron       , dead_circumflex  ]
                  , [ Cyrillic_e        , Cyrillic_E        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC12> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , 0                , NoSymbol         , NoSymbol         , NoSymbol         ]
+      key <AC12> { [ slash             , backslash         , semicolon        , U2620           , 0                , NoSymbol         , dead_diaeresis   , dead_tilde       ]
                  , [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
 
       key <LSGT> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
                  , [ slash             , bar               , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB01> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
                  , [ Cyrillic_ya       , Cyrillic_YA       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AB02> { [ Control_L         , Control_L         , Control_L        , Control_L        , Control_L        , Control_L        , Control_L        , Control_L        ] // Xcape: Escape
-                 , [ Cyrillic_che      , Cyrillic_CHE      , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , vmods[Group1] = Control
-                 , actions[Group1] = [ SetMods(modifiers=Control) ] };
+      key <AB02> { [ Shift_L           , Shift_L           , Shift_L          , Shift_L          , Shift_L          , Shift_L          , Shift_L          , Shift_L          ] // Xcape: Escape
+                 , [ Cyrillic_che      , Cyrillic_CHE      , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB03> { [ ISO_Level5_Shift  , ISO_Level5_Shift  , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift ] // Xcape: Space
                  , [ Cyrillic_es       , Cyrillic_ES       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AB04> { [ Meta_L            , Meta_L            , Meta_L           , Meta_L           , Meta_L           , Meta_L           , Meta_L           , Meta_L           ] // Xcape: Tab
-                 , [ Cyrillic_em       , Cyrillic_EM       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AB04> { [ Control_L         , Control_L         , Control_L        , Control_L        , Control_L        , Control_L        , Control_L        , Control_L        ] // Xcape: Tab
+                 , [ Cyrillic_em       , Cyrillic_EM       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , vmods[Group1] = Control
+                 , actions[Group1] = [ SetMods(modifiers=Control) ] };
       key <AB05> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
                  , [ Cyrillic_i        , Cyrillic_I        , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
                  , [ Cyrillic_te       , Cyrillic_TE       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AB07> { [ Super_L           , Super_L           , Super_L          , Super_L          , Super_L          , Super_L          , Super_L          , Super_L          ] // Xcape: BackSpace
+      key <AB07> { [ Meta_L            , Meta_L            , Meta_L           , Meta_L           , Meta_L           , Meta_L           , Meta_L           , Meta_L           ] // Xcape: BackSpace
                  , [ Cyrillic_softsign , Cyrillic_SOFTSIGN , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB08> { [ ISO_Level3_Shift  , ISO_Level3_Shift  , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift ] // Xcape: Return
                  , [ Cyrillic_be       , Cyrillic_BE       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AB09> { [ Shift_L           , Shift_L           , Shift_L          , Shift_L          , Shift_L          , Shift_L          , Shift_L          , Shift_L          ] // Xcape: Delete
+      key <AB09> { [ Super_L           , Super_L           , Super_L          , Super_L          , Super_L          , Super_L          , Super_L          , Super_L          ] // Xcape: Delete
                  , [ Cyrillic_yu       , Cyrillic_YU       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB10> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
                  , [ slash             , question          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
@@ -703,12 +709,12 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 
 ** Xcape
 
-#+BEGIN_SRC shell :tangle ../build/.local/bin/xcaper
+#+BEGIN_SRC shell :tangle ../../build/.local/bin/xcaper
 
   while :; do
   	killall -q xcape
   	if xkb-switch -p; then
-  		xcape -t 150 -e "Control_L=Escape;ISO_Level5_Shift=space;Meta_L=Tab;Super_L=BackSpace;ISO_Level3_Shift=Return;Shift_L=Delete"
+  		xcape -t 150 -e "Shift_L=Escape;ISO_Level5_Shift=space;Control_L=Tab;Meta_L=BackSpace;ISO_Level3_Shift=Return;Super_L=Delete"
   	fi
   	xkb-switch -w >/dev/null
   done
@@ -780,7 +786,7 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
 
 ** ANSI
 
-#+BEGIN_SRC c :tangle ../build/.config/ahk/custom_ansi.ahk
+#+BEGIN_SRC c :tangle ../../build/.config/ahk/custom_ansi.ahk
 
   #Persistent
   #SingleInstance Force
