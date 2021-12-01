@@ -1276,26 +1276,26 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
     :init
     (setq mu4e-change-filenames-when-moving t
-	  mu4e-update-interval (* 10 60)
-	  mu4e-get-mail-command "mbsync --config ~/.config/isync/mbsyncrc --all"
-	  mu4e-attachment-dir "~/downloads"
-	  mu4e-completing-read-function 'completing-read
-	  mu4e-compose-complete-addresses t
-	  mu4e-compose-format-flowed t
-	  mu4e-compose-context-policy 'ask-if-none
-	  mu4e-compose-dont-reply-to-self t
-	  mu4e-compose-keep-self-cc nil
-	  mu4e-headers-date-format "%d-%m-%Y %H:%M"
-	  mu4e-headers-fields '((:human-date . 20)
-				(:flags . 6)
-				(:mailing-list . 10)
-				(:from . 22)
-				(:subject))
-	  mu4e-headers-include-related t
-	  mu4e-sent-messages-behavior 'sent
-	  mu4e-view-show-addresses t
-	  mu4e-view-show-images t
-	  mu4e-maildir "~/mail")
+          mu4e-update-interval (* 10 60)
+          mu4e-get-mail-command "mbsync --config ~/.config/isync/mbsyncrc --all"
+          mu4e-attachment-dir "~/downloads"
+          mu4e-completing-read-function 'completing-read
+          mu4e-compose-complete-addresses t
+          mu4e-compose-format-flowed t
+          mu4e-compose-context-policy 'ask-if-none
+          mu4e-compose-dont-reply-to-self t
+          mu4e-compose-keep-self-cc nil
+          mu4e-headers-date-format "%d-%m-%Y %H:%M"
+          mu4e-headers-fields '((:human-date . 20)
+                                (:flags . 6)
+                                (:mailing-list . 10)
+                                (:from . 22)
+                                (:subject))
+          mu4e-headers-include-related t
+          mu4e-sent-messages-behavior 'sent
+          mu4e-view-show-addresses t
+          mu4e-view-show-images t
+          mu4e-maildir "~/mail")
 
     (setq mm-sign-option 'guided)
 
@@ -1304,13 +1304,13 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
     (defun sign-or-encrypt-message ()
       (let ((answer (read-from-minibuffer "Sign or encrypt?\nEmpty to do nothing.\n[s/e]: ")))
-	(cond ((string-equal answer "s")
-	       (progn (message "Signing message.")
-		      (mml-secure-message-sign-pgpmime)))
-	      ((string-equal answer "e")
-	       (progn (message "Encrypt and signing message.")
-		      (mml-secure-message-encrypt-pgpmime)))
-	 (t (progn (message "Not signing or encrypting message.") nil)))))
+        (cond ((string-equal answer "s")
+               (progn (message "Signing message.")
+                      (mml-secure-message-sign-pgpmime)))
+              ((string-equal answer "e")
+               (progn (message "Encrypt and signing message.")
+                      (mml-secure-message-encrypt-pgpmime)))
+         (t (progn (message "Not signing or encrypting message.") nil)))))
     (add-hook 'message-send-hook 'sign-or-encrypt-message)
 
   ; (defun custom/make-mu4e-context (context provider name address signature)
@@ -1344,106 +1344,116 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
     (setq mu4e-contexts
      `(,(make-mu4e-context
-	  :name "Personal Gmail"
+          :name "Personal Gmail"
 
-	  :enter-func (lambda ()
-	    (mu4e-message "Entering Personal Gmail context")
-	    (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-	      (revert-buffer)))
-	  :leave-func (lambda ()
-	    (mu4e-message "Leaving Personal Gmail context")
-	    (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-	      (revert-buffer)))
-	  :match-func (lambda (msg)
-	    (when msg (string-prefix-p "/martin.michalec.2003@gmail.com"
-				       (mu4e-message-field msg :maildir))))
+          :enter-func (lambda ()
+            (mu4e-message "Entering Personal Gmail context")
+            (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+              (revert-buffer)))
+          :leave-func (lambda ()
+            (mu4e-message "Leaving Personal Gmail context")
+            (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+              (revert-buffer)))
+          :match-func (lambda (msg)
+            (when msg (string-prefix-p "/martin.michalec.2003@gmail.com"
+                                       (mu4e-message-field msg :maildir))))
 
-	  :vars '((user-full-name        . "Martin Michalec"               )
-		  (user-mail-address     . "martin.michalec.2003@gmail.com")
-		  (smtpmail-smtp-user    . "martin.michalec.2003@gmail.com")
-		  (smtpmail-smtp-server  . "smtp.gmail.com")
-		  (smtpmail-smtp-service . 587)
-		  (smtpmail-stream-type  . starttls)
-		  (mu4e-compose-signature . "Sincerely,\nMartin Michalec")
-		  (mu4e-drafts-folder . "/martin.michalec.2003@gmail.com/[Gmail]/Drafts"   )
-		  (mu4e-sent-folder   . "/martin.michalec.2003@gmail.com/[Gmail]/Sent Mail")
-		  (mu4e-refile-folder . "/martin.michalec.2003@gmail.com/[Gmail]/All Mail" )
-		  (mu4e-trash-folder  . "/martin.michalec.2003@gmail.com/[Gmail]/Trash"    )
-		  (mu4e-get-mail-command . "mbsync --config ~/.config/isync/mbsyncrc martin.michalec.2003@gmail.com")
-		  (mu4e-maildir-shortcuts .
-		    ((:maildir "/martin.michalec.2003@gmail.com/INBOX"             :key ?i)
-		     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/Sent Mail" :key ?s)
-		     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/Trash"     :key ?t)
-		     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/Drafts"    :key ?d)
-		     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/All Mail"  :key ?a)))
-		  (mu4e-bookmarks .
-		    ((:name  "Unread messages"
-		      :query "maildir:/martin.michalec.2003@gmail.com/INBOX AND flag:unread AND NOT flag:trashed AND NOT outdoorexperten"
-		      :key ?u)
-		     (:name "Today's messages"
-		      :query "maildir:/martin.michalec.2003@gmail.com/INBOX AND date:today..now"
-		      :key ?t)
-		     (:name "Last 7 days"
-		      :query "maildir:/martin.michalec.2003@gmail.com/INBOX AND date:7d..now"
-		      :hide-unread t
-		      :key ?w)
-		     (:name "Deleted"
-		      :query "flag:trashed"
-		      :key ?d)))))
+          :vars '((user-full-name        . "Martin Michalec"               )
+                  (user-mail-address     . "martin.michalec.2003@gmail.com")
+                  (smtpmail-smtp-user    . "martin.michalec.2003@gmail.com")
+                  (smtpmail-smtp-server  . "smtp.gmail.com")
+                  (smtpmail-smtp-service . 587)
+                  (smtpmail-stream-type  . starttls)
+                  (mu4e-compose-signature . "Sincerely,\nMartin Michalec")
+                  (mu4e-drafts-folder . "/martin.michalec.2003@gmail.com/[Gmail]/Drafts"   )
+                  (mu4e-sent-folder   . "/martin.michalec.2003@gmail.com/[Gmail]/Sent Mail")
+                  (mu4e-refile-folder . "/martin.michalec.2003@gmail.com/[Gmail]/All Mail" )
+                  (mu4e-trash-folder  . "/martin.michalec.2003@gmail.com/[Gmail]/Trash"    )
+                  (mu4e-get-mail-command . "mbsync --config ~/.config/isync/mbsyncrc martin.michalec.2003@gmail.com")
+                  (mu4e-maildir-shortcuts .
+                    ((:maildir "/martin.michalec.2003@gmail.com/INBOX"             :key ?i)
+                     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/Sent Mail" :key ?s)
+                     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/Trash"     :key ?t)
+                     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/Drafts"    :key ?d)
+                     (:maildir "/martin.michalec.2003@gmail.com/[Gmail]/All Mail"  :key ?a)))
+                  (mu4e-bookmarks .
+                    ((:name  "Unread messages"
+                      :query "maildir:/martin.michalec.2003@gmail.com/INBOX AND flag:unread AND NOT flag:trashed AND NOT outdoorexperten"
+                      :key ?u)
+                     (:name "Today's messages"
+                      :query "maildir:/martin.michalec.2003@gmail.com/INBOX AND date:today..now"
+                      :key ?t)
+                     (:name "Last 7 days"
+                      :query "maildir:/martin.michalec.2003@gmail.com/INBOX AND date:7d..now"
+                      :hide-unread t
+                      :key ?w)
+                     (:name "Deleted"
+                      :query "flag:trashed"
+                      :key ?d)))))
 
        ,(make-mu4e-context
-	  :name "Gaming Gmail"
+          :name "Gaming Gmail"
 
-	  :enter-func (lambda ()
-	    (mu4e-message "Entering Gaming Gmail context")
-	    (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-	      (revert-buffer)))
-	  :leave-func (lambda ()
-	    (mu4e-message "Leaving Gaming Gmail context")
-	    (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
-	      (revert-buffer)))
-	  :match-func (lambda (msg)
-	    (when msg (string-prefix-p "/mcmitarrr@gmail.com"
-				       (mu4e-message-field msg :maildir))))
+          :enter-func (lambda ()
+            (mu4e-message "Entering Gaming Gmail context")
+            (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+              (revert-buffer)))
+          :leave-func (lambda ()
+            (mu4e-message "Leaving Gaming Gmail context")
+            (when (string-match-p (buffer-name (current-buffer)) "mu4e-main")
+              (revert-buffer)))
+          :match-func (lambda (msg)
+            (when msg (string-prefix-p "/mcmitarrr@gmail.com"
+                                       (mu4e-message-field msg :maildir))))
 
-	  :vars '((user-full-name        . "PREPARExTHYSELF"    )
-		  (user-mail-address     . "mcmitarrr@gmail.com")
-		  (smtpmail-smtp-user    . "mcmitarrr@gmail.com")
-		  (smtpmail-smtp-server  . "smtp.gmail.com")
-		  (smtpmail-smtp-service . 587)
-		  (smtpmail-stream-type  . starttls)
-		  (mu4e-compose-signature . "PREPARExTHYSELF")
-		  (mu4e-drafts-folder . "/mcmitarrr@gmail.com/[Gmail]/Drafts"   )
-		  (mu4e-sent-folder   . "/mcmitarrr@gmail.com/[Gmail]/Sent Mail")
-		  (mu4e-refile-folder . "/mcmitarrr@gmail.com/[Gmail]/All Mail" )
-		  (mu4e-trash-folder  . "/mcmitarrr@gmail.com/[Gmail]/Trash"    )
-		  (mu4e-get-mail-command . "mbsync --config ~/.config/isync/mbsyncrc mcmitarrr@gmail.com")
-		  (mu4e-maildir-shortcuts .
-		    ((:maildir "/mcmitarrr@gmail.com/INBOX"             :key ?i)
-		     (:maildir "/mcmitarrr@gmail.com/[Gmail]/Sent Mail" :key ?s)
-		     (:maildir "/mcmitarrr@gmail.com/[Gmail]/Trash"     :key ?t)
-		     (:maildir "/mcmitarrr@gmail.com/[Gmail]/Drafts"    :key ?d)
-		     (:maildir "/mcmitarrr@gmail.com/[Gmail]/All Mail"  :key ?a)))
-		  (mu4e-bookmarks .
-		    ((:name  "Unread messages"
-		      :query "maildir:/mcmitarrr@gmail.com/INBOX AND flag:unread AND NOT flag:trashed AND NOT outdoorexperten"
-		      :key ?u)
-		     (:name "Today's messages"
-		      :query "maildir:/mcmitarrr@gmail.com/INBOX AND date:today..now"
-		      :key ?t)
-		     (:name "Last 7 days"
-		      :query "maildir:/mcmitarrr@gmail.com/INBOX AND date:7d..now"
-		      :hide-unread t
-		      :key ?w)
-		     (:name "Deleted"
-		      :query "flag:trashed"
-		      :key ?d)))))))
+          :vars '((user-full-name        . "PREPARExTHYSELF"    )
+                  (user-mail-address     . "mcmitarrr@gmail.com")
+                  (smtpmail-smtp-user    . "mcmitarrr@gmail.com")
+                  (smtpmail-smtp-server  . "smtp.gmail.com")
+                  (smtpmail-smtp-service . 587)
+                  (smtpmail-stream-type  . starttls)
+                  (mu4e-compose-signature . "PREPARExTHYSELF")
+                  (mu4e-drafts-folder . "/mcmitarrr@gmail.com/[Gmail]/Drafts"   )
+                  (mu4e-sent-folder   . "/mcmitarrr@gmail.com/[Gmail]/Sent Mail")
+                  (mu4e-refile-folder . "/mcmitarrr@gmail.com/[Gmail]/All Mail" )
+                  (mu4e-trash-folder  . "/mcmitarrr@gmail.com/[Gmail]/Trash"    )
+                  (mu4e-get-mail-command . "mbsync --config ~/.config/isync/mbsyncrc mcmitarrr@gmail.com")
+                  (mu4e-maildir-shortcuts .
+                    ((:maildir "/mcmitarrr@gmail.com/INBOX"             :key ?i)
+                     (:maildir "/mcmitarrr@gmail.com/[Gmail]/Sent Mail" :key ?s)
+                     (:maildir "/mcmitarrr@gmail.com/[Gmail]/Trash"     :key ?t)
+                     (:maildir "/mcmitarrr@gmail.com/[Gmail]/Drafts"    :key ?d)
+                     (:maildir "/mcmitarrr@gmail.com/[Gmail]/All Mail"  :key ?a)))
+                  (mu4e-bookmarks .
+                    ((:name  "Unread messages"
+                      :query "maildir:/mcmitarrr@gmail.com/INBOX AND flag:unread AND NOT flag:trashed AND NOT outdoorexperten"
+                      :key ?u)
+                     (:name "Today's messages"
+                      :query "maildir:/mcmitarrr@gmail.com/INBOX AND date:today..now"
+                      :key ?t)
+                     (:name "Last 7 days"
+                      :query "maildir:/mcmitarrr@gmail.com/INBOX AND date:7d..now"
+                      :hide-unread t
+                      :key ?w)
+                     (:name "Deleted"
+                      :query "flag:trashed"
+                      :key ?d)))))))
 
     :custom
     (message-send-mail-function 'smtpmail-send-it)
     (mu4e-use-fancy-chars t)
 
     :config
+    (setq mu4e-headers-new-mark       '("N" . "N")
+          mu4e-headers-seen-mark      '("S" . "S")
+          mu4e-headers-draft-mark     '("D" . "D")
+          mu4e-headers-attach-mark    '("a" . "a")
+          mu4e-headers-signed-mark    '("s" . "s")
+          mu4e-headers-unread-mark    '("u" . "u")
+          mu4e-headers-flagged-mark   '("F" . "F")
+          mu4e-headers-replied-mark   '("R" . "R")
+          mu4e-headers-trashed-mark   '("T" . "T")
+          mu4e-headers-encrypted-mark '("x" . "x"))
     (defun custom/mu4e-action-follow-up (msg)
       (interactive)
       (call-interactively 'org-store-link)
@@ -1488,22 +1498,22 @@ Load up the desktop environment if on a machine that supports it and the =--use-
   (use-package org-mime
     :custom
     (org-mime-export-options '(:section-numbers nil
-			       :with-author     nil
-			       :with-toc        nil))
+                               :with-author     nil
+                               :with-toc        nil))
     :config
     (defun custom/htmlize-message ()
       (let ((found-multipart (save-excursion
-			       (save-restriction (widen)
-				 (goto-char (point-min))
-				 (search-forward "<#multipart type=alternative>" nil t)))))
-	(when (and (not found-multipart)
-		   (y-or-n-p "HTML-ize message? "))
-	  (org-mime-htmlize))))
+                               (save-restriction (widen)
+                                 (goto-char (point-min))
+                                 (search-forward "<#multipart type=alternative>" nil t)))))
+        (when (and (not found-multipart)
+                   (y-or-n-p "HTML-ize message? "))
+          (org-mime-htmlize))))
     (add-hook 'message-send-hook 'custom/htmlize-message)
     (add-hook 'org-mime-html-hook
-	      (lambda () (org-mime-change-element-style
-		     "pre" (format "color: %s; background-color: %s; padding: 1.5em 1.5em 0em 1.5em;"
-				   "#FFFFFF" "#000000")))))
+              (lambda () (org-mime-change-element-style
+                     "pre" (format "color: %s; background-color: %s; padding: 1.5em 1.5em 0em 1.5em;"
+                                   "#FFFFFF" "#000000")))))
   (use-package htmlize)
 
 #+END_SRC

@@ -570,7 +570,7 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
       key.type = "ONE_LEVEL"; 
       key <PAUS> { [ ISO_Next_Group ] };
 
-      key.type = "EIGHT_LEVEL_SEMIALPHABETIC"; 
+      key.type = "EIGHT_LEVEL_SEMIALPHABETIC";
   //               [ None              , S                 , L3               , S+L3            , L5               , S+L5             , L3+L5            , S+L3+L5          ]
       key <TLDE> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
                  , [ Cyrillic_io       , Cyrillic_IO       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
