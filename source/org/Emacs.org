@@ -2524,9 +2524,9 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (org-tags-column 0)
     (org-agenda-align-tags-to-column 80)
 
-    (org-agenda-start-on-weekday nil)
-
     (org-agenda-start-day "-3d")
+    (org-agenda-span 10)
+    (org-agenda-start-on-weekday nil)
 
     (org-agenda-start-with-log-mode t)
     (org-log-done 'time)
