@@ -2653,7 +2653,14 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
     :config
     (advice-add 'org-refile :after 'org-save-all-org-buffers)
-    (add-hook 'org-mode-hook 'custom/set-org-export-select-tags))
+    (add-hook 'org-mode-hook 'custom/set-org-export-select-tags)
+    (evil-define-key 'normal org-mode-map (kbd "RET") 'org-open-at-point)
+    (setq org-static-agenda-files `(,(concat (file-name-as-directory org-directory) "Tasks.org"   )
+                                    ,(concat (file-name-as-directory org-directory) "Habit.org"   )
+                                    ,(concat (file-name-as-directory org-directory) "Metric.org"  )
+                                    ,(concat (file-name-as-directory org-directory) "Archived.org")
+                                    ,(concat (file-name-as-directory org-directory) "Mail.org"    )))
+    (setq org-agenda-files org-static-agenda-files))
 
 #+END_SRC
 
@@ -2684,14 +2691,20 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     "orn" '(:which-key "Node")
     "orni" '(org-roam-node-insert :which-key "Insert")
     "ornI" '(org-roam-node-insert-immediate :which-key "Insert Immediately")
-    "ornf" '(org-roam-node-find :which-key "Find")
+    "ornf" '(:which-key "Find")
+    "ornfa" '(org-roam-node-find :which-key "Any")
+    "ornfp" '((lambda () (interactive) (custom/org-roam-find-with-tag "Project")) :which-key "Project")
+    "ornfP" '((lambda () (interactive) (custom/org-roam-find-with-tag "Person" )) :which-key "Person" )
     "ord" '(:which-key "Dailies")
-    "ordy" '(org-roam-dailies-goto-yesterday :which-key "Yesterday")
-    "ordn" '(org-roam-dailies-goto-today     :which-key "Today")
-    "ordt" '(org-roam-dailies-goto-tomorrow  :which-key "Tomorrow")
-    "ordd" '(org-roam-dailies-goto-date      :which-key "Date")
+    "ordy" '(org-roam-dailies-goto-yesterday     :which-key "Yesterday")
+    "ordn" '(org-roam-dailies-goto-today         :which-key "Today"    )
+    "ordt" '(org-roam-dailies-goto-tomorrow      :which-key "Tomorrow" )
+    "ordd" '(org-roam-dailies-goto-date          :which-key "Date"     )
+    "ordf" '(org-roam-dailies-goto-next-note     :which-key "Forward"  )
+    "ordb" '(org-roam-dailies-goto-previous-note :which-key "Backward" )
 
     "oc" '(:which-key "Capture")
+    "oci" '(custom/org-roam-capture-inbox :which-key "Inbox")
     "oct" '(:which-key "Task")
     "octt" '((lambda () (interactive) (org-capture nil "tt")) :which-key "Task")
     "octs" '((lambda () (interactive) (org-capture nil "tt")) :which-key "Clocked Entry Subtask")
@@ -2933,6 +2946,144 @@ Load up the desktop environment if on a machine that supports it and the =--use-
         (org-babel-tangle))))
 
   (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'custom/org-babel-tangle-config)))
+
+#+END_SRC
+
+*** Roam
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package org-roam
+    :init
+    (setq org-roam-v2-ack t)
+
+    :custom
+    (org-roam-directory (concat (file-name-as-directory org-directory) "roam"))
+    (org-roam-completion-everywhere t)
+    (org-roam-capture-templates
+     '(("d" "Default" plain
+        (file "~/documents/org/roam/templates/Default.org")
+        :if-new (file "%<%Y%m%d%H%M%S>-${slug}.org")
+        :unnarrowed t)
+       ("p" "Project" plain
+        (file "~/documents/org/roam/templates/Project.org")
+        :if-new (file "%<%Y%m%d%H%M%S>-${slug}.org"))
+       ("P" "Person" plain
+        (file "~/documents/org/roam/templates/Person.org")
+        :if-new (file "people/%<%Y%m%d%H%M%S>-${slug}.org"))
+       ("l" "Literature" plain
+        (file "~/documents/org/roam/templates/Literature.org")
+        :if-new (file "%<%Y%m%d%H%M%S>-${slug}.org"))
+       ("L" "Programming Language" plain
+        (file "~/documents/org/roam/templates/Programming_Language.org")
+        :if-new (file "%<%Y%m%d%H%M%S>-${slug}.org"))))
+
+    (org-roam-dailies-capture-templates
+     '(("d" "Default" plain
+        (file "~/documents/org/roam/daily/templates/Default.org")
+        :if-new (file+head "%<%Y%m%d%H%M%S>.org" "#+TITLE: %<%Y%m%d>\n"))))
+
+    :config
+    (defun org-roam-node-insert-immediate (arg &rest args)
+      (interactive "P")
+      (let ((args (cons arg args))
+            (org-roam-capture-templates (list (append (car org-roam-capture-templates)
+                                                      '(:immediate-finish t)))))
+        (apply #'org-roam-node-insert args)))
+
+    (defun custom/org-roam-filter-by-tag (tag)
+      (lambda (node)
+        (member tag (org-roam-node-tags node))))
+    (defun custom/org-roam-list-nodes-with-tag (tag)
+      (mapcar #'org-roam-node-file
+              (seq-filter
+               (custom/org-roam-filter-by-tag tag)
+               (org-roam-node-list))))
+
+    (defun custom/org-roam-refresh-agenda-list ()
+      (interactive)
+      (setq org-agenda-files (concatenate 'list org-static-agenda-files
+                                          (custom/org-roam-list-nodes-with-tag "Agenda"))))
+
+    (defun custom/org-roam-finalize-hook ()
+      (remove-hook 'org-capture-after-finalize-hook #'custom/org-roam-finalize-hook)
+      (unless org-node-abort
+        (with-current-buffer (org-capture-get :buffer)
+          (add-to-list 'org-agenda-files (buffer-file-name)))))
+    (require 'seq)
+    (defun custom/org-roam-find-with-tag (tag)
+      (add-hook 'org-capture-after-finalize-hook #'custom/org-roam-finalize-hook)
+      (org-roam-node-find nil nil
+       (custom/org-roam-filter-by-tag tag)
+       :templates
+       (seq-filter '(lambda (template) (equal tag (cadr template))) org-roam-capture-templates)))
+
+    (defun custom/org-roam-capture-inbox ()
+      (interactive)
+      (org-roam-capture- :node (org-roam-node-create)
+                         :templates
+                         `(("i" "Inbox" plain "* %?"
+                            :if-new (file+head
+                                     "Inbox.org"
+                                     ,(string-join '("#+TITLE: Inbox"
+                                                     "#+DATE: %U"
+                                                     "#+FILETAGS: Agenda"
+                                                     "" "") "\n"))))))
+    (defun custom/org-roam-capture-task ()
+      (interactive)
+      (org-roam-capture- :node (org-roam-node-read)
+                         :templates
+                         `(("t" "Task" plain
+                            ,(string-join '("** TODO %?"
+                                            "SCHEDULED: %T") "\n")
+                            :if-new (file+head+olp
+                                     "%<%Y%m%d%H%M%S>-${slug}.org"
+                                     ,(string-join '("#+TITLE: %{title}"
+                                                     "#+DATE: %U"
+                                                     "#+FILETAGS: Agenda"
+                                                     "" "") "\n")
+                                     ("Tasks"))))))
+    (defun custom/org-roam-capture-event ()
+      (interactive)
+      (org-roam-capture- :node (org-roam-node-read)
+                         :templates
+                         `(("t" "Task" plain
+                            ,(string-join '("** %?"
+                                            "%T") "\n")
+                            :if-new (file+head+olp
+                                     "%<%Y%m%d%H%M%S>-${slug}.org"
+                                     ,(string-join '("#+TITLE: %{title}"
+                                                     "#+DATE: %U"
+                                                     "#+FILETAGS: Agenda"
+                                                     "" "") "\n")
+                                     ("Events"))))))
+
+    (defun custom/org-roam-copy-todo-to-today ()
+      (interactive)
+      (let ((org-refile-keep t) ;; Keep the original
+            (org-roam-dailies-capture-templates
+             '(("t" "Tasks" entry "%?"
+                :if-new (file+head+olp
+                         "%<%Y%m%d>.org"
+                         "#+TITLE: %<%Y%m%d>\n"
+                         ("Tasks")))))
+            (org-after-refile-insert-hook #'save-buffer)
+            today-file
+            pos)
+        (save-window-excursion
+          (org-roam-dailies--capture (current-time) t)
+          (setq today-file (buffer-file-name))
+          (setq pos (point))
+          (unless (equal (file-truename today-file)
+                         (file-truename (buffer-file-name)))
+            (org-refile nil nil (list "Tasks" today-file nil pos))))))
+    (add-to-list 'org-after-todo-state-change-hook
+                 (lambda ()
+                   (when (equal org-state "DONE")
+                     (custom/org-roam-todo-to-today))))
+
+    (org-roam-setup)
+    (custom/org-roam-refresh-agenda-list))
 
 #+END_SRC
 
