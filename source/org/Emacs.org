@@ -2604,98 +2604,51 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (org-capture-templates
      `(("t" "Tasks / Projects")
        ("tt" "Task" entry (file+olp "~/documents/org/Task.org" "Inbox")
-        ,(string-join
-          '("* TODO %?"
-            "%U"
-            "%a"
-            "%i") "\n")
+        (file "~/documents/org/templates/Tasks/Task.org")
         :empty-lines 1)
        ("ts" "Clocked Entry Subtask" entry (clock)
-        ,(string-join
-          '("* TODO %?"
-            "%U"
-            "%a"
-            "%i") "\n")
+        (file "~/documents/org/templates/Tasks/Task.org")
         :empty-lines 1)
 
        ("e" "Events")
        ("ee" "Event" entry (file+olp "~/documents/org/Event.org" "Inbox")
-        ,(string-join
-          '("* %?\n%U\n%a"
-            "%U"
-            "%a") "\n")
+        (file "~/documents/org/templates/Events/Event.org")
         :empty-lines 1)
 
-       ("j" "Journal Entries")
+       ("j" "Journal")
        ("jj" "Journal" entry (file+olp+datetree "~/documents/org/Journal.org")
-        ,(string-join
-          '(""
-            "* %<%H:%M> - Journal :journal:"
-            ""
-            "%?"
-            "") "\n")
+        (file "~/documents/org/templates/Journal/Journal.org")
         :clock-in
         :clock-resume
         :empty-lines 1)
        ("jm" "Meeting" entry (file+olp+datetree "~/documents/org/Journal.org")
-        ,(string-join
-          '("* %<%H:%M> - %a :meetings:"
-            ""
-            "%?"
-            "") "\n")
+        (file "~/documents/org/templates/Journal/Meeting.org")
         :clock-in
         :clock-resume
         :empty-lines 1)
 
        ("w" "Workflows")
        ("we" "Checking Email" entry (file+olp+datetree "~/documents/org/Journal.org")
-        ,(string-join
-          '("* Checking Email :email:"
-            ""
-            "%?") "\n")
+        (file "~/documents/org/templates/Workflows/Checking_Email.org")
         :clock-in
         :clock-resume
         :empty-lines 1)
 
        ("m" "Mail Workflow")
        ("mf" "Follow Up" entry (file+olp "~/documents/org/Mail.org" "Follow Up")
-        ,(string-join
-          '("* TODO Follow up with %:fromname on %a"
-            "SCHEDULED: %t"
-            "DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"
-            ""
-            "%i") "\n")
+        (file "~/documents/org/templates/Mail_Workflow/Follow_Up.org")
         :immediate-finish t)
        ("mF" "Follow Up (+note)" entry (file+olp "~/documents/org/Mail.org" "Follow Up")
-        ,(string-join
-          '("* TODO Follow up with %:fromname on %a"
-            "SCHEDULED: %t"
-            "DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"
-            ""
-            "%i") "\n"))
+        (file "~/documents/org/templates/Mail_Workflow/Follow_Up.org"))
        ("mr" "Read Later" entry (file+olp "~/documents/org/Mail.org" "Read Later")
-        ,(string-join
-          '("* TODO Read %:subject"
-            "SCHEDULED: %t"
-            "DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"
-            ""
-            "%a"
-            ""
-            "%i") "\n")
+        (file "~/documents/org/templates/Mail_Workflow/Read_Later.org")
         :immediate-finish t)
        ("mR" "Read Later (+note)" entry (file+olp "~/documents/org/Mail.org" "Read Later")
-        ,(string-join
-          '("* TODO Read %:subject"
-            "SCHEDULED: %t"
-            "DEADLINE: %(org-insert-time-stamp (org-read-date nil t \"+2d\"))"
-            ""
-            "%a"
-            ""
-            "%i") "\n"))
+        (file "~/documents/org/templates/Mail_Workflow/Read_Later.org"))
 
        ("M" "Metrics Capture")
        ("Mw" "Weight" table-line (file+headline "~/documents/org/Metrics.org" "Weight")
-        "| %U | %^{Weight [kg]} | %^{Notes} |"
+        (file "~/documents/org/templates/Metrics_Capture/Weight.org")
         :kill-buffer t)))
 
     :config
