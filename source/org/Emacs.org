@@ -235,7 +235,7 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 * UI Settings
 ** Decluttering
 
-#+BEGIN_SRC emacs-lisp :tangle ../../build/.config/emacs/early-init.el :tangle-mode (identity #o444)
+#+BEGIN_SRC emacs-lisp :tangle ../../build/.config/emacs/early-init.el
 
   (scroll-bar-mode -1)
   (  tool-bar-mode -1)
