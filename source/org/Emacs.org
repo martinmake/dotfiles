@@ -2507,8 +2507,10 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
     (org-directory "~/documents/org/")
 
-    (org-startup-folded 'showeverything)
+    (org-startup-folded 'content)
     (org-html-inline-images t)
+    (org-image-actual-width nil)
+    (org-startup-with-inline-images t)
     (org-babel-uppercase-example-markers t)
 
     ;;(org-file-apps-gnu
