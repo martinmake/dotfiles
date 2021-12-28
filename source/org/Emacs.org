@@ -3163,19 +3163,19 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
 #+BEGIN_SRC emacs-lisp
 
-      (define-minor-mode kocmoc-mode
-        "Toggle KOCMOC mode."
-        :global t
-        (setq kocmoc-mode-line-string
-              (concat " "
-                      (propertize " ☭  " 'face '(:foreground "#FFFF00"
-                                                 :background "#FF0000"))
-                      (propertize  " π " 'face '(:foreground "#00FF00"))))
-        (if kocmoc-mode
-            (add-to-list 'global-mode-string kocmoc-mode-line-string t)
-          (setq global-mode-string
-                (delq 'kocmoc-mode-line-string global-mode-string))))
-      (kocmoc-mode 1)
+  (define-minor-mode kocmoc-mode
+    "Toggle KOCMOC mode."
+    :global t
+    (setq kocmoc-mode-line-string
+          (concat " "
+                  (propertize " ☭  " 'face '(:foreground "#FFFF00"
+                                             :background "#FF0000"))
+                  (propertize  " π " 'face '(:foreground "#00FF00"))))
+    (if kocmoc-mode
+        (add-to-list 'global-mode-string kocmoc-mode-line-string t)
+      (setq global-mode-string
+            (delq 'kocmoc-mode-line-string global-mode-string))))
+  (kocmoc-mode 1)
 
 #+END_SRC
 
