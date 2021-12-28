@@ -1283,6 +1283,25 @@ I use [[https://github.com/polybar/polybar][Polybar]] to display a panel at the 
 
 #+END_SRC
 
+* Utillities
+*** Auto scroll
+
+#+BEGIN_SRC emacs-lisp
+
+  (setq custom/auto-scroll-process nil)
+  (defun custom/auto-scroll-start ()
+    (interactive)
+    (custom/auto-scroll-kill)
+    (setq custom/auto-scroll-process
+          (start-process-shell-command "auto-scroll" nil "sh ~/documents/songbook/scroll.sh")))
+  (defun custom/auto-scroll-stop ()
+    (interactive)
+    (when custom/auto-scroll-process
+      (ignore-errors (kill-process custom/auto-scroll-process))
+      (setq custom/auto-scroll-process nil)))
+
+#+END_SRC
+
 * Applications
 ** Browsers
 *** Qutebrowser
