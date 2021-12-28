@@ -1851,6 +1851,9 @@ Load up the desktop environment if on a machine that supports it and the =--use-
   (use-package eshell
     :hook (eshell-first-time-mode . custom/configure-eshell)
 
+    :custom
+    (eshell-banner-message "")
+
     :config
     (with-eval-after-load 'esh-opt
       (setq eshell-destroy-buffer-when-process-dies nil)
