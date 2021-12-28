@@ -2042,7 +2042,7 @@ Enable screen locking on suspend.
 
 #+BEGIN_SRC shell :tangle ../../build/.xsession
 
-  xss-lock -- lock &
+  # xss-lock -- lock &
 
 #+END_SRC
 
