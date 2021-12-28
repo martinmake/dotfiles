@@ -232,6 +232,14 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
 
 #+END_SRC
 
+** Save Position in Buffer
+
+#+BEGIN_SRC emacs-lisp
+
+  (save-place-mode 1)
+
+#+END_SRC
+
 * UI Settings
 ** Decluttering
 
