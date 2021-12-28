@@ -3472,6 +3472,14 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
 #+END_SRC
 
+** Rest Client
+
+#+BEGIN_SRC emacs-lisp :tangle no
+
+  (use-package restclient)
+
+#+END_SRC
+
 * Help Improvements
 ** which-key
 
