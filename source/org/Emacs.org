@@ -3480,6 +3480,14 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
 #+END_SRC
 
+** Org Download
+
+#+BEGIN_SRC emacs-lisp :tangle no
+
+  (use-package org-download)
+
+#+END_SRC
+
 * Help Improvements
 ** which-key
 
