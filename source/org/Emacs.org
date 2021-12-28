@@ -1789,11 +1789,11 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (define-key eshell-hist-mode-map (kbd "M-r") 'custom/eshell-input-from-history)
 
     (setq eshell-history-size         10000
-	  eshell-buffer-maximum-lines 10000
-	  eshell-hist-ignoredups t
-	  eshell-scroll-to-bottom-on-input t
-	  eshell-prompt-regexp "^[^#$]*[#$] "
-	  eshell-highlight-prompt nil)
+          eshell-buffer-maximum-lines 10000
+          eshell-hist-ignoredups t
+          eshell-scroll-to-bottom-on-input t
+          eshell-prompt-regexp "^[^#$]*[#$] "
+          eshell-highlight-prompt nil)
 
     (setq eshell-aliases-file "~/.config/emacs/eshell/aliases")
     (eshell-read-aliases-list)
@@ -1806,47 +1806,47 @@ Load up the desktop environment if on a machine that supports it and the =--use-
       (interactive)
       (let* ((home (expand-file-name (getenv "HOME")))
        (home-len (length home)))
-	(if (and
+        (if (and
        (>= (length pwd) home-len)
        (equal home (substring pwd 0 home-len)))
       (concat "~" (substring pwd home-len))
-	  pwd)))
+          pwd)))
 
     (defun curr-dir-git-branch-string (pwd)
       "Returns current git branch as a string, or the empty string if
     PWD is not in a git repo (or the git command is not found)."
       (interactive)
       (when (and (eshell-search-path "git")
-		 (locate-dominating-file pwd ".git"))
-	(let ((git-output (shell-command-to-string (concat "cd " pwd " && git branch | grep '\\*' | sed -e 's/^\\* //'"))))
-	  (propertize (concat "["
-		  (if (> (length git-output) 0)
-		      (substring git-output 0 -1)
-		    "(no branch)")
-		  "]") 'face `(:foreground "blue"))
-	  )))
+                 (locate-dominating-file pwd ".git"))
+        (let ((git-output (shell-command-to-string (concat "cd " pwd " && git branch | grep '\\*' | sed -e 's/^\\* //'"))))
+          (propertize (concat "["
+                  (if (> (length git-output) 0)
+                      (substring git-output 0 -1)
+                    "(no branch)")
+                  "]") 'face `(:foreground "blue"))
+          )))
 
     (setq eshell-prompt-function
-	  (lambda ()
-	    (concat
-	     (propertize ((lambda (p-lst)
-		(if (> (length p-lst) 3)
-		    (concat
-		     (mapconcat (lambda (elm) (if (zerop (length elm)) ""
-						(substring elm 0 1)))
-				(butlast p-lst 3)
-				"/")
-		     "/"
-		     (mapconcat (lambda (elm) elm)
-				(last p-lst 3)
-				"/"))
-		  (mapconcat (lambda (elm) elm)
-			     p-lst
-			     "/")))
-	      (split-string (pwd-repl-home (eshell/pwd)) "/")) 'face `(:foreground "yellow"))
-	     (or (curr-dir-git-branch-string (eshell/pwd)))
-	     (propertize "$ " 'face 'default)
-	    ))))
+          (lambda ()
+            (concat
+             (propertize ((lambda (p-lst)
+                (if (> (length p-lst) 3)
+                    (concat
+                     (mapconcat (lambda (elm) (if (zerop (length elm)) ""
+                                                (substring elm 0 1)))
+                                (butlast p-lst 3)
+                                "/")
+                     "/"
+                     (mapconcat (lambda (elm) elm)
+                                (last p-lst 3)
+                                "/"))
+                  (mapconcat (lambda (elm) elm)
+                             p-lst
+                             "/")))
+              (split-string (pwd-repl-home (eshell/pwd)) "/")) 'face `(:foreground "yellow"))
+             (or (curr-dir-git-branch-string (eshell/pwd)))
+             (propertize "$ " 'face 'default)
+            ))))
 
   (use-package eshell
     :hook (eshell-first-time-mode . custom/configure-eshell)
@@ -1855,23 +1855,23 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (with-eval-after-load 'esh-opt
       (setq eshell-destroy-buffer-when-process-dies nil)
       (setq eshell-visual-commands '("visual"
-				     "top"
-				     "htop"
-				     "nmtui"
-				     "ssh"
-				     "guile"
-				     "ipython"
-				     "guix"
-				     "nix-env"
-				     "npm"
-				     "pip"
-				     "cargo"
-				     "tmux"
-				     "vim"
-				     "nvim"
-				     "less"
-				     "more"
-				     "bat"))
+                                     "top"
+                                     "htop"
+                                     "nmtui"
+                                     "ssh"
+                                     "guile"
+                                     "ipython"
+                                     "guix"
+                                     "nix-env"
+                                     "npm"
+                                     "pip"
+                                     "cargo"
+                                     "tmux"
+                                     "vim"
+                                     "nvim"
+                                     "less"
+                                     "more"
+                                     "bat"))
     ; (setq eshell-visual-subcommands '(("" "")))
     ; (setq eshell-visual-options '(("" "")))
 
@@ -1879,14 +1879,14 @@ Load up the desktop environment if on a machine that supports it and the =--use-
       "Interactively search eshell history for next input."
       (interactive)
       (let* ((input (completing-read "Input: "
-		      (delete-dups (when (> (ring-size eshell-history-ring) 0)
-			 (ring-elements eshell-history-ring))))))
-	(delete-region eshell-last-output-end (point))
-	(insert-and-inherit input)))
+                      (delete-dups (when (> (ring-size eshell-history-ring) 0)
+                         (ring-elements eshell-history-ring))))))
+        (delete-region eshell-last-output-end (point))
+        (insert-and-inherit input)))
 
     (defadvice eshell (around advice-eshell activate)
       (interactive)
-	(funcall (ad-get-orig-definition 'eshell) 'N))))
+      (funcall (ad-get-orig-definition 'eshell) 'N))))
 
   (use-package eshell-syntax-highlighting
     :config (eshell-syntax-highlighting-global-mode))
