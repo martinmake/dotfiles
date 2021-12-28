@@ -1230,16 +1230,18 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
 #+BEGIN_SRC emacs-lisp
 
-  (use-package elfeed)
+  (use-package elfeed
+    :config
+    (defun elfeed-search-format-date (date)
+      (format-time-string "%Y-%m-%d %H:%M" (seconds-to-time date)))
+
+    (defun custom/browse-url-mpv (url &optional new-window)
+      (start-process "mpv" "*mpv*" "mpv" url))
+    (setq browse-url-handlers '(("https:\\/\\/www\\.youtube." . custom/browse-url-mpv))))
 
   (use-package elfeed-org
     :custom (rmh-elfeed-org-files (list "~/.config/emacs/elfeed.org"))
     :config (elfeed-org))
-
-  ; (use-package elfeed-goodies
-  ;   :custom
-  ;   (elfeed-goodies/wide-threshold 0)
-  ;   :config (elfeed-goodies/setup))
 
   ; (use-package elfeed-web
   ;   :custom
@@ -1247,7 +1249,6 @@ Load up the desktop environment if on a machine that supports it and the =--use-
   ;   (httpd-host "0.0.0.0")
   ;   :config
   ;   (elfeed-web-start))
-
 
 #+END_SRC
 
