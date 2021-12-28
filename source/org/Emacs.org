@@ -481,11 +481,11 @@ I've started experimenting with the =native-comp= branch of Emacs for increased 
     (dashboard-page-separator "\n\n")
     (dashboard-projects-backend 'projectile)
     (dashboard-items
-     '((recents  . 10)
+     '((recents  . 7)
       (projects .  5)))
-    (dashboard-set-footer nil)
-    (dashboard-footer-messages nil)
-    (dashboard-footer-icon nil)
+    (dashboard-set-footer t)
+    (dashboard-footer-messages '("☭ !!! ПРОЛЕТАРИИ ВСЕХ СТРАН СОЕДИНИТЕСЬ !!! ☭"))
+    (dashboard-footer-icon "")
     :config
     (dashboard-setup-startup-hook)
     (dashboard-insert-startupify-lists)
