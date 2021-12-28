@@ -1267,6 +1267,9 @@ Load up the desktop environment if on a machine that supports it and the =--use-
     (erc-prompt-for-password  t)
     (erc-auto-query 'bury))
 
+  (use-package 0x0
+    :after erc)
+
 #+END_SRC
 
 * E-Mail
