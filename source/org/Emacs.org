@@ -3099,6 +3099,57 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
 #+END_SRC
 
+*** Drill
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package org-drill
+    :custom
+    (org-drill-leech-failure-treshold 5)
+    (org-drill-leech-handle-method 'warn)
+
+    (org-drill-maximum-items-per-session 40)
+    (org-drill-maximum-duration 30)
+
+    (org-drill-hide-item-headings-p nil)
+    (org-drill-cloze-length-matches-hidden-text-p t)
+    (org-drill-use-visible-cloze-face-p t)
+    (org-drill-save-after-drill-session-p t)
+
+    (org-drill-overdue-interval-factor 1.2)
+    (org-drill-days-before-old 7)
+
+    (org-drill-spaced-repetition-algorithm 'simple8)
+    (org-drill-add-random-noise-to-interval-p t)
+    (org-drill-adjust-intervals-for-early-and-late-repetitions-p t)
+    (org-drill-learn-fraction 0.5)
+
+    :config
+    (add-to-list 'org-capture-templates
+                 `("u" "URL to Read" entry
+                   (file+headline "Tasks.org" "Articles to Read")
+                   ,(string-join '("* TODO Read article: %:description"
+                                   "URL: %c"
+                                   ""
+                                   "") "\n")
+                   :empty-lines 1 :immediate-finish t))
+    (add-to-list 'org-capture-templates
+                 `("f" "Fact" entry
+                   (file+headline "Inbox.org" "Facts")
+                   ,(string-join
+                     `(,(concat "* Fact: %:description :" org-drill-question-tag ":")
+                       ":PROPERTIES:"
+                       ":DATE_ADDED: %u"
+                       ":SOURCE_URL: %:link"
+                       ":END:"
+                       ""
+                       "%i"
+                       "%?"
+                       "") "\n")
+                   :empty-lines 1 :immediate-finish t)))
+
+#+END_SRC
+
 ** CalFW
 
 #+BEGIN_SRC emacs-lisp

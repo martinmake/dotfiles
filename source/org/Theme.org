@@ -770,6 +770,16 @@ Extended with:
 
 #+END_SRC
 
+*** org-drill
+
+#+BEGIN_SRC emacs-lisp
+
+  (org-drill-hidden-cloze-face       (:foreground industrial-blue ))
+  (org-drill-visible-cloze-face      (:foreground industrial-green))
+  (org-drill-visible-cloze-hint-face (:foreground industrial-blue ))
+
+#+END_SRC
+
 *** powerline
 
 #+BEGIN_SRC emacs-lisp
