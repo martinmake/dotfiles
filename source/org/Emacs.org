@@ -3451,6 +3451,27 @@ Load up the desktop environment if on a machine that supports it and the =--use-
 
 #+END_SRC
 
+** Web Paste
+
+#+BEGIN_SRC emacs-lisp
+
+  (use-package webpaste
+    :custom
+    (webpaste-provider-priority '("ix.io" "dpaste.org" "dpaste.com"))
+    (webpaste-max-retries 3)
+    (webpaste-paste-confirmation nil)
+    (webpaste-add-to-killring    t)
+    (webpaste-paste-raw-text     t)
+
+    :config
+    (custom/leader-keys
+      "w" '(:ignore t :which-key "Web Paste")
+      "wb" '(webpaste-paste-buffer           :which-key "Buffer"                 )
+      "wr" '(webpaste-paste-region           :which-key "Region"                 )
+      "we" '(webpaste-paste-buffer-or-region :which-key "Either Buffer or Region")))
+
+#+END_SRC
+
 * Help Improvements
 ** which-key
 
