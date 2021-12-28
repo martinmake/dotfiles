@@ -566,119 +566,173 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
   xkb_symbols "base" {
       name[Group1] = "Latin (custom)";
       name[Group2] = "Cyrillic (custom)";
+      name[Group3] = "Latin (QWERTY)";
 
       key.type = "ONE_LEVEL"; 
       key <PAUS> { [ ISO_Next_Group ] };
 
       key.type = "EIGHT_LEVEL_SEMIALPHABETIC";
-  //               [ None              , S                 , L3               , S+L3            , L5               , S+L5             , L3+L5            , S+L3+L5          ]
-      key <TLDE> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_io       , Cyrillic_IO       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE01> { [ q                 , Q                 , at               , U21CD           , Prior            , Prior            , Greek_omicron    , Greek_OMICRON    ]
-                 , [ 1                 , exclam            , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE02> { [ w                 , W                 , underscore       , U21A4           , BackSpace        , BackSpace        , Greek_omega      , Greek_OMEGA      ]
-                 , [ 2                 , quotedbl          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE03> { [ f                 , F                 , bracketleft      , U2191           , Up               , Up               , Greek_phi        , Greek_PHI        ]
-                 , [ 3                 , numbersign        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE04> { [ p                 , P                 , bracketright     , U21A6           , Delete           , Delete           , Greek_pi         , Greek_PI         ]
-                 , [ 4                 , asterisk          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE05> { [ b                 , B                 , asciicircum      , U21CF           , Next             , Next             , Greek_beta       , Greek_BETA       ]
-                 , [ 5                 , colon             , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ 6                 , comma             , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE07> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ 7                 , period            , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE08> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ 8                 , semicolon         , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE09> { [ j                 , J                 , exclam           , U2260           , NoSymbol         , NoSymbol         , Greek_SIGMA      , NoSymbol         ]
-                 , [ 9                 , parenleft         , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE10> { [ l                 , L                 , less             , U2A7D           , 1                , A                , Greek_lambda     , Greek_LAMBDA     ]
-                 , [ 0                 , parenright        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE11> { [ u                 , U                 , greater          , U2A7E           , 2                , B                , Greek_upsilon    , Greek_UPSILON    ]
-                 , [ minus             , underscore        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AE12> { [ y                 , Y                 , equal            , U2261           , 3                , C                , Greek_psi        , Greek_PSI        ]
-                 , [ equal             , plus              , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <BKSP> { [ NoSymbol          , NoSymbol          , ampersand        , U2248           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ BackSpace         , BackSpace         , BackSpace        , U2620           , BackSpace        , BackSpace        , BackSpace        , BackSpace        ] };
+  //               [ None              , S                 , L3               , S+L3             , L5               , S+L5             , L3+L5            , S+L3+L5          ]
+      key <TLDE> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Cyrillic_io       , Cyrillic_IO       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ grave             , asciitilde        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE01> { [ q                 , Q                 , at               , U21CD            , Prior            , Prior            , Greek_omicron    , Greek_OMICRON    ]
+                 , [ 1                 , exclam            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 1                 , exclam            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE02> { [ w                 , W                 , underscore       , U21A4            , BackSpace        , BackSpace        , Greek_omega      , Greek_OMEGA      ]
+                 , [ 2                 , quotedbl          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 2                 , at                , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE03> { [ f                 , F                 , bracketleft      , U2191            , Up               , Up               , Greek_phi        , Greek_PHI        ]
+                 , [ 3                 , numbersign        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 3                 , numbersign        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE04> { [ p                 , P                 , bracketright     , U21A6            , Delete           , Delete           , Greek_pi         , Greek_PI         ]
+                 , [ 4                 , asterisk          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 4                 , dollar            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE05> { [ b                 , B                 , asciicircum      , U21CF            , Next             , Next             , Greek_beta       , Greek_BETA       ]
+                 , [ 5                 , colon             , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 5                 , percent           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 6                 , comma             , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 6                 , asciicircum       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE07> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 7                 , period            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 7                 , ampersand         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE08> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 8                 , semicolon         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 8                 , asterisk          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE09> { [ j                 , J                 , exclam           , U2260            , NoSymbol         , NoSymbol         , Greek_SIGMA      , NoSymbol         ]
+                 , [ 9                 , parenleft         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 9                 , parenleft         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE10> { [ l                 , L                 , less             , U2A7D            , 1                , A                , Greek_lambda     , Greek_LAMBDA     ]
+                 , [ 0                 , parenright        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ 0                 , parenright        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE11> { [ u                 , U                 , greater          , U2A7E            , 2                , B                , Greek_upsilon    , Greek_UPSILON    ]
+                 , [ minus             , underscore        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ minus             , underscore        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AE12> { [ y                 , Y                 , equal            , U2261            , 3                , C                , Greek_psi        , Greek_PSI        ]
+                 , [ equal             , plus              , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ equal             , plus              , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <BKSP> { [ NoSymbol          , NoSymbol          , ampersand        , U2248            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ BackSpace         , BackSpace         , BackSpace        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ BackSpace         , BackSpace         , BackSpace        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
 
-      key <TAB>  { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD01> { [ a                 , A                 , slash            , U21D0           , Home             , Home             , Greek_alpha      , Greek_ALPHA      ]
-                 , [ Cyrillic_shorti   , Cyrillic_SHORTI   , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD02> { [ r                 , R                 , minus            , U2190           , Left             , Left             , Greek_rho        , Greek_RHO        ]
-                 , [ Cyrillic_tse      , Cyrillic_TSE      , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD03> { [ s                 , S                 , braceleft        , U2193           , Down             , Down             , Greek_sigma      , Greek_SIGMA      ]
-                 , [ Cyrillic_u        , Cyrillic_U        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD04> { [ t                 , T                 , braceright       , U2192           , Right            , Right            , Greek_tau        , Greek_TAU        ]
-                 , [ Cyrillic_ka       , Cyrillic_KA       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD05> { [ g                 , G                 , asterisk         , U21D2           , End              , End              , Greek_gamma      , Greek_GAMMA      ]
-                 , [ Cyrillic_ie       , Cyrillic_IE       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_en       , Cyrillic_EN       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD07> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_ghe      , Cyrillic_GHE      , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD08> { [ k                 , K                 , question         , U2286           , period           , colon            , Greek_kappa      , Greek_KAPPA      ]
-                 , [ Cyrillic_sha      , Cyrillic_SHA      , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD09> { [ n                 , N                 , parenleft        , U2227           , 4                , D                , Greek_eta        , Greek_ETA        ]
-                 , [ Cyrillic_shcha    , Cyrillic_SHCHA    , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD10> { [ e                 , E                 , parenright       , U2228           , 5                , E                , Greek_epsilon    , Greek_EPSILON    ]
-                 , [ Cyrillic_ze       , Cyrillic_ZE       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD11> { [ i                 , I                 , apostrophe       , U2200           , 6                , F                , Greek_iota       , Greek_IOTA       ]
-                 , [ Cyrillic_ha       , Cyrillic_HA       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AD12> { [ o                 , O                 , colon            , U2203           , NoSymbol         , NoSymbol         , Greek_omega      , Greek_OMEGA      ]
-                 , [ Cyrillic_hardsign , Cyrillic_HARDSIGN , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <TAB>  { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Tab               , NoSymbol          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Tab               , NoSymbol          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD01> { [ a                 , A                 , slash            , U21D0            , Home             , Home             , Greek_alpha      , Greek_ALPHA      ]
+                 , [ Cyrillic_shorti   , Cyrillic_SHORTI   , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ q                 , Q                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD02> { [ r                 , R                 , minus            , U2190            , Left             , Left             , Greek_rho        , Greek_RHO        ]
+                 , [ Cyrillic_tse      , Cyrillic_TSE      , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ w                 , W                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD03> { [ s                 , S                 , braceleft        , U2193            , Down             , Down             , Greek_sigma      , Greek_SIGMA      ]
+                 , [ Cyrillic_u        , Cyrillic_U        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ e                 , E                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD04> { [ t                 , T                 , braceright       , U2192            , Right            , Right            , Greek_tau        , Greek_TAU        ]
+                 , [ Cyrillic_ka       , Cyrillic_KA       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ r                 , R                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD05> { [ g                 , G                 , asterisk         , U21D2            , End              , End              , Greek_gamma      , Greek_GAMMA      ]
+                 , [ Cyrillic_ie       , Cyrillic_IE       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ t                 , T                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Cyrillic_en       , Cyrillic_EN       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ y                 , Y                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD07> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Cyrillic_ghe      , Cyrillic_GHE      , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ u                 , U                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD08> { [ k                 , K                 , question         , U2286            , period           , colon            , Greek_kappa      , Greek_KAPPA      ]
+                 , [ Cyrillic_sha      , Cyrillic_SHA      , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ i                 , I                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD09> { [ n                 , N                 , parenleft        , U2227            , 4                , D                , Greek_eta        , Greek_ETA        ]
+                 , [ Cyrillic_shcha    , Cyrillic_SHCHA    , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ o                 , O                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD10> { [ e                 , E                 , parenright       , U2228            , 5                , E                , Greek_epsilon    , Greek_EPSILON    ]
+                 , [ Cyrillic_ze       , Cyrillic_ZE       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ p                 , P                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD11> { [ i                 , I                 , apostrophe       , U2200            , 6                , F                , Greek_iota       , Greek_IOTA       ]
+                 , [ Cyrillic_ha       , Cyrillic_HA       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ bracketleft       , braceleft         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AD12> { [ o                 , O                 , colon            , U2203            , NoSymbol         , NoSymbol         , Greek_omega      , Greek_OMEGA      ]
+                 , [ Cyrillic_hardsign , Cyrillic_HARDSIGN , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ bracketright      , braceright        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
 
-      key <CAPS> { [ z                 , Z                 , numbersign       , U21AE           , slash            , NoSymbol         , Greek_zeta       , Greek_ZETA       ]
-                 , [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC01> { [ x                 , X                 , dollar           , U2194           , asterisk         , NoSymbol         , Greek_xi         , Greek_XI         ]
-                 , [ Cyrillic_ef       , Cyrillic_EF       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC02> { [ c                 , C                 , bar              , U21CE           , minus            , NoSymbol         , Greek_chi        , Greek_CHI        ]
-                 , [ Cyrillic_yeru     , Cyrillic_YERU     , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC03> { [ d                 , D                 , asciitilde       , U21D4           , plus             , NoSymbol         , Greek_delta      , Greek_DELTA      ]
-                 , [ Cyrillic_ve       , Cyrillic_VE       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC04> { [ v                 , V                 , grave            , U2282           , comma            , NoSymbol         , Greek_nu         , Greek_NU         ]
-                 , [ Cyrillic_a        , Cyrillic_A        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC05> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_pe       , Cyrillic_PE       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_er       , Cyrillic_ER       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC07> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_o        , Cyrillic_O        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC08> { [ m                 , M                 , plus             , U2229           , NoSymbol         , NoSymbol         , Greek_mu         , Greek_MU         ]
-                 , [ Cyrillic_el       , Cyrillic_EL       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC09> { [ h                 , H                 , percent          , U222A           , 7                , parenleft        , Greek_theta      , Greek_THETA      ]
-                 , [ Cyrillic_de       , Cyrillic_DE       , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC10> { [ comma             , NoSymbol          , backslash        , U2208           , 8                , parenright       , dead_acute       , dead_grave       ]
-                 , [ Cyrillic_zhe      , Cyrillic_ZHE      , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC11> { [ period            , NoSymbol          , quotedbl         , U2209           , 9                , NoSymbol         , dead_caron       , dead_circumflex  ]
-                 , [ Cyrillic_e        , Cyrillic_E        , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
-      key <AC12> { [ slash             , backslash         , semicolon        , U2620           , 0                , NoSymbol         , dead_diaeresis   , dead_tilde       ]
-                 , [ NoSymbol          , NoSymbol          , NoSymbol         , U2620           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <CAPS> { [ z                 , Z                 , numbersign       , U21AE            , slash            , NoSymbol         , Greek_zeta       , Greek_ZETA       ]
+                 , [ NoSymbol          , NoSymbol          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ NoSymbol          , NoSymbol          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC01> { [ x                 , X                 , dollar           , U2194            , asterisk         , NoSymbol         , Greek_xi         , Greek_XI         ]
+                 , [ Cyrillic_ef       , Cyrillic_EF       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ a                 , A                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC02> { [ c                 , C                 , bar              , U21CE            , minus            , NoSymbol         , Greek_chi        , Greek_CHI        ]
+                 , [ Cyrillic_yeru     , Cyrillic_YERU     , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ s                 , S                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC03> { [ d                 , D                 , asciitilde       , U21D4            , plus             , NoSymbol         , Greek_delta      , Greek_DELTA      ]
+                 , [ Cyrillic_ve       , Cyrillic_VE       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ d                 , D                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC04> { [ v                 , V                 , grave            , U2282            , comma            , NoSymbol         , Greek_nu         , Greek_NU         ]
+                 , [ Cyrillic_a        , Cyrillic_A        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ f                 , F                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC05> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Cyrillic_pe       , Cyrillic_PE       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ g                 , G                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Cyrillic_er       , Cyrillic_ER       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ h                 , H                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC07> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Cyrillic_o        , Cyrillic_O        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ j                 , J                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC08> { [ m                 , M                 , plus             , U2229            , NoSymbol         , NoSymbol         , Greek_mu         , Greek_MU         ]
+                 , [ Cyrillic_el       , Cyrillic_EL       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ k                 , K                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC09> { [ h                 , H                 , percent          , U222A            , 7                , parenleft        , Greek_theta      , Greek_THETA      ]
+                 , [ Cyrillic_de       , Cyrillic_DE       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ l                 , L                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC10> { [ comma             , NoSymbol          , backslash        , U2208            , 8                , parenright       , dead_acute       , dead_grave       ]
+                 , [ Cyrillic_zhe      , Cyrillic_ZHE      , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ semicolon         , colon             , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC11> { [ period            , NoSymbol          , quotedbl         , U2209            , 9                , NoSymbol         , dead_caron       , dead_circumflex  ]
+                 , [ Cyrillic_e        , Cyrillic_E        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ apostrophe        , quotedbl          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+      key <AC12> { [ slash             , backslash         , semicolon        , U2620            , 0                , NoSymbol         , dead_diaeresis   , dead_tilde       ]
+                 , [ NoSymbol          , NoSymbol          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ backslash         , bar               , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+
 
       key <LSGT> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ slash             , bar               , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ slash             , bar               , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ slash             , bar               , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB01> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_ya       , Cyrillic_YA       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_ya       , Cyrillic_YA       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ z                 , Z                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB02> { [ Shift_L           , Shift_L           , Shift_L          , Shift_L          , Shift_L          , Shift_L          , Shift_L          , Shift_L          ] // Xcape: Escape
-                 , [ Cyrillic_che      , Cyrillic_CHE      , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_che      , Cyrillic_CHE      , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ x                 , X                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB03> { [ ISO_Level5_Shift  , ISO_Level5_Shift  , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift , ISO_Level5_Shift ] // Xcape: Space
-                 , [ Cyrillic_es       , Cyrillic_ES       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_es       , Cyrillic_ES       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ c                 , C                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB04> { [ Control_L         , Control_L         , Control_L        , Control_L        , Control_L        , Control_L        , Control_L        , Control_L        ] // Xcape: Tab
-                 , [ Cyrillic_em       , Cyrillic_EM       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ Cyrillic_em       , Cyrillic_EM       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ v                 , V                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
                  , vmods[Group1] = Control
                  , actions[Group1] = [ SetMods(modifiers=Control) ] };
       key <AB05> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_i        , Cyrillic_I        , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_i        , Cyrillic_I        , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ b                 , B                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB06> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ Cyrillic_te       , Cyrillic_TE       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_te       , Cyrillic_TE       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ n                 , N                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB07> { [ Meta_L            , Meta_L            , Meta_L           , Meta_L           , Meta_L           , Meta_L           , Meta_L           , Meta_L           ] // Xcape: BackSpace
-                 , [ Cyrillic_softsign , Cyrillic_SOFTSIGN , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_softsign , Cyrillic_SOFTSIGN , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ m                 , M                 , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB08> { [ ISO_Level3_Shift  , ISO_Level3_Shift  , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift , ISO_Level3_Shift ] // Xcape: Return
-                 , [ Cyrillic_be       , Cyrillic_BE       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_be       , Cyrillic_BE       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ comma             , less              , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB09> { [ Super_L           , Super_L           , Super_L          , Super_L          , Super_L          , Super_L          , Super_L          , Super_L          ] // Xcape: Delete
-                 , [ Cyrillic_yu       , Cyrillic_YU       , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ Cyrillic_yu       , Cyrillic_YU       , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ period            , greater           , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
       key <AB10> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ slash             , question          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ slash             , question          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ slash             , question          , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+
 
       include "level5(modifier_mapping)"
   };
@@ -693,7 +747,8 @@ with myselt everywhere.  However, GergoPlex is on it's way to Slovakia...
       key.type[Group1] = "EIGHT_LEVEL_SEMIALPHABETIC"; 
       key <RTRN> { [ o                 , O                 , colon            , U2203            , NoSymbol         , NoSymbol         , Greek_omega      , Greek_OMEGA      ] };
       key <BKSL> { [ NoSymbol          , NoSymbol          , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
-                 , [ backslash         , bar               , NoSymbol         , U2620            , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
+                 , [ backslash         , bar               , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ]
+                 , [ backslash         , bar               , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         , NoSymbol         ] };
   };
 
 #+END_SRC
